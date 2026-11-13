@@ -315,7 +315,7 @@ zbirka:{title:"Kitap Soru Bankası (Leila Miller · Calculus Problem Book)", int
  q("Z3_10","tek",R`$\displaystyle\lim_{x\to 4^+}\frac{|x-4|}{4-x}$`,"-1",R`<p>$x>4 \implies |x-4|=x-4$. Oran: $\dfrac{x-4}{4-x}=-1$.</p>`,"(x-4)/(4-x) = -1.","Zbirka 1.3 #10"),
  q("Z3_12","tek",R`$\displaystyle\lim_{x\to (1/2)^+}\frac{|2x-1|}{1-2x}$`,"-1",R`<p>$x>1/2 \implies 2x-1>0 \implies |2x-1|=2x-1$. Oran: $\dfrac{2x-1}{1-2x}=-1$.</p>`,"2x - 1 > 0 olduğundan mutlak değer aynen çıkar.","Zbirka 1.3 #12"),
  q("Z3_14","tek",R`$\displaystyle\lim_{x\to 2^-}\frac{|x-2|}{x^2-4}$`,"-1/4",R`<p>$x<2 \implies |x-2|=-(x-2)$. $\dfrac{-(x-2)}{(x-2)(x+2)}=\dfrac{-1}{x+2}\to -\dfrac14$.</p>`,"x < 2 için |x-2| = -(x-2).","Zbirka 1.3 #14","r4"),
- q("Z3_16","tek",R`$\displaystyle\lim_{x\to -2^-}\frac{|x^2-4|}{3x+6}$`,"-4/3",R`<p>$x<-2$ (ör. $x=-2.1$) iken $x^2-4>0 \implies |x^2-4|=x^2-4=(x-2)(x+2)$.</p><p>$\dfrac{(x-2)(x+2)}{3(x+2)}=\dfrac{x-2}{3}\to -\dfrac43$. (Not: $x\to -2^+$'da $+\tfrac43$ olduğu için iki taraflı limit DNE'dir.)</p>`,"x < -2 iken x² > 4 olur, yani x²-4 pozitiftir!","Zbirka 1.3 #16"),
+ q("Z3_16","tek",R`$\displaystyle\lim_{x\to -2}\frac{|x^2-4|}{3x+6}$ &nbsp;<span class="muted small">(yoksa <code>dne</code> yaz)</span>`,"dne",R`<p>Soldan ($x<-2$, ör. $x=-2.1$): $x^2-4>0 \implies |x^2-4|=(x-2)(x+2)$. $\dfrac{(x-2)(x+2)}{3(x+2)}=\dfrac{x-2}{3}\to -\dfrac43$.</p><p>Sağdan ($-2\lt x\lt 2$): $x^2-4<0 \implies |x^2-4|=-(x-2)(x+2)$. $-\dfrac{x-2}{3}\to +\dfrac43$.</p><p>Sol $\ne$ sağ olduğu için iki taraflı limit <b>DNE</b>.</p>`,"İki tarafı ayrı hesapla: x < -2 iken x² - 4 > 0, -2 < x < 2 iken x² - 4 < 0.","Zbirka 1.3 #16"),
  q("Z4_5","trig",R`$\displaystyle\lim_{x\to 0}\frac{\sin 4x}{x}$`,"4",R`<p>$4\cdot\dfrac{\sin 4x}{4x}\to 4\cdot 1 = 4$.</p>`,"Pay ve paydayı 4 ile çarp.","Zbirka 1.4 #5"),
  q("Z4_7","trig",R`$\displaystyle\lim_{x\to 0}\frac{\tan 4x}{2x}$`,"2",R`<p>$\dfrac{\tan 4x}{4x}\cdot\dfrac{4x}{2x}\to 1\cdot 2 = 2$.</p>`,"tan(ax)/(bx) → a/b.","Zbirka 1.4 #7"),
  q("Z4_8","trig",R`$\displaystyle\lim_{x\to \pi}\frac{\sin 2x}{x}$`,"0",R`<p>Tuzak! $x\to \pi$ iken pay $\sin(2\pi)=0$, payda $\pi\ne 0$. $0/0$ değil! Cevap $\dfrac{0}{\pi}=0$.</p>`,"x → 0 değil, x → π! Önce yerine koy.","Zbirka 1.4 #8"),
@@ -378,7 +378,7 @@ zbirka:{title:"Kitap Soru Bankası (Leila Miller · Calculus Problem Book)", int
  q("Z22_14","kural",R`$y=\dfrac{3x+2}{1-x^2}$ için $y'=?$`,null,R`<p>$\dfrac{3(1-x^2)-(-2x)(3x+2)}{(1-x^2)^2}=\dfrac{3x^2+4x+3}{(1-x^2)^2}$.</p>`,"(1-x²)' = -2x eksisine dikkat!","Zbirka 2.2 #14"),
  q("Z22_15","kural",R`$y=\dfrac{(x+1)(3x+2)}{1-x^2}$ için $y'=?$`,null,R`<p>$1-x^2=(1-x)(1+x)$ olduğundan ($x\ne -1$) $y=\dfrac{3x+2}{1-x}$.</p><p>$y'=\dfrac{3(1-x)-(-1)(3x+2)}{(1-x)^2}=\dfrac{5}{(1-x)^2}$.</p>`,"Önce (x+1) çarpanını sadeleştir!","Zbirka 2.2 #15"),
  q("Z22_17","kural",R`$y=\dfrac{\sqrt{x}+1}{5x-1}$ için $y'=?$`,null,R`<p>$\dfrac{\frac{1}{2\sqrt{x}}(5x-1)-5(\sqrt{x}+1)}{(5x-1)^2}=\dfrac{-5x-10\sqrt{x}-1}{2\sqrt{x}(5x-1)^2}$.</p>`,"u' = 1/(2√x), v' = 5.","Zbirka 2.2 #17"),
- q("Z22_18","kural",R`$y=\dfrac{\sqrt{x}+1}{\sqrt{x}-1}$ için $y'=?$`,null,R`<p>$\dfrac{\frac{1}{2\sqrt{x}}(\sqrt{x}-1)-\frac{1}{2\sqrt{x}}(\sqrt{x}+1)}{(\sqrt{x}-1)^2}=\dfrac{-1}{\sqrt{x}(\sqrt{x}-1)^2}$.</p>`,"Payda 1/(2√x) parantezinde (√x - 1) - (√x + 1) = -2 kalır.","Zbirka 2.2 #18")
+ q("Z22_18","kural",R`$y=\dfrac{\sqrt{x}+1}{\sqrt{x}-1}$ için $y'=?$`,null,R`<p>$\dfrac{\frac{1}{2\sqrt{x}}(\sqrt{x}-1)-\frac{1}{2\sqrt{x}}(\sqrt{x}+1)}{(\sqrt{x}-1)^2}=\dfrac{-1}{\sqrt{x}(\sqrt{x}-1)^2}$.</p>`,"Payı 1/(2√x) parantezine al: (√x - 1) - (√x + 1) = -2 kalır.","Zbirka 2.2 #18")
 ]},
 
 d1:{title:"Deneme Sınavı 1 (Review Formatında · 75 dk)", time:75, intro:"Hocanın review kağıdıyla birebir aynı dağılımda 100 puanlık sınav provası. Süreyi başlat, kağıtta çöz, sonra cevaplarını kutulara girip kontrol et.", qs:[
@@ -443,7 +443,7 @@ const PLAN = [
   ["08:00–09:15","Deneme 1, sınav koşulunda (75 dk)","d1"],
   ["09:15–09:50","Deneme 1 kontrolü ve Hata Listesi tekrarı","ilerleme"],
   ["09:50–10:30","Deneme 2'den zayıf olduğun soru tipleri","d2"],
-  ["10:30–10:50","Konu & Ezber Kartları (20 Flashcard) + 11 Sık Hata kontrolü","konu"],
+  ["10:30–10:50","Konu & Ezber Kartları (15 Flashcard) + 11 Sık Hata kontrolü","konu"],
   ["12:30","MATH101 Midterm Sınavı — Başarılar!",null]
  ]}
 ];
@@ -487,10 +487,13 @@ const FIELDS={
  Z3_5:[["a =","val","4"],["b =","val","2"]],
  Z5_34:[["Düşey asimptot: x =","set","0.5"],["Yatay asimptot: y =","set","0.5"]],
  Z5_36:[["Düşey asimptot: x =","set","-1,1"],["Yatay asimptot: y =","set","2"]],
+ Z6_2:[["Süreksiz olduğu x","set","-2"]],
  Z6_3:[["Süreksiz olduğu x'ler","set","-1,1"]],
  Z6_4:[["Süreksiz olduğu x'ler","set","-1,1"],["Removable olan x","set","1"]],
  Z6_8:[["Süreksiz olduğu x'ler","set","0,1"]],
+ Z6_7:[["Süreksiz olduğu x","set","1"]],
  Z6_9:[["Süreksiz olduğu x'ler","set","-2,2"],["Removable olan x","set","2"]],
+ Z6_10:[["Süreksiz olduğu x'ler","set","1"]],
  Z6_12:[["a =","val","4"],["b =","val","2"]],
  Z6_13:[["a =","val","1"],["b =","val","2"]],
  Z21_2:[[D,"expr","2x-1"]],
@@ -1005,7 +1008,7 @@ function konuView(){
    <p><b>Örnek.</b> $\displaystyle\lim_{x\to1}\frac{\sqrt{x+3}-2}{1-x}=\lim\frac{x-1}{(1-x)(\sqrt{x+3}+2)}=\lim\frac{-1}{\sqrt{x+3}+2}=-\frac14$</p>
    <p class="small">Tuzak: $\dfrac{x-1}{1-x}=-1$.</p>`],
   ["§2 Tek Taraflı Limit ve |x| (Thomas 2.4 · Zbirka 1.3)","tek",R`<p>$\lim_{x\to a}f=L \iff$ sol $=$ sağ $=L$. Farklıysa <b>DNE</b>.</p>
-   <p>$|x-a|=x-a$ ($x>a$), $|x-a|=-(x-a)$ ($x<a$). Yaklaştığın tarafa göre aç.</p>
+   <p>$|x-a|=x-a$ ($x>a$), $|x-a|=-(x-a)$ ($x\lt a$). Yaklaştığın tarafa göre aç.</p>
    <p>Parçalı fonksiyonda sol limit için soldaki formül, sağ limit için sağdaki formül. $f(a)$ için eşitliğin olduğu parça.</p>
    <p><b>Örnek.</b> $\displaystyle\lim_{x\to4^+}\frac{|x-4|}{4-x}=\frac{x-4}{4-x}=-1$, soldan $+1$, iki taraflı DNE.</p>`],
   ["§2b Trigonometrik Limitler (Thomas 2.4 · Zbirka 1.4)","trig",R`<p>Temel: $\displaystyle\lim_{\theta\to0}\frac{\sin\theta}{\theta}=1$.</p>
