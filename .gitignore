@@ -1,0 +1,18 @@
+# Raw course material stays on the local machine: lecture slides, textbook
+# slides, past exam files and the archives they came in belong to their
+# authors and are not published.
+materyal/
+_metin/
+*.zip
+*.docx
+*.pptx
+*.pdf
+
+# Tool and editor state
+.claude/
+.agents/
+graphify-out/
+.playwright-mcp/
+.vscode/
+Thumbs.db
+desktop.ini

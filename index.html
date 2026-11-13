@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Midterm Çalışma Masası</title>
+<meta name="description" content="Beş dersin midterm çalışma sayfaları ve sınav takvimi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --paper:#f5f3ee; --card:#fffefa; --ink:#1b2130; --ink-2:#525b70; --line:#d9d3c3;
+  --rule:rgba(40,70,140,.07);
+  --math:#2346a8; --ns:#0f6e6e; --elit:#a3213f; --cs:#3d5a1f; --ens:#b84a0c;
+  --shadow:0 1px 0 rgba(0,0,0,.04),0 8px 20px -14px rgba(30,40,70,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#15181f; --card:#1d212b; --ink:#eceae3; --ink-2:#a4abba; --line:#333a48;
+    --rule:rgba(160,180,230,.05);
+    --math:#8fa9f2; --ns:#5fc9c4; --elit:#f08aa2; --cs:#a9cf7a; --ens:#f2a06a;
+    --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font:400 16px/1.55 "IBM Plex Sans",system-ui,sans-serif;
+  background-image:linear-gradient(var(--rule) 1px,transparent 1px);
+  background-size:100% 32px;
+}
+main{max-width:760px; margin:0 auto; padding:56px 16px 72px}
+.kicker{
+  font:500 12px/1 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2); margin:0 0 14px;
+}
+h1{
+  font:700 clamp(40px,9vw,68px)/.98 "Fraunces",Georgia,serif;
+  letter-spacing:-.02em; margin:0 0 14px;
+}
+.lede{color:var(--ink-2); margin:0 0 40px; max-width:46ch}
+ol{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+.row{
+  display:grid; grid-template-columns:84px 1fr auto; align-items:center; gap:18px;
+  background:var(--card); border:1px solid var(--line); border-left:6px solid var(--c);
+  border-radius:4px; padding:16px 18px 16px 14px; box-shadow:var(--shadow);
+  color:inherit; text-decoration:none;
+  transition:transform .15s ease, border-color .15s ease;
+}
+.row:hover{transform:translateX(4px); border-color:var(--c)}
+.row:focus-visible{outline:3px solid var(--c); outline-offset:3px}
+.date{text-align:center; border-right:1px dashed var(--line); padding-right:14px}
+.date b{display:block; font:700 34px/1 "Fraunces",Georgia,serif; color:var(--c)}
+.date span{
+  display:block; margin-top:4px;
+  font:500 11px/1.2 "IBM Plex Mono",ui-monospace,monospace;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2);
+}
+.code{font:700 26px/1.1 "Fraunces",Georgia,serif; letter-spacing:-.01em}
+.when{color:var(--ink-2); font-size:14px; margin-top:2px}
+.left{
+  font:500 14px/1.2 "IBM Plex Mono",ui-monospace,monospace; text-align:right; white-space:nowrap;
+}
+.left small{
+  display:block; margin-bottom:4px; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-2);
+}
+.next .left small{color:var(--c)}
+.done{opacity:.55}
+.done .code{text-decoration:line-through; text-decoration-thickness:2px}
+footer{margin-top:36px; color:var(--ink-2); font-size:14px; border-top:1px dashed var(--line); padding-top:16px}
+@media (max-width:520px){
+  main{padding-top:36px}
+  .row{grid-template-columns:64px 1fr; gap:12px}
+  .left{grid-column:2; text-align:left}
+  .left small{display:inline; margin:0 8px 0 0}
+  .date b{font-size:28px}
+}
+@media (prefers-reduced-motion: reduce){
+  .row{transition:none}
+  .row:hover{transform:none}
+}
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">IUS · Güz 2026 · Midterm</p>
+  <h1>Çalışma Masası</h1>
+  <p class="lede">Beş ders, beş sınav. Sıradaki sınav en üstte; bir derse dokun, çalışma sayfası açılır.</p>
+
+  <ol id="list">
+    <li data-at="2026-11-14T12:30:00+01:00">
+      <a class="row" style="--c:var(--math)" href="MATH101/calis.html">
+        <div class="date"><b>14</b><span>Kas · Cmt</span></div>
+        <div><div class="code">MATH101</div><div class="when">Cumartesi, 12:30</div></div>
+        <div class="left"></div>
+      </a>
+    </li>
+    <li data-at="2026-11-16T09:00:00+01:00">
+      <a class="row" style="--c:var(--ns)" href="NS102/calis.html">
+        <div class="date"><b>16</b><span>Kas · Pzt</span></div>
+        <div><div class="code">NS102</div><div class="when">Pazartesi, 09:00</div></div>
+        <div class="left"></div>
+      </a>
+    </li>
+    <li data-at="2026-11-17T17:45:00+01:00">
+      <a class="row" style="--c:var(--elit)" href="ELIT100/calis.html">
+        <div class="date"><b>17</b><span>Kas · Sal</span></div>
+        <div><div class="code">ELIT100</div><div class="when">Salı, 17:45</div></div>
+        <div class="left"></div>
+      </a>
+    </li>
+    <li data-at="2026-11-19T17:45:00+01:00">
+      <a class="row" style="--c:var(--cs)" href="CS103/calis.html">
+        <div class="date"><b>19</b><span>Kas · Per</span></div>
+        <div><div class="code">CS103</div><div class="when">Perşembe, 17:45</div></div>
+        <div class="left"></div>
+      </a>
+    </li>
+    <li data-at="2026-11-21T12:30:00+01:00">
+      <a class="row" style="--c:var(--ens)" href="ENS101/calis.html">
+        <div class="date"><b>21</b><span>Kas · Cmt</span></div>
+        <div><div class="code">ENS101</div><div class="when">Cumartesi, 12:30</div></div>
+        <div class="left"></div>
+      </a>
+    </li>
+  </ol>
+
+  <footer>İşaretlerin ve puanların bu tarayıcıda saklanır; başka cihazda sıfırdan başlar. Sınav saatleri Saraybosna saatiyle.</footer>
+</main>
+
+<script>
+// Kalan süreyi yazar, geçmiş sınavları sona alır, sıradakini işaretler.
+(function () {
+  var list = document.getElementById("list");
+  var items = Array.prototype.slice.call(list.children);
+
+  function remaining(ms) {
+    var min = Math.floor(ms / 60000);
+    var d = Math.floor(min / 1440), h = Math.floor((min % 1440) / 60), m = min % 60;
+    if (d > 0) return d + " gün " + h + " sa";
+    if (h > 0) return h + " sa " + m + " dk";
+    return m + " dk";
+  }
+
+  function render() {
+    var now = Date.now();
+    var upcoming = [], past = [];
+    items.forEach(function (li) {
+      var at = new Date(li.dataset.at).getTime();
+      (at > now ? upcoming : past).push({ li: li, at: at });
+    });
+    upcoming.sort(function (a, b) { return a.at - b.at; });
+    past.sort(function (a, b) { return a.at - b.at; });
+
+    upcoming.forEach(function (x, i) {
+      x.li.className = i === 0 ? "next" : "";
+      x.li.querySelector(".left").innerHTML =
+        "<small>" + (i === 0 ? "Sıradaki" : "Kalan") + "</small>" + remaining(x.at - now);
+      list.appendChild(x.li);
+    });
+    past.forEach(function (x) {
+      x.li.className = "done";
+      x.li.querySelector(".left").innerHTML = "<small>Sınav</small>bitti";
+      list.appendChild(x.li);
+    });
+  }
+
+  render();
+  setInterval(render, 60000);
+})();
+</script>
+</body>
+</html>

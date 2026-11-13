@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ELIT100 Çalışma Masası</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --paper:#f6f3ea; --paper-2:#fffdf8; --rule:rgba(47,74,138,.09); --ink:#1f2330; --ink-2:#535a6c;
+  --pen:#a3213f; --pen-soft:#f7e2e7; --blue:#2f4a8a; --blue-soft:#e4e9f5; --green:#1d7647; --green-soft:#dcefe3;
+  --amber:#8f5b00; --amber-soft:#f5e8cf; --line:#dbd4c3; --shadow:0 1px 0 rgba(0,0,0,.04),0 6px 18px -10px rgba(30,40,70,.25);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#15171e; --paper-2:#1c1f29; --rule:rgba(140,170,255,.06); --ink:#e8e9ee; --ink-2:#a9b0c1;
+  --pen:#ff8fa6; --pen-soft:#3b1d25; --blue:#93abff; --blue-soft:#222b45; --green:#72d39f; --green-soft:#1a3125;
+  --amber:#f1bd5c; --amber-soft:#382b14; --line:#2d3242; --shadow:0 6px 18px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --paper:#15171e; --paper-2:#1c1f29; --rule:rgba(140,170,255,.06); --ink:#e8e9ee; --ink-2:#a9b0c1;
+  --pen:#ff8fa6; --pen-soft:#3b1d25; --blue:#93abff; --blue-soft:#222b45; --green:#72d39f; --green-soft:#1a3125;
+  --amber:#f1bd5c; --amber-soft:#382b14; --line:#2d3242; --shadow:0 6px 18px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;
+  background-image:linear-gradient(var(--rule) 1px,transparent 1px);background-size:100% 27px}
+a{color:var(--blue)}
+button,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--paper) 93%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 16px 0}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brand h1{font:700 1.45rem/1.1 "Fraunces",Georgia,serif;margin:0;letter-spacing:-.01em}
+.brand h1 span{color:var(--pen);font-style:italic}
+.count{font:500 .84rem "IBM Plex Mono",monospace;color:var(--ink-2)}
+.count b{color:var(--ink)}
+.theme{margin-left:auto;border:1px solid var(--line);background:none;color:var(--ink-2);border-radius:6px;padding:3px 8px;font-size:.8rem}
+.bar{height:6px;background:var(--line);border-radius:3px;margin:10px 0 0;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--pen);width:0;transition:width .4s}
+.barlbl{font-size:.78rem;color:var(--ink-2);margin-top:4px}
+nav{display:flex;gap:4px;overflow-x:auto;padding:10px 0 0;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{border:1px solid transparent;border-bottom:none;background:none;color:var(--ink-2);padding:8px 12px;border-radius:8px 8px 0 0;white-space:nowrap;font-weight:500}
+nav button[aria-selected="true"]{background:var(--paper-2);color:var(--ink);border-color:var(--line);box-shadow:0 1px 0 var(--paper-2)}
+main{max-width:900px;margin:0 auto;padding:20px 16px 110px}
+.sheet{background:var(--paper-2);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:20px 20px 20px 36px;position:relative;margin-bottom:18px}
+.sheet::before{content:"";position:absolute;left:22px;top:0;bottom:0;width:2px;background:var(--pen);opacity:.4}
+h2{font:700 1.35rem/1.2 "Fraunces",Georgia,serif;margin:0 0 6px}
+h3{font:700 1.08rem/1.3 "Fraunces",Georgia,serif;margin:18px 0 6px}
+h4{margin:14px 0 4px;font-size:1rem}
+.muted{color:var(--ink-2)} .small{font-size:.86rem}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:10px 12px;border-radius:6px;margin:10px 0}
+code{font:500 .9em "IBM Plex Mono",monospace;background:var(--blue-soft);padding:1px 5px;border-radius:4px}
+pre{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;font-size:.88rem}
+pre code{background:none;padding:0}
+blockquote{margin:10px 0;padding:8px 14px;border-left:3px solid var(--pen);background:var(--pen-soft);border-radius:0 8px 8px 0}
+blockquote p{margin:.3em 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin:8px 0}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--ink-2);font-size:.82rem}
+.tblwrap{overflow-x:auto}
+details.konu{border-top:1px dashed var(--line);padding:10px 0}
+details.konu:first-of-type{border-top:none}
+details.konu>summary{cursor:pointer;font:700 1.1rem "Fraunces",Georgia,serif;padding:4px 0}
+details.konu[open]>summary{margin-bottom:6px;color:var(--pen)}
+.q{border-top:1px dashed var(--line);padding:16px 0 14px;scroll-margin-top:150px}
+.q:first-of-type{border-top:none}
+.q header{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.qid{font:600 .8rem "IBM Plex Mono",monospace;color:var(--pen);border:1.5px solid var(--pen);padding:0 7px;border-radius:999px}
+.chip{font-size:.74rem;padding:2px 8px;border-radius:999px;background:var(--blue-soft);color:var(--blue);font-weight:500}
+.st{margin-left:auto;font:600 .8rem "IBM Plex Mono",monospace;padding:2px 8px;border-radius:999px}
+.st.ok{background:var(--green-soft);color:var(--green)} .st.bad{background:var(--pen-soft);color:var(--pen)} .st.mid{background:var(--amber-soft);color:var(--amber)}
+.prompt p{margin:.3em 0}
+.opts{display:grid;gap:6px;margin-top:8px}
+.opt{text-align:left;border:1.5px solid var(--line);background:var(--paper);border-radius:8px;padding:8px 12px}
+.opt:hover:not(:disabled){border-color:var(--blue)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--green);background:var(--green-soft)}
+.opt.wrong{border-color:var(--pen);background:var(--pen-soft);text-decoration:line-through;text-decoration-color:var(--pen)}
+ol.sel{margin:8px 0 0;padding-left:22px}
+ol.sel li{padding:6px 0;border-bottom:1px dotted var(--line)}
+ol.sel .stem{display:block;margin-bottom:4px}
+select{border:1.5px solid var(--line);border-radius:6px;background:var(--paper);padding:5px 8px;min-width:120px}
+select:disabled{opacity:1}
+.mark{margin-left:10px;font-weight:700}
+.mark.ok{color:var(--green)} .mark.bad{color:var(--pen)}
+textarea{width:100%;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);padding:10px 12px;line-height:1.55;resize:vertical;margin-top:8px}
+textarea:focus{border-color:var(--blue);outline:none}
+.wc{font:500 .8rem "IBM Plex Mono",monospace;color:var(--ink-2)}
+.wc.off{color:var(--pen)}
+.btn{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper-2);padding:6px 13px;border-radius:6px;font-weight:600;font-size:.9rem}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.soft{background:var(--blue-soft);color:var(--blue);border-color:transparent}
+.btn.ok{background:var(--green);border-color:var(--green);color:#fff}
+.btn.bad{background:var(--pen);border-color:var(--pen);color:#fff}
+.btn.link{background:none;border:none;color:var(--blue);padding:2px 4px;text-decoration:underline;font-weight:500}
+.btn[aria-pressed="true"]{box-shadow:0 0 0 3px var(--amber)}
+.btn:hover{filter:brightness(1.08)}
+.actions,.self{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.fb{font-weight:600;margin:8px 0 0}
+.fb.ok{color:var(--green)} .fb.bad{color:var(--pen)}
+.sol{margin-top:10px;padding:12px 14px;border-radius:8px;background:var(--blue-soft);border-left:3px solid var(--blue);overflow-x:auto}
+.sol p{margin:.35em 0}
+.lbl{font:600 .76rem "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.04em;color:var(--blue);margin:.2em 0 .4em!important}
+.article{margin-top:10px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);max-height:420px;overflow:auto;white-space:pre-wrap;font-size:.92rem}
+.plan .day{border-top:1px dashed var(--line);padding:12px 0 6px}
+.plan .day:first-of-type{border-top:none}
+.plan .day h3{margin:0 0 4px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.plan .day h3 small{font:500 .78rem "IBM Plex Sans";color:var(--ink-2)}
+.plan .today{background:var(--amber-soft);border-radius:8px;padding:12px 10px 6px;margin:0 -10px}
+.plan ul{padding:0;margin:0}
+.plan li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:6px 0}
+.plan input{margin-top:5px;width:18px;height:18px;accent-color:var(--pen);flex:none}
+.plan li.done label{text-decoration:line-through;color:var(--ink-2)}
+.plan .time{font:500 .8rem "IBM Plex Mono",monospace;color:var(--ink-2);min-width:58px;padding-top:3px}
+.meterrow{display:grid;grid-template-columns:minmax(130px,190px) 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dotted var(--line)}
+.meter{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line)}
+.meter .g{background:var(--green)} .meter .r{background:var(--pen)}
+.weak{color:var(--pen);font-weight:600}
+.score{font:500 .95rem "IBM Plex Mono",monospace}
+.timerpill{position:fixed;left:16px;bottom:16px;z-index:9;display:flex;gap:8px;align-items:center;background:var(--ink);color:var(--paper-2);border-radius:999px;padding:6px 8px 6px 14px;box-shadow:var(--shadow)}
+.timerpill[hidden]{display:none}
+.timerpill .clock{font:500 1.05rem "IBM Plex Mono",monospace;min-width:58px}
+.timerpill.over .clock{color:var(--pen)}
+.timerpill button{border:none;background:color-mix(in srgb,var(--paper-2) 18%,transparent);color:inherit;border-radius:999px;padding:3px 10px;font-size:.8rem}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--paper-2);padding:10px 16px;border-radius:8px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:10}
+.toast.on{opacity:1}
+.partscore{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+@media (max-width:560px){
+  .sheet{padding:16px 14px 16px 28px}.sheet::before{left:14px}
+  .meterrow{grid-template-columns:1fr auto}.meterrow .meter{grid-column:1/-1;order:3}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <h1>ELIT100 <span>midterm</span></h1>
+      <span class="count" id="count"></span>
+      <button class="theme" id="themeBtn" type="button" aria-label="Açık ya da koyu temaya geç">Tema</button>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+    <div class="barlbl" id="barLbl"></div>
+    <nav role="tablist" aria-label="Bölümler" id="tabs"></nav>
+  </div>
+</header>
+<main id="main"></main>
+<div class="timerpill" id="timer" hidden role="timer" aria-live="off">
+  <span class="clock" id="clock">00:00</span>
+  <button type="button" id="tPause">Duraklat</button>
+  <button type="button" id="tStop">Bitir</button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ---------- içerik ---------- */
+const OZET = [{"title": "1. Note-taking", "html": "<p>Kaynak: <code>WEEK 1/Essential academic skills NOTETAKING.pptx<\/code>, <code>Week 1 additional.pptx<\/code>.<\/p>\n<p><strong>Ne zaman:<\/strong> derste (lecture) ve araştırmada. Primary research = survey, interview, observation. Secondary research = library, Internet sources.<\/p>\n<p><strong>Neden not alınır:<\/strong> understanding, memory, exam revision, writing için kullanılabilir kayıt.<\/p>\n<p><strong>İpuçları (slayt 3):<\/strong><\/p>\n<ul><li>Her kaynak için author, title, publication information yaz.<\/li><li>Sadece ilgili olanı seç. Amaç hızlı yazmak değil, neyin yazmaya değer olduğunu seçmek.<\/li><li>Hocanın konu açma, geçiş, örnek, tanım ve vurgu ifadelerini tanı (signpost expressions): <em>first of all, for example, in contrast, the important thing here, to sum up<\/em>.<\/li><li>Sözsüz vurgu işaretlerine dikkat: jest, tonlama, ses yüksekliği.<\/li><li>Sembol ve kısaltma kullan.<\/li><li>Kendi stilini geliştir: linear, outline, mind map, Cornell.<\/li><\/ul>\n<p><strong>Not almanın üç parçası:<\/strong> active listening, identifying key ideas, reviewing notes afterwards.<\/p>\n<p><strong>Semboller (ezberle):<\/strong><\/p>\n<div class=\"tblwrap\"><table><thead><tr><th>Sembol<\/th><th>Anlam<\/th><\/tr><\/thead><tbody><tr><td>→<\/td><td>leads to, causes<\/td><\/tr><tr><td>=<\/td><td>equals, is<\/td><\/tr><tr><td>≠<\/td><td>is different from<\/td><\/tr><tr><td>↑ / ↓<\/td><td>increase / decrease<\/td><\/tr><tr><td>∵<\/td><td>because<\/td><\/tr><tr><td>∴<\/td><td>therefore<\/td><\/tr><tr><td>e.g.<\/td><td>for example<\/td><\/tr><tr><td>*<\/td><td>important<\/td><\/tr><tr><td>?<\/td><td>question<\/td><\/tr><tr><td>w/, w/out<\/td><td>with, without<\/td><\/tr><\/tbody><\/table><\/div>\n<p><strong>Örnek dönüşüm:<\/strong> \"Students who don't get enough sleep tend to have difficulty concentrating.\" → <code>insufficient sleep → ↓ concentration<\/code><\/p>\n<p><strong>İyi not / kötü not (slayt 5):<\/strong> Student A her şeyi alt alta düz yazmış (\"sleep is important, students need sleep...\"). Student B başlık koymuş, sembol kullanmış, ana fikri ve bir soruyu ayırmış. İki hafta sonra işe yarayan B'nin notu: düzenli, ilişkileri gösteriyor, ana fikir belli.<\/p>\n<p><strong>Not stilleri:<\/strong><\/p>\n<ul><li><strong>Outline:<\/strong> başlık, alt başlık, girintili hiyerarşi (I, A, 1...). Avantaj: ilişkiyi ve içeriği gösterir, düzenli. Dezavantaj: derste dikkat ister, hızlı derste zor, sıralı ilişkiyi her zaman göstermez.<\/li><li><strong>Cornell:<\/strong> sayfa üçe bölünür: sağda notlar, solda anahtar kelime ve sorular, altta özet.<\/li><li><strong>Mind map:<\/strong> ortada ana fikir, dallar halinde alt fikirler; resim ve renk kullanılır.<\/li><li><strong>Linear:<\/strong> düz satırlar halinde.<\/li><\/ul>\n<p><strong>Julian Treasure notu (sınavda video ya da metin özetlenebilir):<\/strong><\/p>\n<ul><li>Seven deadly sins of speaking: gossip, judging, negativity, complaining, excuses, exaggeration (lying), dogmatism (confusing facts with opinions).<\/li><li>HAIL: Honesty, Authenticity, Integrity, Love.<\/li><li>Ses araçları: register (göğüsten konuş), timbre, prosody (monoton olma), pace, silence, pitch, volume.<\/li><\/ul>\n<blockquote><p><strong>Ezberlenecekler:<\/strong> sembol tablosu; signpost expressions; Cornell'in üç bölümü; \"select what is relevant, don't write faster\".<\/p><\/blockquote>"}, {"title": "2. Subjective vs. objective language", "html": "<p>Kaynak: <code>WEEK 2/Objective vs Subjective Language.pptx<\/code>, <code>Week 2 (1) Subjective and objective style.pptx<\/code>.<\/p>\n<p><strong>Objective language özellikleri:<\/strong> formal; fair and accurate; avoids exaggeration and bias; relies on facts rather than opinions; plain, without unnecessary flourishes; no personal, judgmental or emotive language.<\/p>\n<h3>Fact vs. opinion<\/h3>\n<div class=\"tblwrap\"><table><thead><tr><th>Fact<\/th><th>Opinion<\/th><\/tr><\/thead><tbody><tr><td>Gözlenebilir, ölçülebilir, sayıyla gösterilebilir<\/td><td>Birinin fikri, yargısı<\/td><\/tr><tr><td>Genel olabilir (kanıt ister) ya da özel<\/td><td>Sıfat / zarf içerir (<em>bad, easy, serious<\/em>)<\/td><\/tr><tr><td>Kabul edilmek zorunda<\/td><td>Karşılaştırma kelimesi içerir (<em>more than, better, the most<\/em>)<\/td><\/tr><tr><td><\/td><td>Tartışılabilir<\/td><\/tr><\/tbody><\/table><\/div>\n<p><strong>Sınıflandırma alıştırmasındaki üç etiket (slayt 6-8):<\/strong><\/p>\n<ul><li><strong>O<\/strong> = Opinion. Örnek: <em>Punishment for identity thieves is not severe enough.<\/em><\/li><li><strong>F-NP<\/strong> = Fact that Needs Proof (genel bir gerçek, kanıt ister). Örnek: <em>Identity theft is increasing at a rapid pace.<\/em><\/li><li><strong>SSD<\/strong> = Specific Supporting Detail (sayı, tarih, kaynak, alıntı). Örnek: <em>In 2003, 60 percent of identity theft victims did not notify the police, according to the FTC.<\/em><\/li><\/ul>\n<p>Kural: opinion kanıt olarak kullanılamaz. Görüş bildirebilirsin ama onu fact ile desteklemelisin.<\/p>\n<h3>Kaçınılacak üç dil türü<\/h3>\n<ol><li><strong>Personal language<\/strong> (I, me, my, we).<ul><li><em>I believe that there is a discrepancy...<\/em> → <em>Research suggests that there is a discrepancy...<\/em><\/li><li><em>I interviewed a total of 22 parents...<\/em> → <em>A total of 22 parents were interviewed...<\/em><\/li><\/ul><\/li><li><strong>Judgmental language<\/strong> (kendi inancına göre hüküm verir).<ul><li><em>Jessen's (1956) theory is the most influential...<\/em> → <em>...remains one of the most influential...<\/em><\/li><li><em>International schools are always elitist.<\/em> → <em>International schools are often viewed as elitist.<\/em><\/li><li><em>Smith's paper made such a remarkable contribution<\/em> → <em>made a major contribution<\/em><\/li><\/ul><\/li><li><strong>Emotive language<\/strong> (superlative, abartı, duygu uyandırma).<ul><li><em>Japanese orthography is too difficult to be well-understood<\/em> → <em>is not generally well-understood<\/em><\/li><li><em>an incredibly vivacious school market<\/em> → <em>an active and dynamic school market<\/em><\/li><li><em>These really lucky people<\/em> → <em>These people<\/em><\/li><\/ul><\/li><\/ol>\n<p>Australian immunisation paragrafında işaretlenen subjektif unsurlar: personal language (<em>our, we<\/em>), judgment (<em>Of course, Obviously, Clearly<\/em>), assumption, emotive (<em>ghastly, precious, fragile<\/em>), exaggeration (<em>countless, all our children<\/em>), drama, exclamation marks (!!), capitalisation (TODAY).<\/p>\n<h3>Objektif yazma teknikleri<\/h3>\n<div class=\"tblwrap\"><table><thead><tr><th>Teknik<\/th><th>Örnek<\/th><\/tr><\/thead><tbody><tr><td>Değerlendirme kelimesi yerine teknik kelime<\/td><td><em>amazing, badly<\/em> yerine <em>valid, reliable, inaccurate<\/em><\/td><\/tr><tr><td>Passive voice<\/td><td><em>I gathered the data...<\/em> → <em>The data was gathered...<\/em>; <em>I believe...<\/em> → <em>It is believed that...<\/em><\/td><\/tr><tr><td>Bilgiyi yer değiştir<\/td><td><em>I believe the model is valid, based on these findings.<\/em> → <em>These findings indicate that the model is valid.<\/em><\/td><\/tr><tr><td>Phrasal verb, idiom yerine tek kelime<\/td><td>talk into → persuade; carry out → conduct; find out → discover; look into → investigate; rule out → eliminate; tell fibs → lie<\/td><\/tr><tr><td>\"It / There / One\" özne<\/td><td><em>It is very difficult to...<\/em>, <em>There is a serious risk of...<\/em>, <em>One may ask whether...<\/em><\/td><\/tr><tr><td>Hedging: zarf<\/td><td><em>Driving at night is somewhat dangerous.<\/em> (a little, slightly, relatively, probably, often)<\/td><\/tr><tr><td>Hedging: modal<\/td><td><em>there could be accidents<\/em> (can, could, may, might, should)<\/td><\/tr><tr><td>Hedging: quantifier<\/td><td><em>a good number of people<\/em> (many, most, several, some, the majority of)<\/td><\/tr><tr><td>Hedging: conditional<\/td><td><em>...dangerous if you don't pay attention to the road.<\/em><\/td><\/tr><tr><td>Tentative fiiller<\/td><td><em>appears to, seems to, possibly, probably<\/em><\/td><\/tr><tr><td>always / every yerine<\/td><td><em>often, many, much<\/em><\/td><\/tr><\/tbody><\/table><\/div>\n<p><strong>I yerine kullanılacak kalıplar:<\/strong> <em>The literature suggests that... / The results indicate that... / According to the figures... / It is evident that... / The research suggests that...<\/em><\/p>\n<blockquote><p><strong>Ezberlenecekler:<\/strong> üç kaçınılacak tür (personal, judgmental, emotive); O / F-NP / SSD; dört hedging aracı (adverb, modal, quantifier, conditional); yedi phrasal verb karşılığı.<\/p><\/blockquote>"}, {"title": "3. Paragraph", "html": "<p>Kaynak: <code>WEEK 3/Paragraph construction.pptx<\/code>, <code>A strong paragraph.pptx<\/code>. Quiz 1 bu konudandı (yazma, 30 dakika).<\/p>\n<h3>Yapı<\/h3>\n<p>Bir paragraf = <strong>topic sentence + supporting sentences + concluding sentence.<\/strong><\/p>\n<p><strong>Topic sentence<\/strong> iki parçalı: <strong>topic<\/strong> (konu) + <strong>controlling idea / direction<\/strong> (konu hakkında yorum).<\/p>\n<ul><li><em>Doing housework<\/em> (topic) + <em>can be very boring<\/em> (direction).<\/li><li><em>Living in a dormitory<\/em> + <em>can be challenging because of too many strict rules.<\/em><\/li><\/ul>\n<p>Topic sentence:<\/p>\n<ul><li><strong>Simple fact olamaz<\/strong> (geliştirilemez). <em>Susan paid $3.95 for her new blouse.<\/em> (F) → <em>Susan loves to shop for bargains.<\/em> (TS)<\/li><li><strong>Çok geniş olamaz<\/strong> (B, too broad). <em>The causes of war are many.<\/em> / <em>Politics affect the lives of many people.<\/em> / <em>The Internet has made the world a better place.<\/em><\/li><li>Genel ama tek yöne odaklı olmalı. <em>The birds are enjoyable to watch.<\/em> (TS)<\/li><\/ul>\n<p><strong>Supporting sentences:<\/strong> topic sentence'ı açıklar, örnek, detay, kanıt verir.<\/p>\n<p><strong>Concluding sentence:<\/strong><\/p>\n<ul><li>Ana fikri hatırlatır, güçlü bir izlenim bırakır.<\/li><li>Topic sentence'ı aynen tekrar etmez.<\/li><li><em>In conclusion<\/em> ya da <em>As you can see<\/em> ile başlamaz.<\/li><li>Yeni fikir getirmez.<\/li><\/ul>\n<h3>Güçlü paragrafın dört özelliği<\/h3>\n<ol><li><strong>Completeness:<\/strong> yeterli detay ve örnek var. Detaysız paragraf \"incomplete / undeveloped\" olur. (Dancing paragrafının ilk hali eksik, ikinci hali tam.)<\/li><li><strong>Logical order:<\/strong> cümleler mantıklı sırada. Türleri: zaman sırası (kar yağdı → sabah temizlendi), mekân sırası (odayı soldan sağa anlatma), önem sırası.<\/li><li><strong>Unity:<\/strong> her cümle topic sentence'a bağlı. Bağlı olmayan cümle (U) birliği bozar. Örnek: deniz kaplumbağası sayan bilim insanları paragrafında <em>\"The leatherback is the only kind of turtle that can live in the cold North Atlantic Ocean\"<\/em> cümlesi.<\/li><li><strong>Coherence:<\/strong> cümleler birbirine bağlı, liste gibi okunmaz. Üç teknik:<ul><li>Anahtar kelime tekrarı (ölçülü).<\/li><li>Cümle yapısı tekrarı (Pamuk: <em>I write because... I write because...<\/em>).<\/li><li><strong>Transition signals.<\/strong><\/li><\/ul><\/li><\/ol>\n<h3>Transition signals (ezberle)<\/h3>\n<div class=\"tblwrap\"><table><thead><tr><th>İşlev<\/th><th>Kelimeler<\/th><\/tr><\/thead><tbody><tr><td>Addition<\/td><td>and, moreover, besides, what's more, additionally, in addition, furthermore, also<\/td><\/tr><tr><td>Contrast / concession<\/td><td>but, however, although, even though, in spite of, despite, in contrast, conversely, on the other hand, instead, while, whereas, nevertheless, yet, still<\/td><\/tr><tr><td>Comparison<\/td><td>likewise, similarly, in the same way, as ... as, compared to<\/td><\/tr><tr><td>Cause<\/td><td>because (of), since, for<\/td><\/tr><tr><td>Effect<\/td><td>so, as a result, consequently, therefore, thus<\/td><\/tr><tr><td>Purpose<\/td><td>so that, in order to<\/td><\/tr><tr><td>Example<\/td><td>for example, for instance, to illustrate, in particular, such as<\/td><\/tr><tr><td>Clarification<\/td><td>in other words, (to put it) more simply<\/td><\/tr><\/tbody><\/table><\/div>\n<p>Dikkat: <em>despite / in spite of / because of / such as<\/em> + isim. <em>although / even though / because / since<\/em> + cümle.<\/p>\n<h3>Paragraf yazma adımları (slayt 24-29)<\/h3>\n<ol><li>Konuyu beyin fırtınası ile aç (university life → dormitory).<\/li><li>Bir yön seç (too many strict rules).<\/li><li>Yön hakkında fikir üret, en iyi 3-5'ini seç.<\/li><li>Topic sentence taslağı yaz.<\/li><li>Outline: TS, support ideas, concluding idea.<\/li><li>Paragrafı yaz.<\/li><\/ol>\n<h3>Hocanın geri bildirimde işaretlediği hatalar (slayt 28-31)<\/h3>\n<ul><li>Topic sentence ile içerik uyuşmuyor (?).<\/li><li>Açıklama eksik (Expl.).<\/li><li>Tekrar (Rep.).<\/li><li><em>you<\/em> ile okura doğrudan hitap, kişisel ve öznel dil.<\/li><li>Çok kısa, gelişmemiş paragraf (Paragraf 4).<\/li><\/ul>\n<h3>Model paragraf<\/h3>\n<blockquote><p>Living in a university dormitory can be challenging because of its strict rules. First of all, residents are usually not allowed to stay out late, so students who have evening classes or part-time jobs often find it difficult to return on time. In addition, visitors from outside the campus are generally not permitted, which limits students' social lives. Lights must also be turned off at a certain time, even during exam periods when many students need to study at night. Furthermore, most dormitories have no kitchen, and as a result, residents cannot prepare their own meals. These regulations may help maintain order, but they appear to conflict with the idea that university is a time of independence.<\/p><\/blockquote>\n<p>Kontrol: TS (topic + direction), dört support, transition signals, <em>I<\/em> yok, hedging var (<em>usually, generally, may, appear to<\/em>), concluding sentence yeni fikir getirmiyor ve <em>In conclusion<\/em> ile başlamıyor.<\/p>\n<blockquote><p><strong>Ezberlenecekler:<\/strong> TS = topic + controlling idea; F / B / TS ayrımı; dört özellik (completeness, logical order, unity, coherence); coherence'ın üç tekniği; transition tablosu; concluding sentence'ın üç yasağı.<\/p><\/blockquote>"}, {"title": "4. Norms in academic communication (formal vs. informal register)", "html": "<p>Kaynak: <code>WEEK 4/Norms in academic communication.pptx<\/code>.<\/p>\n<p><strong>Formal English nerede:<\/strong> academic writing, resumes, applications, business reports, technical and scientific writing, cold communication (tanımadığın kişiye yazma), iş ile ilgili her şey.<\/p>\n<p><strong>Informal → formal dönüşüm kuralları:<\/strong><\/p>\n<div class=\"tblwrap\"><table><thead><tr><th>Informal<\/th><th>Formal<\/th><\/tr><\/thead><tbody><tr><td>Kısaltmalar (<em>I'm, won't, can't<\/em>)<\/td><td>Açık yazım (<em>I am, will not, cannot<\/em>)<\/td><\/tr><tr><td><em>u, r, 4, asap, thx<\/em><\/td><td>Tam kelimeler<\/td><\/tr><tr><td><em>Hey, Hi<\/em><\/td><td><em>Dear Dr. Jones<\/em><\/td><\/tr><tr><td>Phrasal verb (<em>get in touch, find out<\/em>)<\/td><td>Tek kelime (<em>contact, discover<\/em>)<\/td><\/tr><tr><td><em>Thanks<\/em><\/td><td><em>Thank you<\/em><\/td><\/tr><tr><td><em>Sorry for...<\/em><\/td><td><em>I apologise for...<\/em><\/td><\/tr><tr><td><em>Because of...<\/em><\/td><td><em>Owing to... / Due to...<\/em><\/td><\/tr><tr><td><em>Can you tell us more about...?<\/em><\/td><td><em>We would be grateful if you could send us further information about...<\/em><\/td><\/tr><tr><td><em>Here are...<\/em><\/td><td><em>Please find enclosed / attached...<\/em><\/td><\/tr><tr><td><em>I've got some bad news.<\/em><\/td><td><em>We regret to inform you that...<\/em><\/td><\/tr><tr><td><em>I've got some good news.<\/em><\/td><td><em>We are pleased to inform you that...<\/em><\/td><\/tr><tr><td><em>What exactly do you need?<\/em><\/td><td><em>Please let us know your exact requirements.<\/em><\/td><\/tr><tr><td><em>If you need...<\/em><\/td><td><em>Should you require...<\/em><\/td><\/tr><tr><td><em>Just get in touch<\/em><\/td><td><em>Please do not hesitate to contact me<\/em><\/td><\/tr><tr><td><em>All the best<\/em><\/td><td><em>Kind regards / Yours sincerely<\/em><\/td><\/tr><tr><td><em>I got it 14 Sept.<\/em><\/td><td><em>received 14 September 2002<\/em><\/td><\/tr><tr><td><em>I've set a meeting... to talk about<\/em><\/td><td><em>A meeting has been scheduled... to discuss<\/em><\/td><\/tr><tr><td>Kısaltma: <em>inc., exp., G.M., re.<\/em><\/td><td>Açık yazım: <em>income, expenditure, General Manager, concerning<\/em><\/td><\/tr><\/tbody><\/table><\/div>\n<p><strong>Formal letter yapısı:<\/strong><\/p>\n<ul><li>Sağ üst: gönderenin adresi, tarih.<\/li><li>Sol: alıcının adı, unvanı, kurumu, adresi; varsa referans / konu satırı (<em>Re:<\/em>).<\/li><li>Salutation:<ul><li><em>Dear Sir/Madam<\/em> (adı bilmiyorsan) → <em>Yours faithfully<\/em><\/li><li><em>Dear Ms Howes<\/em> (adı biliyorsan) → <em>Yours sincerely<\/em><\/li><li><em>Dear Sirs<\/em> (şirkete yazarken)<\/li><li><em>Yours truly<\/em> Amerikan İngilizcesi.<\/li><\/ul><\/li><li>E-postada <em>Best regards / Best wishes<\/em> daha yaygın; <em>Yours sincerely / faithfully<\/em> mektupta.<\/li><li>Unvanlar: <em>Mr<\/em> (erkek), <em>Mrs<\/em> (evli kadın), <em>Ms<\/em> (medeni durum belirtilmeden kadın). ABD'de nokta alır: <em>Ms. Howes<\/em>.<\/li><li>Tarih: İngiliz <em>6 May 2012<\/em>, Amerikan <em>May 6, 2012<\/em>.<\/li><li>İmza: imza, altına ad soyad ve görev.<\/li><li>Kısaltmalar: <em>encl.<\/em> (ekte belge var), <em>cc<\/em> (kopya gidenler), <em>p.p.<\/em> (başkası adına imza), <em>Re.<\/em> (regarding).<\/li><\/ul>\n<p><strong>To / Cc / Bcc:<\/strong> To = asıl alıcı. Cc = bilgilendirilecek kişiler, herkes görür. Bcc = gizli kopya, diğerleri görmez.<\/p>\n<blockquote><p><strong>Ezberlenecekler:<\/strong> Sir/Madam → faithfully, isim → sincerely; Mr / Mrs / Ms; informal-formal tablosundaki ilk 12 satır.<\/p><\/blockquote>"}, {"title": "5. Email writing (profesöre e-posta)", "html": "<p>Kaynak: <code>WEEK 4/Norms in academic communication.pptx<\/code> slayt 14-16, <code>email_writing_exercises.pptx<\/code>.<\/p>\n<h3>Hocanın 10 kuralı (slayt 16)<\/h3>\n<ol><li>Akademik hesabını kullan.<\/li><li>Açık bir subject line yaz.<\/li><li>Hocanın unvanı ve soyadıyla selamla (<em>Dear Professor Hanes<\/em>).<\/li><li>Kim olduğunu hatırlat (ad, ders, section).<\/li><li>Konuya sadık kal, gereksiz detay yok.<\/li><li>Hocadan ne istediğini açıkça söyle.<\/li><li>Ton profesyonel: emoji yok, kişisel detay yok.<\/li><li>Rica kibar olsun.<\/li><li>Dilbilgisi, yazım, noktalama kontrolü.<\/li><li>Kibar bir kapanışla bitir.<\/li><\/ol>\n<h3>Kalıplar<\/h3>\n<div class=\"tblwrap\"><table><thead><tr><th>Bölüm<\/th><th>Formal<\/th><th>Informal<\/th><\/tr><\/thead><tbody><tr><td>Selamlama<\/td><td>Dear Professor / Dr. + soyad; Dear Mr / Ms + soyad; Dear Sir/Madam<\/td><td>Hi Jags; Dear Jay<\/td><\/tr><tr><td>Açılış<\/td><td>Thank you for your email of 14 May concerning...; In reply to your letter...; Following our phone conversation...<\/td><td>Thanks for your email...; Just a quick note to...<\/td><\/tr><tr><td>Amaç<\/td><td>I am writing to request / inform / confirm...; This email is to...<\/td><td>Just a quick note to...<\/td><\/tr><tr><td>Rica<\/td><td>Could you please...?; Would you please...?; I would be grateful if you could...; Kindly send...<\/td><td>Can you...?<\/td><\/tr><tr><td>Kötü haber / özür<\/td><td>I am sorry to inform you...; Unfortunately...; I apologise for...<\/td><td>Sorry about...<\/td><\/tr><tr><td>Ek<\/td><td>Please find attached...; I attach...; Please find enclosed... (mektup)<\/td><td>Here's...<\/td><\/tr><tr><td>Kapanış cümlesi<\/td><td>I look forward to hearing from you.; Please do not hesitate to contact me if you need any further information.<\/td><td>Hear from you soon.; Let me know if you need anything else.; Take care.<\/td><\/tr><tr><td>İmza<\/td><td>Yours sincerely / Yours faithfully / Kind regards / Best regards<\/td><td>Best wishes; See you soon; Take care<\/td><\/tr><\/tbody><\/table><\/div>\n<h3>Kötü ve iyi örnek (ders slaytı)<\/h3>\n<p>Kötü: <em>Dear Tony, I know the deadline 4 our first assignment was last week. But, you see, I had a problm. My kitchen tap was leaking... Really sorry for being late! ... Hope u can accept this excuse. Here's my paper. See you<\/em><\/p>\n<p>Hatalar: hocanın adı ile hitap (Tony), <em>4<\/em> ve <em>u<\/em>, yazım hatası (<em>problm<\/em>), gereksiz kişisel detay (musluk, tesisatçı), ünlem, <em>Here's<\/em>, <em>See you<\/em>, kim olduğu yazmıyor, konu satırı yok, ne istediği belli değil.<\/p>\n<p>İyi: <em>Dear Professor Hanes, I am Ali Razaq, ELIT100, Section 2. I am writing to request an extension... However, I had some urgent personal issues... I apologize for this tardiness... Please find attached my assignment. Best regards, Ali<\/em><\/p>\n<h3>E-posta iskeleti (sınavda bunu kullan)<\/h3>\n<pre><code>Subject: [Konu]: [Ders kodu], Section [X]\n\nDear Professor [Soyad],\n\nI am [Ad Soyad], a student in your [ELIT100], Section [X].\n\nI am writing to [inform you / request / ask] [konu]. [1-2 cümle gerekçe, gereksiz detay yok.]\n\n[Talep / ayrıntılar: 2-4 cümle. Hocanın ne yapmasını istediğini açık söyle.]\n\nI would be grateful if you could [talep]. Please find attached [belge], if relevant.\n\nThank you for your understanding. I look forward to hearing from you.\n\nKind regards,\n[Ad Soyad]\n[Öğrenci numarası]<\/code><\/pre>\n<p>Ders slaytındaki görev (Email Exercise 1): bir geziye gidiyorsun, derse gelemeyeceksin; hocaya nereye, neden, ne kadar süre, hangi yerleri ziyaret edeceğin ve bunun bölümünle ilgisi ile e-posta yaz. Model cevap <code>deneme-1-cevaplar.md<\/code> Part D'de.<\/p>\n<blockquote><p><strong>Ezberlenecekler:<\/strong> iskelet; 10 kural; <em>I am writing to... / I would be grateful if you could... / Please find attached... / I look forward to hearing from you.<\/em><\/p><\/blockquote>"}, {"title": "6. Summarising ve paraphrasing", "html": "<p>Kaynak: <code>WEEK 5/Essential academic skills SUMMARIZING PARAPHRASING.pptx<\/code>, <code>WEEK 5/articles for practice/<\/code>.<\/p>\n<h3>Summary<\/h3>\n<ul><li>Metnin ana noktalarının kısa hali (who, when, where, why, what, how).<\/li><li>Bir cümle ile bir paragraf arası.<\/li><\/ul>\n<p><strong>Yap:<\/strong><\/p>\n<ul><li>Önemli noktaları işaretle.<\/li><li>Yazarın soyadını etiket olarak kullan + reporting verb: <em>argue, claim, note, emphasise, point out, suggest, add<\/em> (\"Brown argues that...\").<\/li><li>Yazarın argümanını <strong>present simple<\/strong> ile anlat.<\/li><li>Kendi kelimelerinle yaz: eş anlamlı kelime ve yapı değişikliği.<\/li><\/ul>\n<p><strong>Yapma:<\/strong><\/p>\n<ul><li>Gereksiz detay (Treasure özetinde annesinin 1 Ekim yorumu).<\/li><li>Kaynakta olmayan bilgi.<\/li><li>Kendi değer yargın.<\/li><\/ul>\n<p><strong>Özet iskeleti:<\/strong><\/p>\n<pre><code>In an article published on [site / dergi] in [yıl], [Yazar] [discusses / argues / explains] [ana fikir].\nAccording to [Soyad], [ana nokta 1]. [Soyad] also points out that [ana nokta 2].\nFurthermore, [ana nokta 3]. [Soyad] concludes that [sonuç].<\/code><\/pre>\n<p><strong>Üç Treasure özetinin karşılaştırması (slayt 5-7):<\/strong> A kısa ama sadece liste, geçmiş ve şimdiki zaman karışık. B gereksiz detay içeriyor (annesi) ve listeyi kopyalıyor. C en iyisi: kendi kelimeleri, reporting verbs (<em>elaborates on, argues<\/em>), açıklama, liste değil. Sınavda C gibi yaz.<\/p>\n<h3>Paraphrase<\/h3>\n<ul><li>Kaynaktaki bilgiyi <strong>kendi kelimelerinle<\/strong>, <strong>aynı uzunlukta<\/strong>, <strong>aynı fikirlerle<\/strong> yeniden yaz.<\/li><li>Sonuna kaynağı ekle: <em>(Snell, 2005)<\/em>.<\/li><li>Sadece eş anlamlı kelime koymak = plagiarism. Teknikleri birleştir.<\/li><\/ul>\n<p><strong>Beş teknik:<\/strong><\/p>\n<div class=\"tblwrap\"><table><thead><tr><th>Teknik<\/th><th>Örnek<\/th><\/tr><\/thead><tbody><tr><td>Synonyms<\/td><td><em>declared → announced; poses a national security threat → could harm the nation's security<\/em><\/td><\/tr><tr><td>Word form değiştir<\/td><td><em>Medical professor → a professor of medicine; global changes → changes across the globe<\/em><\/td><\/tr><tr><td>Sentence structure (active/passive, birleştir, böl, bağlaç değiştir)<\/td><td><em>Angier reported that malaria kills more than one million people annually.<\/em> → <em>Every year, more than one million people are killed by malaria (Angier, 2001).<\/em><\/td><\/tr><tr><td>Attribution signal değiştir<\/td><td><em>\"...,\" veterinarian Mark Walters declared<\/em> → <em>According to Mark Walters, a veterinarian...<\/em><\/td><\/tr><tr><td>Sayı / yüzde biçimi değiştir<\/td><td><em>13% → less than 15 percent; 46 percent → almost half<\/em><\/td><\/tr><tr><td>(Plagiarism slaytından) kelimeyi genişlet / tanımla<\/td><td><em>know tax laws → know the general workings and effects of taxation laws<\/em><\/td><\/tr><\/tbody><\/table><\/div>\n<h3>Summary vs. paraphrase vs. quotation<\/h3>\n<div class=\"tblwrap\"><table><thead><tr><th><\/th><th>Uzunluk<\/th><th>Kelimeler<\/th><th>Kaynak<\/th><\/tr><\/thead><tbody><tr><td>Quotation<\/td><td>Orijinal kadar<\/td><td>Aynen, tırnak içinde<\/td><td>Gerekli, sayfa no ile<\/td><\/tr><tr><td>Paraphrase<\/td><td>Yaklaşık aynı<\/td><td>Kendi kelimelerin<\/td><td>Gerekli<\/td><\/tr><tr><td>Summary<\/td><td>Çok daha kısa, sadece ana noktalar<\/td><td>Kendi kelimelerin<\/td><td>Gerekli<\/td><\/tr><\/tbody><\/table><\/div>\n<p>Örnek (Jordan, 1997):<\/p>\n<ul><li>Quotation: <em>Jordan (1997: 8) comments that 'study skills are not something acquired instinctively'.<\/em><\/li><li>Paraphrase: <em>As students do not obtain study skills automatically, it is very important to teach them these skills (Jordan, 1997).<\/em><\/li><li>Summary: <em>It is important to teach study skills to students (Jordan, 1997).<\/em><\/li><\/ul>\n<blockquote><p><strong>Ezberlenecekler:<\/strong> summary do / don't; reporting verbs; present simple; beş paraphrase tekniği; \"sadece synonym = plagiarism\".<\/p><\/blockquote>"}, {"title": "7. Plagiarism ve APA", "html": "<p>Kaynak: <code>WEEK 6/Plagiarism APA.pptx<\/code>, <code>APA_7th_handout__14Oct21_.pdf<\/code>.<\/p>\n<h3>Tanım<\/h3>\n<p>Plagiarism: başkasının yaratıcı işini uygun kaynak göstermeden kendi özgün işin gibi sunmak (The University of Melbourne, 2005). Sadece kelimeleri değil fikirleri, argümanları, diyagram, grafik, resim, besteyi ve organizasyon yapısını da kapsar. Kısaca: intellectual dishonesty or theft.<\/p>\n<h3>Plagiarism türleri (slayt 4)<\/h3>\n<ul><li>Metin, fikir, sonuç, tablo, program, tasarım, resim ya da ses kopyalamak (ya da kopyalanmasına izin vermek).<\/li><li>Küçük değişikliklerle paraphrase edip anlamı, biçimi ve fikir sırasını korumak.<\/li><li>Başkalarının işlerinden parçaları birleştirip yeni bir bütün yapmak.<\/li><li>Aynı ödevi iki ayrı ders için iki kez teslim etmek (self-plagiarism).<\/li><li>Başkasıyla birlikte yapılmış işi bireysel iş gibi sunmak (collusion).<\/li><\/ul>\n<h3>Library metni: beş versiyon (slayt 5-10)<\/h3>\n<p>Orijinal: <em>The Internet has changed the appearance of libraries and how librarians work today. The library is no longer confined to the four walls of a building...<\/em> (Yong, 2001, p. 294)<\/p>\n<div class=\"tblwrap\"><table><thead><tr><th>Versiyon<\/th><th>Ne yapılmış<\/th><th>Plagiarism mı?<\/th><\/tr><\/thead><tbody><tr><td>1<\/td><td>Kelimeler aynen kopyalanmış, kaynak yok<\/td><td>Evet<\/td><\/tr><tr><td>2<\/td><td>Aynı kopya + kaynak var ama tırnak yok<\/td><td>Evet<\/td><\/tr><tr><td>3<\/td><td>Cümlelerin yeri değiştirilmiş, kelimeler aynı, kaynak var<\/td><td>Evet<\/td><\/tr><tr><td>4<\/td><td>İyi paraphrase ama kaynak yok<\/td><td>Evet<\/td><\/tr><tr><td>5<\/td><td>İyi paraphrase + kaynak<\/td><td><strong>Hayır, doğru<\/strong><\/td><\/tr><\/tbody><\/table><\/div>\n<h3>Quote, paraphrase, summary kuralları<\/h3>\n<ul><li><strong>Direct quotation:<\/strong> aynen kelimeler. Kısa alıntıda tırnak, uzun alıntıda (40+ kelime) girintili blok. Sadece kaynak yazmak yetmez, tırnak da gerekir.<\/li><li><strong>Paraphrase:<\/strong> kendi kelimelerin. Kaynak <strong>yine gerekli<\/strong>. Kısmi paraphrase (birkaç kelime değiştirmek) plagiarism. Orijinalden ayırt edici bir ifade tırnaksız kalırsa plagiarism.<\/li><li>İyi bir araştırma yazısı çoğunlukla senin yazından (paraphrase dahil) oluşur. Alıntı sadece destek içindir.<\/li><\/ul>\n<h3>Motivation örnekleri (slayt 18-20), ezberle<\/h3>\n<p>Orijinal: <em>Motivation is such a key factor that it appears to be more important in learning than intelligence.<\/em> (Newble &amp; Cannon, 1989, p. 2)<\/p>\n<div class=\"tblwrap\"><table><thead><tr><th>Örnek<\/th><th>Kabul?<\/th><th>Neden<\/th><\/tr><\/thead><tbody><tr><td>Aynen yazılmış, tırnak ve kaynak yok<\/td><td>Hayır<\/td><td>Tırnak ve kaynak eksik<\/td><\/tr><tr><td>Tırnak var, kaynak yok<\/td><td>Hayır<\/td><td>Kaynak eksik<\/td><\/tr><tr><td>\"...\" (Newble &amp; Cannon, 1989, p. 2)<\/td><td>Evet<\/td><td>Tırnak + kaynak<\/td><\/tr><tr><td>According to Newble and Cannon (1989, p. 2), \"...\"<\/td><td>Evet<\/td><td>Tırnak + kaynak<\/td><\/tr><tr><td>A key factor in learning is motivation, which appears to be more important than intelligence (Newble &amp; Cannon, 1989, p. 2).<\/td><td>Hayır<\/td><td>Orijinale çok yakın<\/td><\/tr><tr><td>Motivation may be more critical than intelligence in learning (Newble &amp; Cannon, 1989, p. 2).<\/td><td>Evet<\/td><td>Gerçek paraphrase + kaynak<\/td><\/tr><\/tbody><\/table><\/div>\n<h3>Kaynak gösterilmesi gerekmeyenler<\/h3>\n<ol><li>Kendi fikirlerin, argümanların, kendi araştırma sonuçların.<\/li><li><strong>Common knowledge<\/strong> (genel bilinen gerçekler): <em>World War I began in 1914 and ended in 1918.<\/em><\/li><li>Genel başvuru kaynaklarındaki bilgiler (ders kitabı, sözlük, ansiklopedi). Ama istatistik yine de verilmeli.<\/li><\/ol>\n<p>Dikkat: common knowledge <strong>sadece fact<\/strong>. Yorum ve görüş kaynak ister.<\/p>\n<ul><li><em>J.S. Bach was a famous composer during the Baroque period.<\/em> → kaynak gerekmez.<\/li><li><em>J.S. Bach was the greatest composer of the Baroque period (Sterling, 1977).<\/em> → görüş, kaynak gerekir.<\/li><li>Kesin tarih, isim, yaş gibi özel detaylar kaynak ister (Lincoln, 14 April 1865, John Wilkes Booth).<\/li><li>Common knowledge'ı bile aynen kopyalarsan tırnak ve kaynak gerekir.<\/li><li>Emin değilsen kaynak göster.<\/li><\/ul>\n<p>Ayrıca kaynak gösterilecekler: tablo, grafik, resim; ders notları ve kişisel görüşmeden (personal communication) alınan fikirler.<\/p>\n<h3>Neden kaynak gösterilir<\/h3>\n<p>Başkasının sahipliğini tanımak; geniş araştırma yaptığını gösterip güvenilirlik kazanmak; okurun kaynağa ulaşmasını sağlamak; argümana kanıt ve otorite eklemek; akademik değerleri korumak; plagiarism'den kaçınmak.<\/p>\n<h3>Referans yöntemleri ve stiller<\/h3>\n<ul><li><strong>In-text:<\/strong> (Cole, 2011, p. 45) → APA, MLA, Harvard.<\/li><li><strong>Numeric:<\/strong> (7) → Vancouver (tıp, fen).<\/li><li><strong>Footnote:<\/strong> ³ → Chicago (iş, tarih, sanat).<\/li><li>APA: eğitim, psikoloji, bilim. MLA: beşeri bilimler.<\/li><\/ul>\n<h3>APA 7 in-text citation (ezberle)<\/h3>\n<div class=\"tblwrap\"><table><thead><tr><th>Yazar sayısı<\/th><th>Parenthetical<\/th><th>Narrative<\/th><\/tr><\/thead><tbody><tr><td>1<\/td><td>(Frogmouth, 2020)<\/td><td>Frogmouth (2020)<\/td><\/tr><tr><td>2<\/td><td>(Frogmouth <strong>&amp;<\/strong> Spoonbill, 2020)<\/td><td>Frogmouth <strong>and<\/strong> Spoonbill (2020)<\/td><\/tr><tr><td>3+<\/td><td>(Frogmouth et al., 2020)<\/td><td>Frogmouth et al. (2020)<\/td><\/tr><tr><td>Kurum<\/td><td>(UNICEF, 2023)<\/td><td>UNICEF (2023)<\/td><\/tr><tr><td>Tarih yok<\/td><td>(Johnson, n.d.)<\/td><td>Johnson (n.d.)<\/td><\/tr><\/tbody><\/table><\/div>\n<p><strong>Kurallar:<\/strong><\/p>\n<ul><li>Direct quote'ta sayfa no zorunlu: <em>(Frogmouth, 2020, p. 3)<\/em>, birden çok sayfa <em>pp. 7-8<\/em>.<\/li><li>Sayfa yoksa (web): <em>(Johnson, 2023, para. 4)<\/em>.<\/li><li>İki yazarda her seferinde iki soyadı da yazılır. Parantez içinde <strong>&amp;<\/strong>, cümle içinde <strong>and<\/strong>.<\/li><li>3+ yazarda <strong>ilk atıftan itibaren<\/strong> <em>et al.<\/em> kullanılır. <em>et al.<\/em> = <em>et alia<\/em> = \"and others\". İtalik değil, <em>al.<\/em> sonunda nokta var. Kaynakçada (reference list) <em>et al.<\/em> kullanılmaz, tüm yazarlar yazılır.<\/li><li><strong>Block quotation (40+ kelime):<\/strong> tırnak yok; soldan 0.5 inç (1.27 cm) girinti; çift satır aralığı; nokta alıntının sonunda, kaynaktan <strong>önce<\/strong>: <em>...in the classroom. (Haelermans, 2022, p. 243)<\/em><\/li><li>Kurum adı kısaltması: ilk kullanımda <em>(Australian Institute of Health and Welfare [AIHW], 2020)<\/em>, sonra <em>(AIHW, 2020)<\/em>.<\/li><\/ul>\n<p><strong>Reference list (web içeriği):<\/strong> <em>Author, A. A. (Year, Month Day). Title in italics and sentence case. Site Name. URL<\/em> Örnek: <em>James, F. (2019, November 5). One mum's plea to the education system. Kidspot. https://tinyurl.com/vxa76lb<\/em><\/p>\n<p><strong>Narrative citation fiilleri:<\/strong> <em>According to X (2022), ... / X (2022) found / argues / points out / explains / suggests that ... / As X (2022) points out, ... / Research by X (2022) suggests that ...<\/em><\/p>\n<blockquote><p><strong>Ezberlenecekler:<\/strong> beş library versiyonu; motivation tablosu; &amp; ve and; et al. kuralları; p. / pp. / para.; block quote altı kuralı; common knowledge sadece fact.<\/p><\/blockquote>"}];
+const TAGS = {note:"Note-taking", obj:"Objective / subjective", para:"Paragraph", reg:"Register ve e-posta", sum:"Summary / paraphrase", plag:"Plagiarism ve APA"};
+const OZET_TAG = ["note","obj","para","reg","reg","sum","plag"];
+const ARTICLE = "_metin/WEEK_5_articles_for_practice_SLEEPING_IN_ON_WEEKEND_article_for_summary_docx.txt";
+const OFNS = ["O","F-NP","SSD"], FBT = ["F","B","TS"], TSU = ["TS","S","U"], YN = ["Yes","No"];
+
+const PLAN = [
+ {date:"2026-11-12", day:"Per 12 Kas", note:"bu gece, 15 dk", items:[
+   {id:"d1a", t:"Tanı sorularını çöz (6 soru)", go:["alistirma","g-tani"]} ]},
+ {date:"2026-11-13", day:"Cum 13 Kas", note:"35 dk · MATH101'e hazırlık günü", items:[
+   {id:"d2a", time:"15 dk", t:"Konu 2'yi oku: objective / subjective, fact / opinion, hedging", go:["konular","konu-2"]},
+   {id:"d2b", time:"20 dk", t:"Deneme Part B'yi çöz", go:["deneme","part-B"]} ]},
+ {date:"2026-11-14", day:"Cmt 14 Kas", note:"60 dk · MATH101 sınavından sonra", items:[
+   {id:"d3a", time:"15 dk", t:"Konu 3'ü oku: topic sentence, dört özellik, transitions", go:["konular","konu-3"]},
+   {id:"d3b", time:"15 dk", t:"Deneme Part C, soru 7-10", go:["deneme","part-C"]},
+   {id:"d3c", time:"30 dk", t:"Soru 11: 20 dakikada paragraf yaz, sohbete yapıştır", go:["deneme","q-c11"]} ]},
+ {date:"2026-11-15", day:"Paz 15 Kas", note:"40 dk · NS102'ye hazırlık günü", items:[
+   {id:"d4a", time:"15 dk", t:"Konu 4-5'i oku: formal / informal, e-posta kalıpları", go:["konular","konu-4"]},
+   {id:"d4b", time:"25 dk", t:"Deneme Part D; e-postayı 15 dakikada yaz", go:["deneme","part-D"]} ]},
+ {date:"2026-11-16", day:"Pzt 16 Kas", note:"3 saat · NS102 sınavından sonra, ana gün", items:[
+   {id:"d5a", time:"40 dk", t:"Konu 6 + Deneme Part E (özet, paraphrase)", go:["deneme","part-E"]},
+   {id:"d5b", time:"40 dk", t:"Konu 7 + Deneme Part F (plagiarism, APA)", go:["deneme","part-F"]},
+   {id:"d5c", time:"15 dk", t:"Konu 1 + Deneme Part A (note-taking)", go:["deneme","part-A"]},
+   {id:"d5d", time:"90 dk", t:"Zayıf iki konuda alıştırma; yazdıklarını sohbete yapıştır", go:["zayif","zayif-top"]} ]},
+ {date:"2026-11-17", day:"Sal 17 Kas", note:"2 saat · sınav günü", items:[
+   {id:"d6a", time:"60 dk", t:"Yanlış yaptığın soruları tekrar çöz, ezber kutularını oku", go:["zayif","zayif-top"]},
+   {id:"d6b", time:"60 dk", t:"Süreli prova: paragraf 20 dk, e-posta 15 dk, özet 20 dk", go:["deneme","part-C"]},
+   {id:"d6c", time:"17:45", t:"Sınav. 15:30'dan sonra çalışma yok."} ]}
+];
+
+/* Alıştırma grupları: t=mc (tek seçim), sel (her madde için seçim), open (yazı + örnek cevap) */
+const PRACTICE = [
+ {id:"tani", title:"Tanı: 6 kısa soru", intro:"Her konudan bir soru. Sonuç Zayıf konular sekmesine düşer.", items:[
+  {t:"mc", id:"t1", tag:"obj", q:"<p><em>“Students who sleep less than six hours tend to get lower grades.”</em> Bu cümle hangisi?</p>", o:["O (opinion)","F-NP (fact that needs proof)","SSD (specific supporting detail)"], a:1,
+   why:"Genel bir gerçek iddiası: ölçülebilir ama sayı, tarih ya da kaynak yok. Bu yüzden kanıt ister (F-NP). Sayı ve kaynak olsaydı SSD olurdu."},
+  {t:"open", id:"t2", tag:"obj", pts:2, q:"<p>Objektif akademik dille yeniden yaz: <em>“I think social media is destroying students' lives.”</em></p>", rows:3,
+   model:"<p><em>Excessive social media use may have negative effects on some students' well-being.</em></p><p><em>Research suggests that heavy social media use can affect students' sleep and academic performance.</em></p><p>Kontrol: <em>I think</em> yok (personal), <em>destroying</em> yok (emotive), hedging var (<em>may, can, some</em>).</p>"},
+  {t:"mc", id:"t3", tag:"para", q:"<p><em>“Education is important for society.”</em> Topic sentence olarak:</p>", o:["F: simple fact","B: too broad","TS: iyi bir topic sentence"], a:1,
+   why:"Çok geniş: tek paragrafta geliştirilemez (slayttaki <em>“The causes of war are many”</em> gibi). Daraltılmış hali: <em>“Free university education can increase social mobility.”</em>"},
+  {t:"mc", id:"t4", tag:"para", q:"<p><em>“_____ the heavy rain, the match continued.”</em></p>", o:["Despite","Although"], a:0,
+   why:"<em>Despite / in spite of</em> + isim öbeği (<em>the heavy rain</em>). <em>Although</em> + tam cümle: <em>Although it rained heavily, ...</em>"},
+  {t:"mc", id:"t5", tag:"reg", q:"<p>Hocaya e-postada en uygun hali: <em>“Here's my homework, sorry it's late.”</em></p>", o:["Here is my homework, I am sorry it is late.","Please find attached my assignment. I apologise for the late submission.","Attached is my homework, sorry for the lateness!","I'm attaching my homework, so sorry!!"], a:1,
+   why:"<em>Here's → Please find attached</em>, <em>sorry → I apologise for</em>, kısaltma ve ünlem yok."},
+  {t:"mc", id:"t6", tag:"plag", q:"<p>Doğrudan alıntı için doğru APA 7 biçimi? (Yanlış hali: <em>(Ahmed and Clark, 2020, page 5)</em>)</p>", o:["(Ahmed and Clark, 2020, p. 5)","(Ahmed & Clark, 2020, p. 5)","(Ahmed & Clark 2020 page 5)","(Ahmed et al., 2020, p. 5)"], a:1,
+   why:"Parantez içinde <strong>&amp;</strong>, sayfa için <strong>p.</strong>, yazar ve yıl arasında virgül. İki yazarda <em>et al.</em> kullanılmaz."}
+ ]},
+ {id:"note", tag:"note", title:"Note-taking", items:[
+  {t:"mc", id:"n1", q:"<p>Not alırken <strong>∴</strong> ne demek?</p>", o:["because","therefore","is different from","increase"], a:1},
+  {t:"mc", id:"n2", q:"<p><strong>∵</strong> ne demek?</p>", o:["because","therefore","equals","important"], a:0},
+  {t:"mc", id:"n3", q:"<p><em>“Students who don't get enough sleep tend to have difficulty concentrating.”</em> En iyi not:</p>", o:["students dont get enough sleep difficulty concentrating","insufficient sleep → ↓ concentration","sleep ≠ concentrating?","* students * sleep * concentrating"], a:1,
+   why:"Neden-sonuç oku (→) ve azalma (↓) ilişkiyi kısaca gösterir. Slayttaki örnek budur."},
+  {t:"mc", id:"n4", q:"<p>Cornell yönteminde sayfanın altındaki bölüm ne için?</p>", o:["Anahtar kelimeler ve sorular","Dersteki notlar","Kısa özet","Kaynakça"], a:2,
+   why:"Sağ büyük alan: notlar. Sol dar sütun: anahtar kelime ve sorular. Alt: özet."},
+  {t:"mc", id:"n5", q:"<p>Derste hoca hangi ifadeyle bir özet yapacağını gösterir?</p>", o:["for example","in contrast","to sum up","first of all"], a:2,
+   why:"Signpost expressions: <em>first of all</em> (giriş), <em>for example</em> (örnek), <em>in contrast</em> (karşıtlık), <em>to sum up</em> (özet)."},
+  {t:"mc", id:"n6", q:"<p>Kursa göre iyi not almanın amacı nedir?</p>", o:["Her şeyi kaçırmadan, olabildiğince hızlı yazmak","Neyin yazmaya değer olduğunu seçmek","Hocanın cümlelerini aynen yazmak","Sadece slaytları kopyalamak"], a:1,
+   why:"“You should learn to identify what is worth writing down, not simply write faster.” Üç parça: active listening, identifying key ideas, reviewing afterwards."},
+  {t:"mc", id:"n7", q:"<p>Outline (girintili başlık) yönteminin slayttaki dezavantajı hangisi?</p>", o:["İlişkileri hiç göstermez","Hızlı tempolu derslerde iyi çalışmaz","Sembol kullanılamaz","Sadece kâğıtta yapılabilir"], a:1}
+ ]},
+ {id:"obj", tag:"obj", title:"Objective / subjective", items:[
+  {t:"sel", id:"o1", q:"<p>Her cümleyi etiketle.</p>", ch:OFNS, items:[
+    {s:"Smoking is a bad habit.", a:"O"},
+    {s:"Cigarettes are addictive.", a:"F-NP"},
+    {s:"In 2000, 31,000 cases of identity theft were reported to the FTC; in 2003, the number was 210,000.", a:"SSD"},
+    {s:"Identity theft is more serious than any other type of theft.", a:"O"},
+    {s:"Most victims of identity theft are young adults.", a:"F-NP"},
+    {s:"The FTC reports that there were more victims in the age group 18-29 than in any other group.", a:"SSD"}],
+   why:"O: yargı, karşılaştırma, sıfat (<em>bad, more serious</em>). F-NP: genel gerçek, kanıt ister. SSD: sayı, tarih, kurum adı."},
+  {t:"mc", id:"o2", q:"<p>En objektif cümle hangisi?</p>", o:["I believe the new policy is a total disaster.","The new policy is absolutely terrible for everyone!","The findings suggest that the new policy may have negative effects on some employees.","Obviously, the new policy failed."], a:2},
+  {t:"mc", id:"o3", q:"<p><em>carry out</em> yerine akademik fiil:</p>", o:["do","conduct","make","finish"], a:1,
+   why:"talk into → persuade · carry out → conduct · find out → discover · look into → investigate · rule out → eliminate"},
+  {t:"mc", id:"o4", q:"<p><em>rule out</em> yerine:</p>", o:["eliminate","investigate","discover","persuade"], a:0},
+  {t:"mc", id:"o5", q:"<p><em>“...a good number of people could have an accident.”</em> Altı çizili hedging aracı (<em>a good number of</em>) hangisi?</p>", o:["adverb","modal verb","quantifier","qualifying conditional"], a:2,
+   why:"Dört hedging aracı: adverb (<em>somewhat, relatively</em>), modal (<em>could, may</em>), quantifier (<em>many, some, a good number of</em>), conditional (<em>if you don't pay attention...</em>)."},
+  {t:"mc", id:"o6", q:"<p><em>“It is believed that students should not be required to do homework.”</em> Hangi teknik?</p>", o:["moving information around","passive voice","hedging with a quantifier","avoiding phrasal verbs"], a:1},
+  {t:"mc", id:"o7", q:"<p>Hangisi objective language özelliği <strong>değildir</strong>?</p>", o:["Formal","Fair and accurate","Relies on facts rather than opinions","Uses superlatives to make the reader feel strongly"], a:3},
+  {t:"mc", id:"o8", q:"<p><em>“Gorard's study provided an awesome classification model.”</em> En iyi düzeltme:</p>", o:["...provided an amazing classification model.","...provided a concise classification model.","...provided the best classification model ever.","I think Gorard's study provided a good model."], a:1,
+   why:"Duygusal / yargılayıcı sıfat yerine teknik değerlendirme: <em>concise, valid, reliable</em>."}
+ ]},
+ {id:"para", tag:"para", title:"Paragraph", items:[
+  {t:"sel", id:"p1", q:"<p>F (simple fact), B (too broad), TS (topic sentence)?</p>", ch:FBT, items:[
+    {s:"The background music in the grocery store was annoying.", a:"TS"},
+    {s:"In 2007, Daylight Savings Time started on March 11.", a:"F"},
+    {s:"Politics affect the lives of many people.", a:"B"},
+    {s:"Stephanie's room is a disaster.", a:"TS"},
+    {s:"The Internet has made the world a better place.", a:"B"},
+    {s:"In the United States, 350 obese children had weight-loss surgery in 2004.", a:"F"},
+    {s:"Cross-country skiing provides great exercise.", a:"TS"},
+    {s:"The 911 call came into the police department at 12:00 noon.", a:"F"},
+    {s:"Throughout the world, family structures vary.", a:"B"},
+    {s:"The Internet has changed Tina's social life.", a:"TS"}],
+   why:"F: geliştirilemeyen tek bilgi. B: bir paragrafa sığmaz. TS: genel ama tek yöne odaklı (topic + controlling idea)."},
+  {t:"sel", id:"p2", q:"<p>TS / S / U?</p>", ch:TSU, items:[
+    {s:"Mechanics enjoy looking through salvage yards to find engine parts.", a:"S"},
+    {s:"Rebuilding an engine can be fun.", a:"TS"},
+    {s:"Many new car models have elaborate computer systems.", a:"U"}]},
+  {t:"sel", id:"p3", q:"<p>TS / S / U?</p>", ch:TSU, items:[
+    {s:"Injured birds are nurtured back to health.", a:"S"},
+    {s:"Wildlife centers are dedicated to helping sick and injured animals.", a:"TS"},
+    {s:"Wildlife centers are often privately funded.", a:"U"}]},
+  {t:"mc", id:"p4", q:"<p>Bilim insanlarının leatherback kaplumbağalarını nasıl saydığını anlatan paragrafta birliği bozan cümle hangisi?</p>", o:["The observers work, no matter what the weather is like.","They count the turtles as they come ashore.","The leatherback is the only kind of turtle that can live in the cold North Atlantic Ocean.","Then, later, they count the eggs that hatch."], a:2,
+   why:"Paragrafın konusu gözlemcilerin nasıl çalıştığı. Kaplumbağa türüyle ilgili bilgi bu fikri desteklemiyor: <strong>unity</strong> bozuluyor."},
+  {t:"mc", id:"p5", q:"<p>Concluding sentence için hangisi <strong>yapılmamalı</strong>?</p>", o:["Ana fikri hatırlatmak","Okurda güçlü bir izlenim bırakmak","Cümleye <em>In conclusion</em> ile başlamak","Topic sentence'ı farklı kelimelerle yansıtmak"], a:2,
+   why:"Üç yasak: topic sentence'ı aynen tekrar etmek, <em>In conclusion / As you can see</em> ile başlamak, yeni fikir getirmek."},
+  {t:"mc", id:"p6", q:"<p>Topic sentence'ın iki parçası:</p>", o:["Topic + controlling idea (direction)","Fact + example","Introduction + conclusion","Claim + citation"], a:0},
+  {t:"mc", id:"p7", q:"<p>Pamuk'un <em>“I write because... I write because...”</em> örneği hangi coherence tekniği?</p>", o:["Repetition of key words","Repetition of sentence structures","Transition signals","Logical order"], a:1},
+  {t:"mc", id:"p8", q:"<p>Detay ve örnek içermeyen, belirsiz kalan paragrafta hangi özellik eksik?</p>", o:["Unity","Coherence","Completeness","Logical order"], a:2},
+  {t:"sel", id:"p9", q:"<p>Çocuk yetiştirme paragrafındaki boşluklar (slayt alıştırması). Her boşluğa uygun bağlacı seç.</p>", ch:["For instance","such as","Since","Furthermore","Despite","As a result","To illustrate","because","Besides","nevertheless"], items:[
+    {s:"(1) ___, children often catch illnesses ...", a:"For instance"},
+    {s:"(2) ... illnesses ___ the flu, cold, measles, etc.", a:"such as"},
+    {s:"(3) ___ their immune system is not so strong, parents are often concerned ...", a:"Since"},
+    {s:"(4) ___, raising children leaves parents very little time for themselves.", a:"Furthermore"},
+    {s:"(5) ___ being rewarding, parenting is a round-the-clock job.", a:"Despite"},
+    {s:"(6) ___, parents rarely have any time to go out on their own ...", a:"As a result"},
+    {s:"(7) ___, children's clothes often cost a fortune ...", a:"To illustrate"},
+    {s:"(8) ... have to be bought often ___ children grow out of them so quickly.", a:"because"},
+    {s:"(9) ___, toys, books and other school supplies are costly ...", a:"Besides"},
+    {s:"(10) ... a considerable challenge, which parents are ___ happy to take on.", a:"nevertheless"}]}
+ ]},
+ {id:"reg", tag:"reg", title:"Register ve e-posta", items:[
+  {t:"mc", id:"r1", q:"<p><em>Dear Sir/Madam</em> ile başlayan mektup nasıl biter?</p>", o:["Yours sincerely","Yours faithfully","See you soon","Cheers"], a:1,
+   why:"Adı bilmiyorsan <em>Dear Sir/Madam → Yours faithfully</em>. Adı biliyorsan <em>Dear Ms Howes → Yours sincerely</em>. E-postada <em>Kind / Best regards</em> yaygın."},
+  {t:"mc", id:"r2", q:"<p><em>Ms</em> unvanı ne zaman kullanılır?</p>", o:["Sadece evli kadınlar için","Medeni durumu belirtmeden kadınlar için","Erkekler için","Profesörler için"], a:1},
+  {t:"mc", id:"r3", q:"<p><strong>Bcc</strong> satırındaki kişiler:</p>", o:["Asıl alıcılardır","Kopya alır ve herkes onları görür","Kopya alır ama diğer alıcılar onları görmez","Cevap vermek zorundadır"], a:2},
+  {t:"mc", id:"r4", q:"<p><em>“I've got some bad news.”</em> formal hali:</p>", o:["We regret to inform you that...","Sorry, bad news...","Unfortunately for you...","I've some bad news to tell."], a:0},
+  {t:"mc", id:"r5", q:"<p><em>“If you need further details...”</em> en formal hali:</p>", o:["If you want more stuff...","Should you require further details...","Just ask if you need more...","In case you need details..."], a:1},
+  {t:"mc", id:"r6", q:"<p>Hocaya e-postanın en uygun ilk satırları:</p>", o:["Hey Prof! Quick question...","Dear Tony,","Dear Professor Hanes, I am Ali Razaq, ELIT100, Section 2.","To whom it may concern, it's Ali."], a:2,
+   why:"Unvan + soyad ile selamla, sonra kim olduğunu ve dersini söyle."},
+  {t:"mc", id:"r7", q:"<p>Profesöre gecikme e-postasında hangisi olmamalı?</p>", o:["Açık bir konu satırı","Ne istediğini net söylemek","Mutfak musluğunun nasıl bozulduğunun detayları","Kibar bir kapanış"], a:2,
+   why:"Kural: “Stick to the point, leave out any extraneous details.” Kötü örnekteki tesisatçı hikâyesi tam olarak bu."},
+  {t:"mc", id:"r8", q:"<p><em>encl.</em> ne anlama gelir?</p>", o:["Mektupla birlikte belge gönderildi","Kopyası şu kişilere gitti","Başkası adına imzalandı","Konusu şudur"], a:0,
+   why:"encl. = enclosed · cc = carbon copies · p.p. = başkası adına imza · Re. = regarding"},
+  {t:"mc", id:"r9", q:"<p><em>“Because of the delay...”</em> formal karşılığı:</p>", o:["Owing to the delay...","Coz of the delay...","Cause the delay...","So the delay..."], a:0}
+ ]},
+ {id:"sum", tag:"sum", title:"Summary / paraphrase", items:[
+  {t:"mc", id:"s1", q:"<p>Özette yazarın argümanı hangi zamanla anlatılır?</p>", o:["Past simple","Present simple","Present perfect continuous","Future"], a:1},
+  {t:"mc", id:"s2", q:"<p>Özette hangisi <strong>olmamalı</strong>?</p>", o:["Yazarın soyadı ve reporting verb","Ana noktalar","Kendi değer yargın","Kendi kelimelerin"], a:2,
+   why:"Don'ts: gereksiz detay, kaynakta olmayan bilgi, kendi değer yargın."},
+  {t:"mc", id:"s3", q:"<p>Paraphrase uzunluğu:</p>", o:["Orijinalin yarısı","Orijinalle yaklaşık aynı","Tek cümle","Orijinalin iki katı"], a:1,
+   why:"Paraphrase: aynı uzunluk, aynı fikirler, kendi kelimelerin. Summary: çok daha kısa, sadece ana noktalar."},
+  {t:"mc", id:"s4", q:"<p>Sadece birkaç kelimeyi eş anlamlısıyla değiştirip yapıyı korumak:</p>", o:["İyi bir paraphrase","Summary","Plagiarism","Direct quotation"], a:2},
+  {t:"mc", id:"s5", q:"<p><em>13% → less than 15 percent; 46 percent → almost half</em>. Hangi teknik?</p>", o:["Synonyms","Change word form","Change attribution signals","Change numbers and percentages"], a:3},
+  {t:"mc", id:"s6", q:"<p>Treasure konuşmasının üç özetinden (A, B, C) hangisi en iyisi ve neden?</p>", o:["A: en kısa olduğu için","B: annesiyle ilgili detayı da verdiği için","C: kendi kelimeleri, açıklama ve reporting verb kullandığı için","Hepsi eşit"], a:2,
+   why:"A sadece liste. B gereksiz detay (annesinin yorumu) içeriyor. C ana fikirleri açıklıyor, <em>argues, elaborates on</em> kullanıyor."},
+  {t:"mc", id:"s7", q:"<p>Orijinal: <em>“Advocates of internet tracking believe that it may help marketers understand what people want.”</em> En iyi paraphrase:</p>", o:["Advocates of internet tracking think that it may help marketers understand what people want.","Supporters argue the case for internet tracking by saying that it may assist marketers in discovering customers' needs and wants.","Internet tracking definitely shows marketers everything people want.","Internet tracking is bad because marketers know too much."], a:1,
+   why:"A: tek kelime değişmiş, plagiarism. C: anlamı değiştirmiş (<em>may → definitely</em>). D: kendi yorumun."},
+  {t:"mc", id:"s8", q:"<p>Hangisi özet için uygun bir reporting verb?</p>", o:["says me","argues","is telling","told"], a:1,
+   why:"argue, claim, note, emphasise, point out, suggest, add · present simple ile."}
+ ]},
+ {id:"plag", tag:"plag", title:"Plagiarism ve APA", items:[
+  {t:"mc", id:"x1", q:"<p>Library metninin beş versiyonundan hangisi kabul edilebilir?</p>", o:["Version 2: aynen kopya + kaynak","Version 3: cümlelerin yeri değişmiş + kaynak","Version 4: iyi paraphrase, kaynak yok","Version 5: iyi paraphrase + kaynak"], a:3},
+  {t:"mc", id:"x2", q:"<p>Version 2 (kelimeler aynen + <em>(Yong, 2001: 294)</em>) neden plagiarism?</p>", o:["Kaynak yanlış biçimde","Aynen alınan kelimeler tırnak içinde değil","Çok kısa","Yıl eksik"], a:1},
+  {t:"mc", id:"x3", q:"<p>İki yazarlı kaynak, parantez içi atıf:</p>", o:["(Frogmouth and Spoonbill, 2020)","(Frogmouth & Spoonbill, 2020)","(Frogmouth et al., 2020)","(Frogmouth, Spoonbill 2020)"], a:1,
+   why:"Parantez içinde <strong>&amp;</strong>, cümle içinde <strong>and</strong>: <em>Frogmouth and Spoonbill (2020) noted...</em>"},
+  {t:"mc", id:"x4", q:"<p>Üç yazarlı bir kaynağın <strong>ilk</strong> atıfı:</p>", o:["(Smith, Brown, & Lee, 2022)","(Smith et al., 2022)","(Smith and others, 2022)","(Smith, 2022)"], a:1,
+   why:"APA 7: 3+ yazarda ilk atıftan itibaren <em>et al.</em> Kaynakçada ise tüm yazarlar yazılır."},
+  {t:"mc", id:"x5", q:"<p>Block quotation kaç kelimeden itibaren?</p>", o:["20","30","40","100"], a:2,
+   why:"40+ kelime: tırnak yok, 0.5 inç girinti, çift satır aralığı, nokta kaynaktan önce."},
+  {t:"mc", id:"x6", q:"<p>Sayfa numarası olmayan bir web sayfasından doğrudan alıntı:</p>", o:["(Johnson, 2023, p. 4)","(Johnson, 2023, para. 4)","(Johnson, 2023)","(Johnson, para 4, 2023)"], a:1},
+  {t:"mc", id:"x7", q:"<p><em>“J.S. Bach was the greatest composer of the Baroque period.”</em> Kaynak gerekir mi?</p>", o:["Hayır, common knowledge","Evet, çünkü bu bir görüş","Hayır, Bach ünlü","Sadece tırnak gerekir"], a:1,
+   why:"Common knowledge sadece fact'leri kapsar. <em>“Bach was a famous Baroque composer”</em> kaynak istemez; <em>“the greatest”</em> görüş, ister."},
+  {t:"mc", id:"x8", q:"<p>Hangi stil footnote kullanır?</p>", o:["APA","MLA","Chicago","Vancouver"], a:2,
+   why:"APA, MLA, Harvard: in-text · Chicago: footnotes · Vancouver: numeric."},
+  {t:"mc", id:"x9", q:"<p>Geçen dönem başka bir derse verdiğin ödevi tekrar teslim etmek:</p>", o:["Sorun değil, kendi işin","Plagiarism","Sadece kaynak göstermek gerekir","Paraphrase sayılır"], a:1},
+  {t:"mc", id:"x10", q:"<p><em>“Motivation may be more critical than intelligence in learning (Newble &amp; Cannon, 1989, p. 2).”</em></p>", o:["Kabul edilmez: tırnak yok","Kabul edilir: gerçek paraphrase ve kaynak var","Kabul edilmez: orijinale çok yakın","Kabul edilmez: sayfa olmamalı"], a:1}
+ ]}
+];
+
+const DENEME = [
+ {id:"A", title:"Part A: Note-taking", pts:10, items:[
+  {t:"open", id:"a1", tag:"note", pts:4, label:"1", rows:5, q:"<p>Rewrite each sentence as a short note. Use symbols and abbreviations.</p><p>a) Students who use their phones during lectures tend to remember less of the lecture content.<br>b) Because the library is closed on Sundays, students therefore study in cafés.<br>c) Online courses are different from face-to-face courses in terms of student motivation.<br>d) An important point: the number of international students has increased, for example in engineering departments.</p>",
+   model:"<p>a) <code>phone use in lectures → ↓ memory of content</code><br>b) <code>library closed Sun. ∴ sts study in cafés</code><br>c) <code>online courses ≠ face-to-face (motivation)</code><br>d) <code>* no. of int'l sts ↑, e.g. engineering depts</code></p><p>Senin sembollerin farklı olabilir; kısa olması ve ilişkiyi göstermesi yeter.</p>"},
+  {t:"open", id:"a2", tag:"note", pts:3, label:"2", rows:3, q:"<p>Name the three sections of a page in the Cornell note-taking method and say what goes in each.</p>",
+   model:"<p>Notes column (sağ, geniş): ders sırasındaki notlar. Cue column (sol): anahtar kelimeler ve sorular. Summary (alt): sayfanın kısa özeti.</p>"},
+  {t:"open", id:"a3", tag:"note", pts:3, label:"3", rows:4, q:"<p>A classmate says: “Good note-taking means writing as fast as possible so you don't miss anything.” Explain in 2-3 sentences why this is wrong.</p>",
+   model:"<p><em>Note-taking is a skill that develops progressively, and its aim is not to write faster but to identify what is worth writing down. A good note-taker listens actively, selects only the key ideas that are relevant to the purpose, and reviews the notes afterwards. Signpost expressions such as “the important thing here” help to decide what to write.</em></p>"}
+ ]},
+ {id:"B", title:"Part B: Subjective vs. objective language", pts:20, items:[
+  {t:"sel", id:"b4", tag:"obj", pts:6, label:"4", q:"<p>Label each statement O, F-NP or SSD. The figures are invented for this exercise.</p>", ch:OFNS, items:[
+    {s:"University students spend too much time on social media.", a:"O"},
+    {s:"Many students use social media during study time.", a:"F-NP"},
+    {s:"In a 2024 survey of 1,200 students at one university, 64 percent reported checking social media at least once every hour while studying.", a:"SSD"},
+    {s:"Social media is the worst distraction a student can have.", a:"O"},
+    {s:"Students' sleep patterns are affected by late-night phone use.", a:"F-NP"},
+    {s:"“Students who kept their phones in another room scored on average 11 points higher on the test,” the study's lead researcher reported.", a:"SSD"}],
+   why:"a ve d yargı (<em>too much, the worst</em>). b ve e genel gerçek, kanıt ister. c sayı ve tarih veriyor, f bir uzmandan alıntı."},
+  {t:"open", id:"b5", tag:"obj", pts:12, label:"5", rows:9, q:"<p>Rewrite each sentence in objective academic style. Use a different technique each time and name it.</p><p>a) I think that online exams are always unfair to students.<br>b) The researchers found out that sleep deprivation has a huge, terrible effect on memory.<br>c) We interviewed 40 teachers in March 2025.<br>d) Smith's (2020) amazing study proves that homework is useless.<br>e) Video games will make teenagers violent.<br>f) I believe the results are reliable, based on these data.</p>",
+   model:"<p>a) <em>Online exams may be unfair to some students.</em> (no personal pronoun + hedging)<br>b) <em>The researchers discovered that sleep deprivation has a significant effect on memory.</em> (phrasal verb, emotive language)<br>c) <em>Forty teachers were interviewed in March 2025.</em> (passive voice)<br>d) <em>Smith's (2020) study suggests that homework may have limited benefits.</em> (judgmental language, hedging)<br>e) <em>Video games may increase aggressive behaviour in some teenagers.</em> (hedging: modal, quantifier)<br>f) <em>These data indicate that the results are reliable.</em> (moving information around)</p>",
+   rub:"<p>Her madde 2 puan: 1 doğru yeniden yazım, 1 doğru teknik adı.</p>"},
+  {t:"open", id:"b6", tag:"obj", pts:2, label:"6", rows:2, q:"<p>Name two words or features that make this sentence subjective:</p><p><em>Obviously, ALL first-year students are completely lost in their incredibly difficult courses!!</em></p>",
+   model:"<p>Herhangi ikisi: <em>Obviously</em> (judgment), <em>ALL</em> (capitalisation, exaggeration), <em>completely, incredibly</em> (emotive), <em>!!</em> (exclamation marks).</p>"}
+ ]},
+ {id:"C", title:"Part C: Paragraph", pts:25, items:[
+  {t:"sel", id:"c7", tag:"para", pts:5, label:"7", q:"<p>Simple fact (F), too broad (B) or good topic sentence (TS)?</p>", ch:FBT, items:[
+    {s:"The cafeteria opens at 7:30 a.m.", a:"F"},
+    {s:"Technology has changed human history.", a:"B"},
+    {s:"Living with a roommate requires a great deal of patience.", a:"TS"},
+    {s:"Our professor gave us three assignments last week.", a:"F"},
+    {s:"Part-time jobs can help university students develop useful skills.", a:"TS"}]},
+  {t:"sel", id:"c8", tag:"para", pts:3, label:"8", q:"<p>Topic sentence (TS), support (S) or unrelated (U)?</p>", ch:TSU, items:[
+    {s:"Many students choose to study in the library.", a:"TS"},
+    {s:"The library has comfortable chairs and large tables.", a:"S"},
+    {s:"The library is quiet, so students can concentrate.", a:"S"},
+    {s:"The university was founded in 2004.", a:"U"}]},
+  {t:"mc", id:"c9", tag:"para", pts:3, label:"9", q:"<p>Which sentence breaks the unity of this paragraph?</p><p><em>Regular exercise brings several benefits for university students. Students who exercise regularly tend to sleep better, which helps them stay focused in class. Exercise is also a healthy way to reduce exam stress. Many universities in Europe were founded in the Middle Ages. In addition, team sports give students a chance to make new friends.</em></p>",
+   o:["Students who exercise regularly tend to sleep better...","Exercise is also a healthy way to reduce exam stress.","Many universities in Europe were founded in the Middle Ages.","In addition, team sports give students a chance to make new friends."], a:2,
+   why:"Bu cümle egzersizin öğrencilere faydasından bahsetmiyor; topic sentence'ı desteklemiyor."},
+  {t:"sel", id:"c10", tag:"para", pts:3, label:"10", q:"<p>Fill in the gaps. Use each signal once.</p><p><em>Studying abroad can be a valuable experience. (1) ___, students often improve their language skills (2) ___ they use a foreign language every day. (3) ___, they learn to live independently. Daily tasks (4) ___ cooking, paying bills and dealing with banks help them become more responsible. (5) ___, studying abroad is not easy for everyone. Some students feel homesick and, (6) ___, their grades may drop in the first semester.</em></p>",
+   ch:["however","for example","as a result","in addition","because","such as"], items:[
+    {s:"(1)", a:"for example"},{s:"(2)", a:"because"},{s:"(3)", a:"in addition"},{s:"(4)", a:"such as"},{s:"(5)", a:"however"},{s:"(6)", a:"as a result"}]},
+  {t:"open", id:"c11", tag:"para", pts:11, label:"11", rows:12, words:[120,150], timer:20, q:"<p>Write a paragraph of <strong>120-150 words</strong>: <strong>The challenges of the first year at university.</strong> Include a topic sentence (topic + controlling idea), at least three supporting points, transition signals and a concluding sentence. Use objective language.</p>",
+   model:"<p><em>The first year at university presents students with several challenges. First of all, many first-year students find it difficult to manage their time, as university courses require more independent study than high school. In addition, students who move to a new city often experience homesickness, which may affect their motivation and concentration. Financial responsibilities can also be demanding, since some students have to pay rent and bills for the first time. Furthermore, academic expectations are usually higher; for example, assignments must be written in a formal style and supported by reliable sources. As a result, a number of students receive lower grades in their first semester than they expected. Although these difficulties are common, they are generally temporary, and most students adapt once they develop effective study habits and support networks.</em></p>",
+   rub:"<p>Topic sentence 2 · destek ve completeness 3 · unity ve logical order 2 · coherence (transitions) 2 · objective dil ve doğruluk 2. Paragrafı sohbete yapıştırırsan puanlayıp düzeltirim.</p>"}
+ ]},
+ {id:"D", title:"Part D: Formal register and email writing", pts:15, items:[
+  {t:"open", id:"d12", tag:"reg", pts:5, label:"12", rows:6, q:"<p>Rewrite in formal register.</p><p>a) Thanks for your email.<br>b) Sorry I couldn't come to class.<br>c) Here's my essay.<br>d) Can you tell me when your office hours are?<br>e) Just let me know if you need anything else.</p>",
+   model:"<p>a) <em>Thank you for your email.</em><br>b) <em>I apologise for not being able to attend class.</em><br>c) <em>Please find attached my essay.</em><br>d) <em>Could you please let me know your office hours?</em> / <em>I would be grateful if you could inform me of your office hours.</em><br>e) <em>Please do not hesitate to contact me should you require any further information.</em></p>"},
+  {t:"sel", id:"d13", tag:"reg", pts:1, label:"13", q:"<p>Complete the sign-offs.</p>", ch:["faithfully","sincerely","truly"], items:[
+    {s:"Dear Sir/Madam → Yours ___", a:"faithfully"},{s:"Dear Ms Smith → Yours ___", a:"sincerely"}]},
+  {t:"open", id:"d14", tag:"reg", pts:9, label:"14", rows:12, words:[100,130], timer:15, q:"<p>Write an email to <strong>Professor Kovač</strong> (ELIT100, Section 3). You will miss next week's Tuesday and Thursday classes because you are travelling to a student conference in Vienna with the university's Engineering Club. Explain where, why, for how long, and how the trip relates to your studies. Ask how you can make up for the missed classes. <strong>100-130 words</strong>, include a subject line.</p>",
+   model:"<p><strong>Subject:</strong> Absence from classes on 24 and 26 November: ELIT100, Section 3</p><p>Dear Professor Kovač,</p><p>I am Kaan [Surname], a student in your ELIT100 course, Section 3.</p><p>I am writing to inform you that I will not be able to attend the classes on Tuesday and Thursday next week. I will be travelling to Vienna with the university's Engineering Club to attend a three-day international student conference on renewable energy. During the conference, I will take part in workshops and visit the Vienna University of Technology. This trip is closely related to my engineering programme, and I believe it will help me develop my academic communication skills.</p><p>I would be grateful if you could let me know how I can make up for the missed classes and whether there are any materials I should study.</p><p>Thank you for your understanding.</p><p>Kind regards,<br>Kaan [Surname]<br>Student ID: [number]</p>",
+   rub:"<p>Konu satırı ve selamlama 1 · kendini tanıtma 1 · net amaç ve talep 3 · formal register (kısaltma, argo yok) 2 · kibar kapanış 1 · doğruluk 1.</p>"}
+ ]},
+ {id:"E", title:"Part E: Summarising and paraphrasing", pts:15, items:[
+  {t:"open", id:"e15", tag:"sum", pts:6, label:"15", rows:7, q:"<p>Paraphrase each sentence. Change words and structure, keep the meaning, add the citation.</p><p>a) Researchers at the university discovered that students who take handwritten notes remember more information than students who type. (Patel, 2021)<br>b) Because rents in the city centre have risen sharply, many students now live in the suburbs. (Morris &amp; Lee, 2023)<br>c) About 25 percent of first-year students change their major before the end of their second year. (Huang et al., 2019)</p>",
+   model:"<p>a) <em>Handwriting notes, rather than typing them, appears to help students retain more information (Patel, 2021).</em><br>b) <em>A steep increase in city-centre rents has led many students to move to the suburbs (Morris &amp; Lee, 2023).</em><br>c) <em>Roughly one in four first-year students switch to a different major before their second year ends (Huang et al., 2019).</em></p><p>Teknikler: a) synonym + özne değişimi · b) neden-sonuç yer değiştirdi · c) yüzde biçimi (<em>25 percent → one in four</em>) + synonym.</p>"},
+  {t:"open", id:"e16", tag:"sum", pts:9, label:"16", rows:9, words:[80,100], timer:20, article:true, q:"<p>Read the article by Sara Chodosh (<em>Popular Science</em>, 2017) about sleeping in at the weekend. Write a summary of <strong>80-100 words</strong>: author's name with reporting verbs, present simple, your own words, no opinion.</p>",
+   model:"<p><em>In an article published in Popular Science in 2017, Sara Chodosh questions headlines claiming that sleeping late at weekends causes heart disease. She explains that the study behind these claims found only a correlation: each hour by which people shift their weekend sleep schedule is linked to an 11 percent higher risk. Chodosh argues that other factors, such as heavy drinking, smoking or a poor diet, may explain this link. She points out that the real reason to keep a regular wake-up time is that irregular sleep makes people more tired, and she emphasises that an 11 percent increase is relatively small.</em></p>",
+   rub:"<p>Ana fikirler 4 · kendi kelimelerin 2 · reporting verbs ve present simple 1 · gereksiz detay ve görüş yok 1 · uzunluk ve doğruluk 1.</p>"}
+ ]},
+ {id:"F", title:"Part F: Plagiarism and APA", pts:15, items:[
+  {t:"sel", id:"f17", tag:"plag", pts:5, label:"17", q:"<p>Is each case plagiarism?</p>", ch:YN, items:[
+    {s:"You copy two sentences from a website, put them in quotation marks, but do not name the source.", a:"Yes"},
+    {s:"You change a few words in a paragraph from a book, keep the same sentence structure, and add (Brown, 2018).", a:"Yes"},
+    {s:"You write “Water boils at 100 °C at sea level” without a citation.", a:"No"},
+    {s:"You submit the same essay you wrote for another course last semester.", a:"Yes"},
+    {s:"You rewrite an author's idea completely in your own words and add (Kaya, 2022).", a:"No"}],
+   why:"a) tırnak tek başına yetmez, kaynak şart. b) kısmi paraphrase. c) common knowledge. d) aynı işi iki kez teslim. e) doğru paraphrase + kaynak."},
+  {t:"mc", id:"f18a", tag:"plag", pts:1, label:"18a", q:"<p>Correct: <em>(Johnson and Smith, 2019)</em></p>", o:["(Johnson & Smith, 2019)","(Johnson, Smith, 2019)","Johnson and Smith (2019)","(Johnson et al., 2019)"], a:0, why:"Parantez içinde &amp;. C de doğru bir biçim ama parantezli atıfın düzeltmesi değil."},
+  {t:"mc", id:"f18b", tag:"plag", pts:1, label:"18b", q:"<p>Correct: <em>Brown &amp; Davis (2021) argue that...</em></p>", o:["Brown and Davis (2021) argue that...","Brown, Davis (2021) argue that...","(Brown & Davis) 2021 argue that...","Brown et al. (2021) argue that..."], a:0, why:"Cümle içinde (narrative) <strong>and</strong>."},
+  {t:"mc", id:"f18c", tag:"plag", pts:1, label:"18c", q:"<p>Correct the first citation of a three-author source: <em>(Martin, Clark, Lewis, 2020)</em></p>", o:["(Martin, Clark, & Lewis, 2020)","(Martin et al., 2020)","(Martin et al. 2020)","(Martin and others, 2020)"], a:1},
+  {t:"mc", id:"f18d", tag:"plag", pts:1, label:"18d", q:"<p>Direct quotation from page 12: <em>“Language shapes thought” (Wilson, 2018).</em></p>", o:["“Language shapes thought” (Wilson, 2018, p. 12).","“Language shapes thought” (Wilson, 2018, page 12).","“Language shapes thought” (Wilson, p. 12, 2018).","Language shapes thought (Wilson, 2018, p. 12)."], a:0},
+  {t:"mc", id:"f18e", tag:"plag", pts:1, label:"18e", q:"<p>Correct: <em>(Unicef 2023)</em></p>", o:["(Unicef, 2023)","(UNICEF, 2023)","(UNICEF 2023)","UNICEF, (2023)"], a:1},
+  {t:"open", id:"f19", tag:"plag", pts:5, label:"19", rows:6, q:"<p>a) What does <em>et al.</em> stand for and mean?<br>b) How many words does a quotation need to be a block quotation in APA 7?<br>c) Give two rules for formatting a block quotation.<br>d) A website has no publication date. How do you show this in an in-text citation?<br>e) Is “Mozart was the most talented composer who ever lived” common knowledge? Why?</p>",
+   model:"<p>a) <em>et alia</em>, “and others”; italik değil, <em>al.</em> noktalı.<br>b) 40 kelime ve üstü.<br>c) Tırnak yok; 0.5 inç (1.27 cm) girinti; çift satır aralığı; nokta alıntının sonunda, kaynaktan önce.<br>d) <em>(Johnson, n.d.)</em><br>e) Hayır: <em>the most talented</em> bir görüş, kaynak ister.</p>"}
+ ]}
+];
+
+/* ---------- durum ---------- */
+const KEY = "elit100-calis-v1";
+let S = {plan:{}, ans:{}, res:{}, txt:{}, tab:"plan", theme:null};
+let storageOK = true;
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); localStorage.setItem(KEY + "-probe", "1"); localStorage.removeItem(KEY + "-probe"); }
+catch (e) { storageOK = false; }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+const $ = (s, r = document) => r.querySelector(s);
+function el(tag, attrs = {}, html = ""){
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === "class") e.className = v; else if (v !== false && v != null) e.setAttribute(k, v); }
+  if (html) e.innerHTML = html;
+  return e;
+}
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove("on"), 2200); }
+
+/* ---------- soru çizimi ---------- */
+const ALLQ = {};
+function qShell(q, label){
+  const box = el("div", {class:"q", id:"q-" + q.id});
+  const head = el("header");
+  head.append(el("span", {class:"qid"}, label));
+  if (q.tag) head.append(el("span", {class:"chip"}, TAGS[q.tag]));
+  if (q.pts) head.append(el("span", {class:"small muted"}, q.pts + " puan"));
+  const st = el("span", {class:"st"}); head.append(st);
+  box.append(head, el("div", {class:"prompt"}, q.q));
+  box._st = st;
+  return box;
+}
+function status(q, box){
+  const r = S.res[q.id];
+  box._st.className = "st"; box._st.textContent = "";
+  if (r) { box._st.textContent = fmt(r.got) + "/" + fmt(r.max); box._st.classList.add(r.got >= r.max ? "ok" : r.got > 0 ? "mid" : "bad"); }
+  refreshScores();
+}
+function fmt(n){ return Number.isInteger(n) ? String(n) : n.toFixed(1); }
+function addReset(q, box, after){
+  const b = el("button", {type:"button", class:"btn link"}, "Sıfırla");
+  b.onclick = () => { delete S.ans[q.id]; delete S.res[q.id]; save(); after(); };
+  box.append(b);
+}
+function renderQ(q, label){
+  q.pts = q.pts || (q.t === "sel" ? q.items.length : 1);
+  ALLQ[q.id] = q;
+  const box = qShell(q, label);
+  if (q.t === "mc") renderMC(q, box); else if (q.t === "sel") renderSel(q, box); else renderOpen(q, box);
+  return box;
+}
+function renderMC(q, box){
+  const opts = el("div", {class:"opts"});
+  q.o.forEach((t, i) => {
+    const b = el("button", {type:"button", class:"opt"}, t);
+    b.onclick = () => { if (S.ans[q.id] !== undefined) return; S.ans[q.id] = i; S.res[q.id] = {got: i === q.a ? q.pts : 0, max: q.pts}; save(); paint(); };
+    opts.append(b);
+  });
+  const fb = el("div");
+  box.append(opts, fb);
+  function paint(){
+    const c = S.ans[q.id];
+    [...opts.children].forEach((b, i) => { b.disabled = c !== undefined; b.classList.toggle("right", c !== undefined && i === q.a); b.classList.toggle("wrong", c === i && i !== q.a); });
+    fb.innerHTML = c === undefined ? "" : `<p class="fb ${c === q.a ? "ok" : "bad"}">${c === q.a ? "Doğru." : "Yanlış. Doğrusu: " + q.o[q.a]}</p>` + (q.why ? `<div class="sol">${q.why}</div>` : "");
+    status(q, box);
+  }
+  paint(); addReset(q, box, paint);
+}
+function renderSel(q, box){
+  const list = el("ol", {class:"sel"});
+  const rows = q.items.map((it, i) => {
+    const li = el("li");
+    const s = el("select", {"aria-label": "Madde " + (i + 1) + " cevabı"});
+    s.append(el("option", {value:""}, "seç"));
+    q.ch.forEach(c => s.append(el("option", {value:c}, c)));
+    const mark = el("span", {class:"mark"});
+    li.append(el("span", {class:"stem"}, it.s), s, mark);
+    list.append(li);
+    return {s, mark, it};
+  });
+  const act = el("div", {class:"actions"});
+  const chk = el("button", {type:"button", class:"btn"}, "Kontrol et");
+  act.append(chk);
+  const fb = el("div");
+  box.append(list, act, fb);
+  chk.onclick = () => {
+    const v = rows.map(r => r.s.value);
+    if (v.some(x => !x)) { toast("Önce bütün maddeleri seç."); return; }
+    const right = v.filter((x, i) => x === q.items[i].a).length;
+    S.ans[q.id] = v; S.res[q.id] = {got: Math.round(right * q.pts / q.items.length * 10) / 10, max: q.pts};
+    save(); paint();
+  };
+  function paint(){
+    const v = S.ans[q.id];
+    rows.forEach((r, i) => {
+      r.s.disabled = !!v; r.mark.className = "mark"; r.mark.textContent = "";
+      if (v) { r.s.value = v[i]; const ok = v[i] === r.it.a; r.mark.textContent = ok ? "✓" : "✗ doğrusu: " + r.it.a; r.mark.classList.add(ok ? "ok" : "bad"); }
+    });
+    chk.hidden = !!v;
+    fb.innerHTML = v && q.why ? `<div class="sol">${q.why}</div>` : "";
+    status(q, box);
+  }
+  paint(); addReset(q, box, () => { rows.forEach(r => r.s.value = ""); paint(); });
+}
+function renderOpen(q, box){
+  if (q.article) {
+    const ab = el("button", {type:"button", class:"btn soft"}, "Makaleyi göster");
+    const art = el("div", {class:"article", hidden:""});
+    ab.onclick = async () => {
+      if (!art.hidden) { art.hidden = true; ab.textContent = "Makaleyi göster"; return; }
+      if (!art.dataset.loaded) {
+        try { const r = await fetch(ARTICLE); if (!r.ok) throw new Error(r.status); art.textContent = await r.text(); art.dataset.loaded = "1"; }
+        catch (e) { art.innerHTML = "Makale yüklenemedi. Dosyayı aç: <code>materyal/WEEK 5/articles for practice/SLEEPING IN ON WEEKEND-article for summary.docx</code>"; }
+      }
+      art.hidden = false; ab.textContent = "Makaleyi gizle";
+    };
+    box.append(el("div", {class:"actions"}), art); box.lastChild.previousSibling.append(ab);
+  }
+  const ta = el("textarea", {rows: q.rows || 6, "aria-label": "Cevabın", spellcheck:"true", lang:"en"});
+  ta.value = S.txt[q.id] || "";
+  const wc = el("span", {class:"wc"});
+  const upd = () => {
+    const n = (ta.value.trim().match(/\S+/g) || []).length;
+    wc.textContent = n + " kelime" + (q.words ? ` · hedef ${q.words[0]}-${q.words[1]}` : "");
+    wc.classList.toggle("off", !!q.words && n > 0 && (n < q.words[0] || n > q.words[1]));
+  };
+  ta.oninput = () => { S.txt[q.id] = ta.value; save(); upd(); };
+  upd();
+  const act = el("div", {class:"actions"});
+  const show = el("button", {type:"button", class:"btn ghost", "aria-expanded":"false"}, "Örnek cevabı göster");
+  act.append(show);
+  if (q.timer) { const tb = el("button", {type:"button", class:"btn soft"}, q.timer + " dk süre başlat"); tb.onclick = () => startTimer(q.timer); act.append(tb); }
+  act.append(wc);
+  const model = el("div", {class:"sol", hidden:""}, `<p class="lbl">Örnek cevap</p>${q.model}${q.rub ? `<p class="lbl">Puanlama</p>${q.rub}` : ""}`);
+  const self = el("div", {class:"self", hidden:""});
+  self.append(el("span", {class:"small"}, "Örnekle karşılaştır, kendini puanla:"));
+  const marks = [["Tam", 1, "ok"], ["Kısmen", .5, "soft"], ["Yok", 0, "bad"]].map(([l, f, c]) => {
+    const b = el("button", {type:"button", class:"btn " + c, "aria-pressed":"false"}, l);
+    b.onclick = () => { S.ans[q.id] = f; S.res[q.id] = {got: q.pts * f, max: q.pts}; save(); paint(); };
+    self.append(b); return [b, f];
+  });
+  self.append(el("span", {class:"small muted"}, "Emin değilsen metni sohbete yapıştır."));
+  show.onclick = () => { const open = model.hidden; model.hidden = !open; show.setAttribute("aria-expanded", String(open)); show.textContent = open ? "Örnek cevabı gizle" : "Örnek cevabı göster"; paint(); };
+  box.append(ta, act, model, self);
+  function paint(){
+    const f = S.ans[q.id];
+    self.hidden = model.hidden && f === undefined;
+    marks.forEach(([b, v]) => b.setAttribute("aria-pressed", String(f === v)));
+    status(q, box);
+  }
+  paint(); addReset(q, box, paint);
+}
+
+/* ---------- sekmeler ---------- */
+const TABS = [["plan","Plan"],["konular","Konular"],["alistirma","Alıştırma"],["deneme","Deneme"],["zayif","Zayıf konular"]];
+const panels = {};
+function buildTabs(){
+  const nav = $("#tabs");
+  TABS.forEach(([id, label]) => {
+    const b = el("button", {type:"button", role:"tab", id:"tab-" + id, "aria-controls":"panel-" + id}, label);
+    b.onclick = () => show(id);
+    nav.append(b);
+    const p = el("section", {role:"tabpanel", id:"panel-" + id, "aria-labelledby":"tab-" + id});
+    panels[id] = p; $("#main").append(p);
+  });
+}
+function show(id){
+  TABS.forEach(([t]) => { panels[t].hidden = t !== id; $("#tab-" + t).setAttribute("aria-selected", String(t === id)); });
+  S.tab = id; save();
+  if (id === "zayif") renderWeak();
+}
+function go(tab, anchor){
+  show(tab);
+  const t = document.getElementById(anchor);
+  if (t) { if (t.tagName === "DETAILS") t.open = true; t.scrollIntoView({behavior:"smooth", block:"start"}); }
+  else window.scrollTo({top:0});
+}
+
+/* ---------- Plan ---------- */
+function todayStr(){ const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function renderPlan(){
+  const p = panels.plan, sh = el("div", {class:"sheet plan"});
+  sh.append(el("h2", {}, "Gün gün plan"), el("p", {class:"muted small"}, "İşaretler bu tarayıcıda saklanır. Bugünün günü sarı. Her maddenin “aç” bağlantısı ilgili yere götürür."));
+  if (!storageOK) sh.append(el("div", {class:"warn"}, "Bu sayfa tarayıcı hafızasına yazamıyor; işaretlerin sayfayı kapatınca kaybolur. Sayfayı <code>http://127.0.0.1</code> adresinden aç."));
+  const today = todayStr();
+  PLAN.forEach(d => {
+    const day = el("div", {class:"day" + (d.date === today ? " today" : "")});
+    day.append(el("h3", {}, `${d.day} <small>${d.note}</small>`));
+    const ul = el("ul");
+    d.items.forEach(it => {
+      const li = el("li"), id = "plan-" + it.id;
+      const cb = el("input", {type:"checkbox", id});
+      cb.checked = !!S.plan[it.id];
+      li.classList.toggle("done", cb.checked);
+      cb.onchange = () => { S.plan[it.id] = cb.checked; li.classList.toggle("done", cb.checked); save(); refreshBar(); };
+      const lab = el("label", {for:id}, it.t);
+      li.append(cb, el("span", {class:"time"}, it.time || ""), lab);
+      if (it.go) { const a = el("button", {type:"button", class:"btn link"}, "aç"); a.onclick = () => go(...it.go); li.append(a); }
+      ul.append(li);
+    });
+    day.append(ul); sh.append(day);
+  });
+  const info = el("div", {class:"sheet"});
+  info.append(el("h2", {}, "Bilinmeyenler"));
+  info.append(el("div", {}, "<ul><li>Sınav formatı slaytlarda yok. Deneme, ders alıştırmalarının tiplerine göre kuruldu; gerçek sınav farklı olabilir.</li><li>ELIT100 Reader (Teams'teki PDF) klasörde yok. Gönderirsen alıştırmalarını eklerim.</li><li>Kapsam: Week 1 tanıtım slaytı. Note-taking, objective/subjective, paragraph, norms in academic communication, email writing, summarising/paraphrasing, plagiarism.</li></ul>"));
+  p.append(sh, info);
+}
+function refreshBar(){
+  const all = PLAN.flatMap(d => d.items), done = all.filter(i => S.plan[i.id]).length;
+  $("#barFill").style.width = (100 * done / all.length) + "%";
+  $("#barLbl").textContent = `Plan: ${done}/${all.length} madde`;
+}
+
+/* ---------- Konular ---------- */
+function renderTopics(){
+  const sh = el("div", {class:"sheet"});
+  sh.append(el("h2", {}, "Konu özetleri"), el("p", {class:"muted small"}, "Açıklamalar Türkçe, örnekler İngilizce. Kaynak: <code>ozet.md</code>. Her konunun sonunda o konudan alıştırmaya geçiş var."));
+  OZET.forEach((s, i) => {
+    const d = el("details", {class:"konu", id:"konu-" + (i + 1)});
+    d.append(el("summary", {}, s.title));
+    const body = el("div", {}, s.html);
+    const tag = OZET_TAG[i];
+    const b = el("button", {type:"button", class:"btn soft"}, "Bu konudan alıştırma: " + TAGS[tag]);
+    b.onclick = () => go("alistirma", "g-" + tag);
+    body.append(el("div", {class:"actions"})); body.lastChild.append(b);
+    d.append(body); sh.append(d);
+  });
+  panels.konular.append(sh);
+}
+
+/* ---------- Alıştırma ---------- */
+function renderPractice(){
+  const head = el("div", {class:"sheet"});
+  head.append(el("h2", {}, "Alıştırma"), el("p", {class:"muted small"}, "Çoktan seçmeliler ilk tıklamada puanlanır. Tekrar denemek için “Sıfırla”. Sonuçlar Zayıf konular sekmesinde toplanır."));
+  const jump = el("div", {class:"actions"});
+  PRACTICE.forEach(g => { const b = el("button", {type:"button", class:"btn ghost"}, g.tag ? TAGS[g.tag] : "Tanı"); b.onclick = () => go("alistirma", "g-" + (g.tag || g.id)); jump.append(b); });
+  head.append(jump);
+  panels.alistirma.append(head);
+  PRACTICE.forEach(g => {
+    const sh = el("div", {class:"sheet", id:"g-" + (g.tag || g.id)});
+    sh.style.scrollMarginTop = "150px";
+    sh.append(el("h2", {}, g.title));
+    if (g.intro) sh.append(el("p", {class:"muted small"}, g.intro));
+    g.items.forEach((q, i) => { if (!q.tag) q.tag = g.tag; sh.append(renderQ(q, String(i + 1))); });
+    panels.alistirma.append(sh);
+  });
+}
+
+/* ---------- Deneme ---------- */
+function renderExam(){
+  const head = el("div", {class:"sheet"});
+  head.append(el("h2", {}, "Deneme sınavı 1"));
+  head.append(el("p", {class:"small"}, "90 dakika, 100 puan. Sınavın gerçek formatı bilinmiyor; bu deneme ders alıştırmalarının tiplerinden kuruldu. Yazma sorularında önce yaz, sonra örnek cevabı aç ve kendini puanla."));
+  const act = el("div", {class:"actions partscore"});
+  const tb = el("button", {type:"button", class:"btn"}, "90 dk süre başlat"); tb.onclick = () => startTimer(90);
+  act.append(tb, el("span", {class:"score", id:"examScore"}));
+  head.append(act, el("div", {class:"small muted", id:"partScores"}));
+  panels.deneme.append(head);
+  DENEME.forEach(part => {
+    const sh = el("div", {class:"sheet", id:"part-" + part.id});
+    sh.style.scrollMarginTop = "150px";
+    sh.append(el("h2", {}, `${part.title} <span class="small muted">(${part.pts} puan)</span>`));
+    part.items.forEach(q => sh.append(renderQ(q, q.label)));
+    panels.deneme.append(sh);
+  });
+}
+
+/* ---------- Skorlar ve zayıf konular ---------- */
+function tagStats(){
+  const st = {}; Object.keys(TAGS).forEach(t => st[t] = {got:0, max:0, n:0, wrong:[]});
+  Object.values(ALLQ).forEach(q => { const r = S.res[q.id]; if (!r) return; const s = st[q.tag]; s.got += r.got; s.max += r.max; s.n++; if (r.got < r.max) s.wrong.push(q); });
+  return st;
+}
+function refreshScores(){
+  const sc = $("#examScore"); if (!sc) return;
+  let got = 0, max = 0; const parts = [];
+  DENEME.forEach(p => { let g = 0, m = 0; p.items.forEach(q => { const r = S.res[q.id]; if (r) { g += r.got; m += r.max; } }); got += g; max += m; parts.push(`${p.id}: ${fmt(g)}/${fmt(m)}`); });
+  sc.textContent = `Deneme: ${fmt(got)} / ${max} cevaplanan (toplam 100)`;
+  $("#partScores").textContent = parts.join(" · ");
+  if (READY && !panels.zayif.hidden) renderWeak();
+}
+let READY = false;
+function renderWeak(){
+  const p = panels.zayif; p.innerHTML = "";
+  const sh = el("div", {class:"sheet", id:"zayif-top"});
+  sh.append(el("h2", {}, "Zayıf konular"), el("p", {class:"muted small"}, "Alıştırma ve denemedeki cevaplanmış sorulardan hesaplanır. %60 altı ve en az 3 puanlık soru cevaplanmışsa zayıf sayılır."));
+  const st = tagStats();
+  const order = Object.keys(TAGS).sort((a, b) => pct(st[a]) - pct(st[b]));
+  let any = false;
+  order.forEach(t => {
+    const s = st[t], row = el("div", {class:"meterrow"});
+    const pc = pct(s), weak = s.max >= 3 && pc < 60;
+    row.append(el("span", {class: weak ? "weak" : ""}, TAGS[t] + (weak ? " · zayıf" : "")));
+    const m = el("div", {class:"meter", "aria-hidden":"true"});
+    if (s.max) { m.append(el("i", {class:"g", style:`width:${100 * s.got / s.max}%`}), el("i", {class:"r", style:`width:${100 * (s.max - s.got) / s.max}%`})); any = true; }
+    row.append(m, el("span", {class:"score small"}, s.max ? `${Math.round(pc)}% · ${fmt(s.got)}/${fmt(s.max)}` : "henüz yok"));
+    sh.append(row);
+  });
+  if (!any) sh.append(el("p", {class:"muted"}, "Henüz cevaplanmış soru yok. Tanı sorularıyla başla."));
+  p.append(sh);
+  const wr = el("div", {class:"sheet"});
+  wr.append(el("h2", {}, "Tekrar çözülecekler"));
+  const list = order.flatMap(t => st[t].wrong);
+  if (!list.length) wr.append(el("p", {class:"muted"}, "Yanlış ya da eksik puanlı soru yok."));
+  else {
+    const ul = el("ul");
+    list.forEach(q => {
+      const inExam = DENEME.some(pt => pt.items.includes(q));
+      const li = el("li"), r = S.res[q.id];
+      const txt = q.q.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+      li.append(el("span", {}, `<span class="chip">${TAGS[q.tag]}</span> ${inExam ? "Deneme " + q.label : "Alıştırma"} · ${fmt(r.got)}/${fmt(r.max)} · ${txt.slice(0, 90)}${txt.length > 90 ? "…" : ""} `));
+      const b = el("button", {type:"button", class:"btn link"}, "git"); b.onclick = () => go(inExam ? "deneme" : "alistirma", "q-" + q.id);
+      li.append(b); ul.append(li);
+    });
+    wr.append(ul);
+  }
+  const reset = el("button", {type:"button", class:"btn ghost"}, "Bütün cevapları sıfırla");
+  reset.onclick = () => { if (!confirm("Bütün cevaplar, puanlar ve yazdıkların silinsin mi? Plan işaretleri kalır.")) return; S.ans = {}; S.res = {}; S.txt = {}; save(); location.reload(); };
+  wr.append(el("div", {class:"actions"})); wr.lastChild.append(reset);
+  p.append(wr);
+}
+function pct(s){ return s.max ? 100 * s.got / s.max : 101; }
+
+/* ---------- zamanlayıcı ---------- */
+let T = null;
+function startTimer(min){
+  T = {end: Date.now() + min * 60000, left: null, total: min};
+  $("#timer").hidden = false; $("#tPause").textContent = "Duraklat"; tick(); toast(min + " dakika başladı.");
+}
+function tick(){
+  if (!T) return;
+  const ms = T.left != null ? T.left : T.end - Date.now();
+  const neg = ms < 0, a = Math.abs(ms), m = Math.floor(a / 60000), s = Math.floor(a % 60000 / 1000);
+  $("#clock").textContent = (neg ? "+" : "") + String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+  $("#timer").classList.toggle("over", neg);
+  if (neg && !T.warned) { T.warned = true; toast("Süre doldu."); }
+}
+setInterval(tick, 500);
+$("#tPause").onclick = () => { if (!T) return; if (T.left == null) { T.left = T.end - Date.now(); $("#tPause").textContent = "Devam"; } else { T.end = Date.now() + T.left; T.left = null; $("#tPause").textContent = "Duraklat"; } };
+$("#tStop").onclick = () => { T = null; $("#timer").hidden = true; };
+
+/* ---------- başlık ---------- */
+const EXAM = new Date(2026, 10, 17, 17, 45);
+function countdown(){
+  const ms = EXAM - new Date(), c = $("#count");
+  if (ms <= 0) { c.textContent = "Sınav: 17 Kas Sal 17:45"; return; }
+  const d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5);
+  c.innerHTML = `Sınav 17 Kas Sal 17:45 · <b>${d} gün ${h} saat</b>`;
+}
+function applyTheme(){ if (S.theme) document.documentElement.setAttribute("data-theme", S.theme); else document.documentElement.removeAttribute("data-theme"); }
+$("#themeBtn").onclick = () => {
+  const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  S.theme = dark ? "light" : "dark"; save(); applyTheme();
+};
+
+/* ---------- başlat ---------- */
+applyTheme();
+buildTabs(); renderPlan(); renderTopics(); renderPractice(); renderExam();
+refreshBar(); countdown(); setInterval(countdown, 60000);
+READY = true;
+show(TABS.some(([t]) => t === S.tab) ? S.tab : "plan");
+refreshScores();
+</script>
+</body>
+</html>

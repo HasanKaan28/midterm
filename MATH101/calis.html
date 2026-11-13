@@ -1,0 +1,1441 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MATH101 Etkileşimli Çalışma Alanı · Calculus I Midterm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --paper:#f4f6fb; --paper-2:#ffffff; --paper-3:#eef2fa; --grid:rgba(35,70,168,.055);
+  --ink:#111827; --ink-2:#4b5563; --ink-3:#6b7280;
+  --blue:#1d4ed8; --blue-soft:#dbeafe; --blue-border:#93c5fd;
+  --red:#dc2626; --red-soft:#fee2e2;
+  --green:#15803d; --green-soft:#dcfce7;
+  --amber:#b45309; --amber-soft:#fef3c7;
+  --purple:#6d28d9; --purple-soft:#ede9fe;
+  --line:#d5dce8; --shadow:0 1px 2px rgba(15,23,42,.05),0 10px 26px -12px rgba(29,78,216,.14);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0b0f19; --paper-2:#131a2a; --paper-3:#1c2539; --grid:rgba(96,165,250,.05);
+  --ink:#f1f5f9; --ink-2:#94a3b8; --ink-3:#64748b;
+  --blue:#60a5fa; --blue-soft:#1e293b; --blue-border:#2563eb;
+  --red:#f87171; --red-soft:#3b181c;
+  --green:#4ade80; --green-soft:#143022;
+  --amber:#fbbf24; --amber-soft:#362812;
+  --purple:#c084fc; --purple-soft:#2b1c44;
+  --line:#263147; --shadow:0 10px 30px -12px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --paper:#0b0f19; --paper-2:#131a2a; --paper-3:#1c2539; --grid:rgba(96,165,250,.05);
+  --ink:#f1f5f9; --ink-2:#94a3b8; --ink-3:#64748b;
+  --blue:#60a5fa; --blue-soft:#1e293b; --blue-border:#2563eb;
+  --red:#f87171; --red-soft:#3b181c;
+  --green:#4ade80; --green-soft:#143022;
+  --amber:#fbbf24; --amber-soft:#362812;
+  --purple:#c084fc; --purple-soft:#2b1c44;
+  --line:#263147; --shadow:0 10px 30px -12px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:15.5px/1.58 "IBM Plex Sans",system-ui,sans-serif;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--blue);outline-offset:2px;border-radius:6px}
+
+/* Sticky Top Command HUD */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1120px;margin:0 auto;padding:10px 18px 0}
+.brand{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand h1{font:800 1.38rem/1.1 "Outfit",system-ui,sans-serif;margin:0;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.brand h1 span.badge-course{background:var(--blue);color:#fff;font-size:.75rem;padding:3px 8px;border-radius:6px;letter-spacing:.04em;text-transform:uppercase}
+.brand h1 span.sub{color:var(--red);font-weight:700}
+.hud-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.count{font:500 .82rem "IBM Plex Mono",monospace;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--line);padding:4px 10px;border-radius:7px}
+.count b{color:var(--ink)}
+.pomo-pill{display:flex;align-items:center;gap:6px;background:var(--paper-2);border:1px solid var(--line);padding:3px 9px;border-radius:7px;font:600 .8rem "IBM Plex Mono",monospace}
+.pomo-pill button{border:none;background:var(--blue-soft);color:var(--blue);border-radius:4px;padding:2px 6px;font-size:.74rem;font-weight:600}
+.search-trigger{border:1px solid var(--line);background:var(--paper-2);color:var(--ink-2);border-radius:7px;padding:4px 10px;font-size:.8rem;display:flex;align-items:center;gap:6px}
+.search-trigger kbd{font:500 .72rem "IBM Plex Mono",monospace;background:var(--paper-3);padding:1px 5px;border-radius:4px;border:1px solid var(--line)}
+.theme{border:1px solid var(--line);background:var(--paper-2);color:var(--ink-2);border-radius:7px;padding:4px 10px;font-size:.8rem;font-weight:500}
+
+.bar-wrap{display:flex;align-items:center;gap:12px;margin-top:8px}
+.bar{flex:1;height:7px;background:var(--line);border-radius:99px;overflow:hidden;display:flex}
+.bar i.g{display:block;height:100%;background:var(--green);width:0;transition:width .35s}
+.bar i.r{display:block;height:100%;background:var(--red);width:0;transition:width .35s}
+.barlbl{font:500 .76rem "IBM Plex Mono",monospace;color:var(--ink-2);white-space:nowrap}
+
+nav{display:flex;gap:4px;overflow-x:auto;padding:8px 0 0;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{border:1px solid transparent;border-bottom:none;background:none;color:var(--ink-2);padding:8px 13px;border-radius:9px 9px 0 0;white-space:nowrap;font-weight:600;font-size:.9rem;transition:all .15s}
+nav button:hover{color:var(--ink);background:color-mix(in srgb,var(--paper-2) 50%,transparent)}
+nav button[aria-selected="true"]{background:var(--paper-2);color:var(--blue);border-color:var(--line);box-shadow:0 1px 0 var(--paper-2)}
+
+main{max-width:1120px;margin:0 auto;padding:20px 18px 90px}
+.sheet{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:22px 24px 22px 34px;position:relative;margin-bottom:18px}
+.sheet::before{content:"";position:absolute;left:18px;top:0;bottom:0;width:2.5px;background:var(--blue);opacity:.3}
+h2{font:700 1.38rem/1.22 "Outfit",system-ui,sans-serif;margin:0 0 6px;letter-spacing:-.01em}
+h3{font:700 1.1rem/1.3 "Outfit",system-ui,sans-serif;margin:18px 0 8px}
+.muted{color:var(--ink-2)}
+.small{font-size:.86rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{font-size:.77rem;padding:3px 9px;border-radius:999px;background:var(--blue-soft);color:var(--blue);font-weight:600}
+.chip.purple{background:var(--purple-soft);color:var(--purple)}
+.chip.amber{background:var(--amber-soft);color:var(--amber)}
+.chip.green{background:var(--green-soft);color:var(--green)}
+.chip.red{background:var(--red-soft);color:var(--red)}
+
+/* Filter bar for Zbirka & Question sets */
+.filter-bar{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;padding:10px;background:var(--paper-3);border-radius:10px;border:1px solid var(--line)}
+.filter-btn{border:1px solid var(--line);background:var(--paper-2);color:var(--ink-2);padding:5px 11px;border-radius:7px;font-size:.82rem;font-weight:600;transition:all .15s}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* Question Card */
+.q{border-top:1px dashed var(--line);padding:18px 0 14px}
+.q:first-of-type{border-top:none}
+.q header{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.qid{font:600 .8rem "IBM Plex Mono",monospace;background:var(--ink);color:var(--paper-2);padding:2px 8px;border-radius:5px}
+.qsrc{font:500 .75rem "IBM Plex Mono",monospace;color:var(--ink-2);background:var(--paper-3);padding:2px 7px;border-radius:5px;border:1px solid var(--line)}
+.st{margin-left:auto;font-size:.78rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.st.ok{background:var(--green-soft);color:var(--green)}
+.st.bad{background:var(--red-soft);color:var(--red)}
+.prompt{font-size:1.05rem;overflow-x:auto;overflow-y:hidden;padding:4px 0 8px}
+.prompt .katex-display,.sol .katex-display{overflow:visible;margin:.25em 0}
+
+/* Input Fields */
+.fields{display:grid;gap:8px;margin-top:8px}
+.field{display:grid;grid-template-columns:minmax(130px,200px) minmax(0,1fr);gap:4px 10px;align-items:center}
+.field label{font-size:.88rem;color:var(--ink-2);font-weight:500}
+.field .inwrap{display:flex;gap:8px;align-items:center;min-width:0}
+input[type=text],input[type=number],select,textarea{font:500 .95rem "IBM Plex Mono",monospace;padding:7px 10px;border:1.5px solid var(--line);border-radius:7px;background:var(--paper);color:var(--ink);min-width:0}
+input[type=text]:focus,textarea:focus,select:focus{border-color:var(--blue);outline:none}
+.field input[type=text]{width:100%;max-width:350px}
+.field input.val{max-width:180px}
+.mk{font-weight:700;min-width:1.2em}
+.mk.ok{color:var(--green)} .mk.bad{color:var(--red)}
+.pv{grid-column:2;font-size:.92rem;color:var(--ink-2);overflow-x:auto;overflow-y:hidden;padding:2px 0 4px}
+.pv:empty,.ferr:empty{display:none}
+.ferr{grid-column:2;font-size:.82rem;color:var(--red)}
+.syntax{font-size:.82rem;color:var(--ink-2);background:var(--paper-3);padding:8px 12px;border-radius:8px;border:1px solid var(--line)}
+
+/* Buttons */
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.btn{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper-2);padding:6px 13px;border-radius:7px;font-weight:600;font-size:.88rem;transition:all .15s}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.soft{background:var(--blue-soft);color:var(--blue);border-color:transparent}
+.btn.purple{background:var(--purple-soft);color:var(--purple);border-color:transparent}
+.btn.ok{background:var(--green);border-color:var(--green);color:#fff}
+.btn.bad{background:var(--red);border-color:var(--red);color:#fff}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.fb{font-weight:600;font-size:.9rem}
+.fb.ok{color:var(--green)} .fb.bad{color:var(--red)}
+
+/* Solution, Hint, Scratchpad */
+.sol,.hint,.scratch-box{margin-top:10px;padding:13px 15px;border-radius:9px;overflow-x:auto}
+.sol{background:var(--blue-soft);border-left:3.5px solid var(--blue)}
+.hint{background:var(--amber-soft);border-left:3.5px solid var(--amber)}
+.scratch-box{background:var(--paper-3);border:1px solid var(--line)}
+.sol p,.hint p{margin:.35em 0}
+.ans{font-weight:700;color:var(--blue)}
+.self{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center;padding-top:8px;border-top:1px dashed var(--line)}
+.scratch-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.scratch-Area{width:100%;height:130px;resize:vertical;font-size:.86rem}
+.scratch-canvas-wrap{border:1px solid var(--line);border-radius:7px;background:var(--paper-2);position:relative;height:130px;overflow:hidden}
+.scratch-canvas{width:100%;height:100%;cursor:crosshair;touch-action:none;display:block}
+@media (max-width:680px){.scratch-grid{grid-template-columns:1fr}.field{grid-template-columns:1fr}.pv,.ferr{grid-column:1}}
+
+/* Visual Calculus Lab (Atölye) */
+.lab-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(290px,1fr);gap:16px;margin-top:12px}
+@media (max-width:860px){.lab-grid{grid-template-columns:1fr}}
+.canvas-card{background:var(--paper-3);border:1px solid var(--line);border-radius:10px;padding:12px}
+#calcCanvas{width:100%;height:380px;background:var(--paper-2);border:1px solid var(--line);border-radius:8px;display:block;cursor:crosshair}
+.lab-controls{display:flex;flex-direction:column;gap:10px}
+.ctrl-box{background:var(--paper-3);border:1px solid var(--line);border-radius:9px;padding:11px 13px}
+.ctrl-box label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-2);margin-bottom:4px}
+.num-table{width:100%;font:500 .78rem "IBM Plex Mono",monospace;border-collapse:collapse}
+.num-table th,.num-table td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right}
+.num-table th:first-child,.num-table td:first-child{text-align:left}
+
+/* Step-by-Step Definition of Derivative Trainer */
+.step-card{border:1px solid var(--line);background:var(--paper-3);border-radius:9px;padding:12px 14px;margin-bottom:9px}
+.step-head{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:.92rem}
+.step-body{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+
+/* Flashcards */
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-top:12px}
+.fc-card{background:var(--paper-3);border:1.5px solid var(--line);border-radius:10px;padding:15px;min-height:155px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:transform .15s,border-color .15s}
+.fc-card:hover{transform:translateY(-2px);border-color:var(--blue)}
+.fc-card.flipped{background:var(--blue-soft);border-color:var(--blue)}
+.fc-card.mastered{opacity:.65;border-color:var(--green)}
+.fc-top{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-2);font-family:"IBM Plex Mono",monospace}
+.fc-main{margin:12px 0;font-size:.98rem;font-weight:500}
+.fc-foot{display:flex;justify-content:space-between;align-items:center;font-size:.76rem;color:var(--ink-2)}
+
+/* Tables, Plan, Details */
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--ink-2);font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+.tblwrap{overflow-x:auto}
+.plan li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:9px 6px;border-bottom:1px dashed var(--line)}
+.plan ul{padding:0;margin:0}
+.plan input{margin-top:4px;width:18px;height:18px;accent-color:var(--blue)}
+.plan .time{font:600 .82rem "IBM Plex Mono",monospace;color:var(--ink-2);min-width:100px}
+.plan li.done .what{text-decoration:line-through;color:var(--ink-2)}
+.timer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 14px;border:1.5px solid var(--blue);border-radius:9px;margin:10px 0;background:var(--paper-3)}
+.timer .clock{font:600 1.55rem "IBM Plex Mono",monospace;min-width:92px;color:var(--blue)}
+.timer.over .clock{color:var(--red)}
+details{border-top:1px dashed var(--line);padding:11px 0}
+summary{cursor:pointer;font:700 1.04rem "Outfit",system-ui,sans-serif}
+details[open] summary{margin-bottom:8px;color:var(--blue)}
+.meter{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line);min-width:120px}
+.meter .g{background:var(--green)} .meter .r{background:var(--red)}
+.weak{color:var(--red);font-weight:700}
+
+/* Quick Search Modal (Ctrl+K) */
+.modal-backdrop{position:fixed;inset:0;background:rgba(10,15,28,.65);backdrop-filter:blur(4px);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:70px 16px 20px}
+.modal-backdrop[hidden]{display:none}
+.modal-box{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;width:100%;max-width:620px;box-shadow:var(--shadow);overflow:hidden}
+.modal-box input{width:100%;border:none;border-bottom:1px solid var(--line);padding:14px 16px;font-size:1rem;border-radius:0;background:var(--paper-2)}
+.modal-results{max-height:380px;overflow-y:auto;padding:8px}
+.modal-item{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:8px;cursor:pointer;gap:10px}
+.modal-item:hover{background:var(--blue-soft)}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--paper-2);padding:10px 18px;border-radius:8px;font-size:.9rem;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <h1><span class="badge-course">IUS · FENS</span> MATH101 <span class="sub">Midterm Stüdyosu</span></h1>
+      <div class="hud-right">
+        <span class="count" id="count">Sınav: 14 Kas Cmt 12:30</span>
+        <div class="pomo-pill" title="Pomodoro Çalışma Sayacı">
+          <span>🍅</span><span id="pomoClock">25:00</span>
+          <button type="button" id="pomoToggle">Başlat</button>
+          <button type="button" id="pomoReset">↺</button>
+        </div>
+        <button class="search-trigger" id="searchBtn" type="button"><span>⌕ Soru / Konu Ara</span><kbd>Ctrl+K</kbd></button>
+        <button class="theme" id="themeBtn" type="button">Tema</button>
+      </div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar" aria-hidden="true"><i class="g" id="barOk"></i><i class="r" id="barBad"></i></div>
+      <div class="barlbl" id="barLbl"></div>
+    </div>
+    <nav role="tablist" aria-label="Bölümler" id="tabs"></nav>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<!-- Ctrl+K Search Modal -->
+<div class="modal-backdrop" id="searchModal" hidden>
+  <div class="modal-box" role="dialog" aria-label="Hızlı Soru ve Konu Arama">
+    <input type="text" id="searchModalInput" placeholder="Soru kodu (R1, Z1_6, D5a), konu (eşlenik, asimptot, teğet) veya formül yaz..." autocomplete="off">
+    <div class="modal-results" id="searchModalResults"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ---------- TAGS & CATEGORIES ---------- */
+const TAGS = {
+  cebir:{l:"0/0 Limitleri & Sandwich", blok:"Blok 1", sec:"Thomas 2.2 · Zbirka 1.1"},
+  tek:{l:"Tek Taraflı & |x| Limitleri", blok:"Blok 2", sec:"Thomas 2.4 · Zbirka 1.3"},
+  trig:{l:"Trigonometrik Limitler", blok:"Blok 2", sec:"Thomas 2.4 · Zbirka 1.4"},
+  sonsuz:{l:"Sonsuzluk & Asimptotlar", blok:"Blok 3", sec:"Thomas 2.6 · Zbirka 1.5"},
+  surek:{l:"Süreklilik & IVT", blok:"Blok 4", sec:"Thomas 2.5 · Zbirka 1.6"},
+  tanim:{l:"Tanımdan Türev & Teğet", blok:"Blok 5", sec:"Thomas 3.1–3.2 · Zbirka 2.1"},
+  kural:{l:"Türev Kuralları", blok:"Blok 6", sec:"Thomas 3.3 · Zbirka 2.2"}
+};
+const R = String.raw;
+function q(id,tag,p,a,s,h,src,preset){return {id,tag,p,a,s,h,src,preset}}
+
+/* ---------- QUESTION SETS (137 Interactive Problems) ---------- */
+const SETS = {
+tani:{title:"Tanılama Testi (Hızlı Seviye Tespit)", intro:"15 dakika, kapalı defter. Sayısal ve cebirsel cevapları doğrudan kutuya yazıp 'Kontrol et'e bas. Eksik olduğun blokları hemen tespit eder.", qs:[
+ q("T1","cebir",R`$\displaystyle\lim_{x\to 3}\frac{x^2-9}{x-3}$`,"6",R`<p>$x^2-9=(x-3)(x+3)$, sadeleşir: $x+3\to 6$.</p>`,"Çarpanlara ayır: a² - b² = (a-b)(a+b)","Tanılama"),
+ q("T2","trig",R`$\displaystyle\lim_{x\to 0}\frac{\sin 4x}{3x}$`,"4/3",R`<p>$\dfrac{\sin 4x}{4x}\cdot\dfrac{4x}{3x}\to 1\cdot\dfrac43=\dfrac43$</p>`,"sin(ax)/(bx) → a/b","Tanılama"),
+ q("T3","tek",R`$\displaystyle\lim_{x\to 2^-}\frac{|x-2|}{x-2}$`,"-1",R`<p>$x<2$ iken $|x-2|=-(x-2)$, oran $-1$.</p>`,"x < 2 için mutlak değerin içi negatiftir.","Tanılama"),
+ q("T4","sonsuz",R`$\displaystyle\lim_{x\to \infty}\frac{2x^2-1}{5x^2+x}$`,"2/5",R`<p>Dereceler eşit: baş katsayılar oranı $\dfrac25$.</p>`,"Pay ve paydanın en yüksek dereceli terimlerine bak.","Tanılama"),
+ q("T5","sonsuz",R`$\displaystyle\lim_{x\to 1^+}\frac{1}{1-x}$`,"-inf",R`<p>$x>1$ iken $1-x\to 0^-$. Pay 1. Sonuç $-\infty$.</p>`,"Sayı / 0⁻ biçimi.","Tanılama"),
+ q("T6","surek",R`$f(x)=x+a\ (x\le 2),\quad f(x)=x^2\ (x>2)$. $f$ her yerde sürekli olsun. $a=?$`,"2",R`<p>$x=2$'de sol $=2+a$, sağ $=4$. $2+a=4\Rightarrow a=2$.</p>`,"x = 2 geçiş noktasında sol limit = sağ limit.","Tanılama"),
+ q("T7","tanim",R`$f(x)=x^2$ için türevin limit tanımını yaz ve $f'(x)$'i hesapla.`,null,R`<p>$f'(x)=\displaystyle\lim_{h\to0}\frac{(x+h)^2-x^2}{h}=\lim_{h\to0}\frac{2xh+h^2}{h}=\lim_{h\to0}(2x+h)=2x$</p>`,"lim(h→0) [(x+h)² - x²]/h","Tanılama"),
+ q("T8","kural",R`$y=\dfrac{x}{x+1}$ için $\dfrac{dy}{dx}$`,null,R`<p>Bölüm kuralı: $\dfrac{1\cdot(x+1)-x\cdot 1}{(x+1)^2}=\dfrac{1}{(x+1)^2}$</p>`,"(u'v - uv') / v²","Tanılama")
+]},
+
+review:{title:"Hocanın Review Kağıdı (MIDTERM REVIEW 101.docx)", intro:"materyal/onedrive/MIDTERM REVIEW 101.docx içindeki tüm sorular. Sınavın birebir şablonudur; buradaki her soruyu gözün kapalı çözebilmelisin.", qs:[
+ q("R1","trig",R`$\displaystyle\lim_{x\to0}\frac{\sin 5x}{\tan 10x}$`,"1/2",R`<p>$\dfrac{\sin5x}{5x}\cdot\dfrac{10x}{\tan10x}\cdot\dfrac{5x}{10x}\to 1\cdot1\cdot\dfrac12=\dfrac12$</p>`,"Her sin ve tan'ın altına kendi açısını koy.","Review #1"),
+ q("R2","trig",R`$\displaystyle\lim_{x\to0}\frac{1-\cos x}{x^2}$`,"1/2",R`<p>$(1+\cos x)$ ile çarp ve böl: $\dfrac{\sin^2x}{x^2(1+\cos x)}=\Big(\dfrac{\sin x}{x}\Big)^2\dfrac{1}{1+\cos x}\to\dfrac12$</p>`,"1 − cos x gördüğünde (1 + cos x) ile genişlet.","Review #2"),
+ q("R3","cebir",R`$\displaystyle\lim_{x\to0}\frac{\sqrt{1+2x}-\sqrt{1-x}}{3x}$`,"1/2",R`<p>Eşlenik: pay $\cdot(\sqrt{1+2x}+\sqrt{1-x})=(1+2x)-(1-x)=3x$.</p><p>$\dfrac{3x}{3x(\sqrt{1+2x}+\sqrt{1-x})}=\dfrac{1}{\sqrt{1+2x}+\sqrt{1-x}}\to\dfrac12$</p>`,"İki kök farkı: eşlenikle çarp.","Review #3"),
+ q("R4a","tek",R`$\displaystyle\lim_{x\to2^+}\frac{|x-2|}{x^2-4}$`,"1/4",R`<p>$x>2$: $|x-2|=x-2$. $\dfrac{x-2}{(x-2)(x+2)}=\dfrac1{x+2}\to\dfrac14$</p>`,"x > 2 olduğu için |x-2| = +(x-2) diye çıkar.","Review #4a","r4"),
+ q("R4b","tek",R`$\displaystyle\lim_{x\to2}\frac{|x-2|}{x^2-4}$ &nbsp;<span class="muted small">(yoksa <code>dne</code> yaz)</span>`,"dne",R`<p>Sağdan $\tfrac14$. Soldan $|x-2|=-(x-2)$, sonuç $-\tfrac14$. Sol ≠ sağ: <b>DNE</b>.</p>`,"İki tarafı ayrı hesapla.","Review #4b","r4"),
+ q("R5","sonsuz",R`$\displaystyle\lim_{x\to0^+}\Big(\frac1{x^2}-\frac2x\Big)$ &nbsp;<span class="muted small">(<code>inf</code> / <code>-inf</code>)</span>`,"inf",R`<p>Payda eşitle: $\dfrac{1-2x}{x^2}$. Pay $\to1$, payda $\to0^+$. Sonuç $+\infty$.</p>`,"∞ − ∞: önce tek kesir yap.","Review #5"),
+ q("R6","cebir",R`$\displaystyle\lim_{x\to3}\frac{\frac1{x+2}-\frac15}{x^2-5x+6}$`,"-1/25",R`<p>$\dfrac1{x+2}-\dfrac15=\dfrac{3-x}{5(x+2)}$, payda $(x-2)(x-3)$.</p><p>$\dfrac{-(x-3)}{5(x+2)(x-2)(x-3)}=\dfrac{-1}{5(x+2)(x-2)}\to\dfrac{-1}{25}$</p>`,"Payı tek kesir yap, paydayı çarpanlarına ayır. 3 − x = −(x − 3).","Review #6"),
+ q("R7","sonsuz",R`$\displaystyle\lim_{x\to-\infty}\frac{x^3+6}{(1-x)^2}$`,"-inf",R`<p>Pay derecesi 3, payda 2. $x^2$'ye böl: $\dfrac{x+6/x^2}{1-2/x+1/x^2}$. Pay $\to-\infty$, payda $\to1$. Sonuç $-\infty$.</p>`,"(1-x)² = x² - 2x + 1. Payın derecesi daha büyük.","Review #7"),
+ q("R8","surek",R`$f(x)=\begin{cases}-x & x<-1\\ 1 & -1\le x\le1\\ 4 & 1<x<2\\ 3-x & x\ge2\end{cases}$ &nbsp; Süreksizlikleri bul ve açıkla.`,null,R`<p>Geçiş noktaları: $-1,1,2$.</p><p>$x=-1$: sol $1$, sağ $1$, $f(-1)=1$. Sürekli.</p><p>$x=1$: sol $1$, sağ $4$. Limit yok, <b>süreksiz (jump)</b>.</p><p>$x=2$: sol $4$, sağ $1$. Limit yok, <b>süreksiz (jump)</b>.</p><p class="small">Sınavda her nokta için sol limit, sağ limit ve $f(a)$'yı ayrı yaz.</p>`,"Sadece kırılma noktaları x = -1, 1, 2'yi incele.","Review #8","r8"),
+ q("R9","surek",R`$f(x)=2-x\ (x\le1),\quad ax^2-3\ (x>1)$. Her $x$ için sürekli olsun. $a=?$`,"4",R`<p>$x=1$: sol $=f(1)=1$, sağ $=a-3$. $a-3=1\Rightarrow a=4$.</p>`,"x = 1'de sol limit = sağ limit.","Review #9"),
+ q("R10","tanim",R`Tanımdan $f'(x)$: $f(x)=2x^2-x$. $x=-1$'de teğet doğrusu.`,null,R`<p>$f(x+h)-f(x)=4xh+2h^2-h$</p><p>$f'(x)=\displaystyle\lim_{h\to0}(4x+2h-1)=4x-1$</p><p>$f(-1)=3,\ f'(-1)=-5$: $y-3=-5(x+1)\Rightarrow$ <span class="ans">$y=-5x-2$</span></p>`,"f(x+h) = 2(x+h)² - (x+h) aç ve sadeleştir.","Review #10","r10"),
+ q("R11","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac1{3x-1}$. $x=1$'de teğet doğrusu.`,null,R`<p>$\dfrac1{3x+3h-1}-\dfrac1{3x-1}=\dfrac{-3h}{(3x+3h-1)(3x-1)}$</p><p>$f'(x)=\displaystyle\lim_{h\to0}\frac{-3}{(3x+3h-1)(3x-1)}=\frac{-3}{(3x-1)^2}$</p><p>$f(1)=\tfrac12,\ f'(1)=-\tfrac34$: <span class="ans">$y=-\tfrac34x+\tfrac54$</span></p>`,"Ortak payda, sonra h sadeleşir.","Review #11","r11"),
+ q("R12","tanim",R`Tanımdan $f'(x)$: $f(x)=\sqrt{1-x}$. $x=0$'da teğet doğrusu.`,null,R`<p>Eşlenik: $\dfrac{(1-x-h)-(1-x)}{h(\sqrt{1-x-h}+\sqrt{1-x})}=\dfrac{-1}{\sqrt{1-x-h}+\sqrt{1-x}}$</p><p>$f'(x)=\dfrac{-1}{2\sqrt{1-x}}$</p><p>$f(0)=1,\ f'(0)=-\tfrac12$: <span class="ans">$y=-\tfrac x2+1$</span></p>`,"Kökte eşlenik: √(1-x-h) + √(1-x) ile çarp.","Review #12","r12"),
+ q("R13","kural",R`$y=2x^2-\dfrac5{x^2}+3\sqrt x$ &nbsp; $\dfrac{dy}{dx}=?$`,null,R`<p>$y=2x^2-5x^{-2}+3x^{1/2}$</p><p>$y'=4x+10x^{-3}+\tfrac32x^{-1/2}=$ <span class="ans">$4x+\dfrac{10}{x^3}+\dfrac{3}{2\sqrt x}$</span></p>`,"Önce kuvvet biçimine çevir. −5x⁻² türevinde işaret +.","Review #13"),
+ q("R14","kural",R`$y=\dfrac{2x^3-x}{3x-1}$ &nbsp; $\dfrac{dy}{dx}=?$`,null,R`<p>$\dfrac{(6x^2-1)(3x-1)-3(2x^3-x)}{(3x-1)^2}=$ <span class="ans">$\dfrac{12x^3-6x^2+1}{(3x-1)^2}$</span></p>`,"Bölüm kuralı: (u'v - uv') / v².","Review #14")
+]},
+
+zbirka:{title:"Kitap Soru Bankası (Leila Miller · Calculus Problem Book)", intro:"materyal/_text/zbirka.txt içindeki vize kapsamına giren tüm blokların (1.1, 1.3, 1.4, 1.5, 1.6, 2.1, 2.2) seçilmiş 75 kemik sorusu ve adım adım çözümleri. Kitapta çözümü olmayan soruların da tam çözümü eklendi.", qs:[
+ // BLOK 1: 1.1 Limits, Basic Properties (12 questions)
+ q("Z1_2","cebir",R`$\displaystyle\lim_{x\to 2}\frac{x-2}{x^2+7x+10}$`,"0",R`<p>Yerine koy: pay $2-2=0$, payda $4+14+10=28\ne 0$. Belirsizlik yok! $\dfrac{0}{28}=0$.</p>`,"Tuzak soru: Payda sıfır olmuyor, doğrudan yerine koy!","Zbirka 1.1 #2"),
+ q("Z1_3","cebir",R`$\displaystyle\lim_{x\to 2}\frac{x-2}{x^2-7x+10}$`,"-1/3",R`<p>$0/0$ belirsizliği. Payda: $x^2-7x+10=(x-2)(x-5)$.</p><p>$\displaystyle\lim_{x\to 2}\frac{x-2}{(x-2)(x-5)}=\lim_{x\to 2}\frac{1}{x-5}=\frac{1}{2-5}=-\frac13$.</p>`,"x² - 7x + 10 = (x-2)(x-5)","Zbirka 1.1 #3"),
+ q("Z1_4","cebir",R`$\displaystyle\lim_{x\to 0}\frac{x-2x^2}{x^2-5x}$`,"-1/5",R`<p>$x$ ortak parantezine al: $\displaystyle\lim_{x\to 0}\frac{x(1-2x)}{x(x-5)}=\lim_{x\to 0}\frac{1-2x}{x-5}=-\frac15$.</p>`,"Pay ve paydayı x parantezine al.","Zbirka 1.1 #4"),
+ q("Z1_5","cebir",R`$\displaystyle\lim_{x\to 2}\frac{\frac{1}{x+2}-\frac{1}{4}}{x^2-7x+10}$`,"1/48",R`<p>Pay: $\dfrac{4-(x+2)}{4(x+2)}=\dfrac{2-x}{4(x+2)}=\dfrac{-(x-2)}{4(x+2)}$. Payda: $(x-2)(x-5)$.</p><p>Sadeleştir: $\dfrac{-1}{4(x+2)(x-5)}\to \dfrac{-1}{4\cdot 4\cdot(-3)}=\dfrac{1}{48}$.</p>`,"Payda eşitle; (2-x)/(x-2) = -1.","Zbirka 1.1 #5"),
+ q("Z1_6","cebir",R`$\displaystyle\lim_{x\to 4}\frac{\frac{1}{x}-\frac{1}{4}}{x^2-16}$`,"-1/128",R`<p>$\dfrac{4-x}{4x(x-4)(x+4)}=\dfrac{-1}{4x(x+4)}\to \dfrac{-1}{4(4)(8)}=-\dfrac{1}{128}$.</p>`,"1/x - 1/4 = (4-x)/(4x).","Zbirka 1.1 #6"),
+ q("Z1_7","cebir",R`$\displaystyle\lim_{x\to 3}\frac{9x-x^3}{x^2-5x+6}$`,"-18",R`<p>Pay: $x(9-x^2)=x(3-x)(3+x)$. Payda: $(x-2)(x-3)$.</p><p>$\dfrac{-x(x+3)}{x-2}\to \dfrac{-3(6)}{3-2}=-18$.</p>`,"9x - x³ = x(3-x)(3+x).","Zbirka 1.1 #7"),
+ q("Z1_8","cebir",R`$\displaystyle\lim_{x\to 1}\frac{1-x^2}{\frac{1}{x+1}-\frac{1}{2}}$`,"8",R`<p>Payda: $\dfrac{2-(x+1)}{2(x+1)}=\dfrac{1-x}{2(x+1)}$. Pay: $(1-x)(1+x)$.</p><p>Ters çevirip çarp: $2(1+x)^2 \to 2(2)^2 = 8$.</p>`,"Alt kesri tek paydada toplayıp ters çevir.","Zbirka 1.1 #8"),
+ q("Z1_9","cebir",R`$\displaystyle\lim_{x\to 1}\frac{\sqrt{x+3}-2}{1-x}$`,"-1/4",R`<p>Eşlenik $(\sqrt{x+3}+2)$ ile çarp: $\dfrac{(x+3)-4}{(1-x)(\sqrt{x+3}+2)}=\dfrac{x-1}{(1-x)(\sqrt{x+3}+2)}=\dfrac{-1}{\sqrt{x+3}+2}\to -\dfrac14$.</p>`,"(x-1)/(1-x) = -1 işaretine dikkat!","Zbirka 1.1 #9"),
+ q("Z1_10","cebir",R`$\displaystyle\lim_{x\to 0}\frac{\sqrt{4+x}-\sqrt{4-x}}{3x}$`,"1/6",R`<p>Eşlenikle çarp: $\dfrac{(4+x)-(4-x)}{3x(\sqrt{4+x}+\sqrt{4-x})}=\dfrac{2x}{3x(\sqrt{4+x}+\sqrt{4-x})}\to \dfrac{2}{3(2+2)}=\dfrac16$.</p>`,"Pay eşleniği: √(4+x) + √(4-x).","Zbirka 1.1 #10"),
+ q("Z1_12","cebir",R`$\displaystyle\lim_{x\to 1}\frac{1-\sqrt{x}}{2x^2-2}$`,"-1/8",R`<p>$2x^2-2=2(x-1)(x+1)=-2(1-\sqrt{x})(1+\sqrt{x})(x+1)$.</p><p>Sadeleştir: $\dfrac{-1}{2(1+\sqrt{x})(x+1)}\to \dfrac{-1}{2(2)(2)}=-\dfrac18$.</p>`,"x - 1 = (√x - 1)(√x + 1).","Zbirka 1.1 #12"),
+ q("Z1_15","cebir",R`$\displaystyle\lim_{x\to 2}\frac{\sqrt{x-1}-1}{\sqrt{x+2}-2}$`,"2",R`<p>Hem payın hem paydanın eşleniğiyle çarp:</p><p>$\dfrac{(x-2)(\sqrt{x+2}+2)}{(x-2)(\sqrt{x-1}+1)}=\dfrac{\sqrt{x+2}+2}{\sqrt{x-1}+1}\to \dfrac{2+2}{1+1}=2$.</p>`,"İki kökü de kendi eşleniğiyle çarp.","Zbirka 1.1 #15"),
+ q("Z1_17","cebir",R`$\displaystyle\lim_{x\to 0}x^2\sin\Big(\frac{1}{x}\Big)$`,"0",R`<p>$-1\le\sin(1/x)\le 1 \implies -x^2\le x^2\sin(1/x)\le x^2$. $\lim_{x\to 0}(\pm x^2)=0$ olduğundan <b>Sandwich (Squeeze) Teoremi</b> ile limit $0$'dır.</p>`,"sin(1/x) her zaman -1 ile 1 arasındadır.","Zbirka 1.1 #17","squeeze"),
+
+ // BLOK 2: 1.3 One-Sided Limits & 1.4 Trig Limits (15 questions)
+ q("Z3_1","tek",R`$f(x)=\begin{cases}2-x & x\le 1\\ x^2-3 & x>1\end{cases}$ için $\lim_{x\to 1^+}f(x),\ \lim_{x\to 1^-}f(x),\ \lim_{x\to 1}f(x)$`,null,R`<p>Sağdan ($x>1$): $1^2-3=-2$. Soldan ($x\le 1$): $2-1=1$. Sol $\ne$ sağ olduğu için iki taraflı limit <b>DNE</b>.</p>`,"x>1 için alt satırı, x<1 için üst satırı kullan.","Zbirka 1.3 #1"),
+ q("Z3_2","tek",R`$f(x)=\begin{cases}2 & x\le 0\\ x^2+1 & 0<x<1\\ 3 & x=1\\ 5-x & x>1\end{cases}$ için $\lim_{x\to 0^+}f(x)$ ve $\lim_{x\to 1^+}f(x)$`,null,R`<p>$x\to 0^+$ için $0^2+1=1$ (soldan $2$, limit DNE). $x\to 1^+$ için $5-1=4$ (soldan $1^2+1=2$, limit DNE).</p>`,"0⁺ için ortadaki, 1⁺ için en alttaki parçayı kullan.","Zbirka 1.3 #2"),
+ q("Z3_5","tek",R`$f(x)=\begin{cases}ax+b & x<0\\ 2-x & 0\le x\le 1\\ ax^2-3 & x>1\end{cases}$ fonksiyonunun $x=0$ ve $x=1$'de limiti var olsun. $a,b=?$`,null,R`<p>$x=0$'da sol $=b$, sağ $=2 \implies b=2$.</p><p>$x=1$'de sol $=2-1=1$, sağ $=a(1)^2-3=a-3 \implies a=4$.</p>`,"Her iki kırılma noktasında sol limit = sağ limit.","Zbirka 1.3 #5"),
+ q("Z3_6","tek",R`$\displaystyle\lim_{x\to 2^+}\frac{|x-2|}{x-2}$`,"1",R`<p>$x>2 \implies |x-2|=x-2 \implies \dfrac{x-2}{x-2}=1$.</p>`,"x > 2 iken |x-2| pozitif çıkar.","Zbirka 1.3 #6"),
+ q("Z3_10","tek",R`$\displaystyle\lim_{x\to 4^+}\frac{|x-4|}{4-x}$`,"-1",R`<p>$x>4 \implies |x-4|=x-4$. Oran: $\dfrac{x-4}{4-x}=-1$.</p>`,"(x-4)/(4-x) = -1.","Zbirka 1.3 #10"),
+ q("Z3_12","tek",R`$\displaystyle\lim_{x\to (1/2)^+}\frac{|2x-1|}{1-2x}$`,"-1",R`<p>$x>1/2 \implies 2x-1>0 \implies |2x-1|=2x-1$. Oran: $\dfrac{2x-1}{1-2x}=-1$.</p>`,"2x - 1 > 0 olduğundan mutlak değer aynen çıkar.","Zbirka 1.3 #12"),
+ q("Z3_14","tek",R`$\displaystyle\lim_{x\to 2^-}\frac{|x-2|}{x^2-4}$`,"-1/4",R`<p>$x<2 \implies |x-2|=-(x-2)$. $\dfrac{-(x-2)}{(x-2)(x+2)}=\dfrac{-1}{x+2}\to -\dfrac14$.</p>`,"x < 2 için |x-2| = -(x-2).","Zbirka 1.3 #14","r4"),
+ q("Z3_16","tek",R`$\displaystyle\lim_{x\to -2^-}\frac{|x^2-4|}{3x+6}$`,"-4/3",R`<p>$x<-2$ (ör. $x=-2.1$) iken $x^2-4>0 \implies |x^2-4|=x^2-4=(x-2)(x+2)$.</p><p>$\dfrac{(x-2)(x+2)}{3(x+2)}=\dfrac{x-2}{3}\to -\dfrac43$. (Not: $x\to -2^+$'da $+\tfrac43$ olduğu için iki taraflı limit DNE'dir.)</p>`,"x < -2 iken x² > 4 olur, yani x²-4 pozitiftir!","Zbirka 1.3 #16"),
+ q("Z4_5","trig",R`$\displaystyle\lim_{x\to 0}\frac{\sin 4x}{x}$`,"4",R`<p>$4\cdot\dfrac{\sin 4x}{4x}\to 4\cdot 1 = 4$.</p>`,"Pay ve paydayı 4 ile çarp.","Zbirka 1.4 #5"),
+ q("Z4_7","trig",R`$\displaystyle\lim_{x\to 0}\frac{\tan 4x}{2x}$`,"2",R`<p>$\dfrac{\tan 4x}{4x}\cdot\dfrac{4x}{2x}\to 1\cdot 2 = 2$.</p>`,"tan(ax)/(bx) → a/b.","Zbirka 1.4 #7"),
+ q("Z4_8","trig",R`$\displaystyle\lim_{x\to \pi}\frac{\sin 2x}{x}$`,"0",R`<p>Tuzak! $x\to \pi$ iken pay $\sin(2\pi)=0$, payda $\pi\ne 0$. $0/0$ değil! Cevap $\dfrac{0}{\pi}=0$.</p>`,"x → 0 değil, x → π! Önce yerine koy.","Zbirka 1.4 #8"),
+ q("Z4_9","trig",R`$\displaystyle\lim_{x\to 0}\frac{\sin^2 3x}{3x^2}$`,"3",R`<p>$\Big(\dfrac{\sin 3x}{3x}\Big)^2\cdot\dfrac{9x^2}{3x^2}\to 1^2\cdot 3 = 3$.</p>`,"sin²(3x) = (sin 3x)²; altına (3x)² = 9x² lazım.","Zbirka 1.4 #9"),
+ q("Z4_10","trig",R`$\displaystyle\lim_{x\to 0}x^2\cot^2 3x$`,"1/9",R`<p>$x^2\dfrac{\cos^2 3x}{\sin^2 3x}=\cos^2 3x\cdot\Big(\dfrac{3x}{\sin 3x}\Big)^2\cdot\dfrac{1}{9}\to 1\cdot 1^2\cdot\dfrac19=\dfrac19$.</p>`,"cot(3x) = cos(3x)/sin(3x) olarak yaz.","Zbirka 1.4 #10"),
+ q("Z4_13","trig",R`$\displaystyle\lim_{x\to 0}\frac{\sin 4x}{\sin 16x}$`,"1/4",R`<p>$\dfrac{\sin 4x}{4x}\cdot\dfrac{16x}{\sin 16x}\cdot\dfrac{4x}{16x}\to \dfrac14$.</p>`,"sin(ax)/sin(bx) → a/b.","Zbirka 1.4 #13"),
+ q("Z4_16","trig",R`$\displaystyle\lim_{x\to 0}\frac{1-\cos 2x}{x^2}$`,"2",R`<p>$(1+\cos 2x)$ ile çarp: $\dfrac{\sin^2 2x}{x^2(1+\cos 2x)}=\Big(\dfrac{\sin 2x}{2x}\Big)^2\cdot\dfrac{4}{1+\cos 2x}\to 1\cdot\dfrac{4}{2}=2$.</p>`,"1 - cos(2x) = 2sin²(x) veya (1+cos 2x) eşleniği.","Zbirka 1.4 #16"),
+
+ // BLOK 3: 1.5 Limits Involving Infinity & Asymptotes (15 questions)
+ q("Z5_2","sonsuz",R`$\displaystyle\lim_{x\to -2^+}\frac{x-1}{x+2}$`,"-inf",R`<p>Pay $\to -3$ (negatif), payda $\to 0^+$ (pozitif). $\dfrac{-3}{0^+}=-\infty$.</p>`,"x > -2 iken x+2 > 0 (0⁺).","Zbirka 1.5 #2"),
+ q("Z5_5","sonsuz",R`$\displaystyle\lim_{x\to 3^+}\frac{2x}{x-3}$`,"inf",R`<p>Pay $\to 6>0$, payda $\to 0^+$. Sonuç $+\infty$.</p>`,"Sayı / 0⁺ = +∞.","Zbirka 1.5 #5"),
+ q("Z5_8","sonsuz",R`$\displaystyle\lim_{x\to 1^+}\frac{1-2x}{x^2-1}$`,"-inf",R`<p>Pay $\to 1-2=-1<0$. $x>1$ iken $x^2-1\to 0^+$. Sonuç $-\infty$.</p>`,"Pay negatif (-1), payda 0⁺.","Zbirka 1.5 #8"),
+ q("Z5_11","sonsuz",R`$\displaystyle\lim_{x\to 1^+}\frac{1-x}{x^2-1}$`,"-1/2",R`<p>Tuzak! $0/0$ çıkıyor, önce sadeleştir: $\dfrac{-(x-1)}{(x-1)(x+1)}=\dfrac{-1}{x+1}\to -\dfrac12$.</p>`,"Ezbere ±∞ yazma; önce 0/0 mı diye kontrol et!","Zbirka 1.5 #11"),
+ q("Z5_18","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{x+1}{2x-1}$`,"1/2",R`<p>$x$'e böl: $\dfrac{1+1/x}{2-1/x}\to \dfrac12$.</p>`,"Pay ve paydanın derecesi eşit (1).","Zbirka 1.5 #18"),
+ q("Z5_20","sonsuz",R`$\displaystyle\lim_{x\to \infty}\frac{x^2-2}{x^2+1}$`,"1",R`<p>$x^2$'ye böl: $\dfrac{1-2/x^2}{1+1/x^2}\to 1$.</p>`,"Baş katsayılar oranı 1/1.","Zbirka 1.5 #20"),
+ q("Z5_22","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{x^3-2}{x^2+1}$`,"-inf",R`<p>$x^2$'ye böl: $\dfrac{x-2/x^2}{1+1/x^2}\to \dfrac{-\infty}{1}=-\infty$.</p>`,"Payın derecesi (3) > paydanın derecesi (2).","Zbirka 1.5 #22"),
+ q("Z5_24","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{2x^4+3}{1-x^4}$`,"-2",R`<p>$x^4$'e böl: $\dfrac{2+3/x^4}{1/x^4-1}\to \dfrac{2}{-1}=-2$.</p>`,"Paydada -x⁴ teriminin katsayısı -1'dir.","Zbirka 1.5 #24"),
+ q("Z5_25","sonsuz",R`$\displaystyle\lim_{x\to \infty}\frac{\sqrt{x^2+1}}{2x}$`,"1/2",R`<p>$x>0$ iken $\sqrt{x^2}=x$. $\dfrac{x\sqrt{1+1/x^2}}{2x}\to \dfrac12$.</p>`,"x → +∞ için √(x²) = +x.","Zbirka 1.5 #25"),
+ q("Z5_26","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{\sqrt{x^2+1}}{2x}$`,"-1/2",R`<p>$x<0$ iken $\sqrt{x^2}=|x|=-x$. $\dfrac{-x\sqrt{1+1/x^2}}{2x}\to -\dfrac12$.</p>`,"x → -∞ için √(x²) = |x| = -x!","Zbirka 1.5 #26","asym"),
+ q("Z5_28","sonsuz",R`$\displaystyle\lim_{x\to \infty}\big(\sqrt{x+3}-\sqrt{x-3}\big)$`,"0",R`<p>Eşlenikle çarp: $\dfrac{(x+3)-(x-3)}{\sqrt{x+3}+\sqrt{x-3}}=\dfrac{6}{\sqrt{x+3}+\sqrt{x-3}}\to \dfrac{6}{\infty}=0$.</p>`,"Eşlenikle çarpınca pay 6 (sabit), payda → ∞ olur.","Zbirka 1.5 #28"),
+ q("Z5_31","sonsuz",R`$\displaystyle\lim_{x\to \infty}\big(\sqrt{x^2+x+1}-x\big)$`,"1/2",R`<p>Eşlenik: $\dfrac{x+1}{\sqrt{x^2+x+1}+x}=\dfrac{1+1/x}{\sqrt{1+1/x+1/x^2}+1}\to \dfrac{1}{1+1}=\dfrac12$.</p>`,"√(x²+x+1) + x ile çarpıp böl.","Zbirka 1.5 #31"),
+ q("Z5_32","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\big(\sqrt{x^2+1}-x\big)$`,"inf",R`<p>Tuzak! $x\to -\infty$ iken $-x\to +\infty$ ve $\sqrt{x^2+1}\to +\infty$. Yani $\infty+\infty=+\infty$ (belirsizlik yok!).</p>`,"x negatifken -x pozitiftir; ∞ - ∞ değil, ∞ + ∞!","Zbirka 1.5 #32"),
+ q("Z5_34","sonsuz",R`$y=\dfrac{x+1}{2x-1}$ düşey ve yatay asimptotları`,null,R`<p>Payda $2x-1=0 \implies$ Düşey asimptot: $x=\dfrac12$. $\lim_{x\to\pm\infty}y=\dfrac12 \implies$ Yatay asimptot: $y=\dfrac12$.</p>`,"Paydayı sıfır yapan x düşey, sonsuzdaki limit yatay.","Zbirka 1.5 #34"),
+ q("Z5_36","sonsuz",R`$y=\dfrac{2x^2}{x^2-1}$ düşey ve yatay asimptotları`,null,R`<p>Düşey: $x^2-1=0 \implies x=-1,\ x=1$. Yatay: $\lim_{x\to\pm\infty}y=2 \implies y=2$.</p>`,"x² - 1 = (x-1)(x+1) = 0.","Zbirka 1.5 #36"),
+
+ // BLOK 4: 1.6 Continuity (9 questions)
+ q("Z6_2","surek",R`$f(x)=\dfrac{x-1}{x+2}$ hangi $x$ değerinde süreksizdir?`,"-2",R`<p>Rasyonel fonksiyon yalnızca paydayı sıfır yapan $x=-2$ noktasında tanımsız ve süreksizdir (infinite discontinuity).</p>`,"Paydayı sıfır yapan x değeri.","Zbirka 1.6 #2"),
+ q("Z6_3","surek",R`$f(x)=\dfrac{x}{x^2-1}$ süreksiz olduğu $x$ değerleri`,null,R`<p>$x^2-1=0 \implies x=-1$ ve $x=1$.</p>`,"x² - 1 = 0 kökleri.","Zbirka 1.6 #3"),
+ q("Z6_4","surek",R`$f(x)=\dfrac{x-1}{x^2-1}$ süreksiz olduğu $x$'ler ve removable olan`,null,R`<p>$x=-1$ ve $x=1$'de tanımsız (süreksiz). $\dfrac{x-1}{(x-1)(x+1)}=\dfrac{1}{x+1}$ olduğundan $x=1$'de limit $\tfrac12$ vardır (<b>removable</b>), $x=-1$'de limit $\pm\infty$ (<b>infinite</b>).</p>`,"Sadeleşen çarpan (x=1) removable süreksizliktir.","Zbirka 1.6 #4"),
+ q("Z6_7","surek",R`$f(x)=\begin{cases}2-x & x\le 1\\ x^2-3 & x>1\end{cases}$ süreksiz olduğu $x$ noktası`,"1",R`<p>$x=1$'de sol limit $=1$, sağ limit $=-2$. Sol $\ne$ sağ olduğu için $x=1$'de <b>jump discontinuity</b> vardır.</p>`,"Geçiş noktası x = 1.","Zbirka 1.6 #7"),
+ q("Z6_8","surek",R`$f(x)=\begin{cases}2 & x\le 0\\ x^2+1 & 0<x<1\\ 3 & x=1\\ 5-x & x>1\end{cases}$ süreksiz olduğu $x$ noktaları`,null,R`<p>$x=0$: sol $2 \ne$ sağ $1$ (jump). $x=1$: sol $2 \ne$ sağ $4$ (jump). İki noktada da süreksiz: $0, 1$.</p>`,"x = 0 ve x = 1 geçiş noktalarını kontrol et.","Zbirka 1.6 #8"),
+ q("Z6_9","surek",R`$f(x)=\begin{cases}2 & x\le -2\\ x^2-3 & -2<x<2\\ 7 & x=2\\ 3-x & x>2\end{cases}$ süreksiz olduğu $x$'ler ve removable olan`,null,R`<p>$x=-2$: sol $2$, sağ $(-2)^2-3=1$ (jump).</p><p>$x=2$: sol $2^2-3=1$, sağ $3-2=1$ (limit $1$), fakat $f(2)=7\ne 1$ olduğu için $x=2$ <b>removable discontinuity</b>'dir!</p>`,"Limit var ama f(a)'ya eşit değilse removable olur.","Zbirka 1.6 #9"),
+ q("Z6_10","surek",R`$f(x)=\begin{cases}-x & x\le -1\\ x^2 & -1<x<1\\ 0 & x=1\\ 2x+3 & x>1\end{cases}$ süreksiz olduğu $x$ noktası`,"1",R`<p>$x=-1$'de sol $=1$, sağ $=(-1)^2=1$, $f(-1)=1$ (<b>sürekli!</b>). Sadece $x=1$'de sol $=1$, sağ $=5$ olduğundan süreksizdir.</p>`,"x = -1'de sürekli olduğuna dikkat et!","Zbirka 1.6 #10"),
+ q("Z6_12","surek",R`$f(x)=\begin{cases}ax+b & x<0\\ 2-x & 0\le x\le 1\\ ax^2-3 & x>1\end{cases}$ her yerde sürekli olsun. $a,b=?$`,null,R`<p>$x=0 \implies b=2$. $x=1 \implies 2-1=a-3 \implies a=4$.</p>`,"Önce x=0'dan b'yi, sonra x=1'den a'yı bul.","Zbirka 1.6 #12"),
+ q("Z6_13","surek",R`$f(x)=\begin{cases}ax+b & x<-1\\ x+2 & -1\le x\le 1\\ ax^2+b & x>1\end{cases}$ her yerde sürekli olsun. $a,b=?$`,null,R`<p>$x=-1$: $-a+b=-1+2=1$.</p><p>$x=1$: $1+2=a+b \implies a+b=3$.</p><p>Taraf tarafa topla: $2b=4 \implies b=2,\ a=1$.</p>`,"İki denklem: -a + b = 1 ve a + b = 3.","Zbirka 1.6 #13"),
+
+ // BLOK 5: 2.1 Definition of Derivative & Tangent Line (12 questions)
+ q("Z21_2","tanim",R`Tanımdan $f'(x)$: $f(x)=x^2-x$`,null,R`<p>$f(x+h)-f(x)=(x+h)^2-(x+h)-(x^2-x)=2xh+h^2-h$.</p><p>$f'(x)=\displaystyle\lim_{h\to 0}(2x+h-1)=2x-1$.</p>`,"[f(x+h) - f(x)] / h","Zbirka 2.1 #2"),
+ q("Z21_3","tanim",R`Tanımdan $f'(x)$: $f(x)=2x^2+x$`,null,R`<p>$f(x+h)-f(x)=4xh+2h^2+h \implies f'(x)=\displaystyle\lim_{h\to 0}(4x+2h+1)=4x+1$.</p>`,"2(x+h)² + (x+h) - (2x²+x)","Zbirka 2.1 #3"),
+ q("Z21_5","tanim",R`Tanımdan $f'(x)$: $f(x)=x^3+1$`,null,R`<p>$(x+h)^3+1-(x^3+1)=3x^2h+3xh^2+h^3$.</p><p>$f'(x)=\displaystyle\lim_{h\to 0}(3x^2+3xh+h^2)=3x^2$.</p>`,"(x+h)³ = x³ + 3x²h + 3xh² + h³","Zbirka 2.1 #5"),
+ q("Z21_7","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac{1}{x}$`,null,R`<p>$\dfrac{1}{x+h}-\dfrac{1}{x}=\dfrac{-h}{x(x+h)} \implies f'(x)=\displaystyle\lim_{h\to 0}\frac{-1}{x(x+h)}=-\frac{1}{x^2}$.</p>`,"Payda eşitle: x - (x+h) = -h.","Zbirka 2.1 #7"),
+ q("Z21_9","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac{1}{1-x}$`,null,R`<p>$\dfrac{1}{1-x-h}-\dfrac{1}{1-x}=\dfrac{(1-x)-(1-x-h)}{(1-x-h)(1-x)}=\dfrac{+h}{(1-x-h)(1-x)}$.</p><p>$f'(x)=\dfrac{1}{(1-x)^2}$.</p>`,"İşarete dikkat: (1-x) - (1-x-h) = +h.","Zbirka 2.1 #9"),
+ q("Z21_10","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac{1}{2x+1}$`,null,R`<p>$\dfrac{1}{2x+2h+1}-\dfrac{1}{2x+1}=\dfrac{-2h}{(2x+2h+1)(2x+1)} \implies f'(x)=\dfrac{-2}{(2x+1)^2}$.</p>`,"Pay: (2x+1) - (2x+2h+1) = -2h.","Zbirka 2.1 #10"),
+ q("Z21_12","tanim",R`Tanımdan $f'(x)$: $f(x)=\sqrt{x+2}$`,null,R`<p>Eşlenik: $\dfrac{(x+h+2)-(x+2)}{h(\sqrt{x+h+2}+\sqrt{x+2})}=\dfrac{1}{\sqrt{x+h+2}+\sqrt{x+2}}\to \dfrac{1}{2\sqrt{x+2}}$.</p>`,"Eşlenik: √(x+h+2) + √(x+2).","Zbirka 2.1 #12"),
+ q("Z21_14","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac{1}{\sqrt{x+1}}$`,null,R`<p>$\dfrac{\sqrt{x+1}-\sqrt{x+h+1}}{h\sqrt{x+h+1}\sqrt{x+1}}\cdot\dfrac{\sqrt{x+1}+\sqrt{x+h+1}}{\sqrt{x+1}+\sqrt{x+h+1}}=\dfrac{-1}{\sqrt{x+h+1}\sqrt{x+1}(\sqrt{x+1}+\sqrt{x+h+1})}\to \dfrac{-1}{2(x+1)^{3/2}}$.</p>`,"Önce payda eşitle, sonra eşlenikle çarp.","Zbirka 2.1 #14"),
+ q("Z21_15","tanim",R`Tanımdan $f'(x)$ ve $x=1$'de teğet: $f(x)=x^2+1$`,null,R`<p>$f'(x)=2x$. $f(1)=2,\ f'(1)=2 \implies y-2=2(x-1) \implies$ <span class="ans">$y=2x$</span>.</p>`,"f(1) = 2, eğim m = f'(1) = 2.","Zbirka 2.1 #15"),
+ q("Z21_17","tanim",R`Tanımdan $f'(x)$ ve $x=-1$'de teğet: $f(x)=2x^2+x$`,null,R`<p>$f'(x)=4x+1$. $f(-1)=2-1=1,\ f'(-1)=-3 \implies y-1=-3(x+1) \implies$ <span class="ans">$y=-3x-2$</span>.</p>`,"f(-1) = 1, m = f'(-1) = -3.","Zbirka 2.1 #17"),
+ q("Z21_20","tanim",R`Tanımdan $f'(x)$ ve $x=-1$'de teğet: $f(x)=\dfrac{1}{2x+1}$`,null,R`<p>$f'(x)=\dfrac{-2}{(2x+1)^2}$. $f(-1)=-1,\ f'(-1)=-2 \implies y+1=-2(x+1) \implies$ <span class="ans">$y=-2x-3$</span>.</p>`,"f(-1) = -1, m = f'(-1) = -2.","Zbirka 2.1 #20"),
+ q("Z21_22","tanim",R`Tanımdan $f'(x)$ ve $x=-1$'de teğet: $f(x)=\sqrt{x+2}$`,null,R`<p>$f'(x)=\dfrac{1}{2\sqrt{x+2}}$. $f(-1)=1,\ f'(-1)=\dfrac12 \implies y-1=\dfrac12(x+1) \implies$ <span class="ans">$y=\dfrac{x}{2}+\dfrac{3}{2}$</span>.</p>`,"f(-1) = 1, m = 1/2.","Zbirka 2.1 #22"),
+
+ // BLOK 6: 2.2 Derivatives, Basic Properties Q1-18 (12 questions)
+ q("Z22_1","kural",R`$y=x^3+x^2-3x$ için $y'=?$`,null,R`<p>$y'=3x^2+2x-3$.</p>`,"(x^n)' = n·x^(n-1)","Zbirka 2.2 #1"),
+ q("Z22_4","kural",R`$y=x^{-3}+2x^{-2}-3x$ için $y'=?$`,null,R`<p>$y'=-3x^{-4}-4x^{-3}-3 = -\dfrac{3}{x^4}-\dfrac{4}{x^3}-3$.</p>`,"Negatif üslerde üs 1 azalır: -3 -> -4.","Zbirka 2.2 #4"),
+ q("Z22_5","kural",R`$y=\dfrac{1}{x^5}+\dfrac{3}{x^4}-x^{-2}-x$ için $y'=?$`,null,R`<p>$y=x^{-5}+3x^{-4}-x^{-2}-x \implies y'=-\dfrac{5}{x^6}-\dfrac{12}{x^5}+\dfrac{2}{x^3}-1$.</p>`,"-x⁻² türevi +2x⁻³ olur.","Zbirka 2.2 #5"),
+ q("Z22_6","kural",R`$y=\sqrt{x}+\dfrac{2}{\sqrt{x}}$ için $y'=?$`,null,R`<p>$y=x^{1/2}+2x^{-1/2} \implies y'=\dfrac12 x^{-1/2}-x^{-3/2}=\dfrac{1}{2\sqrt{x}}-\dfrac{1}{x\sqrt{x}}$.</p>`,"2/√x = 2·x^(-1/2).","Zbirka 2.2 #6"),
+ q("Z22_8","kural",R`$y=2\sqrt[3]{x^2}-\dfrac{1}{\sqrt[3]{x^4}}$ için $y'=?$`,null,R`<p>$y=2x^{2/3}-x^{-4/3} \implies y'=\dfrac43 x^{-1/3}+\dfrac43 x^{-7/3}$.</p>`,"∛(x²) = x^(2/3), 1/∛(x⁴) = x^(-4/3).","Zbirka 2.2 #8"),
+ q("Z22_10","kural",R`$y=(x^3+1)(x^2-2x)$ için $y'=?$`,null,R`<p>Çarpım kuralı: $3x^2(x^2-2x)+(x^3+1)(2x-2)=5x^4-8x^3+2x-2$.</p>`,"İster çarpım kuralı uygula, ister dağıtarak türev al.","Zbirka 2.2 #10"),
+ q("Z22_11","kural",R`$y=(x^{-2}+1)(x^2-4)$ için $y'=?$`,null,R`<p>Dağıt: $y=1-4x^{-2}+x^2-4 \implies y'=8x^{-3}+2x=\dfrac{8}{x^3}+2x$.</p>`,"Önce dağıtırsan çok daha hızlı çıkar!","Zbirka 2.2 #11"),
+ q("Z22_13","kural",R`$y=\dfrac{x^2+1}{x^2-1}$ için $y'=?$`,null,R`<p>$\dfrac{2x(x^2-1)-2x(x^2+1)}{(x^2-1)^2}=\dfrac{-4x}{(x^2-1)^2}$.</p>`,"Bölüm kuralı: (u'v - uv') / v².","Zbirka 2.2 #13"),
+ q("Z22_14","kural",R`$y=\dfrac{3x+2}{1-x^2}$ için $y'=?$`,null,R`<p>$\dfrac{3(1-x^2)-(-2x)(3x+2)}{(1-x^2)^2}=\dfrac{3x^2+4x+3}{(1-x^2)^2}$.</p>`,"(1-x²)' = -2x eksisine dikkat!","Zbirka 2.2 #14"),
+ q("Z22_15","kural",R`$y=\dfrac{(x+1)(3x+2)}{1-x^2}$ için $y'=?$`,null,R`<p>$1-x^2=(1-x)(1+x)$ olduğundan ($x\ne -1$) $y=\dfrac{3x+2}{1-x}$.</p><p>$y'=\dfrac{3(1-x)-(-1)(3x+2)}{(1-x)^2}=\dfrac{5}{(1-x)^2}$.</p>`,"Önce (x+1) çarpanını sadeleştir!","Zbirka 2.2 #15"),
+ q("Z22_17","kural",R`$y=\dfrac{\sqrt{x}+1}{5x-1}$ için $y'=?$`,null,R`<p>$\dfrac{\frac{1}{2\sqrt{x}}(5x-1)-5(\sqrt{x}+1)}{(5x-1)^2}=\dfrac{-5x-10\sqrt{x}-1}{2\sqrt{x}(5x-1)^2}$.</p>`,"u' = 1/(2√x), v' = 5.","Zbirka 2.2 #17"),
+ q("Z22_18","kural",R`$y=\dfrac{\sqrt{x}+1}{\sqrt{x}-1}$ için $y'=?$`,null,R`<p>$\dfrac{\frac{1}{2\sqrt{x}}(\sqrt{x}-1)-\frac{1}{2\sqrt{x}}(\sqrt{x}+1)}{(\sqrt{x}-1)^2}=\dfrac{-1}{\sqrt{x}(\sqrt{x}-1)^2}$.</p>`,"Payda 1/(2√x) parantezinde (√x - 1) - (√x + 1) = -2 kalır.","Zbirka 2.2 #18")
+]},
+
+d1:{title:"Deneme Sınavı 1 (Review Formatında · 75 dk)", time:75, intro:"Hocanın review kağıdıyla birebir aynı dağılımda 100 puanlık sınav provası. Süreyi başlat, kağıtta çöz, sonra cevaplarını kutulara girip kontrol et.", qs:[
+ q("D1a","trig",R`$\displaystyle\lim_{x\to0}\frac{\sin6x}{\tan4x}$`,"3/2",R`<p>$\dfrac{\sin6x}{6x}\cdot\dfrac{4x}{\tan4x}\cdot\dfrac{6x}{4x}\to\dfrac32$</p>`),
+ q("D1b","trig",R`$\displaystyle\lim_{x\to0}\frac{1-\cos3x}{x^2}$`,"9/2",R`<p>$\dfrac{\sin^23x}{x^2(1+\cos3x)}=\Big(\dfrac{\sin3x}{3x}\Big)^2\dfrac{9}{1+\cos3x}\to\dfrac92$</p>`),
+ q("D1c","cebir",R`$\displaystyle\lim_{x\to0}\frac{\sqrt{9+x}-\sqrt{9-2x}}{6x}$`,"1/12",R`<p>Eşlenik: pay $\to 3x$. $\dfrac{1}{2(\sqrt{9+x}+\sqrt{9-2x})}\to\dfrac1{12}$</p>`),
+ q("D1d1","tek",R`$\displaystyle\lim_{x\to3^-}\frac{|x-3|}{x^2-9}$`,"-1/6",R`<p>$x<3$: $\dfrac{-(x-3)}{(x-3)(x+3)}=\dfrac{-1}{x+3}\to-\dfrac16$</p>`),
+ q("D1d2","tek",R`$\displaystyle\lim_{x\to3}\frac{|x-3|}{x^2-9}$`,"dne",R`<p>Sağdan $\tfrac16$, soldan $-\tfrac16$. DNE.</p>`),
+ q("D1e","sonsuz",R`$\displaystyle\lim_{x\to1^+}\Big[\frac2{x-1}-\frac1{(x-1)^2}\Big]$`,"-inf",R`<p>$\dfrac{2x-3}{(x-1)^2}$: pay $\to-1$, payda $\to0^+$. $-\infty$.</p>`),
+ q("D1f","cebir",R`$\displaystyle\lim_{x\to2}\frac{\frac1{x+3}-\frac15}{x^2-x-2}$`,"-1/75",R`<p>$\dfrac{2-x}{5(x+3)}\cdot\dfrac1{(x-2)(x+1)}=\dfrac{-1}{5(x+3)(x+1)}\to\dfrac{-1}{75}$</p>`),
+ q("D1g","sonsuz",R`$\displaystyle\lim_{x\to\infty}\frac{3x^2-x+1}{5-2x^2}$`,"-3/2",R`<p>Dereceler eşit: $\dfrac{3}{-2}$.</p>`),
+ q("D1h","sonsuz",R`$\displaystyle\lim_{x\to-\infty}\frac{\sqrt{4x^2+1}}{3x-2}$`,"-2/3",R`<p>$x\to-\infty$: $\sqrt{4x^2+1}=-x\sqrt{4+1/x^2}$. $\dfrac{-\sqrt{4+1/x^2}}{3-2/x}\to-\dfrac23$</p>`,"√(x²) = |x| = −x, çünkü x negatif."),
+ q("D2","surek",R`$f(x)=\begin{cases}x+3 & x<-2\\ 1 & -2\le x<0\\ x^2+2 & 0\le x<1\\ 5 & x=1\\ 4-x & x>1\end{cases}$ &nbsp; Süreksizlikler?`,null,R`<p>$x=-2$: sol $1$, sağ $1$, $f=1$. Sürekli.</p><p>$x=0$: sol $1$, sağ $2$. <b>Jump.</b></p><p>$x=1$: sol $3$, sağ $3$ ama $f(1)=5$. <b>Removable.</b> Limit var ama $f(1)$'e eşit değil.</p>`),
+ q("D3","surek",R`$f(x)=ax+b\ (x<-1),\ 3-x\ (-1\le x\le1),\ ax^2+b\ (x>1)$. $a,b=?$`,null,R`<p>$x=-1$: $-a+b=4$. $x=1$: $a+b=2$.</p><p>Topla: $b=3$, $a=-1$.</p>`),
+ q("D4","sonsuz",R`$y=\dfrac{2x^2+1}{x^2-4}$ asimptotları`,null,R`<p>Düşey: $x=-2,\ x=2$. Yatay: $y=2$.</p>`),
+ q("D5a","tanim",R`Tanımdan: $f(x)=3x^2+2x$, $x=1$'de teğet`,null,R`<p>$f'(x)=\lim(6x+3h+2)=6x+2$. $f(1)=5,\ f'(1)=8$: <span class="ans">$y=8x-3$</span></p>`),
+ q("D5b","tanim",R`Tanımdan: $f(x)=\dfrac1{2x+3}$, $x=-1$'de teğet`,null,R`<p>$f'(x)=\dfrac{-2}{(2x+3)^2}$. $f(-1)=1,\ f'(-1)=-2$: <span class="ans">$y=-2x-1$</span></p>`),
+ q("D5c","tanim",R`Tanımdan: $f(x)=\sqrt{2x+1}$, $x=4$'te teğet`,null,R`<p>Eşlenik: $\dfrac{2}{\sqrt{2x+2h+1}+\sqrt{2x+1}}\to\dfrac1{\sqrt{2x+1}}$. $f(4)=3,\ f'(4)=\tfrac13$: <span class="ans">$y=\tfrac x3+\tfrac53$</span></p>`),
+ q("D6a","kural",R`$y=3x^4-\dfrac2{x^3}+4\sqrt x-7$`,null,R`<p>$12x^3+\dfrac6{x^4}+\dfrac2{\sqrt x}$</p>`),
+ q("D6b","kural",R`$y=(x^2+1)(x^3-2x)$`,null,R`<p>$2x(x^3-2x)+(x^2+1)(3x^2-2)=5x^4-3x^2-2$</p>`),
+ q("D6c","kural",R`$y=\dfrac{x^2-3x}{2x+1}$`,null,R`<p>$\dfrac{(2x-3)(2x+1)-2(x^2-3x)}{(2x+1)^2}=\dfrac{2x^2+2x-3}{(2x+1)^2}$</p>`),
+ q("D6d","kural",R`$y=x^4-3x^2+\dfrac1x$ için $y''$`,null,R`<p>$y'=4x^3-6x-x^{-2}$, $y''=12x^2-6+\dfrac2{x^3}$</p>`)
+]},
+
+d2:{title:"Deneme Sınavı 2 (Sürpriz Tipler Dahil · 60 dk)", time:60, intro:"Review kağıdında olmayan ama müfredatta yer alan Sandwich, IVT, removable süreksizlik, yatay teğet ve çift yatay asimptot sorularını içerir.", qs:[
+ q("E1a","cebir",R`$\displaystyle\lim_{x\to4}\frac{\sqrt x-2}{x-4}$`,"1/4",R`<p>$x-4=(\sqrt x-2)(\sqrt x+2)$. $\dfrac1{\sqrt x+2}\to\dfrac14$</p>`),
+ q("E1b","cebir",R`$\displaystyle\lim_{x\to1}\frac{x^2+x-2}{x^2-1}$`,"3/2",R`<p>$\dfrac{(x+2)(x-1)}{(x-1)(x+1)}\to\dfrac32$</p>`),
+ q("E1c","trig",R`$\displaystyle\lim_{x\to0}\frac{x\sin2x}{1-\cos x}$`,"4",R`<p>Pay ve paydayı $x^2$'ye böl: $\dfrac{\sin2x/x}{(1-\cos x)/x^2}\to\dfrac{2}{1/2}=4$</p>`),
+ q("E1d","trig",R`$\displaystyle\lim_{x\to0}\frac{\sin^22x}{x\tan3x}$`,"4/3",R`<p>$\Big(\dfrac{\sin2x}{2x}\Big)^2\cdot\dfrac{3x}{\tan3x}\cdot\dfrac{4x^2}{3x^2}\to\dfrac43$</p>`),
+ q("E1e","sonsuz",R`$\displaystyle\lim_{x\to-1^+}\frac{x-2}{x+1}$`,"-inf",R`<p>Pay $\to-3$, payda $\to0^+$. $-\infty$.</p>`),
+ q("E1f","sonsuz",R`$\displaystyle\lim_{x\to\infty}\big(\sqrt{x^2+4x}-x\big)$`,"2",R`<p>Eşlenik: $\dfrac{4x}{\sqrt{x^2+4x}+x}=\dfrac{4}{\sqrt{1+4/x}+1}\to2$</p>`),
+ q("E1g","sonsuz",R`$\displaystyle\lim_{x\to-\infty}\frac{5x^3-2x}{1-2x^3}$`,"-5/2",R`<p>Dereceler eşit: $\dfrac5{-2}$.</p>`),
+ q("E1h","tek",R`$\displaystyle\lim_{x\to5}\frac{|x-5|}{x^2-25}$`,"dne",R`<p>Sağdan $\tfrac1{10}$, soldan $-\tfrac1{10}$. DNE.</p>`),
+ q("E1i","cebir",R`$\displaystyle\lim_{x\to0}x^2\cos\frac1x$`,"0",R`<p>$-x^2\le x^2\cos(1/x)\le x^2$, iki uç $\to0$. Sandwich: $0$.</p>`,"cos(1/x) sınırlı: −1 ile 1 arasında.","Deneme 2","squeeze"),
+ q("E2a","surek",R`$f(x)=\dfrac{x^2-9}{x-3}\ (x\ne3),\ f(3)=a$. Sürekli olsun. $a=?$`,"6",R`<p>$\lim(x+3)=6$, $a=6$.</p>`),
+ q("E2b","surek",R`$f(x)=x^2-a\ (x<2),\ ax+1\ (x\ge2)$. $a=?$`,"1",R`<p>$4-a=2a+1\Rightarrow a=1$</p>`),
+ q("E2c","surek",R`$f(x)=\dfrac{x-1}{x^2-1}$ süreksizlikleri ve türleri`,null,R`<p>$x=1$: limit $\tfrac12$, $f$ tanımsız. <b>Removable.</b></p><p>$x=-1$: limit $\pm\infty$. <b>Infinite.</b></p>`),
+ q("E2d","surek",R`$x^3+x-1=0$ denkleminin $(0,1)$'de kökü olduğunu göster.`,null,R`<p>$f(x)=x^3+x-1$ polinom, $[0,1]$'de sürekli. $f(0)=-1<0$, $f(1)=1>0$. Intermediate Value Theorem: $f(c)=0$ olan $c\in(0,1)$ vardır.</p>`),
+ q("E3a","tanim",R`Tanımdan: $f(x)=\dfrac{x}{x+1}$, $x=1$'de teğet`,null,R`<p>$\dfrac{(x+h)(x+1)-x(x+h+1)}{(x+h+1)(x+1)}=\dfrac{h}{(x+h+1)(x+1)}$, $f'(x)=\dfrac1{(x+1)^2}$</p><p>$f(1)=\tfrac12,\ f'(1)=\tfrac14$: <span class="ans">$y=\tfrac x4+\tfrac14$</span></p>`),
+ q("E3b","tanim",R`Tanımdan: $f(x)=x^3-2x$, $x=1$'de teğet`,null,R`<p>$f'(x)=\lim(3x^2+3xh+h^2-2)=3x^2-2$. $f(1)=-1,\ f'(1)=1$: <span class="ans">$y=x-2$</span></p>`),
+ q("E4a","kural",R`$y=(\sqrt x+2)(\sqrt x-1)$`,null,R`<p>Aç: $x+\sqrt x-2$. $y'=1+\dfrac1{2\sqrt x}$</p>`),
+ q("E4b","kural",R`$y=\dfrac{3x+1}{5x-1}$`,null,R`<p>$\dfrac{3(5x-1)-5(3x+1)}{(5x-1)^2}=\dfrac{-8}{(5x-1)^2}$</p>`),
+ q("E4c","kural",R`$y=\sqrt[3]x+\dfrac5{\sqrt[3]x}$`,null,R`<p>$y=x^{1/3}+5x^{-1/3}$, $y'=\tfrac13x^{-2/3}-\tfrac53x^{-4/3}$</p>`),
+ q("E5a","kural",R`$y=x^3-3x$ eğrisinde teğetin yatay olduğu noktalar`,null,R`<p>$y'=3x^2-3=0\Rightarrow x=\pm1$. Noktalar $(1,-2)$ ve $(-1,2)$.</p>`),
+ q("E5b","sonsuz",R`$y=\dfrac{\sqrt{x^2+1}}{x}$ asimptotları`,null,R`<p>Düşey $x=0$. Yatay: $x\to\infty$'da $y=1$, $x\to-\infty$'da $y=-1$.</p>`,null,"Deneme 2","asym")
+]}
+};
+
+const PLAN = [
+ {gun:"Cuma 13 Kasım (Bugün)", items:[
+  ["Adım 1","Tanılama testi (8 soru). Eksik blokları hemen gör","tani"],
+  ["Blok 1","0/0 Limitleri & Sandwich (Thomas 2.2 · Zbirka 1.1: 12 Soru)","zbirka:cebir"],
+  ["Blok 2","Tek Taraflı, |x| ve Trig Limitler (Thomas 2.4 · Zbirka 1.3 & 1.4: 15 Soru)","zbirka:tek"],
+  ["Blok 3","Sonsuzluk İçeren Limitler & Asimptotlar (Thomas 2.6 · Zbirka 1.5: 15 Soru)","zbirka:sonsuz"],
+  ["Blok 4","Süreklilik, a-b Bulma & IVT (Thomas 2.5 · Zbirka 1.6: 9 Soru)","zbirka:surek"],
+  ["Blok 5","Tanımdan Türev & Teğet Doğrusu (Thomas 3.1–3.2 · Zbirka 2.1: 12 Soru)","zbirka:tanim"],
+  ["Blok 6","Türev Kuralları: Kuvvet, Çarpım, Bölüm (Thomas 3.3 · Zbirka 2.2: 12 Soru)","zbirka:kural"],
+  ["Akşam 20:00","Hocanın Review Kağıdı (MIDTERM REVIEW 101.docx - 15 Soru), kapalı defter","review"],
+  ["Akşam 21:00","Görsel Simülatör & Tanımdan Türev Antrenörü ile yanlışları pekiştir","atolye"]
+ ]},
+ {gun:"Cumartesi 14 Kasım (Sınav Günü)", items:[
+  ["08:00–09:15","Deneme 1, sınav koşulunda (75 dk)","d1"],
+  ["09:15–09:50","Deneme 1 kontrolü ve Hata Listesi tekrarı","ilerleme"],
+  ["09:50–10:30","Deneme 2'den zayıf olduğun soru tipleri","d2"],
+  ["10:30–10:50","Konu & Ezber Kartları (20 Flashcard) + 11 Sık Hata kontrolü","konu"],
+  ["12:30","MATH101 Midterm Sınavı — Başarılar!",null]
+ ]}
+];
+
+const FLASHCARDS = [
+ {id:"fc1",cat:"Trig Limit",q:R`$\displaystyle\lim_{x\to 0}\frac{\sin(ax)}{bx}$ ve $\displaystyle\lim_{x\to 0}\frac{\tan(ax)}{bx}$`,a:R`$\dfrac{a}{b}$ (Sınavda $\dfrac{\sin ax}{ax}\cdot\dfrac{a}{b}$ ara adımını mutlaka yaz!)`},
+ {id:"fc2",cat:"Trig Limit",q:R`$\displaystyle\lim_{x\to 0}\frac{1-\cos x}{x}$ ve $\displaystyle\lim_{x\to 0}\frac{1-\cos x}{x^2}$`,a:R`Birincisi $0$, ikincisi $\dfrac{1}{2}$. Genel: $\displaystyle\lim_{x\to 0}\frac{1-\cos(ax)}{x^2}=\frac{a^2}{2}$.`},
+ {id:"fc3",cat:"Cebir Tuzağı",q:R`$\dfrac{x-a}{a-x}$ sadeleşince ne kalır?`,a:R`$-1$ kalır! (Örn: $\dfrac{3-x}{x-3}=-1$, işareti unutma!)`},
+ {id:"fc4",cat:"Kök Eşleniği",q:R`$\sqrt{A}-\sqrt{B}$ ifadesinin eşleniği ve çarpımı nedir?`,a:R`Eşleniği $\sqrt{A}+\sqrt{B}$, çarpımı $A-B$'dir.`},
+ {id:"fc5",cat:"Mutlak Değer",q:R`$x\to a^-$ (soldan) yaklaşırken $|x-a|$ nasıl açılır?`,a:R`$x < a$ olduğu için içi negatiftir: $|x-a| = -(x-a) = a-x$.`},
+ {id:"fc6",cat:"Sonsuzda Kök Tuzağı",q:R`$x\to -\infty$ iken $\sqrt{x^2+1}$ dışarı nasıl çıkar?`,a:R`$\sqrt{x^2}=|x|=-x$ olduğu için $-x\sqrt{1+1/x^2}$ olarak çıkar!`},
+ {id:"fc7",cat:"Süreklilik Şartları",q:R`$f$ fonksiyonunun $x=a$'da sürekli olmasının 3 şartı nedir?`,a:R`1) $f(a)$ tanımlı, 2) $\lim_{x\to a}f(x)$ var (sol = sağ), 3) $\lim_{x\to a}f(x)=f(a)$.`},
+ {id:"fc8",cat:"Süreksizlik Türleri",q:R`Jump, Removable ve Infinite Discontinuity farkı nedir?`,a:R`Sol $\ne$ sağ sonlu ise <b>Jump</b>; limit var ama $f(a)$'ya eşit değilse <b>Removable</b>; limit $\pm\infty$ ise <b>Infinite</b>.`},
+ {id:"fc9",cat:"Tanımdan Türev",q:R`Türevin limit tanımı formülü nedir?`,a:R`$f'(x)=\displaystyle\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}$ (Her satırda $\lim_{h\to 0}$ yazılır!)`},
+ {id:"fc10",cat:"Teğet Doğrusu",q:R`$x=a$ noktasındaki teğet doğrusunun denklemi nedir?`,a:R`$y - f(a) = f'(a)(x - a)$. (Eğim $m = f'(a)$ sabit sayıdır, $x$'li bırakılmaz!)`},
+ {id:"fc11",cat:"Türev Kuralları",q:R`$\Big(\dfrac{1}{x}\Big)'$, $\Big(\dfrac{1}{x^n}\Big)'$ ve $(\sqrt{x})'$ nedir?`,a:R`$(1/x)'=-\dfrac{1}{x^2}$, $(1/x^n)'=-\dfrac{n}{x^{n+1}}$, $(\sqrt{x})'=\dfrac{1}{2\sqrt{x}}$.`},
+ {id:"fc12",cat:"Çarpım & Bölüm",q:R`$(f\cdot g)'$ ve $\Big(\dfrac{f}{g}\Big)'$ kuralları nedir?`,a:R`$(fg)'=f'g+fg'$ ve $\Big(\dfrac{f}{g}\Big)'=\dfrac{f'g-fg'}{g^2}$ (Sıraya dikkat: önce payın türevi!).`},
+ {id:"fc13",cat:"Teorem",q:R`Sandwich (Squeeze) Teoremi sınavda nasıl yazılır?`,a:R`"Since $-x^2 \le x^2\sin(1/x) \le x^2$ and $\lim_{x\to 0}(\pm x^2)=0$, the limit is $0$ by the Sandwich Theorem."`},
+ {id:"fc14",cat:"Teorem",q:R`Ara Değer Teoremi (IVT) ile $(a,b)$'de kök varlığı nasıl gösterilir?`,a:R`"$f$ is continuous on $[a,b]$, $f(a)<0$ and $f(b)>0$. By IVT, there is $c\in(a,b)$ such that $f(c)=0$."`},
+ {id:"fc15",cat:"Asimptot",q:R`Düşey ve Yatay Asimptot nasıl bulunur?`,a:R`Sadeleştirme sonrası paydayı $0$ yapan $x=a$ <b>düşey</b>; $\lim_{x\to\pm\infty}f(x)=L$ ise $y=L$ <b>yatay</b> asimptottur.`}
+];
+
+/* ---------- STATE ---------- */
+const KEY="math101-calis-v1";
+let S={status:{},inputs:{},plan:{},open:{},scratch:{},fc:{},zFilter:"all",tab:"plan",timers:{},labPreset:"r10",labH:0.6,drvTpl:0,drvStep:0};
+try{const raw=localStorage.getItem(KEY); if(raw) S=Object.assign(S,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+const D="f'(x) =", TG="Teğet: y =", DY="dy/dx =";
+const FIELDS={
+ T7:[[D,"expr","2x"]], T8:[[DY,"expr","1/(x+1)^2"]],
+ R8:[["Süreksiz olduğu x'ler","set","1,2"]],
+ R10:[[D,"expr","4x-1"],[TG,"expr","-5x-2"]],
+ R11:[[D,"expr","-3/(3x-1)^2"],[TG,"expr","-3x/4+5/4"]],
+ R12:[[D,"expr","-1/(2sqrt(1-x))"],[TG,"expr","-x/2+1"]],
+ R13:[[DY,"expr","4x+10/x^3+3/(2sqrt(x))"]],
+ R14:[[DY,"expr","(12x^3-6x^2+1)/(3x-1)^2"]],
+ // Zbirka special multi-field or expr questions
+ Z3_1:[["Sağ limit (x→1⁺)","val","-2"],["Sol limit (x→1⁻)","val","1"],["İki taraflı limit","val","dne"]],
+ Z3_2:[["lim(x→0⁺) f(x)","val","1"],["lim(x→1⁺) f(x)","val","4"]],
+ Z3_5:[["a =","val","4"],["b =","val","2"]],
+ Z5_34:[["Düşey asimptot: x =","set","0.5"],["Yatay asimptot: y =","set","0.5"]],
+ Z5_36:[["Düşey asimptot: x =","set","-1,1"],["Yatay asimptot: y =","set","2"]],
+ Z6_3:[["Süreksiz olduğu x'ler","set","-1,1"]],
+ Z6_4:[["Süreksiz olduğu x'ler","set","-1,1"],["Removable olan x","set","1"]],
+ Z6_8:[["Süreksiz olduğu x'ler","set","0,1"]],
+ Z6_9:[["Süreksiz olduğu x'ler","set","-2,2"],["Removable olan x","set","2"]],
+ Z6_12:[["a =","val","4"],["b =","val","2"]],
+ Z6_13:[["a =","val","1"],["b =","val","2"]],
+ Z21_2:[[D,"expr","2x-1"]],
+ Z21_3:[[D,"expr","4x+1"]],
+ Z21_5:[[D,"expr","3x^2"]],
+ Z21_7:[[D,"expr","-1/x^2"]],
+ Z21_9:[[D,"expr","1/(1-x)^2"]],
+ Z21_10:[[D,"expr","-2/(2x+1)^2"]],
+ Z21_12:[[D,"expr","1/(2sqrt(x+2))"]],
+ Z21_14:[[D,"expr","-1/(2*(x+1)^(3/2))"]],
+ Z21_15:[[D,"expr","2x"],[TG,"expr","2x"]],
+ Z21_17:[[D,"expr","4x+1"],[TG,"expr","-3x-2"]],
+ Z21_20:[[D,"expr","-2/(2x+1)^2"],[TG,"expr","-2x-3"]],
+ Z21_22:[[D,"expr","1/(2sqrt(x+2))"],[TG,"expr","x/2+3/2"]],
+ Z22_1:[[DY,"expr","3x^2+2x-3"]],
+ Z22_4:[[DY,"expr","-3/x^4-4/x^3-3"]],
+ Z22_5:[[DY,"expr","-5/x^6-12/x^5+2/x^3-1"]],
+ Z22_6:[[DY,"expr","1/(2sqrt(x))-1/(x*sqrt(x))"]],
+ Z22_8:[[DY,"expr","(4/3)*x^(-1/3)+(4/3)*x^(-7/3)"]],
+ Z22_10:[[DY,"expr","5x^4-8x^3+2x-2"]],
+ Z22_11:[[DY,"expr","8/x^3+2x"]],
+ Z22_13:[[DY,"expr","-4x/(x^2-1)^2"]],
+ Z22_14:[[DY,"expr","(3x^2+4x+3)/(1-x^2)^2"]],
+ Z22_15:[[DY,"expr","5/(1-x)^2"]],
+ Z22_17:[[DY,"expr","(-5x-10sqrt(x)-1)/(2sqrt(x)*(5x-1)^2)"]],
+ Z22_18:[[DY,"expr","-1/(sqrt(x)*(sqrt(x)-1)^2)"]],
+ // Deneme 1 & 2
+ D2:[["Süreksiz olduğu x'ler","set","0,1"],["Bunlardan removable olan","set","1"]],
+ D3:[["a =","val","-1"],["b =","val","3"]],
+ D4:[["Düşey asimptot: x =","set","-2,2"],["Yatay asimptot: y =","set","2"]],
+ D5a:[[D,"expr","6x+2"],[TG,"expr","8x-3"]],
+ D5b:[[D,"expr","-2/(2x+3)^2"],[TG,"expr","-2x-1"]],
+ D5c:[[D,"expr","1/sqrt(2x+1)"],[TG,"expr","x/3+5/3"]],
+ D6a:[[DY,"expr","12x^3+6/x^4+2/sqrt(x)"]],
+ D6b:[[DY,"expr","5x^4-3x^2-2"]],
+ D6c:[[DY,"expr","(2x^2+2x-3)/(2x+1)^2"]],
+ D6d:[["y'' =","expr","12x^2-6+2/x^3"]],
+ E2c:[["Süreksiz olduğu x'ler","set","-1,1"],["Bunlardan removable olan","set","1"]],
+ E2d:[["f(0) =","val","-1"],["f(1) =","val","1"]],
+ E3a:[[D,"expr","1/(x+1)^2"],[TG,"expr","x/4+1/4"]],
+ E3b:[[D,"expr","3x^2-2"],[TG,"expr","x-2"]],
+ E4a:[[DY,"expr","1+1/(2sqrt(x))"]],
+ E4b:[[DY,"expr","-8/(5x-1)^2"]],
+ E4c:[[DY,"expr","(1/3)x^(-2/3)-(5/3)x^(-4/3)"]],
+ E5a:[["Yatay teğet olan x'ler","set","-1,1"]],
+ E5b:[["Düşey asimptot: x =","set","0"],["Yatay asimptot: y =","set","1,-1"]]
+};
+
+const ALLQ={};
+for(const k in SETS) for(const x of SETS[k].qs){
+  x.set=k; ALLQ[x.id]=x;
+  x.f = FIELDS[x.id] || (x.a!==null ? [["Cevap","val",x.a]] : []);
+}
+const inKey=(id,i)=>i?id+"#"+i:id;
+
+/* ---------- ANSWER CHECKER & ALGEBRA PARSER ---------- */
+function norm(v){
+  let s=String(v).trim().toLowerCase().replace(/\s+/g,"").replace(/[−–]/g,"-").replace(/∞/g,"inf").replace(/^[ab]=/,"").replace(/^\+/,"");
+  if(["dne","yok","yoktur","none","doesnotexist"].includes(s)) return "dne";
+  if(["inf","oo","infinity","sonsuz","+inf"].includes(s)) return "inf";
+  if(["-inf","-oo","-infinity","-sonsuz"].includes(s)) return "-inf";
+  const m=s.match(/^(-?)\(?(\d+(?:[.,]\d+)?)(?:\/(\d+(?:[.,]\d+)?))?\)?$/);
+  if(m){const a=parseFloat(m[2].replace(",",".")), b=m[3]?parseFloat(m[3].replace(",",".")):1; if(b===0) return null; return (m[1]?-1:1)*a/b;}
+  const m2=s.match(/^\((-?\d+(?:[.,]\d+)?)\)\/(\d+)$/)||s.match(/^(-?\d+(?:[.,]\d+)?)\/\((\d+)\)$/);
+  if(m2) return parseFloat(m2[1].replace(",","."))/parseFloat(m2[2]);
+  return null;
+}
+function same(a,b){ if(a===null||b===null) return false; if(typeof a==="number"&&typeof b==="number") return Math.abs(a-b)<1e-9; return a===b; }
+
+const FN={sqrt:Math.sqrt,cbrt:Math.cbrt,sin:Math.sin,cos:Math.cos,tan:Math.tan,sec:v=>1/Math.cos(v),csc:v=>1/Math.sin(v),cot:v=>1/Math.tan(v),abs:Math.abs};
+const WORDS=["sqrt","cbrt","sin","cos","tan","sec","csc","cot","abs","pi","x","y"];
+function prep(s){
+  s=String(s).toLowerCase().replace(/[−–]/g,"-").replace(/[·×∙]/g,"*").replace(/÷/g,"/").replace(/\*\*/g,"^")
+   .replace(/²/g,"^2").replace(/³/g,"^3").replace(/⁴/g,"^4").replace(/√/g,"sqrt").replace(/∛/g,"cbrt").replace(/π/g,"pi").replace(/[’′]/g,"'").trim();
+  return s.replace(/^(y\s*''|y\s*'|f\s*''\s*\(\s*x\s*\)|f\s*'\s*\(\s*x\s*\)|dy\s*\/\s*dx|f\s*\(\s*x\s*\)|y)\s*=(?!.*=)\s*/,"");
+}
+function tokenize(s){
+  const t=[]; let i=0;
+  while(i<s.length){const c=s[i];
+    if(c===" "){i++;continue;}
+    if(/[0-9.]/.test(c)){let j=i; while(j<s.length&&/[0-9.]/.test(s[j]))j++; const v=Number(s.slice(i,j)); if(isNaN(v)) throw 0; t.push({k:"n",v}); i=j; continue;}
+    if(/[a-z]/.test(c)){let j=i; while(j<s.length&&/[a-z]/.test(s[j]))j++; let w=s.slice(i,j); i=j;
+      while(w){const f=WORDS.find(n=>w.startsWith(n)); if(!f) throw 0; t.push(f==="x"||f==="y"?{k:f}:f==="pi"?{k:"n",v:Math.PI}:{k:"f",v:f}); w=w.slice(f.length);} continue;}
+    if("+-*/^()=".includes(c)){t.push({k:c}); i++; continue;}
+    throw 0;
+  }
+  return t;
+}
+function parseTokens(T){
+  let p=0; const pk=()=>T[p], eat=k=>{if(T[p]&&T[p].k===k){p++;return true}return false};
+  const starts=()=>{const n=pk(); return n&&(n.k==="n"||n.k==="x"||n.k==="y"||n.k==="f"||n.k==="(")};
+  function expr(){let a=term(); for(;;){ if(eat("+")) a={t:"+",a,b:term()}; else if(eat("-")) a={t:"-",a,b:term()}; else return a; }}
+  function term(){let a=unary(); for(;;){ if(eat("*")) a={t:"*",a,b:unary()}; else if(eat("/")) a={t:"/",a,b:unary()}; else if(starts()) a={t:"*",a,b:power()}; else return a; }}
+  function unary(){ if(eat("-")) return {t:"neg",a:unary()}; if(eat("+")) return unary(); return power(); }
+  function power(){ const b=primary(); if(eat("^")) return {t:"^",a:b,b:unary()}; return b; }
+  function primary(){ const n=T[p++]; if(!n) throw 0;
+    if(n.k==="n") return {t:"n",v:n.v};
+    if(n.k==="x"||n.k==="y") return {t:n.k};
+    if(n.k==="("){ const e=expr(); if(!eat(")")) throw 0; return e; }
+    if(n.k==="f"){ const a=(pk()&&pk().k==="(")?primary():power(); return {t:"f",f:n.v,a}; }
+    throw 0; }
+  const e=expr(); if(p!==T.length) throw 0; return e;
+}
+function parseInput(str){
+  const T=tokenize(prep(str)); if(!T.length) throw 0;
+  const k=T.findIndex(t=>t.k==="=");
+  if(k<0) return {n:parseTokens(T)};
+  if(T.slice(k+1).some(t=>t.k==="=")) throw 0;
+  return {eq:[parseTokens(T.slice(0,k)),parseTokens(T.slice(k+1))]};
+}
+function ev(n,x,y){switch(n.t){
+  case"n":return n.v; case"x":return x; case"y":return y===undefined?NaN:y;
+  case"+":return ev(n.a,x,y)+ev(n.b,x,y); case"-":return ev(n.a,x,y)-ev(n.b,x,y);
+  case"*":return ev(n.a,x,y)*ev(n.b,x,y); case"/":return ev(n.a,x,y)/ev(n.b,x,y);
+  case"^":return Math.pow(ev(n.a,x,y),ev(n.b,x,y)); case"neg":return -ev(n.a,x,y);
+  case"f":return FN[n.f](ev(n.a,x,y));}}
+function yAt(P,x){
+  if(P.n) return ev(P.n,x);
+  const g=y=>ev(P.eq[0],x,y)-ev(P.eq[1],x,y), g0=g(0), g1=g(1);
+  if(!isFinite(g0)||!isFinite(g1)||Math.abs(g1-g0)<1e-12) return NaN;
+  return -g0/(g1-g0);
+}
+const isAtom=n=>n.t==="x"||n.t==="y"||n.t==="f"||(n.t==="n"&&n.v>=0);
+const lowP=n=>n.t==="+"||n.t==="-"||n.t==="neg";
+const par=s=>"\\left("+s+"\\right)";
+function num(v){ if(Math.abs(v-Math.PI)<1e-12) return "\\pi"; return String(+v.toFixed(10)); }
+function tex(n){switch(n.t){
+  case"n":return num(n.v); case"x":return "x"; case"y":return "y";
+  case"+":return tex(n.a)+"+"+(n.b.t==="neg"?par(tex(n.b)):tex(n.b));
+  case"-":return tex(n.a)+"-"+(lowP(n.b)?par(tex(n.b)):tex(n.b));
+  case"*":{const a=(lowP(n.a)&&n.a.t!=="neg")?par(tex(n.a)):tex(n.a), b=lowP(n.b)?par(tex(n.b)):tex(n.b); return a+(n.b.t==="n"?"\\cdot ":(n.a.t==="n"||n.a.t==="neg")?"":"\\,")+b;}
+  case"/":return "\\frac{"+tex(n.a)+"}{"+tex(n.b)+"}";
+  case"^":return (isAtom(n.a)&&n.a.t!=="f"?tex(n.a):par(tex(n.a)))+"^{"+tex(n.b)+"}";
+  case"neg":return "-"+(lowP(n.a)?par(tex(n.a)):tex(n.a));
+  case"f":return n.f==="sqrt"?"\\sqrt{"+tex(n.a)+"}":n.f==="cbrt"?"\\sqrt[3]{"+tex(n.a)+"}":n.f==="abs"?"\\left|"+tex(n.a)+"\\right|":"\\"+n.f+par(tex(n.a));}}
+function texInput(P){ return P.n?tex(P.n):tex(P.eq[0])+"="+tex(P.eq[1]); }
+
+const XS=[-2.37,-1.71,-0.55,0.18,0.35,0.62,0.81,1.43,2.21,3.07,4.62,6.3];
+function checkField(kind,input,ans){
+  if(!String(input).trim()) return {err:"Boş"};
+  if(kind==="val"){ const n=norm(input); if(n===null) return {err:"Biçim anlaşılmadı. Örnek: 1/2, -inf, dne"}; return {ok:same(n,norm(ans))}; }
+  if(kind==="set"){
+    let parts=String(input).replace(/[{}]/g,"").split(/[;,]|\bve\b/i).map(s=>s.trim().replace(/^[xy]\s*=\s*/i,"")).filter(Boolean);
+    if(!parts.length) return {err:"Değerleri virgülle ayır: 1, 2"};
+    const vals=[];
+    for(const s of parts){
+      const pm=s.match(/^(±|\+-|\+\/-)(.*)$/); const list=pm?[pm[2],"-"+pm[2]]:[s];
+      for(const z of list){ let v=norm(z); if(typeof v!=="number"){ try{v=yAt(parseInput(z),0)}catch(e){v=NaN} }
+        if(typeof v!=="number"||!isFinite(v)) return {err:`"${z}" anlaşılmadı`}; vals.push(v); }
+    }
+    const exp=ans.split(",").map(Number), uniq=vals.filter((v,i)=>vals.findIndex(w=>Math.abs(w-v)<1e-9)===i);
+    return {ok:uniq.length===exp.length&&exp.every(e=>uniq.some(u=>Math.abs(u-e)<1e-9))};
+  }
+  let U; try{U=parseInput(input)}catch(e){return {err:"İfade okunamadı. Örnek: 4x-1, -3/(3x-1)^2, 1/(2sqrt(x))"}}
+  const E=parseInput(ans); let n=0;
+  for(const x of XS){ const e=yAt(E,x); if(!isFinite(e)) continue; const u=yAt(U,x);
+    if(!isFinite(u)||Math.abs(u-e)>1e-6*(1+Math.abs(e))) return {ok:false}; n++; }
+  return n>=3?{ok:true}:{err:"Kontrol edilemedi"};
+}
+
+/* ---------- RENDER HELPERS ---------- */
+const $=s=>document.querySelector(s);
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function math(el){ if(window.renderMathInElement){ try{renderMathInElement(el,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false});}catch(e){} } }
+function toast(t){const el=$("#toast"); el.textContent=t; el.classList.add("on"); clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.remove("on"),2300);}
+
+const TABS=[
+  ["plan","🧭 Plan & Kapsam"],
+  ["review","🎯 Review Kağıdı"],
+  ["zbirka","📚 Kitap (Zbirka)"],
+  ["atolye","📐 Görsel Simülatör"],
+  ["konu","⚡ Konu & Ezber"],
+  ["tani","🩺 Tanılama"],
+  ["d1","📝 Deneme 1"],
+  ["d2","📝 Deneme 2"],
+  ["ilerleme","📊 İlerleme & Hatalar"]
+];
+
+function renderTabs(){
+  $("#tabs").innerHTML=TABS.map(([k,l])=>`<button role="tab" id="tab-${k}" aria-controls="main" aria-selected="${S.tab===k}" data-tab="${k}">${l}${badge(k)}</button>`).join("");
+}
+function badge(k){
+  if(!SETS[k]) return "";
+  const qs=SETS[k].qs;
+  const d=qs.filter(x=>S.status[x.id]).length;
+  return ` <span class="muted small">${d}/${qs.length}</span>`;
+}
+function go(k,filterTag){
+  if(filterTag){ S.zFilter=filterTag; }
+  S.tab=k; save(); renderTabs(); render(); window.scrollTo(0,0);
+  const b=$("#tab-"+k); if(b) b.scrollIntoView({block:"nearest",inline:"nearest"});
+}
+
+/* ---------- QUESTION CARD ---------- */
+function qCard(x){
+  const st=S.status[x.id], open=S.open[x.id], scOpen=S.open["sc"+x.id];
+  const tag=TAGS[x.tag];
+  return `<article class="q" id="q-${x.id}" data-id="${x.id}">
+   <header>
+     <span class="qid">${x.id}</span>
+     <span class="chip">${tag.l}</span>
+     <span class="qsrc">${esc(x.src||tag.sec)}</span>
+     <span class="st ${st||""}" aria-live="polite">${st==="ok"?"✓ Doğru":st==="bad"?"✗ Yanlış":""}</span>
+   </header>
+   <div class="prompt">${x.p}</div>
+   ${x.f.length?`<div class="fields">${x.f.map((f,i)=>{const k=inKey(x.id,i), v=S.inputs[k]||"";
+      const ph=f[1]==="val"?"1/2, -inf, dne":f[1]==="set"?"ör. -1, 1":"ör. 4x-1";
+      return `<div class="field"><label for="in-${k}">${esc(f[0])}</label><span class="inwrap"><input type="text" class="${f[1]==="val"?"val":""}" id="in-${k}" data-in="${k}" data-kind="${f[1]}" value="${esc(v)}" placeholder="${ph}" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="mk" id="mk-${k}" aria-hidden="true"></span></span>${f[1]==="expr"?`<div class="pv" id="pv-${k}" aria-live="polite"></div>`:""}<div class="ferr" id="er-${k}"></div></div>`;}).join("")}</div>`:""}
+   <div class="actions">
+     ${x.f.length?`<button class="btn" data-check="${x.id}" type="button">Kontrol et</button><span class="fb" id="fb-${x.id}"></span>`:""}
+     ${x.h?`<button class="btn ghost" data-hint="${x.id}" type="button" aria-expanded="${!!S.open["h"+x.id]}">💡 İpucu</button>`:""}
+     <button class="btn soft" data-reveal="${x.id}" type="button" aria-expanded="${!!open}">${open?"Çözümü gizle":"Çözümü göster"}</button>
+     <button class="btn ghost" data-scratch="${x.id}" type="button">✏️ Karalama</button>
+     ${x.preset?`<button class="btn purple" data-openlab="${x.preset}" type="button">📐 Grafikte Gör</button>`:""}
+   </div>
+   ${x.h?`<div class="hint" id="h-${x.id}" ${S.open["h"+x.id]?"":"hidden"}><b>İpucu:</b> ${esc(x.h)}</div>`:""}
+   <div class="scratch-box" id="sc-${x.id}" ${scOpen?"":"hidden"}>
+     <div class="small muted"><b>Ara İşlem & Çizim Karalama Alanı</b> (Sol kutuya cebirsel adımlarını yaz, sağa fare/kalemle çiz):</div>
+     <div class="scratch-grid">
+       <textarea class="scratch-Area" data-scinput="${x.id}" placeholder="Adım 1: lim(h->0) [f(x+h)-f(x)]/h ...">${esc(S.scratch[x.id]||"")}</textarea>
+       <div class="scratch-canvas-wrap">
+         <canvas class="scratch-canvas" id="canv-${x.id}" width="420" height="130"></canvas>
+         <button type="button" class="btn ghost" data-clearcanv="${x.id}" style="position:absolute;top:5px;right:5px;padding:2px 7px;font-size:.73rem">Temizle</button>
+       </div>
+     </div>
+   </div>
+   <div class="sol" id="s-${x.id}" ${open?"":"hidden"}>${x.s}
+     <div class="self"><span class="small muted">Kağıttaki çözümün:</span><button class="btn ok" data-mark="ok" data-id="${x.id}" type="button">✓ Doğru yaptım</button><button class="btn bad" data-mark="bad" data-id="${x.id}" type="button">✗ Yanlış yaptım (Hata listesine ekle)</button></div>
+   </div>
+  </article>`;
+}
+
+function setView(k){
+  const set=SETS[k];
+  let qs=set.qs;
+  const ok=qs.filter(x=>S.status[x.id]==="ok").length, bad=qs.filter(x=>S.status[x.id]==="bad").length;
+  let h=`<section class="sheet"><h2>${set.title}</h2><p class="muted">${set.intro}</p>
+   <div class="syntax"><b>Nasıl yazılır?</b> Sayı: <code>1/2</code>, <code>-1/25</code>, <code>inf</code>, <code>-inf</code>, <code>dne</code> · İfade: <code>4x-1</code>, <code>-3/(3x-1)^2</code>, <code>1/(2sqrt(x))</code>, <code>x^(1/3)</code> · Teğet: <code>y=-5x-2</code> veya <code>y-3=-5(x+1)</code> · Küme: <code>-1, 1</code>. Enter tuşu anında kontrol eder.</div>
+   <p class="small" style="margin-top:10px">Bu setteki durumun: <b style="color:var(--green)">${ok} doğru</b> · <b style="color:var(--red)">${bad} yanlış</b> · <b>${qs.length-ok-bad} çözülmemiş</b></p>`;
+
+  if(k==="zbirka"){
+    const counts={all:qs.length,cebir:0,tek:0,trig:0,sonsuz:0,surek:0,tanim:0,kural:0,bad:bad,todo:qs.length-ok-bad};
+    qs.forEach(x=>counts[x.tag]=(counts[x.tag]||0)+1);
+    const filters=[
+      ["all",`Tümü (${counts.all})`],
+      ["cebir",`Blok 1: 1.1 0/0 Limit (${counts.cebir})`],
+      ["tek",`Blok 2a: 1.3 Tek Taraflı (${counts.tek})`],
+      ["trig",`Blok 2b: 1.4 Trig (${counts.trig})`],
+      ["sonsuz",`Blok 3: 1.5 Sonsuz & Asimptot (${counts.sonsuz})`],
+      ["surek",`Blok 4: 1.6 Süreklilik (${counts.surek})`],
+      ["tanim",`Blok 5: 2.1 Tanımdan Türev (${counts.tanim})`],
+      ["kural",`Blok 6: 2.2 Kurallar (${counts.kural})`],
+      ["bad",`✗ Yanlışlarım (${counts.bad})`],
+      ["todo",`⏳ Çözülmemiş (${counts.todo})`]
+    ];
+    h+=`<div class="filter-bar">${filters.map(([fk,fl])=>`<button type="button" class="filter-btn ${S.zFilter===fk?"active":""}" data-zfilter="${fk}">${fl}</button>`).join("")}</div>`;
+    if(S.zFilter==="bad") qs=qs.filter(x=>S.status[x.id]==="bad");
+    else if(S.zFilter==="todo") qs=qs.filter(x=>!S.status[x.id]);
+    else if(S.zFilter!=="all") qs=qs.filter(x=>x.tag===S.zFilter);
+  }
+
+  if(set.time) h+=timerHTML(k,set.time);
+  h+=`<div class="actions"><button class="btn ghost" data-resetset="${k}" type="button">Bu setin işaretlerini sıfırla</button><button class="btn ghost" data-expandall="${k}" type="button">Tüm çözümleri aç/kapat</button></div>`;
+  h+=qs.length ? qs.map(qCard).join("") : `<p class="muted" style="padding:20px 0">Bu filtrede soru bulunmuyor.</p>`;
+  h+=`</section>`;
+  return h;
+}
+
+/* ---------- TIMERS ---------- */
+function timerHTML(k,min){
+  return `<div class="timer" id="timer-${k}"><span class="clock" id="clock-${k}" aria-live="off">${min}:00</span>
+   <button class="btn" data-tstart="${k}" type="button">Süreyi Başlat</button>
+   <button class="btn ghost" data-tpause="${k}" type="button">Duraklat</button>
+   <button class="btn ghost" data-treset="${k}" type="button">Sıfırla</button>
+   <span class="small muted">Sınav süresi: ${min} dk (kapalı defter)</span></div>`;
+}
+function tState(k){ if(!S.timers[k]) S.timers[k]={left:SETS[k].time*60,run:false,at:0}; return S.timers[k]; }
+function tLeft(k){ const t=tState(k); return t.run? t.left-(Date.now()-t.at)/1000 : t.left; }
+
+let pomo={left:25*60,run:false,at:0};
+function pomoLeft(){ return pomo.run ? pomo.left-(Date.now()-pomo.at)/1000 : pomo.left; }
+function tTick(){
+  for(const k of ["d1","d2"]){ const el=$("#clock-"+k); if(!el) continue;
+    const l=tLeft(k), a=Math.abs(Math.round(l)); el.textContent=(l<0?"−":"")+Math.floor(a/60)+":"+String(a%60).padStart(2,"0");
+    $("#timer-"+k).classList.toggle("over",l<0);
+  }
+  const pel=$("#pomoClock");
+  if(pel){
+    const pl=Math.max(0,Math.round(pomoLeft()));
+    pel.textContent=String(Math.floor(pl/60)).padStart(2,"0")+":"+String(pl%60).padStart(2,"0");
+    if(pl===0 && pomo.run){ pomo.run=false; pomo.left=25*60; $("#pomoToggle").textContent="Başlat"; toast("🍅 Pomodoro tamamlandı! 5 dk mola ver."); }
+  }
+}
+setInterval(tTick,1000);
+
+/* ---------- PLAN & SYLLABUS VIEW ---------- */
+function planView(){
+  let h=`<section class="sheet">
+    <h2>MATH101 Midterm Çalışma Masası & Kamp Planı</h2>
+    <p class="muted"><b>Sınav:</b> 14 Kasım 2026 Cumartesi 12:30 (%30 ağırlık) · <b>Kaynaklar:</b> <code>MIDTERM REVIEW 101.docx</code>, Leila Miller <i>A Calculus Problem Book</i> (<code>zbirka.txt</code>) ve Thomas' Calculus 12th Ed.</p>
+    <div class="chips">
+      <span class="chip">137 Etkileşimli Soru</span>
+      <span class="chip purple">Canlı Limit & Teğet Grafiği</span>
+      <span class="chip green">Otomatik Türev/Cebir Kontrolü</span>
+      <span class="chip amber">75 Çözümlü Kitap Sorusu</span>
+    </div>
+    <div class="tblwrap" style="margin-top:12px">
+      <table>
+        <tr><th>Thomas Bölümü</th><th>Konu</th><th>Kitaptaki Karşılığı (Zbirka)</th><th>Review Dağılımı</th><th>İşlem</th></tr>
+        <tr><td><b>2.2</b></td><td>Limit, 0/0 Giderme (Çarpan, Eşlenik, Ortak Payda), Sandwich</td><td>1.1 Limits, Basic Properties</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:cebir" type="button" style="padding:3px 9px;font-size:.78rem">Blok 1 Aç</button></td></tr>
+        <tr><td><b>2.4</b></td><td>Tek Taraflı Limitler, Mutlak Değer $|x-a|$, Trig Limitler ($\sin x/x$)</td><td>1.3 One-Sided & 1.4 Trig Limits</td><td>4 Soru</td><td><button class="btn soft" data-go="zbirka:tek" type="button" style="padding:3px 9px;font-size:.78rem">Blok 2 Aç</button></td></tr>
+        <tr><td><b>2.6</b></td><td>Sonsuzda Limit ($x\to\pm\infty$), Sonsuz Limit, Yatay/Düşey Asimptot</td><td>1.5 Limits Involving Infinity</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:sonsuz" type="button" style="padding:3px 9px;font-size:.78rem">Blok 3 Aç</button></td></tr>
+        <tr><td><b>2.5</b></td><td>Süreklilik, Jump/Removable Süreksizlik, $a,b$ Bulma, IVT</td><td>1.6 Continuity</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:surek" type="button" style="padding:3px 9px;font-size:.78rem">Blok 4 Aç</button></td></tr>
+        <tr><td><b>3.1 – 3.2</b></td><td>Tanımdan Türev $\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}$ ve Teğet Doğrusu</td><td>2.1 Definition of Derivative</td><td>3 Soru (~25p)</td><td><button class="btn soft" data-go="zbirka:tanim" type="button" style="padding:3px 9px;font-size:.78rem">Blok 5 Aç</button></td></tr>
+        <tr><td><b>3.3</b></td><td>Türev Kuralları: Kuvvet, Çarpım, Bölüm, İkinci Türev</td><td>2.2 Basic Properties (Soru 1–18)</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:kural" type="button" style="padding:3px 9px;font-size:.78rem">Blok 6 Aç</button></td></tr>
+      </table>
+    </div>
+    <p class="small muted" style="margin-top:10px"><b>🚫 Kapsam Dışı (Çalışma!):</b> $\varepsilon$–$\delta$ ispatı (Thomas 2.3 / Kitap 1.2), Trigonometrik Türevler (Thomas 3.5 / Kitap 2.2 Soru 19–26), Zincir Kuralı (Kitap 2.3), Kapalı Türev (Kitap 2.4), Ekstremum ve Grafik Çizimi (Kitap Bölüm 3).</p>
+  </section>`;
+
+  PLAN.forEach((g,gi)=>{
+    h+=`<section class="sheet plan"><h3 style="margin-top:0">${g.gun}</h3><ul>`;
+    g.items.forEach((it,ii)=>{const id=gi+"-"+ii, done=!!S.plan[id];
+      h+=`<li class="${done?"done":""}"><input type="checkbox" id="p-${id}" data-plan="${id}" ${done?"checked":""}><label for="p-${id}" class="time">${it[0]}</label><span class="what">${esc(it[1])}${it[2]?` <button type="button" class="btn soft" style="padding:2px 8px;font-size:.76rem;margin-left:6px" data-go="${it[2]}">Aç →</button>`:""}</span></li>`;});
+    h+=`</ul></section>`;
+  });
+
+  h+=`<section class="sheet"><h3 style="margin-top:0">🏆 Sınav Anı Taktikleri</h3><ul>
+   <li><b>Sıra:</b> Kağıdı alınca önce Türev Kuralları (Soru 13–14) ve Süreklilik (Soru 8–9) sorularını çöz; 10 dakikada ~30 puanı cebine koy.</li>
+   <li><b>Tanımdan Türev:</b> Her satırda <code>lim (h→0)</code> yazmayı unutma! $h$ sadeleşmeden önce $h=0$ koyma. Sonucu bulunca türev kuralıyla kafandan doğrula!</li>
+   <li><b>Süreklilik "Explain" Sorusu:</b> Sadece "discontinuous" yazarsan puan kırılır. Her kritik nokta için $\lim_{x\to a^-}f(x)$, $\lim_{x\to a^+}f(x)$ ve $f(a)$ değerlerini ayrı ayrı yaz.</li>
+   <li><b>Limit Kontrolü:</b> İlk iş $x=a$ koymak! Kitap 1.1 #2 ve 1.4 #8 gibi sorularda payda $0$ olmuyor, cevap doğrudan $0$ çıkıyor.</li></ul></section>`;
+  return h;
+}
+
+/* ---------- VISUAL CALCULUS LAB (ATÖLYE) ---------- */
+const LAB_PRESETS = {
+  r10: {
+    name: "Review #10: f(x) = 2x² - x (x = -1'de Teğet & Kiriş)",
+    expr: "2x^2-x", a: -1, mode: "tangent", xrange: [-3, 2], yrange: [-2, 8],
+    note: "f(-1) = 3, f'(-1) = -5. h → 0 sürgüsünü oynatarak kesen doğrunun (kesikli mor) y = -5x - 2 teğet doğrusuna (yeşil) nasıl çakıştığını izle."
+  },
+  r11: {
+    name: "Review #11: f(x) = 1/(3x - 1) (x = 1'de Teğet & Asimptot)",
+    expr: "1/(3x-1)", a: 1, mode: "tangent", xrange: [-1, 2.5], yrange: [-3, 3],
+    note: "x = 1/3 düşey asimptottur. x = 1 noktasında f(1) = 1/2 ve f'(1) = -3/4 olup teğet doğrusu y = -3x/4 + 5/4'tür."
+  },
+  r12: {
+    name: "Review #12: f(x) = √(1 - x) (x = 0'da Teğet)",
+    expr: "sqrt(1-x)", a: 0, mode: "tangent", xrange: [-3, 1.5], yrange: [-0.5, 2.8],
+    note: "Tanım kümesi x ≤ 1. x = 0'da f(0) = 1 ve eğim f'(0) = -1/2 olup teğet doğrusu y = -x/2 + 1'dir."
+  },
+  r4: {
+    name: "Review #4: f(x) = |x - 2| / (x² - 4) (x = 2'de Sıçrama / Jump)",
+    expr: "abs(x-2)/(x^2-4)", a: 2, mode: "limit", xrange: [-1, 5], yrange: [-0.6, 0.6],
+    note: "Sağdan (x → 2⁺) yaklaşırken grafik +1/4 = 0.25'e, soldan (x → 2⁻) yaklaşırken -1/4 = -0.25'e gider. Sol ≠ Sağ olduğu için limit DNE (Jump Discontinuity)."
+  },
+  r8: {
+    name: "Review #8: Parçalı Fonksiyon Süreksizlik Analizi (x = -1, 1, 2)",
+    expr: "piecewise_r8", a: 1, mode: "limit", xrange: [-3, 4], yrange: [-1, 5],
+    note: "x = -1'de sol ve sağ parçalar y = 1'de birleşir (Sürekli). x = 1'de 1'den 4'e sıçrar (Jump). x = 2'de 4'ten 1'e sıçrar (Jump)."
+  },
+  squeeze: {
+    name: "Zbirka 1.1 #17: f(x) = x² sin(1/x) (Sandwich / Squeeze Teoremi)",
+    expr: "x^2*sin(1/x)", a: 0, mode: "squeeze", xrange: [-0.6, 0.6], yrange: [-0.35, 0.35],
+    note: "Fonksiyon x = 0 yakınında sonsuz kez salınır ama -x² ve +x² parabolleri (kesikli zarflar) arasında sıkıştığı için x → 0 limiti 0'dır."
+  },
+  asym: {
+    name: "Zbirka 1.5 #38: f(x) = √(x² + 1) / x (Çift Yatay Asimptot y = ±1)",
+    expr: "sqrt(x^2+1)/x", a: 0, mode: "limit", xrange: [-6, 6], yrange: [-3, 3],
+    note: "x → +∞ iken √(x²)=+x olduğundan grafik y = +1'e; x → -∞ iken √(x²)=-x olduğundan grafik y = -1'e yaklaşır!"
+  }
+};
+
+const DERIV_DRILLS = [
+  {
+    title: "Kalıp 1 (Polinom): f(x) = 2x² - x, x = -1'de teğet (Review #10)",
+    steps: [
+      ["Adım 1: Tanım formülünü ve f(x+h) ifadesini yaz", R`$$f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}=\lim_{h\to 0}\frac{[2(x+h)^2-(x+h)]-(2x^2-x)}{h}$$`],
+      ["Adım 2: Parantezleri aç ve f(x) terimlerini götür", R`$$=\lim_{h\to 0}\frac{2(x^2+2xh+h^2)-x-h-2x^2+x}{h}=\lim_{h\to 0}\frac{4xh+2h^2-h}{h}$$`],
+      ["Adım 3: Payı h parantezine alıp h'yi sadeleştir", R`$$=\lim_{h\to 0}\frac{h(4x+2h-1)}{h}=\lim_{h\to 0}(4x+2h-1)$$`],
+      ["Adım 4: h = 0 koyarak türev fonksiyonunu bul", R`$$f'(x)=4x-1$$`],
+      ["Adım 5: Noktayı ve eğimi hesaplayıp teğet denklemini yaz", R`$$f(-1)=2(-1)^2-(-1)=3,\quad m=f'(-1)=4(-1)-1=-5$$ $$y-3=-5(x+1)\implies \mathbf{y=-5x-2}$$`]
+    ]
+  },
+  {
+    title: "Kalıp 2 (Kesir): f(x) = 1/(3x - 1), x = 1'de teğet (Review #11)",
+    steps: [
+      ["Adım 1: Tanım formülünde f(x+h) = 1/(3(x+h)-1) yaz", R`$$f'(x)=\lim_{h\to 0}\frac{\frac{1}{3x+3h-1}-\frac{1}{3x-1}}{h}$$`],
+      ["Adım 2: Payda eşitle (işaret hatasına dikkat!)", R`$$=\lim_{h\to 0}\frac{(3x-1)-(3x+3h-1)}{h(3x+3h-1)(3x-1)}=\lim_{h\to 0}\frac{-3h}{h(3x+3h-1)(3x-1)}$$`],
+      ["Adım 3: h çarpanlarını sadeleştir", R`$$=\lim_{h\to 0}\frac{-3}{(3x+3h-1)(3x-1)}$$`],
+      ["Adım 4: h = 0 koyarak f'(x)'i bul", R`$$f'(x)=\frac{-3}{(3x-1)^2}$$`],
+      ["Adım 5: x = 1 için f(1) ve f'(1) ile teğet denklemini kur", R`$$f(1)=\frac{1}{2},\quad m=f'(1)=\frac{-3}{2^2}=-\frac{3}{4}$$ $$y-\frac{1}{2}=-\frac{3}{4}(x-1)\implies \mathbf{y=-\frac{3}{4}x+\frac{5}{4}}$$`]
+    ]
+  },
+  {
+    title: "Kalıp 3 (Kök): f(x) = √(1 - x), x = 0'da teğet (Review #12)",
+    steps: [
+      ["Adım 1: Tanım formülünü yaz", R`$$f'(x)=\lim_{h\to 0}\frac{\sqrt{1-(x+h)}-\sqrt{1-x}}{h}=\lim_{h\to 0}\frac{\sqrt{1-x-h}-\sqrt{1-x}}{h}$$`],
+      ["Adım 2: Pay ve paydayı eşlenik ile çarp", R`$$=\lim_{h\to 0}\frac{(\sqrt{1-x-h}-\sqrt{1-x})(\sqrt{1-x-h}+\sqrt{1-x})}{h(\sqrt{1-x-h}+\sqrt{1-x})}=\lim_{h\to 0}\frac{(1-x-h)-(1-x)}{h(\sqrt{1-x-h}+\sqrt{1-x})}$$`],
+      ["Adım 3: Paydaki -h ile paydadaki h'yi sadeleştir", R`$$=\lim_{h\to 0}\frac{-h}{h(\sqrt{1-x-h}+\sqrt{1-x})}=\lim_{h\to 0}\frac{-1}{\sqrt{1-x-h}+\sqrt{1-x}}$$`],
+      ["Adım 4: h = 0 koyarak f'(x)'i bul", R`$$f'(x)=\frac{-1}{2\sqrt{1-x}}$$`],
+      ["Adım 5: x = 0 için f(0) ve f'(0) ile teğet denklemini yaz", R`$$f(0)=1,\quad m=f'(0)=-\frac{1}{2}$$ $$y-1=-\frac{1}{2}(x-0)\implies \mathbf{y=-\frac{1}{2}x+1}$$`]
+    ]
+  }
+];
+
+function atolyeView(){
+  const p = LAB_PRESETS[S.labPreset] || LAB_PRESETS.r10;
+  let h=`<section class="sheet">
+    <h2>📐 Görsel Calculus Simülatörü (Limit, Süreklilik, Teğet & Kiriş)</h2>
+    <p class="muted">Fonksiyonların kritik noktalardaki sağ/sol limit davranışını, sıçrama süreksizliklerini, Sandwich zarfını ve $h\to 0$ iken kesen (kiriş) doğrusunun teğet doğrusuna dönüşümünü canlı incele.</p>
+    <div class="lab-grid">
+      <div class="canvas-card">
+        <canvas id="calcCanvas" width="640" height="380"></canvas>
+        <p class="small muted" id="labNote" style="margin:8px 0 0">${esc(p.note)}</p>
+      </div>
+      <div class="lab-controls">
+        <div class="ctrl-box">
+          <label for="labPresetSel">Hazır Sınav Fonksiyonu Seç:</label>
+          <select id="labPresetSel" style="width:100%">
+            ${Object.entries(LAB_PRESETS).map(([k,v])=>`<option value="${k}" ${S.labPreset===k?"selected":""}>${esc(v.name)}</option>`).join("")}
+          </select>
+        </div>
+        <div class="ctrl-box">
+          <label>Özel Fonksiyon $f(x)$ ve Nokta $a$:</label>
+          <div style="display:flex;gap:6px">
+            <input type="text" id="labExprIn" value="${esc(p.expr)}" style="flex:1" placeholder="ör. (x^2-4)/(x-2)">
+            <input type="number" id="labAIn" value="${p.a}" step="0.5" style="width:78px">
+            <button type="button" class="btn soft" id="labApplyBtn">Çiz</button>
+          </div>
+        </div>
+        <div class="ctrl-box">
+          <label for="labHRange">Kiriş / Yaklaşım Adımı $h = $ <b id="labHVal">${S.labH}</b> ($x+h$ noktası):</label>
+          <input type="range" id="labHRange" min="-1.5" max="1.5" step="0.05" value="${S.labH}" style="width:100%;accent-color:var(--blue)">
+          <div class="small muted" id="labSlopeInfo" style="margin-top:4px"></div>
+        </div>
+        <div class="ctrl-box">
+          <label>Sayısal Sağ / Sol Limit Tablosu ($x \to a^-$ ve $x \to a^+$):</label>
+          <table class="num-table" id="labNumTable"></table>
+        </div>
+      </div>
+    </div>
+  </section>`;
+
+  // Step-by-step Definition of Derivative Trainer
+  const d = DERIV_DRILLS[S.drvTpl] || DERIV_DRILLS[0];
+  h+=`<section class="sheet">
+    <h2>🎯 Adım Adım "Tanımdan Türev" (Definition of Derivative) Antrenörü</h2>
+    <p class="muted">Sınavın 24 puanlık kısmında kural kullanmak 0 puan getirir. Üç ana kalıbın her adımını sırayla açıp kağıttaki çözümünle karşılaştır.</p>
+    <div class="filter-bar">
+      ${DERIV_DRILLS.map((dr,i)=>`<button type="button" class="filter-btn ${S.drvTpl===i?"active":""}" data-drvtpl="${i}">${esc(dr.title.split(":")[0])}</button>`).join("")}
+      <button type="button" class="btn soft" data-drvstep="next" style="margin-left:auto">Sonraki Adımı Aç (${S.drvStep}/${d.steps.length})</button>
+      <button type="button" class="btn ghost" data-drvstep="reset">Sıfırla</button>
+    </div>
+    <h3>${esc(d.title)}</h3>
+    ${d.steps.map((st,idx)=>{
+      const vis = idx < S.drvStep;
+      return `<div class="step-card">
+        <div class="step-head"><span>${esc(st[0])}</span><button type="button" class="btn ghost" data-drvtog="${idx}" style="padding:2px 9px;font-size:.78rem">${vis?"Gizle":"Göster"}</button></div>
+        ${vis?`<div class="step-body">${st[1]}</div>`:""}
+      </div>`;
+    }).join("")}
+  </section>`;
+
+  // English Exam Sentence Templates
+  h+=`<section class="sheet">
+    <h2>🇬🇧 Sınav İngilizcesi: "Explain" Soruları İçin Tam Puanlık Cümle Şablonları</h2>
+    <p class="muted">Hocanın "explain" dediği süreklilik ve teorem sorularında kopyalayıp kağıda yazacağın standart İngilizce cümleler:</p>
+    <div class="tblwrap">
+      <table>
+        <tr><th>Durum</th><th>Kağıda Yazılacak İngilizce Şablon</th><th>İşlem</th></tr>
+        <tr><td><b>Jump Discontinuity</b><br><span class="small muted">(Review #8)</span></td><td><code>At x = 1, lim(x→1⁻) f(x) = 1 and lim(x→1⁺) f(x) = 4. Since the left-hand and right-hand limits are not equal, lim(x→1) f(x) DNE, so f has a jump discontinuity at x = 1.</code></td><td><button type="button" class="btn ghost" data-copytpl="At x = 1, lim(x->1-) f(x) = 1 and lim(x->1+) f(x) = 4. Since the one-sided limits are not equal, lim(x->1) f(x) DNE, so f has a jump discontinuity at x = 1.">Kopyala</button></td></tr>
+        <tr><td><b>Removable Discontinuity</b><br><span class="small muted">(Deneme 1 #2, Zbirka 1.6 #9)</span></td><td><code>At x = 1, lim(x→1⁻) f(x) = 3 = lim(x→1⁺) f(x), so lim(x→1) f(x) = 3. However, f(1) = 5 ≠ 3, so f has a removable discontinuity at x = 1.</code></td><td><button type="button" class="btn ghost" data-copytpl="At x = 1, lim(x->1) f(x) = 3, but f(1) = 5 != 3. Therefore, f has a removable discontinuity at x = 1.">Kopyala</button></td></tr>
+        <tr><td><b>Continuous at a Point</b><br><span class="small muted">(Review #8 x = -1)</span></td><td><code>At x = -1, lim(x→-1⁻) f(x) = 1, lim(x→-1⁺) f(x) = 1, and f(-1) = 1. Since lim(x→-1) f(x) = f(-1) = 1, f is continuous at x = -1.</code></td><td><button type="button" class="btn ghost" data-copytpl="At x = -1, lim(x->-1-) f(x) = lim(x->-1+) f(x) = f(-1) = 1, so f is continuous at x = -1.">Kopyala</button></td></tr>
+        <tr><td><b>Sandwich (Squeeze) Theorem</b><br><span class="small muted">(Zbirka 1.1 #17)</span></td><td><code>Since -1 ≤ sin(1/x) ≤ 1 for x ≠ 0, we have -x² ≤ x²sin(1/x) ≤ x². Since lim(x→0)(-x²) = 0 and lim(x→0)(x²) = 0, by the Sandwich Theorem lim(x→0) x²sin(1/x) = 0.</code></td><td><button type="button" class="btn ghost" data-copytpl="Since -x^2 <= x^2 sin(1/x) <= x^2 and both bounds approach 0 as x->0, the limit is 0 by the Sandwich Theorem.">Kopyala</button></td></tr>
+        <tr><td><b>Intermediate Value Theorem (IVT)</b><br><span class="small muted">(Deneme 2 #E2d)</span></td><td><code>f(x) = x³ + x - 1 is a polynomial, so it is continuous on [0, 1]. Since f(0) = -1 < 0 and f(1) = 1 > 0, by the Intermediate Value Theorem there exists c in (0, 1) such that f(c) = 0.</code></td><td><button type="button" class="btn ghost" data-copytpl="Since f is continuous on [0, 1] and f(0) = -1 < 0 < 1 = f(1), by the Intermediate Value Theorem there exists c in (0, 1) such that f(c) = 0.">Kopyala</button></td></tr>
+      </table>
+    </div>
+  </section>`;
+  return h;
+}
+
+/* ---------- KONU & FLASHCARDS VIEW ---------- */
+function konuView(){
+  const masteredCount = FLASHCARDS.filter(f=>S.fc[f.id]==="ok").length;
+  let h=`<section class="sheet">
+    <h2>⚡ Etkileşimli Ezber Kartları (Flashcards · ${masteredCount}/${FLASHCARDS.length} Öğrenildi)</h2>
+    <p class="muted">Karta tıklayarak cevabı çevir. "✓ Biliyorum" dediğin kartlar yeşil işaretlenir.</p>
+    <div class="fc-grid">
+      ${FLASHCARDS.map(f=>{
+        const fl = !!S.open["fc_"+f.id], ok = S.fc[f.id]==="ok";
+        return `<div class="fc-card ${fl?"flipped":""} ${ok?"mastered":""}" data-fcflip="${f.id}">
+          <div class="fc-top"><span>${esc(f.cat)}</span><span>${fl?"CEVAP":"SORU (Çevir ↻)"}</span></div>
+          <div class="fc-main">${fl?f.a:f.q}</div>
+          <div class="fc-foot">
+            <span>${ok?"✓ Öğrenildi":"Tekrar gerekli"}</span>
+            <button type="button" class="btn ${ok?"ok":"ghost"}" data-fcmark="${f.id}" style="padding:2px 8px;font-size:.74rem">${ok?"✓ Biliyorum":"Biliyorum İşaretle"}</button>
+          </div>
+        </div>`;
+      }).join("")}
+    </div>
+  </section>`;
+
+  const T=[
+  ["§1 0/0 Limitleri & Sandwich (Thomas 2.2 · Zbirka 1.1)","cebir",R`<p>Önce yerine koy. Sayı çıkarsa bitti. $0/0$ çıkarsa cebir yap.</p>
+   <table><tr><th>Görünüm</th><th>Yöntem</th></tr>
+   <tr><td>Polinom / polinom</td><td>Çarpanlara ayır, sadeleştir</td></tr>
+   <tr><td>Kök farkı</td><td>Eşlenikle çarp: $(\sqrt A-\sqrt B)(\sqrt A+\sqrt B)=A-B$</td></tr>
+   <tr><td>Kesir içinde kesir</td><td>Payı tek kesir yap</td></tr>
+   <tr><td>$x^2\sin(1/x)$ gibi</td><td>Sandwich: $-x^2\le\cdot\le x^2$</td></tr></table>
+   <p><b>Örnek.</b> $\displaystyle\lim_{x\to1}\frac{\sqrt{x+3}-2}{1-x}=\lim\frac{x-1}{(1-x)(\sqrt{x+3}+2)}=\lim\frac{-1}{\sqrt{x+3}+2}=-\frac14$</p>
+   <p class="small">Tuzak: $\dfrac{x-1}{1-x}=-1$.</p>`],
+  ["§2 Tek Taraflı Limit ve |x| (Thomas 2.4 · Zbirka 1.3)","tek",R`<p>$\lim_{x\to a}f=L \iff$ sol $=$ sağ $=L$. Farklıysa <b>DNE</b>.</p>
+   <p>$|x-a|=x-a$ ($x>a$), $|x-a|=-(x-a)$ ($x<a$). Yaklaştığın tarafa göre aç.</p>
+   <p>Parçalı fonksiyonda sol limit için soldaki formül, sağ limit için sağdaki formül. $f(a)$ için eşitliğin olduğu parça.</p>
+   <p><b>Örnek.</b> $\displaystyle\lim_{x\to4^+}\frac{|x-4|}{4-x}=\frac{x-4}{4-x}=-1$, soldan $+1$, iki taraflı DNE.</p>`],
+  ["§2b Trigonometrik Limitler (Thomas 2.4 · Zbirka 1.4)","trig",R`<p>Temel: $\displaystyle\lim_{\theta\to0}\frac{\sin\theta}{\theta}=1$.</p>
+   <table><tr><th>$x\to0$</th><th>Sonuç</th></tr>
+   <tr><td>$\sin ax/(bx)$, $\tan ax/(bx)$, $\sin ax/\sin bx$</td><td>$a/b$</td></tr>
+   <tr><td>$(1-\cos x)/x$</td><td>$0$</td></tr>
+   <tr><td>$(1-\cos x)/x^2$</td><td>$1/2$</td></tr></table>
+   <p>$1-\cos$ görünce $(1+\cos)$ ile genişlet, $\sin^2$ çıkar. Adım göster: $\sin ax$'in altına $ax$ koy.</p>
+   <p><b>Örnek.</b> $\displaystyle\lim_{x\to0}x^2\cot^23x=\cos^23x\Big(\frac{3x}{\sin3x}\Big)^2\frac19=\frac19$</p>
+   <p class="small">$0/0$ değilse $\sin\theta/\theta$ kullanma: $\lim_{x\to\pi}\sin2x/x=0$.</p>`],
+  ["§3 Süreklilik & IVT (Thomas 2.5 · Zbirka 1.6)","surek",R`<p>$f$, $a$'da sürekli: (1) $f(a)$ tanımlı, (2) limit var, (3) limit $=f(a)$.</p>
+   <table><tr><th>Tür</th><th>Durum</th></tr>
+   <tr><td>Removable</td><td>Limit var, $f(a)$ farklı ya da tanımsız</td></tr>
+   <tr><td>Jump</td><td>Sol ve sağ limit farklı sayılar</td></tr>
+   <tr><td>Infinite</td><td>Limit $\pm\infty$</td></tr></table>
+   <p><b>a, b bul:</b> her geçiş noktasında sol $=$ sağ denklemi yaz, sistemi çöz.</p>
+   <p><b>IVT:</b> $f$ $[a,b]$'de sürekli, $N$ $f(a)$ ile $f(b)$ arasında ise $f(c)=N$ olan $c\in(a,b)$ var. Kök göstermek için işaret değişimi.</p>`],
+  ["§4 Sonsuzluk ve Asimptotlar (Thomas 2.6 · Zbirka 1.5)","sonsuz",R`<p>$x\to\pm\infty$ rasyonel: paydanın en büyük kuvvetine böl.</p>
+   <table><tr><th>Derece</th><th>Limit</th></tr><tr><td>pay &lt; payda</td><td>$0$</td></tr><tr><td>pay $=$ payda</td><td>baş katsayılar oranı</td></tr><tr><td>pay &gt; payda</td><td>$\pm\infty$</td></tr></table>
+   <p>$\sqrt{x^2}=|x|$. $x\to-\infty$ iken $-x$.</p>
+   <p>$\infty-\infty$ (kök $-$ x): eşlenik. $\displaystyle\lim_{x\to\infty}(\sqrt{x^2+x+1}-x)=\frac12$</p>
+   <p>sayı/0: işarete bak. $\displaystyle\lim_{x\to-2^+}\frac{x-1}{x+2}=-\infty$ (pay $-3$, payda $0^+$).</p>
+   <p>Yatay asimptot: $\lim_{x\to\pm\infty}f$. Düşey: sadeleştirdikten sonra paydayı sıfır yapan $x$.</p>`],
+  ["§5 Tanımdan Türev ve Teğet (Thomas 3.1–3.2 · Zbirka 2.1)","tanim",R`<p>$$f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}\qquad y-f(a)=f'(a)(x-a)$$</p>
+   <p>Adımlar: $f(x+h)$ yaz, $f(x+h)-f(x)$ sadeleştir, $h$'yi sadeleştir, $h\to0$.</p>
+   <table><tr><th>Kalıp</th><th>Teknik</th><th>Sonuç</th></tr>
+   <tr><td>$x^3+1$</td><td>Aç</td><td>$3x^2$</td></tr>
+   <tr><td>$1/x$, $x/(x+1)$</td><td>Ortak payda</td><td>$-1/x^2$, $1/(x+1)^2$</td></tr>
+   <tr><td>$\sqrt{x+2}$</td><td>Eşlenik</td><td>$1/(2\sqrt{x+2})$</td></tr></table>
+   <p>Türevlenebilir $\Rightarrow$ sürekli. Tersi değil: $|x|$, $x=0$'da köşe.</p>`],
+  ["§6 Türev Kuralları (Thomas 3.3 · Zbirka 2.2)","kural",R`<p>$(x^n)'=nx^{n-1}$, $(fg)'=f'g+fg'$, $\Big(\dfrac fg\Big)'=\dfrac{f'g-fg'}{g^2}$</p>
+   <p>Önce kuvvete çevir: $\dfrac1{x^n}=x^{-n}$, $\sqrt x=x^{1/2}$, $\sqrt[3]x=x^{1/3}$.</p>
+   <p>$(1/x)'=-1/x^2$, $(\sqrt x)'=1/(2\sqrt x)$, $(-5x^{-2})'=+10x^{-3}$.</p>
+   <p>Yatay teğet: $f'(x)=0$ çöz.</p>`]
+  ];
+  h+=`<section class="sheet"><h2>📖 Konu Özeti Kartları</h2><p class="muted">Her kart bir plan bloğuna karşılık gelir.</p>`;
+  T.forEach(([t,tag,body],i)=>{h+=`<details ${S.open["k"+i]!==false?"open":""} data-k="${i}"><summary>${t} <span class="chip">${TAGS[tag].blok}</span></summary>${body}</details>`;});
+  h+=R`</section><section class="sheet"><h2>⚠️ Sınavda En Sık Yapılan 11 Ölümcül Hata</h2><ol class="small">
+   <li>$0/0$'ı cevap sanmak ($0/0$ belirsizliktir, sadeleştirme yap!).</li><li>Sayı/0'a hemen DNE yazmak; tek taraflıysa $+\infty$ veya $-\infty$ çıkar.</li><li>$|x-a|$'yı hangi taraftan yaklaştığına bakmadan açmak.</li>
+   <li>$x\to-\infty$'da $\sqrt{x^2}=x$ almak (Doğrusu $\sqrt{x^2}=|x|=-x$).</li><li>$(x-1)/(1-x)=1$ sanmak (Doğrusu $-1$).</li><li>Tanımdan türevde satır başlarında $\lim_{h\to 0}$ yazmayı bırakmak.</li>
+   <li>Çarpım türevinde $(fg)'=f'g'$ yazmak.</li><li>Bölüm kuralında paydaki çıkarma sırasını karıştırmak.</li><li>Teğet denkleminde eğimi $x$'li bırakmak (Eğim $m=f'(a)$ sayıdır!).</li>
+   <li>Süreklilikte sadece "not continuous" yazıp sol/sağ limitleri göstermemek.</li><li>$-5/x^2 = -5x^{-2}$ türevinde eksiyi unutmak (Türevi $+10/x^3$).</li></ol></section>`;
+  return h;
+}
+
+/* ---------- PROGRESS & ERROR LIST VIEW ---------- */
+function stats(){
+  const r={}; for(const t in TAGS) r[t]={ok:0,bad:0,tot:0};
+  for(const id in ALLQ){const x=ALLQ[id]; r[x.tag].tot++; if(S.status[id]==="ok") r[x.tag].ok++; if(S.status[id]==="bad") r[x.tag].bad++;}
+  return r;
+}
+function ilerlemeView(){
+  const r=stats();
+  let h=`<section class="sheet"><h2>📊 Konu Bazlı İlerleme & Zayıf Nokta Analizi</h2><p class="muted">Yanlış oranı yüksek olan bloklar kırmızı ile vurgulanır. "Pratik Yap" butonuyla doğrudan o bloğun kitap sorularına gidebilirsin.</p><div class="tblwrap"><table>
+   <tr><th>Konu</th><th>Doğru</th><th>Yanlış</th><th>Boş</th><th>Oran</th><th>Blok</th><th>Aksiyon</th></tr>`;
+  for(const t in TAGS){const s=r[t], tried=s.ok+s.bad, weak=s.bad>0&&s.bad>=s.ok;
+    h+=`<tr><td class="${weak?"weak":""}">${TAGS[t].l}</td><td style="color:var(--green);font-weight:700">${s.ok}</td><td style="color:var(--red);font-weight:700">${s.bad}</td><td>${s.tot-tried}</td>
+    <td><div class="meter" role="img" aria-label="${s.ok} doğru, ${s.bad} yanlış"><span class="g" style="width:${100*s.ok/s.tot}%"></span><span class="r" style="width:${100*s.bad/s.tot}%"></span></div></td><td>${TAGS[t].blok}</td>
+    <td><button type="button" class="btn soft" data-go="zbirka:${t}" style="padding:2px 8px;font-size:.76rem">Soruları Aç</button></td></tr>`;}
+  h+=`</table></div><div class="actions"><button class="btn" id="copyBtn" type="button">📋 İlerleme Özetini Kopyala</button><button class="btn ghost" id="resetAll" type="button">Tüm İlerlemeyi Sıfırla</button></div></section>`;
+  const bad=Object.keys(ALLQ).filter(id=>S.status[id]==="bad");
+  h+=`<section class="sheet"><h2>📕 Hata Listesi (${bad.length} Soru)</h2>`;
+  if(!bad.length) h+=`<p class="muted">Henüz yanlış işaretlenen soru yok. Review, Kitap veya Deneme çözerken yanlış yaptığın sorular otomatik olarak burada birikir.</p>`;
+  else h+=`<p class="muted">Sınavdan önce buradaki soruları mutlaka tekrar çöz. Doğru yapınca karttaki "✓ Doğru yaptım" butonuna basarak listeden düşür.</p>`+bad.map(id=>qCard(ALLQ[id])).join("");
+  return h+`</section>`;
+}
+
+function summaryText(){
+  const r=stats(); const lines=["MATH101 İlerleme Raporu:"];
+  for(const t in TAGS){const s=r[t]; lines.push(`- ${TAGS[t].l}: ${s.ok} doğru, ${s.bad} yanlış, ${s.tot-s.ok-s.bad} boş`);}
+  const bad=Object.keys(ALLQ).filter(id=>S.status[id]==="bad");
+  lines.push("Yanlışlar: "+(bad.length?bad.map(id=>id+(S.inputs[id]?` (cevabım: ${S.inputs[id]})`:"")).join(", "):"yok"));
+  return lines.join("\n");
+}
+
+/* ---------- VISUAL CALCULUS LAB CANVAS ENGINE ---------- */
+function evalLabFn(exprStr, x){
+  if(exprStr==="piecewise_r8"){
+    if(x < -1) return -x;
+    if(x <= 1) return 1;
+    if(x < 2) return 4;
+    return 3 - x;
+  }
+  try{
+    const P = parseInput(exprStr);
+    return yAt(P, x);
+  }catch(e){ return NaN; }
+}
+
+function drawLab(){
+  const canvas = document.getElementById("calcCanvas");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const exprIn = document.getElementById("labExprIn");
+  const aIn = document.getElementById("labAIn");
+  const exprStr = exprIn ? exprIn.value.trim() : "2x^2-x";
+  const aVal = aIn ? parseFloat(aIn.value) || 0 : -1;
+  const hVal = parseFloat(S.labH) || 0.5;
+  const preset = LAB_PRESETS[S.labPreset] || LAB_PRESETS.r10;
+  const xrange = preset.expr === exprStr ? preset.xrange : [aVal - 4, aVal + 4];
+  const yrange = preset.expr === exprStr ? preset.yrange : [-5, 5];
+
+  const W = canvas.width, H = canvas.height;
+  const isDark = document.documentElement.dataset.theme === "dark" || (!document.documentElement.dataset.theme && matchMedia("(prefers-color-scheme:dark)").matches);
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = isDark ? "#0f1624" : "#ffffff";
+  ctx.fillRect(0, 0, W, H);
+
+  const toX = x => ((x - xrange[0]) / (xrange[1] - xrange[0])) * W;
+  const toY = y => H - ((y - yrange[0]) / (yrange[1] - yrange[0])) * H;
+
+  // Grid & Axes
+  ctx.strokeStyle = isDark ? "rgba(148,163,184,0.14)" : "rgba(30,58,138,0.08)";
+  ctx.lineWidth = 1;
+  for(let gx = Math.ceil(xrange[0]); gx <= Math.floor(xrange[1]); gx++){
+    const sx = toX(gx);
+    ctx.beginPath(); ctx.moveTo(sx, 0); ctx.lineTo(sx, H); ctx.stroke();
+  }
+  for(let gy = Math.ceil(yrange[0]); gy <= Math.floor(yrange[1]); gy++){
+    const sy = toY(gy);
+    ctx.beginPath(); ctx.moveTo(0, sy); ctx.lineTo(W, sy); ctx.stroke();
+  }
+  ctx.strokeStyle = isDark ? "rgba(226,232,240,0.45)" : "rgba(15,23,42,0.4)";
+  ctx.lineWidth = 1.5;
+  const y0 = toY(0), x0 = toX(0);
+  if(y0 >= 0 && y0 <= H){ ctx.beginPath(); ctx.moveTo(0, y0); ctx.lineTo(W, y0); ctx.stroke(); }
+  if(x0 >= 0 && x0 <= W){ ctx.beginPath(); ctx.moveTo(x0, 0); ctx.lineTo(x0, H); ctx.stroke(); }
+
+  // Squeeze envelope if squeeze mode
+  if(exprStr.includes("sin(1/x)")){
+    ctx.setLineDash([5, 5]);
+    ctx.strokeStyle = isDark ? "#fbbf24" : "#d97706";
+    ctx.lineWidth = 1.6;
+    for(const sgn of [1, -1]){
+      ctx.beginPath();
+      for(let px = 0; px <= W; px += 2){
+        const xv = xrange[0] + (px / W) * (xrange[1] - xrange[0]);
+        const yv = sgn * xv * xv;
+        if(px === 0) ctx.moveTo(px, toY(yv)); else ctx.lineTo(px, toY(yv));
+      }
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+  }
+
+  // Plot f(x)
+  ctx.strokeStyle = isDark ? "#60a5fa" : "#1d4ed8";
+  ctx.lineWidth = 2.6;
+  ctx.beginPath();
+  let penDown = false, prevY = null;
+  for(let px = 0; px <= W; px++){
+    const xv = xrange[0] + (px / W) * (xrange[1] - xrange[0]);
+    const yv = evalLabFn(exprStr, xv);
+    if(!isFinite(yv) || yv < yrange[0] - 10 || yv > yrange[1] + 10){ penDown = false; prevY = null; continue; }
+    const sy = toY(yv);
+    if(prevY !== null && Math.abs(sy - prevY) > H * 0.45){ penDown = false; }
+    if(!penDown){ ctx.moveTo(px, sy); penDown = true; }
+    else ctx.lineTo(px, sy);
+    prevY = sy;
+  }
+  ctx.stroke();
+
+  // Tangent & Secant lines
+  const fa = evalLabFn(exprStr, aVal);
+  const fah = evalLabFn(exprStr, aVal + hVal);
+  const deriv = (evalLabFn(exprStr, aVal + 1e-5) - evalLabFn(exprStr, aVal - 1e-5)) / (2e-5);
+  const slopeInfo = document.getElementById("labSlopeInfo");
+
+  if(isFinite(fa)){
+    // Tangent line (green)
+    if(isFinite(deriv) && Math.abs(deriv) < 1e4){
+      ctx.strokeStyle = isDark ? "#4ade80" : "#15803d";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      const xL = xrange[0], xR = xrange[1];
+      ctx.moveTo(toX(xL), toY(fa + deriv * (xL - aVal)));
+      ctx.lineTo(toX(xR), toY(fa + deriv * (xR - aVal)));
+      ctx.stroke();
+    }
+    // Secant line (purple dashed)
+    if(Math.abs(hVal) > 1e-6 && isFinite(fah)){
+      const secSlope = (fah - fa) / hVal;
+      ctx.setLineDash([6, 4]);
+      ctx.strokeStyle = isDark ? "#c084fc" : "#7c3aed";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      const xL = xrange[0], xR = xrange[1];
+      ctx.moveTo(toX(xL), toY(fa + secSlope * (xL - aVal)));
+      ctx.lineTo(toX(xR), toY(fa + secSlope * (xR - aVal)));
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Point (a+h, f(a+h))
+      ctx.fillStyle = isDark ? "#c084fc" : "#7c3aed";
+      ctx.beginPath(); ctx.arc(toX(aVal + hVal), toY(fah), 5.5, 0, Math.PI * 2); ctx.fill();
+      if(slopeInfo){
+        slopeInfo.innerHTML = `Kiriş eğimi $\\frac{f(a+h)-f(a)}{h} =$ <b>${secSlope.toFixed(4)}</b> &nbsp;·&nbsp; Gerçek türev $f'(a) \\approx$ <b style="color:var(--green)">${isFinite(deriv)?deriv.toFixed(4):"DNE"}</b>`;
+        math(slopeInfo);
+      }
+    } else if(slopeInfo){
+      slopeInfo.innerHTML = `$h = 0$: Kiriş doğrusu tam teğet doğrusuna çakıştı! Eğim $f'(a) \\approx$ <b style="color:var(--green)">${isFinite(deriv)?deriv.toFixed(4):"DNE"}</b>`;
+      math(slopeInfo);
+    }
+
+    // Point (a, f(a))
+    ctx.fillStyle = isDark ? "#4ade80" : "#15803d";
+    ctx.beginPath(); ctx.arc(toX(aVal), toY(fa), 6, 0, Math.PI * 2); ctx.fill();
+  }
+
+  // Populate Numerical Approach Table
+  const tbl = document.getElementById("labNumTable");
+  if(tbl){
+    const deltas = [-0.1, -0.01, -0.001, 0.001, 0.01, 0.1];
+    let rows = `<tr><th>Yaklaşım</th><th>x</th><th>f(x)</th></tr>`;
+    for(const d of deltas){
+      const xv = aVal + d, yv = evalLabFn(exprStr, xv);
+      const side = d < 0 ? "Sol (a⁻)" : "Sağ (a⁺)";
+      rows += `<tr><td>${side}</td><td>${xv.toFixed(3)}</td><td><b>${isFinite(yv)?yv.toFixed(5):"Tanımsız"}</b></td></tr>`;
+    }
+    tbl.innerHTML = rows;
+  }
+}
+
+/* ---------- FREEHAND SCRATCHPAD CANVAS ---------- */
+function initScratchCanvases(){
+  document.querySelectorAll(".scratch-canvas").forEach(canv=>{
+    if(canv.dataset.bound) return;
+    canv.dataset.bound = "1";
+    const ctx = canv.getContext("2d");
+    let drawing = false;
+    const pos = e => {
+      const r = canv.getBoundingClientRect();
+      const cx = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+      const cy = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+      return [cx * (canv.width / r.width), cy * (canv.height / r.height)];
+    };
+    const start = e => { drawing = true; const [x,y]=pos(e); ctx.beginPath(); ctx.moveTo(x,y); e.preventDefault(); };
+    const move = e => { if(!drawing) return; const [x,y]=pos(e); ctx.strokeStyle="#3b82f6"; ctx.lineWidth=2; ctx.lineCap="round"; ctx.lineTo(x,y); ctx.stroke(); e.preventDefault(); };
+    const stop = () => { drawing = false; };
+    canv.addEventListener("mousedown", start); canv.addEventListener("mousemove", move); window.addEventListener("mouseup", stop);
+    canv.addEventListener("touchstart", start, {passive:false}); canv.addEventListener("touchmove", move, {passive:false}); window.addEventListener("touchend", stop);
+  });
+}
+
+/* ---------- MAIN RENDER ---------- */
+function render(){
+  const m=$("#main"); const k=S.tab;
+  m.innerHTML = k==="plan"?planView(): k==="atolye"?atolyeView(): k==="konu"?konuView(): k==="ilerleme"?ilerlemeView(): setView(k);
+  math(m);
+  m.querySelectorAll('input[data-kind="expr"]').forEach(preview);
+  if(k==="atolye") drawLab();
+  initScratchCanvases();
+  tTick();
+  header();
+}
+
+function header(){
+  const ids=Object.keys(ALLQ), d=ids.filter(i=>S.status[i]).length;
+  const ok=ids.filter(i=>S.status[i]==="ok").length, bad=ids.filter(i=>S.status[i]==="bad").length;
+  $("#barOk").style.width=(100*ok/ids.length)+"%";
+  $("#barBad").style.width=(100*bad/ids.length)+"%";
+  $("#barLbl").textContent=`${d}/${ids.length} çözüldü (${ok} ✓ · ${bad} ✗)`;
+  renderTabs();
+}
+
+function countdown(){
+  const exam=new Date("2026-11-14T12:30:00+01:00"), ms=exam-Date.now();
+  const el=$("#count");
+  if(ms<=0){el.innerHTML="Sınav başladı · Başarılar!"; return;}
+  const h=Math.floor(ms/3600000), mi=Math.floor(ms%3600000/60000);
+  el.innerHTML=`Sınava <b>${h} sa ${mi} dk</b> · 14 Kas 12:30`;
+}
+
+/* ---------- EVENTS ---------- */
+function mark(id,v){
+  S.status[id]=v; save();
+  const c=$("#q-"+id);
+  if(c){const st=c.querySelector(".st"); st.className="st "+v; st.textContent=v==="ok"?"✓ Doğru":"✗ Yanlış";}
+  header();
+}
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button,a,[data-go],[data-fcflip]");
+  if(!t) return;
+  const d=t.dataset;
+
+  if(d.fcmark){ e.stopPropagation(); S.fc[d.fcmark]=S.fc[d.fcmark]==="ok"?null:"ok"; save(); render(); return; }
+  if(d.fcflip){ S.open["fc_"+d.fcflip]=!S.open["fc_"+d.fcflip]; save(); render(); return; }
+  if(d.tab){ go(d.tab); return; }
+  if(d.go){
+    e.preventDefault();
+    const parts=d.go.split(":");
+    go(parts[0], parts[1]||null);
+    return;
+  }
+  if(d.zfilter){ S.zFilter=d.zfilter; save(); render(); return; }
+  if(d.openlab){ S.labPreset=d.openlab; S.tab="atolye"; save(); renderTabs(); render(); window.scrollTo(0,0); return; }
+  if(d.drvtpl!==undefined){ S.drvTpl=Number(d.drvtpl); S.drvStep=1; save(); render(); return; }
+  if(d.drvstep==="next"){ const max=DERIV_DRILLS[S.drvTpl].steps.length; S.drvStep=Math.min(max,(S.drvStep||0)+1); save(); render(); return; }
+  if(d.drvstep==="reset"){ S.drvStep=0; save(); render(); return; }
+  if(d.drvtog!==undefined){ const idx=Number(d.drvtog); S.drvStep = idx < S.drvStep ? idx : idx + 1; save(); render(); return; }
+  if(d.copytpl){ navigator.clipboard.writeText(d.copytpl).then(()=>toast("İngilizce şablon kopyalandı!")); return; }
+
+  if(d.check){
+    const x=ALLQ[d.check], fb=$("#fb-"+x.id); let all=true, err=false;
+    const byId=s=>document.getElementById(s);
+    x.f.forEach((f,i)=>{
+      const k=inKey(x.id,i), v=byId("in-"+k).value; S.inputs[k]=v;
+      const r=checkField(f[1],v,f[2]), mk=byId("mk-"+k), er=byId("er-"+k);
+      er.textContent=r.err||"";
+      if(r.err){err=true; all=false; mk.className="mk"; mk.textContent="";}
+      else{mk.className="mk "+(r.ok?"ok":"bad"); mk.textContent=r.ok?"✓":"✗"; if(!r.ok) all=false;}
+    });
+    save();
+    if(err&&!x.f.some((f,i)=>byId("mk-"+inKey(x.id,i)).classList.contains("bad"))){fb.className="fb bad"; fb.textContent="Bütün kutuları doldur."; return;}
+    fb.className="fb "+(all?"ok":"bad"); fb.textContent=all?"Doğru!":"Yanlış. ✗ olan kutuya bak, çözümle karşılaştır.";
+    mark(x.id,all?"ok":"bad");
+    return;
+  }
+  if(d.reveal){const id=d.reveal, s=$("#s-"+id), open=s.hidden; s.hidden=!open; S.open[id]=open; t.textContent=open?"Çözümü gizle":"Çözümü göster"; t.setAttribute("aria-expanded",open); save(); return;}
+  if(d.hint){const id=d.hint, s=$("#h-"+id), open=s.hidden; s.hidden=!open; S.open["h"+id]=open; t.setAttribute("aria-expanded",open); save(); return;}
+  if(d.scratch){const id=d.scratch, s=$("#sc-"+id), open=s.hidden; s.hidden=!open; S.open["sc"+id]=open; save(); initScratchCanvases(); return;}
+  if(d.clearcanv){const c=document.getElementById("canv-"+d.clearcanv); if(c) c.getContext("2d").clearRect(0,0,c.width,c.height); return;}
+  if(d.mark){mark(d.id,d.mark); toast(d.mark==="ok"?"✓ Doğru olarak işaretlendi":"✗ Hata listesine eklendi"); return;}
+  if(d.tstart){const s=tState(d.tstart); if(!s.run){s.run=true; s.at=Date.now(); save(); toast("Sınav süresi başladı");} return;}
+  if(d.tpause){const s=tState(d.tpause); if(s.run){s.left=tLeft(d.tpause); s.run=false; save();} tTick(); return;}
+  if(d.treset){S.timers[d.treset]=null; tState(d.treset); save(); tTick(); return;}
+  if(d.resetset){ if(confirm("Bu setteki doğru/yanlış işaretleri ve cevaplar silinsin mi?")){ for(const x of SETS[d.resetset].qs){delete S.status[x.id]; delete S.inputs[x.id];} save(); render(); } return;}
+  if(d.expandall){
+    const qs=SETS[d.expandall].qs;
+    const anyClosed=qs.some(x=>!S.open[x.id]);
+    qs.forEach(x=>S.open[x.id]=anyClosed);
+    save(); render(); return;
+  }
+  if(t.id==="pomoToggle"){
+    if(pomo.run){ pomo.left=pomoLeft(); pomo.run=false; t.textContent="Başlat"; }
+    else{ pomo.run=true; pomo.at=Date.now(); t.textContent="Durdur"; toast("🍅 25 dk Pomodoro başladı!"); }
+    tTick(); return;
+  }
+  if(t.id==="pomoReset"){ pomo={left:25*60,run:false,at:0}; $("#pomoToggle").textContent="Başlat"; tTick(); return; }
+  if(t.id==="labApplyBtn"){ drawLab(); return; }
+  if(t.id==="searchBtn"){ openSearchModal(); return; }
+  if(t.id==="copyBtn"){
+    const txt=summaryText();
+    (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("İlerleme özeti kopyalandı!"),()=>{prompt("Kopyala:",txt);});
+    return;
+  }
+  if(t.id==="resetAll"){ if(confirm("Tüm ilerleme silinsin mi?")){ S={status:{},inputs:{},plan:{},open:{},scratch:{},fc:{},zFilter:"all",tab:"ilerleme",timers:{},labPreset:"r10",labH:0.6,drvTpl:0,drvStep:0}; save(); render(); } return;}
+  if(t.id==="themeBtn"){
+    const r=document.documentElement, cur=r.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+    r.dataset.theme=cur==="dark"?"light":"dark"; S.theme=r.dataset.theme; save();
+    if(S.tab==="atolye") drawLab();
+    return;
+  }
+});
+
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.dataset.plan){S.plan[t.dataset.plan]=t.checked; t.closest("li").classList.toggle("done",t.checked); save(); return;}
+  if(t.id==="labPresetSel"){ S.labPreset=t.value; save(); render(); return; }
+});
+
+document.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset&&t.dataset.in){
+    S.inputs[t.dataset.in]=t.value; save();
+    if(t.dataset.kind==="expr") preview(t);
+    const m=document.getElementById("mk-"+t.dataset.in); if(m){m.textContent=""; m.className="mk";}
+    return;
+  }
+  if(t.dataset&&t.dataset.scinput){ S.scratch[t.dataset.scinput]=t.value; save(); return; }
+  if(t.id==="labHRange"){ S.labH=parseFloat(t.value); const v=$("#labHVal"); if(v) v.textContent=S.labH; drawLab(); return; }
+  if(t.id==="searchModalInput"){ renderSearchResults(t.value); return; }
+});
+
+document.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){ e.preventDefault(); openSearchModal(); return; }
+  if(e.key==="Escape" && !$("#searchModal").hidden){ $("#searchModal").hidden=true; return; }
+  if(e.key==="Enter"&&e.target.dataset&&e.target.dataset.in){
+    e.preventDefault();
+    const b=document.querySelector(`[data-check="${e.target.dataset.in.split("#")[0]}"]`);
+    b&&b.click();
+  }
+});
+
+$("#searchModal").addEventListener("click",e=>{ if(e.target.id==="searchModal") $("#searchModal").hidden=true; });
+
+function openSearchModal(){
+  const m=$("#searchModal"), inp=$("#searchModalInput");
+  m.hidden=false; inp.value=""; renderSearchResults(""); inp.focus();
+}
+function renderSearchResults(qStr){
+  const box=$("#searchModalResults");
+  const q=qStr.trim().toLowerCase();
+  const list=Object.values(ALLQ).filter(x=>{
+    if(!q) return true;
+    return x.id.toLowerCase().includes(q) || x.p.toLowerCase().includes(q) || TAGS[x.tag].l.toLowerCase().includes(q) || (x.src||"").toLowerCase().includes(q) || (x.h||"").toLowerCase().includes(q);
+  }).slice(0,20);
+  box.innerHTML=list.map(x=>`<div class="modal-item" data-jumpq="${x.id}" data-jumpset="${x.set}">
+    <div><b>${x.id}</b> · <span class="small muted">${esc(x.src||SETS[x.set].title)}</span><div class="small">${esc(TAGS[x.tag].l)}</div></div>
+    <span class="chip">${SETS[x.set].title.split(" ")[0]}</span>
+  </div>`).join("") || `<div class="small muted" style="padding:12px">Sonuç bulunamadı.</div>`;
+  box.querySelectorAll("[data-jumpq]").forEach(el=>{
+    el.addEventListener("click",()=>{
+      $("#searchModal").hidden=true;
+      const qid=el.dataset.jumpq, sk=el.dataset.jumpset;
+      if(sk==="zbirka") S.zFilter="all";
+      go(sk);
+      setTimeout(()=>{
+        const target=document.getElementById("q-"+qid);
+        if(target){ target.scrollIntoView({behavior:"smooth",block:"center"}); target.style.outline="2.5px solid var(--blue)"; setTimeout(()=>target.style.outline="",1800); }
+      },80);
+    });
+  });
+}
+
+function preview(inp){
+  const k=inp.dataset.in, el=document.getElementById("pv-"+k); if(!el) return;
+  const v=inp.value.trim(); if(!v){el.textContent=""; return;}
+  try{ const t=texInput(parseInput(v)); if(window.katex){ katex.render("\\text{Okunan: }\\displaystyle "+t,el,{throwOnError:false}); } else el.textContent="Okunan: "+t; }
+  catch(e){ el.textContent="…"; }
+}
+
+/* ---------- BOOT ---------- */
+if(S.theme) document.documentElement.dataset.theme=S.theme;
+const h0=location.hash.slice(1); if(TABS.some(([k])=>k===h0)) S.tab=h0;
+countdown(); setInterval(countdown,30000);
+render();
+window.addEventListener("load",()=>render());
+window.addEventListener("hashchange",()=>{const k=location.hash.slice(1); if(TABS.some(([t])=>t===k)&&k!==S.tab) go(k);});
+</script>
+</body>
+</html>

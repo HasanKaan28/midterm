@@ -1,0 +1,1264 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CS103 Çalışma Masası</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<style>
+:root{
+  --paper:#f5f3ee; --card:#fffefb; --ink:#1b2130; --ink-2:#525b70; --line:#dcd6c8;
+  --acc:#0f6b5c; --acc-soft:#dcefe9; --red:#b5352a; --red-soft:#f7e0dc; --green:#1f7a4a; --green-soft:#dcefe3;
+  --amber:#9a6200; --amber-soft:#f5e9d0; --code:#f3f1ea; --shadow:0 1px 0 rgba(0,0,0,.04),0 8px 20px -14px rgba(30,40,70,.35);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#12151c; --card:#1a1e28; --ink:#e6e8ee; --ink-2:#a3abbd; --line:#2b3140;
+  --acc:#5fd0b8; --acc-soft:#173530; --red:#ff8a7a; --red-soft:#3a2020; --green:#6fd39b; --green-soft:#1b3326;
+  --amber:#f0b955; --amber-soft:#382b14; --code:#151922; --shadow:0 8px 20px -14px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --paper:#12151c; --card:#1a1e28; --ink:#e6e8ee; --ink-2:#a3abbd; --line:#2b3140;
+  --acc:#5fd0b8; --acc-soft:#173530; --red:#ff8a7a; --red-soft:#3a2020; --green:#6fd39b; --green-soft:#1b3326;
+  --amber:#f0b955; --amber-soft:#382b14; --code:#151922; --shadow:0 8px 20px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:4px}
+code,pre,textarea.out{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.top-in{max-width:920px;margin:0 auto;padding:12px 16px 0}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brand h1{font:700 1.4rem/1.1 "Fraunces",Georgia,serif;margin:0}
+.brand h1 span{color:var(--acc)}
+.count{font:500 .82rem "IBM Plex Mono",monospace;color:var(--ink-2)}
+.count b{color:var(--ink)}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;margin-top:10px;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:8px 10px;white-space:nowrap;color:var(--ink-2);font-weight:500}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--acc)}
+main{max-width:920px;margin:0 auto;padding:20px 16px 80px}
+section[hidden]{display:none}
+h2{font:700 1.5rem/1.2 "Fraunces",Georgia,serif;margin:.2em 0 .3em}
+.lead{color:var(--ink-2);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 14px;box-shadow:var(--shadow)}
+.q-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.qid{font:600 .85rem "IBM Plex Mono",monospace;background:var(--ink);color:var(--card);padding:2px 8px;border-radius:5px}
+.tag{font-size:.75rem;padding:2px 8px;border-radius:99px;background:var(--acc-soft);color:var(--acc);font-weight:600}
+.status{margin-left:auto;font:600 .8rem "IBM Plex Mono",monospace}
+.status.ok{color:var(--green)} .status.no{color:var(--red)}
+.prompt{margin:0 0 8px}
+pre{margin:0 0 10px;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px;overflow-x:auto;font-size:.88rem;line-height:1.5}
+pre code.hljs{background:transparent;padding:0}
+textarea{width:100%;min-height:64px;resize:vertical;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--card);color:var(--ink);font-size:.92rem}
+textarea.scratch{min-height:140px;font-family:"IBM Plex Mono",monospace}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.btn{border:1px solid var(--line);background:var(--card);padding:6px 12px;border-radius:7px;font-weight:500}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--card)}
+.btn:hover{border-color:var(--acc)}
+.fb{margin-top:10px;padding:10px 12px;border-radius:8px;font-size:.93rem}
+.fb.ok{background:var(--green-soft)} .fb.no{background:var(--red-soft)} .fb.info{background:var(--amber-soft)}
+.fb pre{margin:6px 0 0;background:transparent}
+.choices{display:grid;gap:6px}
+.choices label{display:flex;gap:8px;align-items:flex-start;padding:6px 10px;border:1px solid var(--line);border-radius:7px;cursor:pointer}
+.choices label:hover{border-color:var(--acc)}
+.plan-day{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--line)}
+.plan-day:last-child{border-bottom:0}
+.plan-day input{width:20px;height:20px;margin-top:3px;accent-color:var(--acc);flex:none}
+.plan-day.done .pd-body{opacity:.55}
+.pd-date{font-weight:600}
+.pd-meta{font:500 .8rem "IBM Plex Mono",monospace;color:var(--ink-2)}
+.pd-body p{margin:4px 0 0}
+.jump{background:none;border:0;padding:0;color:var(--acc);text-decoration:underline;font:inherit}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
+.stat b{display:block;font:700 1.6rem "Fraunces",serif}
+.stat span{color:var(--ink-2);font-size:.85rem}
+.weak{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.weak .meter{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.weak .meter i{display:block;height:100%;background:var(--red)}
+.weak .lbl{width:190px;font-weight:500}
+.weak .num{font:500 .8rem "IBM Plex Mono",monospace;color:var(--ink-2);width:90px;text-align:right}
+.md h2{font-size:1.25rem;margin-top:1.6em;border-top:1px solid var(--line);padding-top:.8em}
+.md h2:first-child{border-top:0;margin-top:0;padding-top:0}
+.md h1{display:none}
+.md table{border-collapse:collapse;width:100%;font-size:.9rem;margin:8px 0 12px;display:block;overflow-x:auto}
+.md th,.md td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+.md th{background:var(--code)}
+.md :not(pre)>code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.88em}
+.md strong{color:var(--ink)}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.toc button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px;font-size:.85rem}
+.filter{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.filter button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px;font-size:.85rem}
+.filter button[aria-pressed="true"]{background:var(--acc);color:var(--card);border-color:var(--acc)}
+.note{font-size:.88rem;color:var(--ink-2)}
+.theme{margin-left:auto;background:none;border:1px solid var(--line);border-radius:7px;padding:3px 8px;font-size:.8rem;color:var(--ink-2)}
+@media (max-width:560px){.weak .lbl{width:120px}.weak .num{width:70px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand">
+    <h1>CS103 <span>Çalışma Masası</span></h1>
+    <span class="count" id="countdown"></span>
+    <button class="theme" id="themeBtn" type="button">Tema</button>
+  </div>
+  <div class="count" id="scoreline" style="margin-top:4px"></div>
+  <nav class="tabs" role="tablist" id="tabs"></nav>
+</div></header>
+<main>
+
+<section id="s-plan" data-title="Plan">
+  <h2>Gün gün plan</h2>
+  <p class="lead">Sınav 19 Kasım Perşembe 17:45, 80 dakika, kâğıt üstünde. Kapsam 1–7. haftalar. Puanın çoğu fonksiyon yazmada (Part IV). Bitirdiğin günü işaretle; işaretler bu tarayıcıda saklanır.</p>
+  <div class="card" id="planList"></div>
+  <div class="card">
+    <h3 style="margin-top:0">Sınav biçimi (örnek midterm'e göre)</h3>
+    <ul>
+      <li><b>Part I:</b> 10 kısa soru (çoktan seçmeli, doğru/yanlış, boşluk).</li>
+      <li><b>Part II:</b> 6 kod parçası, çıktıyı yaz.</li>
+      <li><b>Part III:</b> iç içe döngü + <code>switch</code> fall-through (10 puan).</li>
+      <li><b>Part IV:</b> kâğıtta fonksiyon yazma: bildirim/tanım, girdi doğrulama, faktöriyel/permütasyon, <code>void</code> + <code>return</code>. En yüksek puan.</li>
+    </ul>
+    <p class="note">Kâğıt kuralı: bildirim <code>main</code>'den önce (<code>;</code> ile biter), tanım sonra. <code>sum = 0</code>, <code>product = 1</code> ile başlat. Bitince küçük bir girdiyle elde izle.</p>
+  </div>
+</section>
+
+<section id="s-ozet" data-title="Özet" hidden>
+  <h2>Konu özetleri</h2>
+  <p class="lead">Kaynak: <code>ozet.md</code>. Sınav sabahı en alttaki tuzak listesini oku.</p>
+  <div class="toc" id="ozetToc"></div>
+  <div class="card md" id="ozetBody"></div>
+</section>
+
+<section id="s-teshis" data-title="Teşhis" hidden>
+  <h2>Teşhis testi</h2>
+  <p class="lead">Önce bunu çöz (20 dk). Yanlışlar "Zayıf konular" sekmesine düşer. Çok satırlı çıktıda her satırı ayrı satıra yaz.</p>
+  <div id="teshisList"></div>
+</section>
+
+<section id="s-cikti" data-title="Çıktı" hidden>
+  <h2>Çıktı tahmini</h2>
+  <p class="lead">Önce kâğıtta izle, sonra yaz ve kontrol et. Boşluklar esnek değerlendirilir. Tüm cevaplar derleyiciyle doğrulandı.</p>
+  <div class="filter" id="ciktiFilter"></div>
+  <div id="ciktiList"></div>
+</section>
+
+<section id="s-hata" data-title="Hata bulma" hidden>
+  <h2>Hata bulma</h2>
+  <p class="lead">Hatalı satırları ve düzeltmeyi not et, sonra cevabı aç ve kendini puanla.</p>
+  <div id="hataList"></div>
+</section>
+
+<section id="s-kod" data-title="Kod yazma" hidden>
+  <h2>Kâğıtta kod yazma</h2>
+  <p class="lead">Önce kâğıda yaz (ya da kutuya). Sonra çözümü aç, karşılaştır, kendini puanla. Çözümler derlendi ve test girdisiyle çalıştı.</p>
+  <div id="kodList"></div>
+</section>
+
+<section id="s-sinav" data-title="Örnek sınav" hidden>
+  <h2>Örnek midterm ve quiz</h2>
+  <p class="lead">Kaynak: <code>materyal/genel/midtermSample.pdf</code> ve <code>quizSample.pdf</code>. Çarşamba 80 dakika süre tutarak kâğıtta çöz, sonra burada kontrol et. Part IV soruları "Kod yazma" sekmesinde (C1–C3).</p>
+  <div id="sinavList"></div>
+</section>
+
+<section id="s-zayif" data-title="Zayıf konular" hidden>
+  <h2>Puan ve zayıf konular</h2>
+  <p class="lead">Kontrol ettiğin ve kendini puanladığın sorulardan hesaplanır.</p>
+  <div class="grid2" id="stats"></div>
+  <div class="card" id="weakList" style="margin-top:14px"></div>
+  <div class="row"><button class="btn" id="resetBtn" type="button">Tüm cevapları sıfırla</button></div>
+</section>
+
+</main>
+
+<script type="text/markdown" id="ozetMd">
+# CS103 Konu Özetleri (Hafta 1–7)
+
+Her bölümün sonunda **Tuzak** satırı var. Sınavdan önce en alttaki tuzak listesini oku.
+
+## 1. Temeller (Hafta 1–2)
+
+**Bilgisayar (Hafta 1, sadece Part I için):** CPU, RAM (geçici, elektrik gidince silinir), ikincil depolama (kalıcı: HDD, SSD, USB). Makine dili = 0 ve 1. Assembly → assembler ile makine diline. Yüksek seviyeli dil (C++) → **compiler** ile makine diline. 1 byte = 8 bit, 1 KB = 1024 byte. ASCII: 128 karakter. Algoritma = sonlu sürede biten adım adım çözüm. Yapısal programlama = problemi alt problemlere böl (top-down). OOP = nesneler (veri + işlemler).
+
+**Program iskeleti:**
+
+```cpp
+#include <iostream>     // preprocessor directive
+using namespace std;
+int main() {
+    cout << "Hello" << endl;
+    return 0;
+}
+```
+
+**Identifier kuralı:** harf veya `_` ile başlar, sonra harf/rakam/`_`. Rakamla başlayamaz. Keyword (`int`, `return`, `while`…) olamaz. Büyük-küçük harf farklı. Fonksiyon adları da aynı kurala uyar.
+
+**Bildirim:** `int a, b = 5;` tek satırda birden çok değişken yasal. Başlatılmamış değişkenin değeri belirsiz (çöp).
+
+**Çıktı:** `cout << x << " " << y;` Kaçış dizileri: `\n` yeni satır, `\t` tab, `\\` ters bölü, `\"` tırnak.
+
+**Girdi:** `cin >> a >> b;` boşluk ve satır sonlarını atlar. `char` okurken de boşluk atlanır (`J D` ve `JD` aynı sonuç).
+
+**Ondalık biçim:**
+
+```cpp
+cout.setf(ios::fixed);
+cout.setf(ios::showpoint);
+cout.precision(2);      // 7.5 → 7.50
+```
+
+**Tuzak:** `"a"` string, `'a'` char. `cout << "number";` değişkeni değil `number` yazısını basar.
+
+## 2. Tipler ve aritmetik (Hafta 2)
+
+| Tip | Örnek |
+| --- | --- |
+| `int` | `3`, `-45` |
+| `double` | `3.0`, `1.5e3` |
+| `char` | `'A'` (aslında sayı: `'A'` = 65) |
+| `bool` | `true` (1), `false` (0); sıfır olmayan her sayı `true` |
+| `string` | `"Ali"` (`#include <string>`) |
+
+**Bölme:** iki taraf da `int` ise sonuç `int`, kesir **atılır** (yuvarlanmaz). `7/2 = 3`, `7/2.0 = 3.5`, `3/4 = 0`.
+**Kalan:** `%` sadece tam sayılarda. `17 % 5 = 2`. Negatifte işaret soldakinden: `-3 % 2 = -1`.
+**Atama dönüşümü:** `int a = 4.75;` → `4` (kesilir). `double d = 11/2;` → `5` (önce int bölme yapılır).
+
+**Casting:**
+
+```cpp
+static_cast<double>(a) / b    // doğru: 3.5
+a / static_cast<double>(b)    // doğru: 3.5
+static_cast<double>(a / b)    // YANLIŞ: önce int bölme → 3
+double(a), (double)a          // eski stil, çalışır
+static_cast<int>(2.9)         // 2
+```
+
+**Öncelik:** `* / %` → `+ -` → karşılaştırma → `&&` → `||`. Aynı seviyede soldan sağa. `3 + 10 * 3 = 33`.
+
+**Kısaltmalar:** `a += 2` → `a = a + 2`. `b *= a - 14` → `b = b * (a - 14)` (sağ taraf önce hesaplanır).
+
+**`++` ve `--`:**
+
+```cpp
+int n = 2;
+int v = 2 * (n++);   // v = 4, n = 3  (önce kullan, sonra artır)
+int w = 2 * (++n);   // n = 4, w = 8  (önce artır, sonra kullan)
+```
+
+**Tuzak:** `static_cast<float>(3/4)` → `0`. `x++ < 5` karşılaştırmayı eski değerle yapar ama `x` yine de artar.
+
+## 3. Karar yapıları (Hafta 3–4)
+
+**Karşılaştırma:** `==  !=  <  <=  >  >=`. Mantık: `&&` (ve), `||` (veya), `!` (değil).
+
+- `2 <= x <= 15` C++'ta yanlış yazım. Doğrusu: `(x >= 2 && x <= 15)`.
+- `if (x = 5)` derlenir ama `x`'e 5 atar ve her zaman doğrudur. Karşılaştırma `==`.
+- `!time > limit` → `(!time) > limit` olarak okunur. Niyet `!(time > limit)` ise parantez şart.
+- **Short-circuit:** `&&`'de sol taraf `false` ise sağ taraf hiç hesaplanmaz; `||`'de sol taraf `true` ise sağ taraf hesaplanmaz. `(kids != 0) && (pieces / kids >= 2)` sıfıra bölmeyi önler.
+
+**if / else:** `{}` yoksa sadece ilk satır koşula bağlıdır.
+
+**Dangling else:** `else` her zaman **en yakın, eşleşmemiş `if`**'e bağlanır, girintiye bakılmaz.
+
+```cpp
+if (fuel < 75)
+    if (fuel < 25) cout << "low";
+else cout << "high";      // içteki if'in else'i! fuel = 80 → hiçbir şey basılmaz
+```
+
+**switch:**
+
+```cpp
+switch (grade) {          // int, char, bool, enum olabilir; string ve double OLAMAZ
+    case 'A':
+    case 'a': cout << "Excellent"; break;   // iki etiket aynı kodu çalıştırır
+    case 'B': cout << "Good";               // break YOK → alttaki case'e düşer
+    case 'C': cout << "Pass"; break;
+    default:  cout << "Wrong";              // hiçbiri tutmazsa
+}
+```
+
+**Fall-through kuralı:** eşleşen `case`'ten başla, `break` veya `}` görene kadar **alttaki tüm satırları** çalıştır (diğer `case` etiketlerini yok say). `default` en altta değilse de aynı kural geçerli.
+
+**Blok kapsamı:** `{}` içinde tanımlanan değişken sadece o blokta yaşar. İç blokta aynı isimle yeni değişken tanımlanırsa dıştakini gölgeler.
+
+**Tuzak:** `case "A":` hatalıdır (string), `case 'A':` doğru. `default` sonrası `:` unutulmaz.
+
+## 4. Döngüler (Hafta 3–5)
+
+| Döngü | Ne zaman | Koşul |
+| --- | --- | --- |
+| `while (k) {...}` | Hiç çalışmayabilir | Başta kontrol |
+| `do {...} while (k);` | **En az bir kez** çalışır | Sonda kontrol, sonunda `;` var |
+| `for (init; k; update) {...}` | Sayısı belli tekrar | Başta kontrol |
+
+**İzleme yöntemi:** her turda tablo tut: değişkenler, koşul, çıktı. Koşulu kontrol et → gövde → güncelleme → koşul…
+
+**break:** içinde bulunduğu **tek** döngüden (veya switch'ten) çıkar. İç içe döngüde sadece içtekinden.
+**continue:** turun geri kalanını atla, sonraki tura geç (`for`'da güncelleme yine yapılır).
+
+**İç içe döngü:** dış döngünün her turunda iç döngü baştan sona çalışır. Toplam iç tur = dış × iç.
+
+```cpp
+for (int i = 1; i <= 3; i++) {          // satır
+    for (int j = 1; j <= i; j++)        // her satırda i yıldız
+        cout << "*";
+    cout << endl;
+}
+```
+
+**Döngü bitirme yöntemleri:** baştan sayı al (list headed by size), her turda sor (Y/N), sentinel değer (ör. negatif sayı gelince dur; sentinel işlenmez), dosya bitene kadar oku.
+
+**Toplam ve çarpım:** `sum = 0`, `product = 1` ile başla.
+
+**Girdi doğrulama (sınavda çıktı):**
+
+```cpp
+cin >> n;
+while (n <= 0) {
+    cout << "Warning!\n";
+    cin >> n;
+}
+```
+
+**Tuzak:**
+- `for (...);` veya `while (...);` → noktalı virgül gövdeyi boşaltır. `for (i = 0; i < 3; i++); cout << i;` → bir kez `3` basar.
+- Sayaç güncellenmezse sonsuz döngü.
+- `<` ile `<=` farkı: bir tur eksik/fazla (off-by-one).
+- `for (int i...)` içinde tanımlanan `i` döngü dışında yoktur.
+
+## 5. Hazır fonksiyonlar (Hafta 5)
+
+| Fonksiyon | Kütüphane | Not |
+| --- | --- | --- |
+| `sqrt(x)`, `pow(x, y)` | `<cmath>` | `double` döner. `pow(2,3)` = 8 |
+| `fabs(x)` | `<cmath>` | `double` mutlak değer |
+| `abs(x)` | `<cstdlib>` | `int` mutlak değer. `7 / abs(-2)` = 3 (int bölme) |
+| `ceil(5.8)` = 6, `floor(5.8)` = 5 | `<cmath>` | |
+| `rand()`, `srand(time(0))` | `<cstdlib>`, `<ctime>` | `srand` bir kez çağrılır |
+
+**Rastgele aralık:** `rand() % N + a` → `a` ile `a + N - 1` arası. Zar: `rand() % 6 + 1`. `10 < x < 21` için: `rand() % 10 + 11`.
+
+**Geçerli çağrı:** dönen değer bir ifade gibi kullanılır: `fabs(3.5);` (değer atılır ama yasal), `cout << fabs(3.5);`. `cin >> fabs(3.5);` geçersiz.
+
+## 6. Kendi fonksiyonların (Hafta 5–6)
+
+```cpp
+double totalCost(int number, double price);     // BİLDİRİM (prototype), ; ile biter
+
+int main() {
+    double bill = totalCost(3, 2.5);            // ÇAĞRI: argümanlar , ile ayrılır
+}
+
+double totalCost(int number, double price) {    // TANIM: başlık + gövde
+    const double TAX = 0.05;
+    double subtotal = number * price;
+    return subtotal + subtotal * TAX;           // return fonksiyonu bitirir
+}
+```
+
+- Çağrıdan **önce** bildirim veya tanım görünmeli. Tanım `main`'den önceyse bildirim gerekmez.
+- Bildirimde parametre adları yazılmayabilir: `double totalCost(int, double);`. Tanımda adlar şart.
+- Değer dönen fonksiyonun her yolu bir `return` ile bitmeli.
+- Fonksiyon içinde başka fonksiyon **tanımlanamaz**, ama çağrılabilir.
+- Argüman sırası önemlidir; derleyici tip kontrolü yapar, mantıksal sıra kontrolü yapmaz.
+- `bool` dönen fonksiyon `if (isEven(n))` şeklinde kullanılır.
+
+**Call-by-value:** parametre, argümanın **kopyasıdır**. Fonksiyon içindeki değişiklik çağıranı etkilemez.
+
+**Local / global:** fonksiyonda tanımlanan değişken sadece orada yaşar. Parametreler de local'dir; gövdede tekrar tanımlanmaz. Global değişken tüm fonksiyonların dışında tanımlanır; aynı isimde local varsa local kazanır. Global sabit (`const double PI = 3.14159;`) yaygın ve kabul görür.
+
+**Overloading:** aynı isim, **farklı parametre listesi** (sayı, tip veya sıra).
+
+```cpp
+int    add(int a, int b);            // geçerli
+double add(double a, double b);      // geçerli (tipler farklı)
+int    add(int a, int b, int c);     // geçerli (sayı farklı)
+double add(int a, int b);            // GEÇERSİZ: sadece dönüş tipi farklı
+int    add(int x, int y);            // GEÇERSİZ: sadece parametre adları farklı
+```
+
+**Hangisi çağrılır?** Tam eşleşme kazanır. Tam eşleşme yoksa derleyici en az dönüşüm gereken sürümü seçer. İki aday eşit derecede iyiyse **derleme hatası (ambiguous)**.
+
+- `add(2, 3)` → `(int,int)`.
+- `add(2.5, 3.0)` → `(double,double)`.
+- `add(2, 3.0)` iki sürüm varken (`int,int` ve `double,double`) → **belirsiz, derleme hatası**. Hafta 6 kodunda (`week6.cpp`) bu çağrı var.
+- Tek sürüm varsa otomatik dönüşüm olur: `mpg(45, 2)` → `mpg(45.0, 2.0)`.
+
+## 7. void fonksiyonlar ve call-by-reference (Hafta 7)
+
+**void:** değer döndürmez. `return;` (değersiz) erken çıkış için kullanılabilir, zorunlu değil. Çağrısı tek başına bir ifadedir: `showResults(a, b);`. `cout << showResults(a, b);` **hata**.
+
+```cpp
+void shareBudget(int number, double total) {
+    if (number == 0) {
+        cout << "No people!\n";
+        return;                 // fonksiyonu burada bitir
+    }
+    cout << total / number;
+}
+```
+
+**Call-by-reference (`&`):** parametre, argümanın **kendisidir** (aynı bellek adresi). Fonksiyondaki değişiklik çağıranın değişkenini değiştirir.
+
+```cpp
+void swapValues(int& a, int& b) {   // & hem bildirimde hem tanımda
+    int temp = a;
+    a = b;
+    b = temp;
+}
+```
+
+- Reference argümanı **değişken** olmalı: `swapValues(x, 5);` hata.
+- Karışık liste yasal: `void f(int& a, int b, double& c);`.
+- `&` unutulursa kod derlenir ama değişken değişmez (sık hata).
+- Ne zaman `&`? Fonksiyon çağıranın değişkenini değiştirecekse (girdi okuma, takas, birden çok sonuç döndürme).
+
+**İzleme taktiği:** reference parametreyi gördüğünde kâğıda "`a` = main'deki `x`" yaz ve tek bir kutu üzerinde çalış.
+
+**Pre/postcondition:** fonksiyon yorumunda "çağrılmadan önce doğru olan" ve "çağrıdan sonra doğru olan".
+
+## 8. Dosya I/O (Hafta 5, 6.1)
+
+```cpp
+#include <fstream>
+
+ifstream in;                 // okuma
+in.open("file.txt");
+int x;
+while (in >> x) {            // okuma başarılı oldukça döner
+    cout << x << endl;
+}
+in.close();
+
+ofstream out;                // yazma (dosya yoksa oluşturur, varsa üzerine yazar)
+out.open("numbers.txt");
+out << "a = " << 20 << endl;
+out.close();
+```
+
+İlk satırda kayıt sayısı varsa: önce `in >> total;`, sonra `for (int i = 0; i < total; i++) { in >> name >> score; }`.
+
+## Tuzak listesi (sınav sabahı oku)
+
+1. `int / int` kesri atar: `7/2 = 3`, `3/4 = 0`. `static_cast<double>(a/b)` geç kalır.
+2. `int a = 4.75;` → 4.
+3. `x++` eski değeri, `++x` yeni değeri kullanır; ikisinde de `x` artar.
+4. `while (x++ < 5)`: döngü bittiğinde `x` = 6.
+5. `if (x = 0)` atama yapar ve `false` olur; `if (x = 5)` her zaman `true`.
+6. `else` en yakın `if`'e bağlanır, girintiye bakma.
+7. `switch`'te `break` yoksa alttaki case'lere düşer; `case` etiketleri durdurmaz.
+8. `for(...);` ve `while(...);` gövdeyi boşaltır.
+9. `do-while` en az bir kez çalışır; `while (...)` sonrası `;` var.
+10. `break` sadece içinde olduğu döngüden çıkar.
+11. `&` yoksa fonksiyon kopya üzerinde çalışır, çağıranın değişkeni değişmez.
+12. Overloading sadece dönüş tipiyle olmaz; `add(2, 3.0)` iki eşit aday varsa derleme hatası.
+13. `void` fonksiyon `cout <<` içinde kullanılamaz ve `return x;` yazamaz.
+14. `-3 % 2 == -1`, yani `x % 2 == 1` negatif tek sayılarda yanlış sonuç verir.
+15. `cout << "x";` harfi, `cout << x;` değeri basar.
+16. Global ile aynı isimli local değişken global'i değiştirmez.
+17. `cin >> fabs(3.5)` geçersiz; `fabs(3.5);` yasal.
+18. Sayaç/toplamları başlat: `sum = 0`, `product = 1`.
+
+</script>
+
+<script>
+const KEY="cs103-calis-v1";
+let S={plan:{},ans:{},self:{},txt:{}};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+const TOPICS={
+  tip:"Tipler, int bölme, casting",artis:"++ / -- operatörleri",karar:"if / else, mantık",switch:"switch ve fall-through",
+  dongu:"Döngüler",fonk:"Fonksiyonlar (bildirim, return)",overload:"Overloading",ref:"void ve call-by-reference",
+  kapsam:"Kapsam (local / global)",dosya:"Dosya I/O",cmath:"Hazır fonksiyonlar"
+};
+const OZETREF={tip:"2. Tipler",artis:"2. Tipler",karar:"3. Karar",switch:"3. Karar",dongu:"4. Döngüler",fonk:"6. Kendi",overload:"6. Kendi",ref:"7. void",kapsam:"6. Kendi",dosya:"8. Dosya",cmath:"5. Hazır"};
+
+const PLAN=[
+ {d:"Cum 13 Kas · ilk iş",t:"20 dk",h:"Teşhis testi",b:"Teşhis sekmesindeki 6 soruyu çöz.",go:"teshis"},
+ {d:"Cum 13 Kas · yarın MATH",t:"1 saat",h:"Hafta 2: tipler, int bölme, %, casting, ++/--",b:"Özet §1–2. Çıktı: A1, A3, A18, A19, A22, A26. Hata: B7.",go:"cikti"},
+ {d:"Cmt 14 Kas · MATH sonrası",t:"1,5 saat",h:"Hafta 3–4: if/else, switch, döngüler, break/continue",b:"Özet §3–4. Çıktı: A4, A5, A7, A8, A9, A17, A21, A23. Hata: B1, B4, B5, B6.",go:"cikti"},
+ {d:"Paz 15 Kas · yarın NS",t:"45 dk",h:"İç içe döngü ve desenler",b:"A7, A21 tekrar. Kod: C7. Örnek sınav Part III.",go:"kod"},
+ {d:"Pzt 16 Kas · NS sonrası",t:"2 saat",h:"Hafta 5–6: fonksiyonlar, cmath/rand, kapsam, overloading",b:"Özet §5–6. Çıktı: A13, A13b, A14, A15, A16, A25. Hata: B2, B8. Kod: C1, C2, C5, C10.",go:"kod"},
+ {d:"Sal 17 Kas · sabah (ELIT 17:45)",t:"2 saat",h:"Hafta 7: void, call-by-reference + dosya I/O",b:"Özet §7–8. Çıktı: A12, A20, A24. Hata: B3, B9, B10. Kod: C3, C4, C8, C9.",go:"kod"},
+ {d:"Çar 18 Kas",t:"4 saat",h:"Deneme sınavı",b:"midtermSample.pdf'i 80 dk süre tutarak kâğıtta çöz, Örnek sınav sekmesinde kontrol et. Sonra quizSample. Zayıf konulardan 3'er soru daha. Kod: C6.",go:"sinav"},
+ {d:"Per 19 Kas · sınav 17:45",t:"1,5 saat sabah",h:"Son tekrar",b:"Özet sonundaki tuzak listesi + Zayıf konular sekmesi. Öğleden sonra yeni konu yok.",go:"zayif"}
+];
+
+/* ---- Çıktı soruları (cevaplar MSVC ile doğrulandı) ---- */
+const OUT=[
+ {id:"T1",set:"teshis",topic:"artis",code:String.raw`int n = 4;
+int p = n++ * 2;
+int q = ++n * 2;
+cout << p << " " << q << " " << n << endl;`,ans:"8 12 6",why:"p = 4*2 = 8, sonra n = 5. ++n önce artırır: n = 6, q = 12."},
+ {id:"T2",set:"teshis",topic:"switch",code:String.raw`for (int i = 0; i < 4; i++) {
+    switch (i) {
+        case 0: cout << "A";
+        case 1: cout << "B"; break;
+        case 2: cout << "C";
+        default: cout << "D";
+    }
+}`,ans:"ABBCDD",why:"i=0: A, düşer B, break. i=1: B. i=2: C, düşer D. i=3: default D."},
+ {id:"T3",set:"teshis",topic:"ref",code:String.raw`void f(int a, int& b) {
+    a = a + 10;
+    b = b + a;
+}
+int main() {
+    int x = 1, y = 2;
+    f(x, y);
+    cout << x << " " << y << endl;
+    f(y, x);
+    cout << x << " " << y << endl;
+}`,ans:"1 13\n24 13",why:"1. çağrı: a=11 (kopya), b=y → y = 2+11 = 13. 2. çağrı: a = 13+10 = 23, b=x → x = 1+23 = 24."},
+ {id:"T4",set:"teshis",topic:"overload",type:"choice",prompt:"Bu iki fonksiyon varken <code>cout &lt;&lt; add(2, 3.0);</code> ne yapar?",code:String.raw`double add(int a, int b)       { return a + b; }
+double add(double a, double b) { return a + b; }`,choices:["5 basar (int sürümü)","5 basar (double sürümü)","Derleme hatası: belirsiz çağrı (ambiguous)","5.0 basar"],correct:2,why:"İki sürüm de birer dönüşümle uyuyor; derleyici seçemez. MSVC: error C2666."},
+ {id:"T5",set:"teshis",topic:"karar",code:String.raw`int fuel = 80;
+if (fuel < 75)
+    if (fuel < 25)
+        cout << "low";
+else
+    cout << "high";
+cout << "!" << endl;`,ans:"!",why:"else en yakın if'e (fuel < 25) bağlanır; girinti yanıltıcı. Dış koşul yanlış olduğu için sadece ! basılır."},
+
+ {id:"A1",topic:"tip",code:String.raw`int a = 7, b = 2;
+double c = a / b;
+double d = static_cast<double>(a) / b;
+double e = static_cast<double>(a / b);
+cout << c << " " << d << " " << e << " " << a % b << endl;`,ans:"3 3.5 3 1",why:"a/b int bölme → 3. static_cast<double>(a/b) geç kalır: önce 3 hesaplanır."},
+ {id:"A3",topic:"artis",code:String.raw`int a = 3;
+while (a-- > 0)
+    cout << a << " ";
+cout << "| " << a << endl;`,ans:"2 1 0 | -1",why:"Karşılaştırma eski değerle, sonra azalır. Son kontrol 0 > 0 yanlış ama a yine azalır → -1."},
+ {id:"A4",topic:"dongu",code:String.raw`int k = 10;
+do {
+    cout << k << " ";
+    k += 5;
+} while (k < 10);
+cout << k << endl;`,ans:"10 15",why:"do-while en az bir kez çalışır."},
+ {id:"A5",topic:"dongu",code:String.raw`int i;
+for (i = 0; i < 3; i++);
+cout << "Hi " << i << endl;`,ans:"Hi 3",why:"for sonrası ; gövdeyi boşaltır. Döngü bitince i = 3, Hi bir kez basılır."},
+ {id:"A7",topic:"dongu",code:String.raw`for (int i = 3; i >= 1; i--) {
+    for (int j = 1; j <= i; j++)
+        cout << j;
+    cout << endl;
+}`,ans:"123\n12\n1",why:"Her satırda 1'den i'ye kadar."},
+ {id:"A8",topic:"dongu",code:String.raw`int sum = 0;
+for (int i = 1; i <= 10; i++) {
+    if (i % 2 == 0) continue;
+    if (i > 7) break;
+    sum += i;
+}
+cout << sum << endl;`,ans:"16",why:"1+3+5+7 = 16; i = 9'da break."},
+ {id:"A9",topic:"karar",code:String.raw`int x = 5;
+if (x = 0)
+    cout << "zero ";
+else
+    cout << "nonzero ";
+cout << x << endl;`,ans:"nonzero 0",why:"x = 0 atamadır, değeri 0 → false. x artık 0."},
+ {id:"A12",topic:"ref",code:String.raw`void swapA(int a, int b)   { int t = a; a = b; b = t; }
+void swapB(int& a, int& b) { int t = a; a = b; b = t; }
+int main() {
+    int x = 3, y = 8;
+    swapA(x, y);
+    cout << x << " " << y << endl;
+    swapB(x, y);
+    cout << x << " " << y << endl;
+}`,ans:"3 8\n8 3",why:"swapA kopyalarla çalışır; swapB gerçek değişkenleri değiştirir."},
+ {id:"A13",topic:"overload",code:String.raw`double add(int a, int b)                 { cout << "1 "; return a + b; }
+double add(double a, double b)           { cout << "2 "; return a + b; }
+double add(double a, double b, double c) { cout << "3 "; return a + b + c; }
+int main() {
+    cout << add(2, 3) << endl;
+    cout << add(2.5, 3.0) << endl;
+    cout << add(1, 2.0, 3) << endl;
+}`,ans:"1 5\n2 5.5\n3 6",why:"Tam eşleşme kazanır. 3 argümanlı tek sürüm var; int'ler double'a döner."},
+ {id:"A13b",topic:"overload",type:"choice",prompt:"A13'teki programa <code>cout &lt;&lt; add(2, 3.0) &lt;&lt; endl;</code> eklenirse?",code:"",choices:["1 5 basar","2 5 basar","Derleme hatası (ambiguous)","3 5 basar"],correct:2,why:"(int,int) ve (double,double) eşit derecede uyar. week6.cpp'deki add(2,3.0) çağrısı da bu yüzden derlenmez."},
+ {id:"A14",topic:"kapsam",code:String.raw`int x = 1;
+cout << x << " ";
+{
+    cout << x << " ";
+    int x = 2;
+    cout << x << " ";
+}
+cout << x << endl;`,ans:"1 1 2 1",why:"İç x bildirilene kadar dıştaki görünür; blok bitince iç x yok olur."},
+ {id:"A15",topic:"kapsam",code:String.raw`int g = 5;
+void change()  { int g = 100; g++; }
+void change2() { g++; }
+int main() {
+    change();
+    cout << g << " ";
+    change2();
+    cout << g << endl;
+}`,ans:"5 6",why:"change kendi local g'sini artırır; global değişmez."},
+ {id:"A16",topic:"fonk",code:String.raw`bool isEven(int n) { return n % 2 == 0; }
+int main() {
+    int count = 0;
+    for (int i = 1; i <= 9; i += 2)
+        if (isEven(i + 1) && i > 3)
+            count++;
+    cout << count << endl;
+}`,ans:"3",why:"i+1 hep çift; i > 3 olanlar 5, 7, 9."},
+ {id:"A17",topic:"artis",code:String.raw`int x = 0, y = 0;
+while (x++ < 5)
+    y += x;
+cout << x << " " << y << endl;`,ans:"6 15",why:"y = 1+2+3+4+5. Son kontrolde 5 < 5 yanlış ama x yine 6 olur."},
+ {id:"A18",topic:"tip",code:String.raw`char c = 'A';
+int n = c + 2;
+char d = n;
+bool b = 7;
+cout << n << " " << d << " " << b << " " << (5 > 3) << endl;`,ans:"67 C 1 1",why:"'A' = 65. Sıfır olmayan → true → 1 basılır."},
+ {id:"A19",topic:"tip",code:String.raw`int a = 10, b = 3;
+a += b * 2;
+b *= a - 14;
+a %= 5;
+cout << a << " " << b << " " << a + b / 2 << endl;`,ans:"1 6 4",why:"a = 16; b = 3*(16-14) = 6; a = 16%5 = 1; 1 + 6/2 = 4."},
+ {id:"A20",topic:"ref",code:String.raw`int twice(int n) { return 2 * n; }
+void update(int& a, int b) {
+    a = twice(a) + b;
+    b = 0;
+}
+int main() {
+    int p = 3, q = 4;
+    update(p, q);
+    update(q, p);
+    cout << p << " " << q << endl;
+}`,ans:"10 18",why:"p = 2*3+4 = 10; q = 2*4+10 = 18. b kopya olduğundan b = 0 etkisiz."},
+ {id:"A21",topic:"switch",code:String.raw`int i, j;
+for (i = 1; i <= 3; i++) {
+    j = i;
+    while (j > 0) {
+        switch (j % 3) {
+            case 0: cout << "T";
+            case 1: cout << "U"; break;
+            case 2: cout << "V";
+            default: cout << "W";
+        }
+        j--;
+    }
+    cout << "\n";
+}`,ans:"U\nVWU\nTUVWU",why:"j%3 = 1 → U. 2 → V, W. 0 → T, U."},
+ {id:"A22",topic:"tip",code:String.raw`double price = 7.5;
+cout.setf(ios::fixed);
+cout.setf(ios::showpoint);
+cout.precision(2);
+cout << price << " " << 10 / 4 << " " << 10 / 4.0 << endl;`,ans:"7.50 2 2.50",why:"10/4 int bölme → 2; fixed ayarı sadece double'ları etkiler."},
+ {id:"A23",topic:"karar",code:String.raw`int kids = 0, pieces = 10;
+if ((kids != 0) && (pieces / kids >= 2))
+    cout << "two each";
+else
+    cout << "no kids";`,ans:"no kids",why:"&& solu false → sağ taraf hesaplanmaz (short-circuit), sıfıra bölme olmaz."},
+ {id:"A24",topic:"dosya",prompt:"data.txt içeriği: <code>3 10 20 30 40</code>",code:String.raw`ifstream in;
+in.open("data.txt");
+int n, x, sum = 0;
+in >> n;
+for (int i = 0; i < n; i++) {
+    in >> x;
+    sum += x;
+}
+cout << n << " " << sum << endl;
+in.close();`,ans:"3 60",why:"İlk sayı adet (3). Sonra 10+20+30; 40 okunmaz."},
+ {id:"A25",topic:"cmath",code:String.raw`cout << pow(2, 3) << " " << fabs(-3.5) << " " << sqrt(pow(3, 2)) << " "
+     << 7 / abs(-2) << " " << ceil(5.8) << " " << floor(5.8) << endl;`,ans:"8 3.5 3 3 6 5",why:"7/abs(-2) = 7/2 int bölme → 3."},
+ {id:"A26",topic:"tip",code:String.raw`double d = 11 / 2;
+cout << d << " " << static_cast<int>(2.9) << " " << (!(5 > 3) || (2 == 2))
+     << " " << 17 / 5 << " " << 17 % 5 << endl;`,ans:"5 2 1 3 2",why:"11/2 önce int bölme → 5. static_cast<int> keser."},
+ {id:"A27",topic:"tip",prompt:"enum (slaytta optional)",code:String.raw`enum Direction { N = 5, S, E = 1, W };
+cout << W << " " << E << " " << S << " " << N << endl;`,ans:"2 1 6 5",why:"N=5, S=6, E=1, W=2."},
+
+ /* örnek midterm ve quiz */
+ {id:"M-I.1",set:"sinav",topic:"artis",code:String.raw`int x=0, y=0;
+while( ++x < 5){
+    y++; }
+cout << x << " "<< y;`,type:"choice",choices:["5 4","5 5","4 5","sonsuz döngü"],correct:0,why:"++x önce artırır; x=5'te koşul yanlış. y 4 kez artar."},
+ {id:"M-I.2",set:"sinav",topic:"tip",code:String.raw`cout << static_cast<float>(3/4) << endl;`,type:"choice",choices:["3","0.5","0.0","0.75"],correct:2,why:"3/4 önce int bölme → 0. Ekranda 0 görünür; şıklarda karşılığı 0.0."},
+ {id:"M-I.5",set:"sinav",topic:"overload",prompt:"<code>int doSomething(int first, float second);</code> için doğru overload hangisi?",code:"",type:"choice",choices:["float doSomething(int first, float second);","int doSomething(int next, float last);","int doSomething(int first, int second, float third);","int doSome(int first, float second);"],correct:2,why:"a: sadece dönüş tipi farklı. b: sadece adlar farklı. d: farklı isim."},
+ {id:"M-I.6",set:"sinav",topic:"cmath",prompt:"fabs için hangileri geçerli çağrı?",code:"",type:"choice",choices:["a. fabs(3.5);","b. cout << fabs(3.5);","a ve b","a, b ve cin >> fabs(3.5);"],correct:2,why:"cin >> fabs(3.5) ve fabs(cin >> x) geçersiz."},
+ {id:"M-I.8",set:"sinav",topic:"ref",prompt:"void fonksiyon için hangisi doğru?",code:"",type:"choice",choices:["return ifadesi olamaz","void değeri döndürülmeli","0 döndürülmeli","Hiçbir şey döndürülmez"],correct:3,why:"return; yazılabilir, ama değer döndürülmez."},
+ {id:"M-II.1",set:"sinav",topic:"ref",code:String.raw`void func1(int &a, int &c)
+{
+   int b = 5;
+   a = b + c * 10;
+   b = a + c * 10;
+   c = a * 10;
+}
+int main( )
+{
+   int a, b, c;
+   a = 3;
+   b = 5;
+   c = 0;
+   cout << a <<" , " << b << " , " << c << endl;
+   func1(a, c);
+   cout << a <<" , " << b << " , " << c << endl;
+   return 0;
+}`,ans:"3 , 5 , 0\n5 , 5 , 50",why:"a = 5+0 = 5, c = 50. Fonksiyondaki b local; main'in b'si değişmez."},
+ {id:"M-II.2",set:"sinav",topic:"dongu",code:String.raw`int i = 5, j = 0;
+while(i > 0) {
+    i--;
+    j++;
+}
+cout << j;`,ans:"5",why:"5 tur."},
+ {id:"M-II.3",set:"sinav",topic:"dongu",code:String.raw`for (int i = 1; i < 4; i++) {
+    for (int j = 1; j < i + 1; j++) {
+        cout << "?";
+    }
+    cout << endl;
+}`,ans:"?\n??\n???",why:"i. satırda i tane."},
+ {id:"M-II.4",set:"sinav",topic:"ref",code:String.raw`double doubleFunc(double b) {
+    return b * b + 5.0;
+}
+void voidFunc(int &a) {
+    a = a + 2;
+    double var;
+    var = doubleFunc(a);
+    cout << var << endl;
+}
+int main() {
+    int x = 2;
+    voidFunc(x);
+    cout << x << endl;
+}`,ans:"21\n4",why:"a (=x) 4 olur; 4*4+5 = 21. x reference ile 4."},
+ {id:"M-II.5",set:"sinav",topic:"overload",code:String.raw`int myFun(int a,int b){
+    return a*b;
+}
+int myFun(int a,double b,int c){
+    return (a+b+c);
+}
+int myFun(int a,double b,double c){
+    return (100);
+}
+int main(){
+    cout<<myFun(1,2);
+    cout<<myFun(1.0,4.0,5);
+    return 0;
+}`,ans:"210",why:"myFun(1,2) = 2. (1.0,4.0,5): (int,double,int) daha iyi eşleşir → 1+4+5 = 10. Arada boşluk yok."},
+ {id:"M-II.6",set:"sinav",topic:"karar",prompt:"Kullanıcı girdisi: 5 ve 10",code:String.raw`int x,y;
+cin>>x>>y;
+if(x>5){
+  if(y<10){
+    cout<<"A"<<endl;
+  }
+  else{
+    cout<<"B"<<endl;
+  }
+}
+else{
+    cout<<"B"<<endl;
+}`,ans:"B",why:"5 > 5 yanlış → dış else."},
+ {id:"M-III",set:"sinav",topic:"switch",prompt:"Part III (10 puan)",code:String.raw`int i,j;
+for(i=2;i<=4;i++){
+    j=4;
+    while(j>=i){
+        switch(j-i){
+            case 1:  cout<< "X";
+            case 0:  cout<< "Z";   break;
+            case 3:  cout<< "M";   break;
+            default: cout<< "K";
+        }
+        j--;
+    }
+    cout<< "\n";
+}`,ans:"KXZZ\nXZZ\nZ",why:"i=2: fark 2 → K; 1 → X,Z; 0 → Z. i=3: X,Z; Z. i=4: Z."},
+ {id:"Q-1",set:"sinav",topic:"tip",prompt:"Quiz örneği",code:String.raw`int a;
+a = (11.0 / 4) + 2.0;
+cout<< a;`,ans:"4",why:"4.75 int'e atanınca 4."},
+ {id:"Q-2",set:"sinav",topic:"tip",prompt:"Quiz örneği, girdi: -3",code:String.raw`int x;
+cin>>x;
+if (x%2==1)
+    cout<<"C"<<endl;
+else
+    cout<<x;`,ans:"-3",why:"-3 % 2 = -1, 1 değil → else."},
+ {id:"Q-3",set:"sinav",topic:"artis",prompt:"Quiz örneği",code:String.raw`int i=0,j=i++,k=--i;
+if(i>0)
+  j++;
+else
+  k++;
+if(k==0)
+  i++;
+else if(k>0)
+  k--;
+else
+  k++;
+cout<<i<<j<<k;`,ans:"000",why:"j=0, i=1; k=--i → i=0, k=0. else: k=1. k>0 → k=0."},
+ {id:"Q-5",set:"sinav",topic:"karar",prompt:"Quiz örneği",code:String.raw`int x=0, y=10, z;
+if(x > y){
+    y=x;
+    z= -(y);
+}
+else {
+    z=0;
+}
+cout << z << " " << x <<" " << y << endl;`,ans:"0 0 10",why:"x > y yanlış → z = 0."}
+];
+
+const BUG=[
+ {id:"B1",topic:"karar",prompt:"Amaç: x 5 ise \"five\" yaz.",code:String.raw`1  #include <iostream>
+2  using namespace std;
+3  int main()
+4  {
+5      int x = 10
+6      if (x = 5)
+7          cout << "five" << endl;
+8      return 0;
+9  }`,sol:"Satır 5: <code>;</code> eksik (derleme).<br>Satır 6: <code>=</code> atama → <code>if (x == 5)</code> (mantık: derlenir ama hep \"five\" basar)."},
+ {id:"B2",topic:"fonk",code:String.raw`1  #include <iostream>
+2  using namespace std;
+3  int main() {
+4      cout << square(4) << endl;
+5      return 0;
+6  }
+7  int square(int n) {
+8      n * n;
+9  }`,sol:"main'den önce bildirim yok → <code>int square(int n);</code> ekle (derleme).<br>Satır 8: değer döndürülmüyor → <code>return n * n;</code>."},
+ {id:"B3",topic:"ref",prompt:"Amaç: iki değişkeni de 0 yap, çıktı 00 olsun.",code:String.raw`1  void zeroBoth(int a, int b) {
+2      a = 0;
+3      b = 0;
+4  }
+5  int main() {
+6      int x = 3, y = 4;
+7      zeroBoth(x, y);
+8      cout << x << y;
+9  }`,sol:"Satır 1: call-by-value, çıktı 34 olur (mantık) → <code>void zeroBoth(int&amp; a, int&amp; b)</code>. Reference ile <code>zeroBoth(5, y)</code> gibi sabit argüman geçersiz olur."},
+ {id:"B4",topic:"dongu",prompt:"Amaç: 1'den 10'a toplam.",code:String.raw`1  int sum = 0;
+2  for (int i = 1; i <= 10; i++);
+3      sum += i;
+4  cout << sum;`,sol:"Satır 2: <code>;</code> gövdeyi boşaltır → kaldır.<br>Satır 3: <code>i</code> döngü dışında tanımsız (derleme); <code>;</code> kalkınca düzelir. <code>{}</code> kullan."},
+ {id:"B5",topic:"switch",code:String.raw`1  char grade;
+2  cin >> grade;
+3  switch (grade) {
+4      case "A": cout << "Excellent";
+5      case 'B': cout << "Good"; break;
+6      default cout << "Other";
+7  }`,sol:"Satır 4: <code>\"A\"</code> string → <code>'A'</code> (derleme); <code>break</code> eksik → \"ExcellentGood\" basılır (mantık).<br>Satır 6: <code>default:</code> iki nokta eksik (derleme)."},
+ {id:"B6",topic:"dongu",prompt:"Amaç: 1 2 3 4 5 yaz.",code:String.raw`1  int i = 1;
+2  while (i < 5) {
+3      cout << i << " ";
+4  }`,sol:"Satır 2: <code>&lt;</code> → <code>&lt;=</code> (off-by-one).<br>Satır 3: <code>i++</code> yok → sonsuz döngü."},
+ {id:"B7",topic:"tip",prompt:"Amaç: Average: 3.5",code:String.raw`1  int total = 7, count = 2;
+2  double avg = total / count;
+3  cout << "Average: " << avg;`,sol:"Satır 2: int bölme → 3. <code>static_cast&lt;double&gt;(total) / count</code>. (<code>static_cast&lt;double&gt;(total / count)</code> yine 3.)"},
+ {id:"B8",topic:"overload",prompt:"Hangi bildirim geçersiz?",code:String.raw`1  int area(int side);
+2  double area(int side);
+3  double area(double w, double h);`,sol:"Satır 2: satır 1 ile aynı parametre listesi, sadece dönüş tipi farklı → geçersiz."},
+ {id:"B9",topic:"ref",code:String.raw`1  void printSum(int a, int b) {
+2      return a + b;
+3  }
+4  int main() {
+5      cout << printSum(2, 3);
+6  }`,sol:"Satır 2: void değer döndüremez. Satır 5: void çağrı cout içinde kullanılamaz.<br>Düzeltme: <code>int printSum</code> + <code>return a + b;</code>, ya da void kalıp içinde <code>cout &lt;&lt; a + b;</code> ve main'de <code>printSum(2, 3);</code>."},
+ {id:"B10",topic:"dosya",prompt:"Amaç: dosyadaki sayıları yazdır.",code:String.raw`1  #include <iostream>
+2  using namespace std;
+3  int main() {
+4      ifstream in;
+5      in.open(numbers.txt);
+6      int x;
+7      while (in >> x)
+8          cout << x << endl;
+9  }`,sol:"<code>#include &lt;fstream&gt;</code> eksik (derleme). Satır 5: tırnak → <code>in.open(\"numbers.txt\");</code>. Sonuna <code>in.close();</code> ekle."},
+ {id:"QB3",topic:"dongu",prompt:"Quiz örneği Part II-3: negatif girildikçe tekrar sor.",code:String.raw`4.  int main() {
+5.  int n
+6.  cout << "Enter a non-negative integer:";
+7.  cin << n;
+9.  while (n >= 0); {
+10. cout << "The integer is negative." << endl;
+11. cout << "Enter a non-negative integer:";
+12. cin >> n
+13. }
+15. cout << "You entered a non-negative integer." << endl;
+16. return 0;
+17. }`,sol:"5: <code>;</code> eksik. 7: <code>cin &gt;&gt; n</code>. 9: <code>while (n &lt; 0)</code>; hem koşul ters hem <code>;</code> döngüyü boşaltıyor. 12: <code>;</code> eksik."},
+ {id:"QB4",topic:"dosya",prompt:"Quiz örneği Part II-4: numbers.txt'deki sayıları topla.",code:String.raw`1.  #include <iostream>
+2.  using namespace std;
+4.  int main() {
+5.      ifstream inFile;
+6.      int number; sum = 0;
+8.      inFile.open("numbers.txt");
+10.     while (inFile >> number); {
+11.        sum =+ number;
+12.     }
+14.  cout << "Total: " sum << endl;
+15.  inFile.close()
+17.  return 0;`,sol:"<code>#include &lt;fstream&gt;</code> eksik. 6: <code>int number, sum = 0;</code>. 10: sondaki <code>;</code> kaldır. 11: <code>sum += number</code>. 14: <code>&lt;&lt; sum</code>. 15: <code>;</code> eksik. Kapanış <code>}</code> eksik."}
+];
+
+const CODE=[
+ {id:"T6",set:"teshis",topic:"ref",prompt:"Bir <code>int</code> ve bir <code>double</code> alan, <code>double</code> parametreyi <code>int</code> parametrenin iki katı yapan, değer döndürmeyen <code>scale</code> fonksiyonunun <b>bildirimi</b> ve <b>tanımı</b>.",sol:String.raw`void scale(int factor, double& value);      // bildirim
+
+void scale(int factor, double& value) {     // tanım
+    value = factor * 2;
+}`,tip:"Puan getiren iki şey: dönüş tipi void ve double& (reference). Bildirim ; ile biter, tanım başlığında ; yok."},
+ {id:"C1",topic:"fonk",prompt:"(Örnek midterm IV-1) <code>get_number()</code>: bir tam sayı okuyup döndürsün. Sonra değiştir: sadece pozitif kabul etsin; 0 veya negatifse uyarı verip tekrar sorsun.",sol:String.raw`#include <iostream>
+using namespace std;
+
+int get_number();                    // bildirim (üst kutu)
+
+int main() {
+    int number = get_number();
+    cout << "Number you entered: " << number << endl;
+    return 0;
+}
+
+int get_number() {                   // tanım (alt kutu), (b) şıkkı
+    int n;
+    cout << "Enter a positive integer: ";
+    cin >> n;
+    while (n <= 0) {
+        cout << "Warning: the number must be positive!\n";
+        cout << "Enter a positive integer: ";
+        cin >> n;
+    }
+    return n;
+}`,tip:"(a) şıkkı için while bloğunu çıkar: oku ve return n;"},
+ {id:"C2",topic:"fonk",prompt:"(Örnek midterm IV-2, 30 puan) <code>factorial(int n)</code> döngüyle (özyineleme yok), <code>permutation(int n, int r)</code> = factorial(n) / factorial(n - r). <code>main</code> n ve r okuyup sonucu yazsın.",sol:String.raw`#include <iostream>
+using namespace std;
+
+int factorial(int n);
+int permutation(int n, int r);
+
+int main() {
+    int n, r;
+    cout << "Enter n and r: ";
+    cin >> n >> r;
+    cout << "P(" << n << "," << r << ") = " << permutation(n, r) << endl;
+    return 0;
+}
+
+int factorial(int n) {
+    int result = 1;
+    for (int i = 1; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+int permutation(int n, int r) {
+    return factorial(n) / factorial(n - r);
+}`,tip:"Test: n=5, r=2 → 20. result 1 ile başlar, 0 ile değil."},
+ {id:"C3",topic:"ref",prompt:"(Örnek midterm IV-3) <code>hello(string name)</code> selam yazsın. <code>shareBudget(int number, double totalAmount)</code> kişi başı payı yazsın; kişi sayısı 0 ise <code>No people, no budget distribution!</code> yazıp <code>return</code> ile çıksın. Bütçe 900, main'de.",sol:String.raw`#include <iostream>
+#include <string>
+using namespace std;
+
+void hello(string name);
+void shareBudget(int number, double totalAmount);
+
+int main() {
+    string name;
+    int people;
+    double budget = 900;
+    cout << "What is your name? ";
+    cin >> name;
+    hello(name);
+    cout << "How many of you in the group? ";
+    cin >> people;
+    shareBudget(people, budget);
+    return 0;
+}
+
+void hello(string name) {
+    cout << "Hello " << name << "!\n";
+}
+
+void shareBudget(int number, double totalAmount) {
+    if (number == 0) {
+        cout << "No people, no budget distribution!\n";
+        return;
+    }
+    double each = totalAmount / number;
+    cout << "Each person will receive " << each << "km. Good luck!\n";
+}`,tip:"#include <string> unutma. Test: Ali, 3 → 300km."},
+ {id:"C4",topic:"ref",prompt:"<code>swapValues(int&amp; a, int&amp; b)</code> ve onu kullanan <code>order(int&amp; a, int&amp; b)</code>: çağrıdan sonra a &lt;= b olsun.",sol:String.raw`void swapValues(int& a, int& b);
+void order(int& a, int& b);
+
+void swapValues(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+void order(int& a, int& b) {
+    if (a > b)
+        swapValues(a, b);
+}`,tip:"Fonksiyon başka fonksiyonu çağırabilir ama içinde tanımlayamaz."},
+ {id:"C5",topic:"fonk",prompt:"<code>bool isPrime(int n)</code>. main 1'den 20'ye kadar asalları yazsın.",sol:String.raw`bool isPrime(int n);
+
+int main() {
+    for (int i = 1; i <= 20; i++)
+        if (isPrime(i))
+            cout << i << " ";
+    cout << endl;
+    return 0;
+}
+
+bool isPrime(int n) {
+    if (n < 2)
+        return false;
+    for (int i = 2; i < n; i++) {
+        if (n % i == 0)
+            return false;
+    }
+    return true;
+}`,tip:"Çıktı: 2 3 5 7 11 13 17 19."},
+ {id:"C6",topic:"switch",prompt:"do-while ve switch ile menü: 1 kare, 2 küp, 0 çıkış, başka sayı \"Wrong choice!\".",sol:String.raw`int main() {
+    int choice;
+    double x;
+    do {
+        cout << "1) Square  2) Cube  0) Exit\nChoice: ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                cout << "Number: ";
+                cin >> x;
+                cout << "Square: " << x * x << endl;
+                break;
+            case 2:
+                cout << "Number: ";
+                cin >> x;
+                cout << "Cube: " << x * x * x << endl;
+                break;
+            case 0:
+                cout << "Bye!\n";
+                break;
+            default:
+                cout << "Wrong choice!\n";
+        }
+    } while (choice != 0);
+    return 0;
+}`,tip:"Her case sonunda break."},
+ {id:"C7",topic:"dongu",prompt:"n okuyup önce sola dayalı, sonra sağa dayalı ters üçgen çizen <code>triangles(int n)</code>. n = 3:<pre>*\n**\n***\n***\n **\n  *</pre>",sol:String.raw`void triangles(int n) {
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++)
+            cout << "*";
+        cout << endl;
+    }
+    for (int i = n; i >= 1; i--) {
+        for (int j = 1; j <= n - i; j++)
+            cout << " ";
+        for (int j = 1; j <= i; j++)
+            cout << "*";
+        cout << endl;
+    }
+}`,tip:"Dış döngü satır, iç döngüler boşluk ve yıldız."},
+ {id:"C8",topic:"dosya",prompt:"numbers.txt'deki tüm sayıları (adet bilinmiyor) okuyup adet, toplam ve ortalamayı (double) yaz.",sol:String.raw`#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    ifstream inFile;
+    inFile.open("numbers.txt");
+    int number, count = 0, sum = 0;
+    while (inFile >> number) {
+        sum += number;
+        count++;
+    }
+    inFile.close();
+    if (count == 0) {
+        cout << "File is empty.\n";
+        return 0;
+    }
+    cout << "Count: " << count << ", Sum: " << sum
+         << ", Average: " << static_cast<double>(sum) / count << endl;
+    return 0;
+}`,tip:"Ortalamada static_cast, yoksa int bölme."},
+ {id:"C9",topic:"ref",prompt:"<code>void stats(int a, int b, int&amp; sum, int&amp; product)</code>: toplam ve çarpımı reference parametrelerle döndürsün.",sol:String.raw`void stats(int a, int b, int& sum, int& product);
+
+void stats(int a, int b, int& sum, int& product) {
+    sum = a + b;
+    product = a * b;
+}
+// çağrı: int s, p; stats(3, 5, s, p);  → s = 8, p = 15`,tip:"Birden çok sonuç = reference parametreler."},
+ {id:"C10",topic:"dongu",prompt:"<code>int sumDigits(int n)</code>: basamakların toplamı (4071 → 12), % ve / ile.",sol:String.raw`int sumDigits(int n);
+
+int sumDigits(int n) {
+    int sum = 0;
+    while (n > 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+    return sum;
+}`,tip:"% 10 son basamak, / 10 son basamağı atar."}
+];
+
+/* ---------- yardımcılar ---------- */
+const $=s=>document.querySelector(s);
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function norm(s){return s.replace(/\r/g,"").split("\n").map(l=>l.replace(/\s+/g," ").trim()).filter(l=>l.length).join("\n")}
+function loose(s){return norm(s).replace(/ /g,"")}
+function tagHtml(t){return `<span class="tag">${TOPICS[t]}</span>`}
+function codeBlock(c){return c?`<pre><code class="language-cpp">${esc(c)}</code></pre>`:""}
+function hl(root){if(window.hljs)root.querySelectorAll("pre code.language-cpp:not(.hljs)").forEach(e=>hljs.highlightElement(e))}
+
+function statusHtml(id){
+  const a=S.ans[id], s=S.self[id];
+  const v=a?a.ok:(s===undefined?undefined:s);
+  if(v===undefined)return `<span class="status" id="st-${id}"></span>`;
+  return `<span class="status ${v?"ok":"no"}" id="st-${id}">${v?"✓ doğru":"✗ yanlış"}</span>`;
+}
+function setStatus(id){const el=document.getElementById("st-"+id);if(el)el.outerHTML=statusHtml(id);updateScore();}
+
+/* ---------- çıktı soruları ---------- */
+function outCard(q){
+  const d=document.createElement("div");d.className="card";d.dataset.topic=q.topic;d.id="q-"+q.id;
+  let body=`<div class="q-head"><span class="qid">${q.id}</span>${tagHtml(q.topic)}${statusHtml(q.id)}</div>`;
+  if(q.prompt)body+=`<p class="prompt">${q.prompt}</p>`;
+  else if(q.type!=="choice")body+=`<p class="prompt">Çıktı nedir?</p>`;
+  body+=codeBlock(q.code);
+  if(q.type==="choice"){
+    body+=`<div class="choices">${q.choices.map((c,i)=>`<label><input type="radio" name="r-${q.id}" value="${i}"${S.ans[q.id]&&S.ans[q.id].v==i?" checked":""}> <span>${esc(c)}</span></label>`).join("")}</div>`;
+  }else{
+    body+=`<textarea class="out" aria-label="${q.id} cevabı" placeholder="Çıktıyı yaz (her satır ayrı satıra)">${esc((S.ans[q.id]&&S.ans[q.id].v)||"")}</textarea>`;
+  }
+  body+=`<div class="row"><button class="btn pri" type="button" data-act="check">Kontrol et</button><button class="btn" type="button" data-act="show">Cevabı göster</button></div><div class="fbwrap"></div>`;
+  d.innerHTML=body;
+  const fbw=d.querySelector(".fbwrap");
+  function showFb(ok,reveal){
+    const exp=q.type==="choice"?esc(q.choices[q.correct]):`<pre>${esc(q.ans)}</pre>`;
+    fbw.innerHTML=`<div class="fb ${reveal?"info":ok?"ok":"no"}"><b>${reveal?"Cevap":ok?"Doğru.":"Yanlış."}</b> ${ok&&!reveal?"":"Doğru cevap:"} ${ok&&!reveal?"":exp}<div style="margin-top:6px">${q.why}</div>${!ok&&!reveal?`<div class="note" style="margin-top:6px">Tekrar: Özet → ${OZETREF[q.topic]}</div>`:""}</div>`;
+  }
+  d.querySelector('[data-act="check"]').onclick=()=>{
+    let v,ok;
+    if(q.type==="choice"){const r=d.querySelector("input:checked");if(!r){fbw.innerHTML=`<div class="fb info">Bir şık seç.</div>`;return}v=+r.value;ok=v===q.correct}
+    else{v=d.querySelector("textarea").value;if(!v.trim()){fbw.innerHTML=`<div class="fb info">Önce cevabını yaz.</div>`;return}ok=norm(v)===norm(q.ans)||loose(v)===loose(q.ans)}
+    S.ans[q.id]={v,ok};save();showFb(ok,false);setStatus(q.id);
+  };
+  d.querySelector('[data-act="show"]').onclick=()=>{
+    if(!S.ans[q.id]){S.ans[q.id]={v:q.type==="choice"?-1:"",ok:false};save();setStatus(q.id)}
+    showFb(false,true);
+  };
+  return d;
+}
+
+/* ---------- self-graded kartlar ---------- */
+function selfRow(id){
+  return `<div class="row selfrow" style="display:none"><span class="note">Kendini puanla:</span><button class="btn" type="button" data-self="1">Doğru buldum</button><button class="btn" type="button" data-self="0">Kaçırdım</button></div>`;
+}
+function wireSelf(d,id){
+  d.querySelectorAll("[data-self]").forEach(b=>b.onclick=()=>{S.self[id]=b.dataset.self==="1";save();setStatus(id)});
+}
+function bugCard(q){
+  const d=document.createElement("div");d.className="card";d.id="q-"+q.id;
+  d.innerHTML=`<div class="q-head"><span class="qid">${q.id}</span>${tagHtml(q.topic)}${statusHtml(q.id)}</div>${q.prompt?`<p class="prompt">${q.prompt}</p>`:""}${codeBlock(q.code)}
+  <textarea aria-label="${q.id} notların" placeholder="Hatalı satırlar ve düzeltme">${esc(S.txt[q.id]||"")}</textarea>
+  <div class="row"><button class="btn pri" type="button" data-act="show">Cevabı göster</button></div>
+  <div class="fbwrap"></div>${selfRow(q.id)}`;
+  d.querySelector("textarea").oninput=e=>{S.txt[q.id]=e.target.value;save()};
+  d.querySelector('[data-act="show"]').onclick=e=>{
+    const fb=d.querySelector(".fbwrap");const open=!fb.innerHTML;
+    fb.innerHTML=open?`<div class="fb info">${q.sol}</div>`:"";e.target.textContent=open?"Cevabı gizle":"Cevabı göster";
+    d.querySelector(".selfrow").style.display=open?"flex":"none";
+  };
+  wireSelf(d,q.id);return d;
+}
+function codeCard(q){
+  const d=document.createElement("div");d.className="card";d.id="q-"+q.id;
+  d.innerHTML=`<div class="q-head"><span class="qid">${q.id}</span>${tagHtml(q.topic)}${statusHtml(q.id)}</div><div class="prompt">${q.prompt}</div>
+  <textarea class="scratch" aria-label="${q.id} kodun" placeholder="Kodunu buraya yaz (ya da kâğıda)" spellcheck="false">${esc(S.txt[q.id]||"")}</textarea>
+  <div class="row"><button class="btn pri" type="button" data-act="show">Çözümü göster</button></div>
+  <div class="solwrap" hidden><div class="fb info" style="padding:10px">${codeBlock(q.sol)}<div>${q.tip}</div></div></div>${selfRow(q.id)}`;
+  d.querySelector("textarea").oninput=e=>{S.txt[q.id]=e.target.value;save()};
+  d.querySelector('[data-act="show"]').onclick=e=>{
+    const w=d.querySelector(".solwrap");w.hidden=!w.hidden;e.target.textContent=w.hidden?"Çözümü göster":"Çözümü gizle";
+    d.querySelector(".selfrow").style.display=w.hidden?"none":"flex";if(!w.hidden)hl(w);
+  };
+  wireSelf(d,q.id);return d;
+}
+
+/* ---------- puan ---------- */
+function allItems(){return [...OUT,...BUG,...CODE]}
+function resultOf(id){if(S.ans[id])return S.ans[id].ok;if(S.self[id]!==undefined)return S.self[id];return undefined}
+function updateScore(){
+  const items=allItems();let done=0,ok=0;
+  items.forEach(q=>{const r=resultOf(q.id);if(r!==undefined){done++;if(r)ok++}});
+  $("#scoreline").innerHTML=`Çözülen <b>${done}</b>/${items.length} · doğru <b>${ok}</b> · plan <b>${Object.values(S.plan).filter(Boolean).length}</b>/${PLAN.length}`;
+  if(!$("#s-zayif").hidden)renderWeak();
+}
+function renderWeak(){
+  const items=allItems();const per={};
+  items.forEach(q=>{const r=resultOf(q.id);per[q.topic]=per[q.topic]||{n:0,bad:0,tot:0,ids:[]};per[q.topic].tot++;if(r!==undefined){per[q.topic].n++;if(!r){per[q.topic].bad++;per[q.topic].ids.push(q.id)}}});
+  let done=0,ok=0;items.forEach(q=>{const r=resultOf(q.id);if(r!==undefined){done++;if(r)ok++}});
+  $("#stats").innerHTML=`<div class="stat"><b>${done}/${items.length}</b><span>çözülen soru</span></div><div class="stat"><b>${done?Math.round(100*ok/done):0}%</b><span>başarı</span></div><div class="stat"><b>${done-ok}</b><span>yanlış</span></div>`;
+  const rows=Object.entries(per).filter(([,v])=>v.n>0).sort((a,b)=>(b[1].bad/b[1].n)-(a[1].bad/a[1].n)||b[1].bad-a[1].bad);
+  if(!rows.length){$("#weakList").innerHTML=`<p class="note" style="margin:0">Henüz veri yok. Teşhis testiyle başla.</p>`;return}
+  $("#weakList").innerHTML=`<h3 style="margin-top:0">Konu bazında yanlış oranı</h3>`+rows.map(([t,v])=>`<div class="weak"><span class="lbl">${TOPICS[t]}</span><span class="meter"><i style="width:${Math.round(100*v.bad/v.n)}%"></i></span><span class="num">${v.bad}/${v.n} yanlış</span></div>${v.ids.length?`<div class="note" style="padding:4px 0 8px">Yanlışlar: ${v.ids.map(i=>`<button class="jump" type="button" data-jump="${i}">${i}</button>`).join(", ")} · Tekrar: Özet → ${OZETREF[t]}</div>`:""}`).join("");
+  $("#weakList").querySelectorAll("[data-jump]").forEach(b=>b.onclick=()=>jumpTo(b.dataset.jump));
+}
+function jumpTo(id){
+  const el=document.getElementById("q-"+id);if(!el)return;
+  const sec=el.closest("section");show(sec.id.slice(2));
+  setTimeout(()=>{el.scrollIntoView({behavior:"smooth",block:"start"});el.style.outline="3px solid var(--acc)";setTimeout(()=>el.style.outline="",1600)},50);
+}
+
+/* ---------- sekmeler ---------- */
+const SECS=[...document.querySelectorAll("main>section")];
+function show(name){
+  SECS.forEach(s=>s.hidden=s.id!=="s-"+name);
+  document.querySelectorAll("#tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.s===name));
+  try{localStorage.setItem(KEY+"-tab",name)}catch(e){}
+  if(name==="zayif")renderWeak();
+  hl($("#s-"+name));window.scrollTo(0,0);
+}
+SECS.forEach(s=>{const b=document.createElement("button");b.type="button";b.role="tab";b.dataset.s=s.id.slice(2);b.textContent=s.dataset.title;b.onclick=()=>show(b.dataset.s);$("#tabs").appendChild(b)});
+
+/* ---------- plan ---------- */
+function renderPlan(){
+  $("#planList").innerHTML=PLAN.map((p,i)=>`<div class="plan-day${S.plan[i]?" done":""}"><input type="checkbox" id="pl-${i}"${S.plan[i]?" checked":""} aria-label="${p.d} bitti"><div class="pd-body"><label for="pl-${i}" class="pd-date">${p.d}</label> <span class="pd-meta">${p.t}</span><p><b>${p.h}</b></p><p>${p.b} <button class="jump" type="button" data-go="${p.go}">Sekmeye git →</button></p></div></div>`).join("");
+  PLAN.forEach((p,i)=>$("#pl-"+i).onchange=e=>{S.plan[i]=e.target.checked;save();e.target.closest(".plan-day").classList.toggle("done",e.target.checked);updateScore()});
+  $("#planList").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>show(b.dataset.go));
+}
+
+/* ---------- özet ---------- */
+function renderOzet(){
+  const md=$("#ozetMd").textContent;
+  const body=$("#ozetBody");
+  if(window.marked){body.innerHTML=marked.parse(md)}else{body.innerHTML=`<pre style="white-space:pre-wrap">${esc(md)}</pre>`}
+  body.querySelectorAll("pre code").forEach(c=>{if(!c.className)c.className="language-cpp";if(c.className.includes("language-cpp")||c.className==="")c.classList.add("language-cpp")});
+  const hs=[...body.querySelectorAll("h2")];
+  $("#ozetToc").innerHTML=hs.map((h,i)=>{h.id="oz-"+i;return `<button type="button" data-oz="${i}">${esc(h.textContent)}</button>`}).join("");
+  $("#ozetToc").querySelectorAll("button").forEach(b=>b.onclick=()=>document.getElementById("oz-"+b.dataset.oz).scrollIntoView({behavior:"smooth"}));
+}
+
+/* ---------- çıktı filtresi ---------- */
+function renderFilter(){
+  const topics=[...new Set(OUT.filter(q=>!q.set).map(q=>q.topic))];
+  const f=$("#ciktiFilter");
+  f.innerHTML=`<button type="button" data-t="" aria-pressed="true">Tümü</button>`+topics.map(t=>`<button type="button" data-t="${t}" aria-pressed="false">${TOPICS[t]}</button>`).join("");
+  f.querySelectorAll("button").forEach(b=>b.onclick=()=>{f.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));$("#ciktiList").querySelectorAll(".card").forEach(c=>c.style.display=!b.dataset.t||c.dataset.topic===b.dataset.t?"":"none")});
+}
+
+/* ---------- geri sayım, tema ---------- */
+function countdown(){
+  const exam=new Date("2026-11-19T17:45:00+01:00");const ms=exam-new Date();
+  if(ms<=0){$("#countdown").textContent="Sınav zamanı geldi";return}
+  const d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5);
+  $("#countdown").innerHTML=`Sınava <b>${d} gün ${h} saat</b> · Per 19 Kas 17:45`;
+}
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";try{localStorage.setItem(KEY+"-theme",r.dataset.theme)}catch(e){}};
+try{const t=localStorage.getItem(KEY+"-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}
+
+$("#resetBtn").onclick=()=>{if(confirm("Tüm cevaplar ve puanlar silinsin mi? Plan işaretleri kalır.")){S.ans={};S.self={};S.txt={};save();location.reload()}};
+
+/* ---------- başlat ---------- */
+function init(){
+  renderPlan();renderOzet();renderFilter();
+  OUT.forEach(q=>{const c=outCard(q);(q.set==="teshis"?$("#teshisList"):q.set==="sinav"?$("#sinavList"):$("#ciktiList")).appendChild(c)});
+  CODE.filter(q=>q.set==="teshis").forEach(q=>$("#teshisList").appendChild(codeCard(q)));
+  BUG.forEach(q=>$("#hataList").appendChild(bugCard(q)));
+  CODE.filter(q=>!q.set).forEach(q=>$("#kodList").appendChild(codeCard(q)));
+  const note=document.createElement("p");note.className="note";note.textContent="A2, A6, A10 ve A11 teşhis testindeki T1, T2, T5 ve T3 ile aynı.";$("#ciktiList").prepend(note);
+  countdown();setInterval(countdown,60000);updateScore();
+  let tab="plan";try{tab=localStorage.getItem(KEY+"-tab")||"plan"}catch(e){}
+  show(SECS.some(s=>s.id==="s-"+tab)?tab:"plan");
+}
+window.addEventListener("load",init);
+</script>
+</body>
+</html>

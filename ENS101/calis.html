@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ENS101 Çalışma Masası</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#f3f1ea; --card:#fffefa; --ink:#17201d; --ink-2:#55605b; --line:#d8d4c6;
+  --teal:#0f5e57; --teal-soft:#dcebe7; --orange:#b84a0c; --orange-soft:#fbe6d8;
+  --ok:#1d7a45; --ok-soft:#dcefe2; --bad:#b4322a; --bad-soft:#f7dfdc;
+  --code-bg:#1b2124; --code-fg:#e4e7e3; --t-k:#ff9a5c; --t-b:#7fd1c6; --t-s:#c3e88d; --t-c:#8a9792; --t-n:#f3c969;
+  --shadow:0 1px 0 rgba(0,0,0,.04),0 8px 20px -14px rgba(20,40,35,.35);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#111614; --card:#182020; --ink:#e6ebe8; --ink-2:#9fb0aa; --line:#2a3533;
+  --teal:#5fc4b8; --teal-soft:#1a3532; --orange:#ff9a5c; --orange-soft:#3a2416;
+  --ok:#6fd39b; --ok-soft:#18301f; --bad:#ff8a7a; --bad-soft:#3a201d; --code-bg:#0b0f0f;
+  --shadow:0 8px 20px -14px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --paper:#111614; --card:#182020; --ink:#e6ebe8; --ink-2:#9fb0aa; --line:#2a3533;
+  --teal:#5fc4b8; --teal-soft:#1a3532; --orange:#ff9a5c; --orange-soft:#3a2416;
+  --ok:#6fd39b; --ok-soft:#18301f; --bad:#ff8a7a; --bad-soft:#3a201d; --code-bg:#0b0f0f;
+  --shadow:0 8px 20px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+a{color:var(--teal)}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:3px}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.92em}
+p code,li code,td code{background:var(--teal-soft);padding:0 4px;border-radius:3px}
+
+/* title block: the page's anchor, styled like an engineering drawing's title block */
+.top{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:2px solid var(--ink)}
+.top-in{max-width:940px;margin:0 auto;padding:10px 16px 0}
+.tb{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;border:2px solid var(--ink);background:var(--card)}
+.tb>div{border-left:1px solid var(--ink);padding:5px 10px;min-width:0}
+.tb>div:first-child{border-left:none}
+.tb small{display:block;font:500 .66rem/1.2 "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.tb b{font:800 1rem/1.25 "Archivo",sans-serif;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb .name b{font-size:1.35rem;letter-spacing:-.01em}
+.tb .name b span{color:var(--orange)}
+.meter{height:5px;background:var(--line);margin-top:4px}
+.meter i{display:block;height:100%;background:var(--teal);width:0;transition:width .4s}
+nav{display:flex;gap:2px;overflow-x:auto;padding:8px 0 0;scrollbar-width:none;align-items:flex-end}
+nav::-webkit-scrollbar{display:none}
+nav button{border:none;background:none;color:var(--ink-2);padding:7px 12px;white-space:nowrap;font-weight:600;border-bottom:3px solid transparent}
+nav button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--orange)}
+nav .theme{margin-left:auto;font-weight:500;font-size:.8rem;border:1px solid var(--line);border-radius:4px;padding:3px 8px;margin-bottom:5px}
+
+main{max-width:940px;margin:0 auto;padding:20px 16px 80px}
+.sheet{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:18px;position:relative}
+.sheet>h2:first-child{margin-top:0}
+h2{font:800 1.4rem/1.2 "Archivo",sans-serif;margin:0 0 8px;letter-spacing:-.01em}
+h3{font:800 1.08rem/1.3 "Archivo",sans-serif;margin:20px 0 6px}
+h4{font-weight:600;margin:14px 0 4px}
+.muted{color:var(--ink-2)} .small{font-size:.86rem}
+.note{background:var(--orange-soft);border-left:3px solid var(--orange);padding:9px 12px;margin:10px 0;font-size:.93rem}
+.tblwrap{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 .74rem "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+ul,ol{padding-left:22px} li{margin:2px 0}
+
+pre.m{background:var(--code-bg);color:var(--code-fg);font:400 .88rem/1.5 "IBM Plex Mono",monospace;padding:11px 13px;margin:8px 0;overflow-x:auto;border-left:3px solid var(--orange);white-space:pre}
+.t-k{color:var(--t-k);font-weight:500} .t-b{color:var(--t-b)} .t-s{color:var(--t-s)} .t-c{color:var(--t-c);font-style:italic} .t-n{color:var(--t-n)}
+
+details.sec{border-top:1px solid var(--line);padding:10px 0}
+details.sec:first-of-type{border-top:none}
+details.sec>summary{cursor:pointer;font:800 1.08rem "Archivo",sans-serif;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::before{content:"+";font:500 1rem "IBM Plex Mono",monospace;color:var(--orange);width:12px}
+details.sec[open]>summary::before{content:"−"}
+details.sec>summary .k{font:500 .75rem "IBM Plex Mono",monospace;color:var(--ink-2)}
+.flash{animation:flash 1.2s}
+@keyframes flash{0%{background:var(--orange-soft)}100%{background:transparent}}
+
+/* plan */
+.plan{list-style:none;padding:0;margin:0}
+.plan li{display:grid;grid-template-columns:22px 104px 1fr;gap:4px 10px;padding:9px 6px;border-bottom:1px dashed var(--line);align-items:start}
+.plan li.off{grid-template-columns:22px 104px 1fr;color:var(--ink-2)}
+.plan input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--teal)}
+.plan .d{font:500 .82rem "IBM Plex Mono",monospace}
+.plan .d small{display:block;color:var(--ink-2);font-size:.75rem}
+.plan li.done .what{text-decoration:line-through;color:var(--ink-2)}
+.plan li.today{background:var(--orange-soft)}
+.plan .go{font-size:.84rem;margin-left:4px}
+.plan .min{font:500 .78rem "IBM Plex Mono",monospace;color:var(--ink-2);margin-left:6px}
+
+/* questions */
+.q{border-top:1px dashed var(--line);padding:14px 0}
+.q:first-of-type{border-top:none}
+.q header{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.qid{font:500 .8rem "IBM Plex Mono",monospace;background:var(--ink);color:var(--card);padding:1px 7px}
+.tag{font-size:.76rem;padding:1px 8px;border-radius:999px;background:var(--teal-soft);color:var(--teal);font-weight:600;border:none}
+.pts{font:500 .76rem "IBM Plex Mono",monospace;color:var(--ink-2)}
+.st{margin-left:auto;font-size:.78rem;font-weight:600;padding:2px 8px;border-radius:999px}
+.st.ok{background:var(--ok-soft);color:var(--ok)} .st.bad{background:var(--bad-soft);color:var(--bad)} .st.mid{background:var(--orange-soft);color:var(--orange)}
+.prompt p{margin:.3em 0}
+.opts{display:grid;gap:4px;margin:6px 0}
+.opts label{display:flex;gap:8px;align-items:flex-start;padding:5px 8px;border:1px solid var(--line);cursor:pointer;background:var(--paper)}
+.opts label:hover{border-color:var(--teal)}
+.opts input{margin-top:4px;accent-color:var(--teal)}
+.opts label.right{border-color:var(--ok);background:var(--ok-soft)}
+.opts label.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.field{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0}
+.field label{font:500 .85rem "IBM Plex Mono",monospace;color:var(--ink-2);min-width:24px}
+input[type=text],textarea{font:500 .95rem "IBM Plex Mono",monospace;padding:7px 9px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:0;min-width:0}
+input[type=text]{width:200px;max-width:100%}
+input.wide{width:320px}
+textarea{width:100%;resize:vertical}
+input[type=text]:focus,textarea:focus{border-color:var(--teal);outline:none}
+input.right,textarea.right{border-color:var(--ok);background:var(--ok-soft)}
+input.wrong,textarea.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.btn{border:2px solid var(--ink);background:var(--ink);color:var(--card);padding:6px 13px;font-weight:600;font-size:.9rem}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.soft{background:var(--teal-soft);color:var(--teal);border-color:transparent}
+.btn.on-ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.on-bad{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn.on-mid{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn:hover{filter:brightness(1.1)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.sol{margin-top:10px;padding:10px 13px;background:var(--teal-soft);border-left:3px solid var(--teal);overflow-x:auto}
+.sol p{margin:.35em 0}
+.sol pre.m{margin:8px 0}
+.self{font-size:.86rem;color:var(--ink-2)}
+.fb{font-size:.88rem;margin-top:6px}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.scorebox{display:flex;gap:16px;flex-wrap:wrap;align-items:center;padding:12px 14px;border:2px solid var(--ink);background:var(--paper);margin:12px 0}
+.scorebox .big{font:800 1.8rem "Archivo",sans-serif}
+.timer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 12px;border:2px solid var(--ink);background:var(--paper);margin:10px 0}
+.timer .clock{font:500 1.5rem "IBM Plex Mono",monospace;min-width:96px}
+.timer.over .clock{color:var(--bad)}
+.weakbar{display:flex;height:9px;min-width:90px;background:var(--line)}
+.weakbar .g{background:var(--ok)} .weakbar .r{background:var(--bad)}
+.lvl{font-weight:600}
+.lvl.bad{color:var(--bad)} .lvl.mid{color:var(--orange)} .lvl.ok{color:var(--ok)} .lvl.none{color:var(--ink-2);font-weight:400}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:var(--card);padding:9px 15px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;max-width:calc(100% - 32px)}
+.toast.on{opacity:1}
+[hidden]{display:none!important}
+
+@media (max-width:640px){
+  .tb{grid-template-columns:1fr 1fr 1fr}
+  .tb .name{grid-column:1/-1;border-bottom:1px solid var(--ink)}
+  .tb .name+div{border-left:none}
+  .tb b{font-size:.9rem}
+  .sheet{padding:14px 13px}
+  .plan li,.plan li.off{grid-template-columns:22px 1fr}
+  .plan .what{grid-column:2}
+  input.wide{width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="tb" role="group" aria-label="Sınav bilgisi">
+      <div class="name"><small>Ders</small><b>ENS101 <span>midterm</span></b></div>
+      <div><small>Sınav</small><b>21 Kas 12:30</b></div>
+      <div><small>Kalan</small><b id="left">—</b></div>
+      <div><small>Plan</small><b id="planPct">0%</b><div class="meter" aria-hidden="true"><i id="planBar"></i></div></div>
+    </div>
+    <nav role="tablist" aria-label="Bölümler" id="tabs">
+      <button role="tab" data-tab="plan">Plan</button>
+      <button role="tab" data-tab="teori">Teori</button>
+      <button role="tab" data-tab="kod">Kod</button>
+      <button role="tab" data-tab="eski">Eski sınavlar</button>
+      <button role="tab" data-tab="deneme">Deneme</button>
+      <button role="tab" data-tab="zayif">Zayıf konular</button>
+      <button class="theme" id="themeBtn" type="button">Tema</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ================= PLAN ================= -->
+<section id="tab-plan" role="tabpanel" hidden>
+  <div class="sheet">
+    <h2>Gün gün plan</h2>
+    <p class="muted small">İşaretlerin bu tarayıcıda saklanır. Bugünün satırı turuncu.</p>
+    <ul class="plan" id="planList"></ul>
+    <div class="row"><button class="btn ghost" id="planReset" type="button">İşaretleri sıfırla</button></div>
+  </div>
+  <div class="sheet">
+    <h2>Kapsam (tahmin)</h2>
+    <p>Bu yılın kapsamı elimizde yok. Liste iki eski sınavdan (F24, F25) ve ders kodlarından çıkarıldı. Hoca farklı bir kapsam duyurursa plan değişir.</p>
+    <div class="tblwrap"><table>
+      <tr><th>Bölüm</th><th>Konu</th><th>Kitap</th><th>Eski sınavda</th></tr>
+      <tr><td>Teori</td><td>Etik (Ch 2)</td><td>s. 36–45</td><td>F25: 3, F24: 1 soru</td></tr>
+      <tr><td>Teori</td><td>Tasarım ve takım (Ch 3)</td><td>s. 53–75</td><td>F25: 6, F24: 2 soru</td></tr>
+      <tr><td>Teori</td><td>Sunum ve yazım (Ch 4)</td><td>s. 79–90</td><td>F25: 2, F24: 1 soru</td></tr>
+      <tr><td>Teori</td><td>Tahmin (Ch 5)</td><td>s. 107–123</td><td>F25: 4, F24: 2 soru</td></tr>
+      <tr><td>Kod</td><td>Octave/MATLAB</td><td>Ch 16–19, ders kodları</td><td>F25: 7, F24: 4 soru</td></tr>
+    </table></div>
+    <p class="small muted">Biçim: F24 75 dk, hepsi açık uçlu. F25 90 dk, 15 teori (çoktan seçmeli, boşluk, tahmin) + 7 kod (5 çıktı izleme, 2 fonksiyon yazma). Kod kâğıda yazılıyor. Ders slaytları zip'te yoktu.</p>
+  </div>
+  <div class="sheet">
+    <h2>Sınav günü taktikleri</h2>
+    <ul>
+      <li>Kod izleme sorusunda tablo çiz: her döngü adımında değişkenlerin değeri. Kafadan yapma.</li>
+      <li>"Fonksiyon yaz" sorusunda önce ilk satırı yaz: <code>function [çıktılar] = isim(girdiler)</code>, sonra <code>end</code>. Arasını sonra doldur.</li>
+      <li>Tahmin sorusunda varsayımları ve birimleri yaz. Cevap anahtarı aralık kabul ediyor.</li>
+      <li>F24 notu: dağınık ya da okunmayan cevap "does not exist". Soru numarasını net yaz.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= TEORİ ================= -->
+<section id="tab-teori" role="tabpanel" hidden>
+<div class="sheet">
+<h2>Teori özeti</h2>
+<p class="muted small">Sınav İngilizce, terimler İngilizce bırakıldı. Sayfa numaraları kitabın kendi numarası (PDF sayfası = +23).</p>
+
+<details class="sec" id="a1"><summary>A1. Etik <span class="k">Ch 2 · s. 36–45</span></summary>
+<h4>Etik karar vermenin 4 adımı (s. 37–41)</h4>
+<ol>
+<li><b>Issues and stakeholders.</b> Sorun ne (What), kim etkileniyor (Who). <i>Stakeholder</i> insan olmak zorunda değil: kişi, grup, kurum ya da doğal sistem.</li>
+<li><b>Üç bakış açısından değerlendir:</b>
+  <ul>
+  <li><b>Consequences:</b> her seçenek her paydaşı nasıl etkiler, etkinin ağırlığı ne.</li>
+  <li><b>Intent:</b> sonuca bakmaz, sadece niyete bakar ("rights perspective"). Kant: herkes yapsa olur mu, yasa olsa olur mu, mağdur ben olsam ister miyim.</li>
+  <li><b>Character:</b> iyi karakterli biri bunu yapar mı, bu beni daha iyi mi kötü mü yapar.</li>
+  </ul></li>
+<li><b>Correlate perspectives.</b> Üçü aynı sonucu veriyorsa güven yüksek. Uyuşmazsa yeniden düşün; yine uyuşmazsa üçte ikiye uy.</li>
+<li><b>Act.</b> En zor adım, cesaret ister. Örnek: <i>whistle-blower</i> işini riske atar.</li>
+</ol>
+<h4>Diğer kavramlar</h4>
+<ul>
+<li>Etik davranmanın iki nedeni: <i>altruism</i> ve kötü sonuçlardan kaçınmak.</li>
+<li><b>Plagiarism:</b> başkasının işini kendininmiş gibi sunmak. Kitaba göre kendi başına yasa dışı değil ama etik dışı; telif ihlali varsa yasa dışı. "Legal but not ethical" sorusunun hazır cevabı.</li>
+<li><b>NSPE Fundamental Canons</b> (s. 44): hold paramount the <b>safety, health, and welfare of the public</b>; only in areas of their <b>competence</b>; public statements <b>objective and truthful</b>; <b>faithful agents or trustees</b>; avoid <b>deceptive acts</b>; honorably, responsibly, ethically, lawfully.</li>
+<li><b>Engineer's Creed:</b> "public welfare above all other considerations", "service before profit".</li>
+<li><b>Social responsibility:</b> bireyin topluma fayda sağlayacak şekilde davranma yükümlülüğü.</li>
+</ul>
+</details>
+
+<details class="sec" id="a2"><summary>A2. Tasarım <span class="k">Ch 3 · s. 53–64</span></summary>
+<p>Tasarım yaratıcı ve <b>iterative</b> (design, build, test, redesign) ve <b>multiobjective</b>: birden fazla çözüm olur, amaç en önemli hedefleri karşılayanı bulmak. Adımlar: problem definition → generating ideas → analysis → prototyping, implementation, testing.</p>
+<h4>Brainstorming kuralları (s. 55)</h4>
+<ol><li>More is better</li><li>Variety is better</li><li>Do not criticize</li></ol>
+<p>"In brainstorming, quality is quantity." Kitap örneği: buzlanan telefon hatları için helikopter fikri 36. fikirdi.</p>
+<h4>Criteria and evaluation (s. 58–62)</h4>
+<ul>
+<li>Kriterler çözüm üretmeden <b>önce</b> tanımlanır; tersi olursa insanlar beğendiği çözüme uyan kriter seçer.</li>
+<li>Kriter <b>clear and measurable</b> olmalı: "inexpensive" yerine "less than $300".</li>
+<li><b>Wants = criteria, needs = requirements.</b> Minimum requirement'ı karşılamayan çözüm doğrudan elenir.</li>
+<li>Az kriter iyidir: 10 kriter bulduysan en önemli 2'sini kullan.</li>
+<li><b>Pairwise comparisons:</b> her kriter için seçenekler ikişer ikişer (0 kötü, 1 eşit, 2 iyi). Dezavantaj: bütün kriterler eşit ağırlıkta.</li>
+<li><b>Weighted benefit analysis</b> (F25'te <b>decision matrix</b>): toplam = Σ(ağırlık × puan).</li>
+<li><b>Reality check:</b> en iyi çıkan çözümü uygulamadan önce bir daha sorgula.</li>
+</ul>
+<p>Örnek (Tablo 3-2): ağırlıklar cost 2, safety 8, weight 10, wow 5. Seçenek 1 puanları 2, 10, 7, 2 → 4 + 80 + 70 + 10 = <b>164</b>.</p>
+<p><b>Sustainability</b> (s. 64): "meeting the needs of the present without compromising the ability of future generations to do the same." Üç boyut: <b>environmental, social, economic</b>.</p>
+</details>
+
+<details class="sec" id="a2-takim"><summary>A2b. Takım çalışması <span class="k">Ch 3 · s. 65–75</span></summary>
+<ul>
+<li><b>Group:</b> aynı yerde, aynı zamanda toplanan insanlar. <b>Team:</b> ortak hedef için iş birliği yapan bireyler.</li>
+<li>Yeni takımın en kritik işi: purpose, process, ilerlemeyi ölçme yöntemi.</li>
+<li>Takım davranışı: ground rules, decision making (consensus ya da majority vote), communication, roles (uzun projede dönüşümlü), participation, values, outcomes.</li>
+<li><b>CATME</b> akran değerlendirmesinin 5 boyutu: contributing to the team's work; interacting with teammates; keeping the team on track; expecting quality; having relevant knowledge, skills, and abilities.</li>
+<li>Değerlendirirken kişiye dair fikre değil <b>davranışa</b> bak.</li>
+<li><b>Project timeline:</b> teslim tarihinden <b>geriye doğru</b> planla, işleri alt işlere böl, haftada en az bir sabit toplantı.</li>
+<li><b>Responsibility matrix:</b> işler solda, üyeler üstte; kim yapacak, kim kontrol edecek.</li>
+</ul>
+</details>
+
+<details class="sec" id="a3"><summary>A3. Sunum ve teknik yazım <span class="k">Ch 4 · s. 79–90</span></summary>
+<p><b>Preplanning: 5 W + 1 H.</b> Who (dinleyici; listenin ilki), What, Where, When, Why, How long. Kitaba göre çok az insan 20 dakikadan uzun odaklanır.</p>
+<p><b>4-S formula:</b> Short, Simple, Strong (active voice, action verbs), Sincere.</p>
+<p><b>Üç parça:</b> Introduction (ilgiyi yakala) · Body (2–3 ana nokta, örnek, görsel) · Conclusion (özetle, teşekkür et, soru al).</p>
+<h4>Slayt kuralları (s. 81)</h4>
+<ul>
+<li>Slayt başına bir kavram, en fazla <b>6 satır</b>, ortalama <b>60 saniye</b></li>
+<li>Tam cümle değil <b>bullet points</b></li>
+<li>Font en az <b>18 pt</b>, tercihen <b>24 pt</b> ve üstü</li>
+<li>Yüksek kontrast, <b>açık zemin koyu yazı</b>; tablo yerine basit grafik; az animasyon; aynı arka plan</li>
+</ul>
+<p><b>Sunarken:</b> yavaş ve net konuş, göz teması, sesli prova, erken git. Metinden okuma, arkanı dönme, "um" deme.</p>
+<h4>Teknik yazım (s. 85–87)</h4>
+<ul>
+<li>Açık ve kesin dil, genelde <b>past tense</b>, duygu değil gerçek</li>
+<li><b>Table:</b> numara ve başlık <b>üstte</b>. <b>Figure:</b> <b>altta</b>.</li>
+<li>Cümle başındaki sayı yazıyla; ondalıkta baştaki sıfır kalır (<code>0.23</code>)</li>
+<li>İki kez oku: teknik içerik ve akış</li>
+</ul>
+<p><b>Kaynak değerlendirme ABC:</b> Authority, Bias, Currency. Üstüne: peer review, karşılaştırma, corroboration.</p>
+</details>
+
+<details class="sec" id="a4"><summary>A4. Tahmin (estimation) <span class="k">Ch 5 · s. 107–123</span></summary>
+<p><b>Fermi problem:</b> gereken bilginin çoğu eksik problem; cevap genelde bir <i>order of magnitude</i> (10 kat) içinde.</p>
+<div class="tblwrap"><table>
+<tr><th>Yöntem</th><th>Ne yapar</th><th>Örnek</th></tr>
+<tr><td><b>By analogy</b></td><td>Bildiğin bir şeyle karşılaştır</td><td>Laptop ≈ defter kâğıdı</td></tr>
+<tr><td><b>By aggregation</b></td><td>Parçaları tahmin et, topla ya da çarp</td><td>Fayans sayısı × fayans boyu</td></tr>
+<tr><td><b>Upper and lower bounds</b></td><td>Fazla mı az mı olduğunu takip et; conservative</td><td>Boyayı yukarı yuvarla</td></tr>
+<tr><td><b>Using modeling</b></td><td>Matematiksel model, istatistik</td><td>Yüzey/hacim oranı ile soğuma</td></tr>
+</table></div>
+<h4>İpuçları (s. 110–111)</h4>
+<ul>
+<li>Gereken doğruluğu belirle; "ballpark" değer çoğu zaman yeter.</li>
+<li>Hangi yöne hata güvenli? Köprünün taşıyacağı yük: <b>düşük</b> tahmin. Bir kirişin taşıması gereken yük: <b>yüksek</b> tahmin.</li>
+<li>Çarpımda biri aşağı yuvarlandıysa diğerini yukarı yuvarla.</li>
+<li>İkinci derece etkilere takılma.</li>
+</ul>
+<h4>Sınavda tahmin sorusu</h4>
+<ol><li>Varsayımları birimleriyle yaz.</li><li>Problemi parçalara böl.</li><li>Sayıları 1 anlamlı basamağa yuvarla.</li><li>Birimleri yazarak çarp.</li><li><i>Reasonableness check</i>.</li><li>Cevabı 1–2 anlamlı basamakla ya da aralık olarak ver.</li></ol>
+<div class="tblwrap"><table>
+<tr><th>Referans (yuvarlak, kitaptan değil)</th><th>Değer</th></tr>
+<tr><td>1 in</td><td>2.54 cm</td></tr>
+<tr><td>1 L; 1 m³</td><td>1000 cm³; 1000 L</td></tr>
+<tr><td>Adım uzunluğu · yürüme hızı</td><td>~0.75 m · ~5 km/saat</td></tr>
+<tr><td>Kişi başı günlük su</td><td>~150 L</td></tr>
+<tr><td>Kalp atışı</td><td>~70 /dakika</td></tr>
+<tr><td>Oda yüksekliği · A4</td><td>~3 m · 21 × 30 cm</td></tr>
+<tr><td>Araba yakıtı</td><td>~7 L/100 km</td></tr>
+<tr><td>1 yıl</td><td>8760 saat ≈ 3.15 × 10⁷ s</td></tr>
+</table></div>
+</details>
+
+<details class="sec" id="a4-sig"><summary>A4b. Anlamlı basamak, doğruluk, gösterim <span class="k">s. 114–123</span></summary>
+<ul>
+<li>Sıfır dışı her rakam anlamlı.</li>
+<li>Sıfır anlamlı: iki rakam arasında (<code>306</code> → 3), ondalık noktalı sayının sonunda (<code>2.790</code> → 4).</li>
+<li>Sıfır anlamsız: ondalık yerini sabitliyorsa (<code>0.0456</code> → 3), noktasız tam sayının sonunda (<code>2000</code> → 1).</li>
+<li>Çarpma/bölme: en az anlamlı basamak kadar. <code>2.43 × 17.675 = 43.0</code></li>
+<li>Toplama/çıkarma: en az ondalık kadar. <code>1725.463 + 489.2 + 16.73 = 1931.4</code></li>
+<li>Ara adımlarda yuvarlama; genelde 3 anlamlı basamak.</li>
+</ul>
+<p><b>Accuracy:</b> gerçek değere yakınlık. <b>Repeatability:</b> ölçümlerin birbirine yakınlığı. <b>Precision:</b> ikisi birden.</p>
+<p><b>Reasonableness:</b> physically reasonable + reasonable precision. F25'te <i>sanity check</i>.</p>
+<p><b>Scientific:</b> <code>#.### × 10^N</code> → 43,480,000 = 4.348 × 10⁷. <b>Engineering:</b> <code>###.### × 10^M</code>, M 3'ün katı → 43.48 × 10⁶; 0.0351 = 35.1 × 10⁻³. Order of magnitude farkı = log farkı (10,000,000 ile 1,000: 4).</p>
+</details>
+
+<details class="sec" id="a5"><summary>A5. Slayt terimleri <span class="k">F25'te var, kitapta bulunamadı</span></summary>
+<p class="small muted">Tanımlar F25 cevap anahtarından. Slaytlar gelirse genişler.</p>
+<div class="tblwrap"><table>
+<tr><th>Terim</th><th>Anlam</th></tr>
+<tr><td><b>Requirement</b></td><td>Tasarımın yapması gereken işlev</td></tr>
+<tr><td><b>Constraint</b></td><td>Tasarımın aşmaması gereken sınır</td></tr>
+<tr><td><b>Trade-off</b></td><td>Bir özellik için diğerinden vazgeçmek</td></tr>
+<tr><td><b>Decision matrix</b></td><td>Seçenekleri ağırlıklı kriterlerle karşılaştıran tablo</td></tr>
+<tr><td><b>Team charter</b></td><td>Rolleri ve iletişim beklentilerini yazan belge</td></tr>
+<tr><td><b>Round-robin</b></td><td>Açık tartışmadan önce herkesin sırayla bir kez konuştuğu teknik</td></tr>
+<tr><td><b>Assumed shared knowledge</b></td><td>Herkesin aynı şeyi bildiğini varsaymak; yanlış anlaşma nedeni</td></tr>
+<tr><td><b>Whistle-blowing</b></td><td>Güvenlik sorununu içeride, gerekirse dışarıda bildirmek</td></tr>
+<tr><td><b>Methods section</b></td><td>Raporda testlerin <i>nasıl</i> yapıldığı bölüm</td></tr>
+<tr><td><b>Sanity check</b></td><td>Ayrıntılı hesabı kaba tahminle kontrol</td></tr>
+</table></div>
+</details>
+</div>
+</section>
+
+<!-- ================= KOD ================= -->
+<section id="tab-kod" role="tabpanel" hidden>
+<div class="sheet">
+<h2>Octave/MATLAB özeti</h2>
+<div class="note">Derste Octave yazımı kullanıldı (<code>endif</code>, <code>!=</code>, çift tırnak). Sınavda ikisinde de çalışan yazımı kullan: <code>end</code>, <code>~=</code>, <code>'tek tırnak'</code>.</div>
+
+<details class="sec" id="b1"><summary>B1. Değişken, vektör, matris</summary>
+<pre class="m">x = 5;                 % ; çıktıyı gizler
+v = [1 2 3 4];         % satır vektörü
+w = [1; 2; 3];         % sütun vektörü
+t = 0:2:10;            % başlangıç:adım:bitiş  -&gt;  [0 2 4 6 8 10]
+A = [1 2 3; 4 5 6];    % 2 satır, 3 sütun</pre>
+<p><b>İndeks 1'den başlar.</b> <code>A(satır, sütun)</code></p>
+<pre class="m">A(2,3)      % 6
+A(2,:)      % 2. satırın tamamı  -&gt; [4 5 6]
+A(:,2)      % 2. sütunun tamamı  -&gt; [2; 5]
+A(end,end)  % son eleman         -&gt; 6</pre>
+<div class="tblwrap"><table>
+<tr><th>Fonksiyon</th><th><code>A = [1 2 3; 4 5 6]</code> için</th></tr>
+<tr><td><code>length(v)</code></td><td>eleman sayısı</td></tr>
+<tr><td><code>size(A)</code></td><td><code>[2 3]</code>; <code>[r, c] = size(A)</code></td></tr>
+<tr><td><code>sum(A)</code></td><td>sütun toplamları <code>[5 7 9]</code></td></tr>
+<tr><td><code>sum(A(1,:))</code> · <code>mean(A(1,:))</code></td><td><code>6</code> · <code>2</code></td></tr>
+<tr><td><code>max(v)</code>, <code>min(v)</code></td><td><code>[m, i] = max(v)</code> indeksi de verir</td></tr>
+<tr><td><code>mod(a, b)</code></td><td>kalan; <code>mod(17,5)</code> = 2</td></tr>
+<tr><td><code>zeros(1,7)</code></td><td>7 sıfırlık satır</td></tr>
+</table></div>
+<pre class="m">a = [1 2 3];  b = [4 5 6];
+a .* b     % [4 10 18]  eleman eleman çarpma
+a ./ b     % eleman eleman bölme
+a .^ 2     % [1 4 9]
+a * b      % HATA: boyutlar uyuşmaz (matris çarpımı)</pre>
+</details>
+
+<details class="sec" id="b2"><summary>B2. Script ve function</summary>
+<p><b>Script:</b> sırayla çalışan komutlar; workspace'i görür; başka script'i adıyla çağırır (dersteki <code>manager.m</code>). <b>Function:</b> girdi alır, çıktı verir, kendi değişkenleri var. Dosya adı = fonksiyon adı.</p>
+<pre class="m">function [V, SA] = cylinderCal(r, h)
+  V  = pi * r^2 * h;
+  SA = 2*pi*r*h + 2*pi*r^2;
+end</pre>
+<pre class="m">[hacim, alan] = cylinderCal(2, 5);
+v = cylinderCal(2, 5);        % sadece ilk çıktı</pre>
+<pre class="m">function y = f(x)             % 1 girdi, 1 çıktı
+function [a, b] = f(x, y)     % 2 girdi, 2 çıktı
+function [] = f()             % girdi yok, çıktı yok</pre>
+<p>Çıktı değişkenine içeride değer atamayı unutma. Fonksiyon başka fonksiyonu çağırabilir (<code>cylinderCal</code> → <code>addNums</code>).</p>
+</details>
+
+<details class="sec" id="b3"><summary>B3. Girdi ve çıktı</summary>
+<pre class="m">x = input('Enter a number: ');        % sayı okur
+disp('Hello')                          % metin yazar
+disp(x)                                % değer yazar
+fprintf('x = %d, y = %.2f\n', x, y);   % biçimli; \n satır atlar</pre>
+<p><code>%d</code> tam sayı, <code>%f</code> ondalık, <code>%g</code> otomatik, <code>%s</code> metin. <code>fprintf('*')</code> satır atlamaz, <code>disp</code> atlar.</p>
+</details>
+
+<details class="sec" id="b4"><summary>B4. Koşullar</summary>
+<pre class="m">if T &lt; 30
+  disp('too cold')
+elseif T &gt; 80
+  disp('too hot')
+else
+  disp('OK')
+end</pre>
+<div class="tblwrap"><table>
+<tr><th>Karşılaştırma</th><th></th><th>Mantık</th><th></th></tr>
+<tr><td><code>==</code></td><td>eşit</td><td><code>&amp;&amp;</code></td><td>ve</td></tr>
+<tr><td><code>~=</code></td><td>eşit değil</td><td><code>||</code></td><td>veya</td></tr>
+<tr><td><code>&lt; &gt; &lt;= &gt;=</code></td><td></td><td><code>~</code></td><td>değil</td></tr>
+</table></div>
+<ul>
+<li><code>=</code> atama, <code>==</code> karşılaştırma.</li>
+<li><code>elseif</code> bitişik. İlk doğru dal çalışır, gerisi atlanır.</li>
+<li>Çift: <code>mod(x,2) == 0</code> · Tek: <code>mod(x,2) == 1</code> · "A'ya bölünür, B'ye bölünmez": <code>mod(k,A)==0 &amp;&amp; mod(k,B)~=0</code></li>
+</ul>
+</details>
+
+<details class="sec" id="b5"><summary>B5. Döngüler ve 6 kalıp</summary>
+<pre class="m">for k = 1:5          % 1 2 3 4 5
+for k = 1:2:10       % 1 3 5 7 9
+for k = 10:-1:1      % geriye
+for k = 1:length(v)  % vektörün her elemanı</pre>
+<pre class="m">k = 10;
+while k &gt; 3
+  disp(k)
+  k = k - 1;         % unutursan sonsuz döngü
+end</pre>
+<h4>1. Sayaç</h4>
+<pre class="m">count = 0;
+for n = 1:20
+  if mod(n,4)==0 || mod(n,5)==0
+    count = count + 1;
+  end
+end</pre>
+<h4>2. Toplam</h4>
+<pre class="m">total = 0;
+for k = 1:15
+  if mod(k,3)==0 &amp;&amp; mod(k,5)~=0
+    total = total + k;
+  end
+end</pre>
+<h4>3. En büyük ve yeri (<code>fued_speed.m</code>)</h4>
+<pre class="m">maxi = v(1);  iMax = 1;
+for k = 2:length(v)
+  if v(k) &gt; maxi
+    maxi = v(k);
+    iMax = k;
+  end
+end</pre>
+<h4>4. Vektör büyütme (<code>crazyFor.m</code>)</h4>
+<pre class="m">vec = [];
+for k = 1:10
+  vec = [vec k^2];
+end</pre>
+<h4>5. Matris gezme (<code>oddies.m</code>)</h4>
+<pre class="m">[r, c] = size(B);
+for k = 1:r
+  for j = 1:c
+    if mod(B(k,j),2) == 1
+      numOdd = numOdd + 1;
+    end
+  end
+end</pre>
+<h4>6. Desen (<code>pirmyds.m</code>)</h4>
+<pre class="m">for k = 1:4
+  for j = 1:k
+    fprintf('*')
+  end
+  fprintf('\n')
+end</pre>
+<h4>Kod izleme tablosu (kalıp 2)</h4>
+<div class="tblwrap"><table>
+<tr><th>k</th><th>mod(k,3)==0</th><th>mod(k,5)~=0</th><th>total</th></tr>
+<tr><td>3</td><td>evet</td><td>evet</td><td>3</td></tr>
+<tr><td>6</td><td>evet</td><td>evet</td><td>9</td></tr>
+<tr><td>9</td><td>evet</td><td>evet</td><td>18</td></tr>
+<tr><td>12</td><td>evet</td><td>evet</td><td>30</td></tr>
+<tr><td>15</td><td>evet</td><td>hayır</td><td>30</td></tr>
+</table></div>
+</details>
+
+<details class="sec" id="b6"><summary>B6. Grafik</summary>
+<pre class="m">t = 0:0.01:10;
+y = 3*sin(2*pi*t);
+figure(1)
+plot(t, y)
+axis([0 10 -4 4])          % [xmin xmax ymin ymax]
+xlabel('Time (s)')
+ylabel('Amplitude')
+title('Sine wave')
+grid on</pre>
+<p><code>pause(2)</code> bekler, <code>clf</code> temizler, <code>hold on</code> üst üste çizer, <code>plot(x, y, '-o')</code> noktaları işaretler.</p>
+</details>
+
+<details class="sec" id="b7"><summary>B7. Sık hatalar</summary>
+<ul>
+<li>Her <code>if</code>, <code>for</code>, <code>while</code>, <code>function</code> bir <code>end</code> ister.</li>
+<li><code>=</code> ile <code>==</code> karışıklığı. İndeksi 0'dan başlatmak (<code>v(0)</code> hata).</li>
+<li>Tanımsız değişken: dersteki <code>oddies.m</code>'de <code>r</code>, <code>c</code> yok; <code>[r, c] = size(B);</code> gerekir.</li>
+<li>Sayaç/toplamı döngüden önce sıfırlamamak. Çıktı değişkenine değer atamamak.</li>
+<li><code>.*</code>, <code>.^</code> yerine <code>*</code>, <code>^</code>. <code>while</code> içinde değişkeni güncellememek.</li>
+<li><code>elseif</code> yerine <code>else if</code> (fazladan <code>end</code> ister).</li>
+</ul>
+</details>
+
+<details class="sec" id="b8"><summary>B8. C++ (CS103) ile farklar</summary>
+<div class="tblwrap"><table>
+<tr><th></th><th>C++</th><th>Octave/MATLAB</th></tr>
+<tr><td>İndeks</td><td>0'dan</td><td>1'den</td></tr>
+<tr><td>Blok</td><td><code>{ }</code></td><td><code>end</code></td></tr>
+<tr><td>Eşit değil · değil</td><td><code>!=</code> · <code>!</code></td><td><code>~=</code> · <code>~</code></td></tr>
+<tr><td>Döngü</td><td><code>for (int k=1; k&lt;=5; k++)</code></td><td><code>for k = 1:5</code></td></tr>
+<tr><td>Kalan</td><td><code>a % b</code></td><td><code>mod(a, b)</code></td></tr>
+<tr><td>Yorum</td><td><code>//</code></td><td><code>%</code></td></tr>
+<tr><td>Yazdırma</td><td><code>cout &lt;&lt; x;</code></td><td><code>disp(x)</code>, <code>fprintf</code></td></tr>
+<tr><td>Fonksiyon</td><td><code>int f(int x) { return y; }</code></td><td><code>function y = f(x) ... end</code></td></tr>
+</table></div>
+</details>
+</div>
+</section>
+
+<!-- ================= ESKİ SINAVLAR ================= -->
+<section id="tab-eski" role="tabpanel" hidden>
+  <div class="sheet">
+    <h2>Eski sınavlar</h2>
+    <p class="small">Önce kâğıtta çöz, sonra çözümü aç ve <b>Bildim</b> ya da <b>Bilemedim</b> işaretle. İşaretler zayıf konu listesine gider. Orijinaller: <a href="materyal/ENS101_F24_Midterm_toShare.pdf" target="_blank" rel="noopener">F24 PDF</a> · <a href="materyal/ENS101_Midterm_solutions.pdf" target="_blank" rel="noopener">F25 PDF (cevaplı)</a></p>
+    <p class="small muted">Kod cevapları MATLAB R2026b'de çalıştırıldı. F25 teori cevapları hocanın anahtarından; F24'ün anahtarı yok, açık uçlu cevaplar kitaba dayalı örnek cevap.</p>
+  </div>
+  <div class="sheet" id="f24"><h2>F24 Midterm <span class="muted small">75 dk · 26 puan</span></h2><div id="listF24"></div></div>
+  <div class="sheet" id="f25"><h2>F25 Midterm: teori <span class="muted small">90 dk</span></h2><div id="listF25T"></div></div>
+  <div class="sheet"><h2>F25 Midterm: Octave/MATLAB</h2><div id="listF25M"></div></div>
+</section>
+
+<!-- ================= DENEME ================= -->
+<section id="tab-deneme" role="tabpanel" hidden>
+  <div class="sheet">
+    <h2>Deneme 1</h2>
+    <p class="small">90 dakika, not yok. Biçim F25'e göre. Sorular yeni yazıldı, hocanın soruları değil. Cevapların bu tarayıcıda saklanır. Bitince <b>Kontrol et</b>: otomatik puanlanır; 9 ve 10'u çözümle karşılaştırıp kendin puanla.</p>
+    <div class="timer" id="timer"><span class="clock" id="clock">90:00</span>
+      <button class="btn" id="tStart" type="button">Başlat</button>
+      <button class="btn ghost" id="tReset" type="button">Sıfırla</button>
+      <span class="small muted" id="tNote"></span></div>
+    <div class="scorebox" id="dScore" hidden></div>
+  </div>
+  <div class="sheet"><h2>Part A: Theory <span class="muted small">19 puan</span></h2><div id="quizA"></div></div>
+  <div class="sheet"><h2>Part B: Octave/MATLAB <span class="muted small">22 puan</span></h2><div id="quizB"></div>
+    <div class="row"><button class="btn" id="dCheck" type="button">Kontrol et ve puanla</button><button class="btn ghost" id="dClear" type="button">Cevapları temizle</button></div>
+  </div>
+  <div class="sheet"><h2>Ek sorular <span class="muted small">F24 tarzı, puana dahil değil</span></h2><div id="listEk"></div></div>
+</section>
+
+<!-- ================= ZAYIF ================= -->
+<section id="tab-zayif" role="tabpanel" hidden>
+  <div class="sheet">
+    <h2>Zayıf konular</h2>
+    <p class="small">Denemedeki kayıp puanlar, seviye testi ve eski sınavlardaki "Bilemedim" işaretlerinden hesaplanır. En zayıf konu en üstte.</p>
+    <div class="tblwrap"><table id="weakTbl"></table></div>
+    <p class="small muted" id="weakEmpty"></p>
+  </div>
+  <div class="sheet">
+    <h2>Seviye testi <span class="muted small">8 kısa soru, ~10 dk</span></h2>
+    <p class="small">Bakmadan cevapla. Bilmiyorsan boş bırak.</p>
+    <div id="quizL"></div>
+    <div class="row"><button class="btn" id="lCheck" type="button">Kontrol et</button><button class="btn ghost" id="lClear" type="button">Temizle</button></div>
+    <div class="scorebox" id="lScore" hidden></div>
+  </div>
+  <div class="sheet">
+    <h2>İlerlemeyi sıfırla</h2>
+    <p class="small">Plan işaretleri, cevaplar ve puanlar silinir.</p>
+    <button class="btn ghost" id="allReset" type="button">Her şeyi sıfırla</button>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ---------- storage ---------- */
+const LS={get(k,d){try{const v=localStorage.getItem("ens101:"+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem("ens101:"+k,JSON.stringify(v))}catch(e){}},
+  clear(){try{Object.keys(localStorage).filter(k=>k.startsWith("ens101:")).forEach(k=>localStorage.removeItem(k))}catch(e){}}};
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>el.classList.remove("on"),1800)}
+
+/* ---------- MATLAB highlighter ---------- */
+const KW=new Set("function end if elseif else for while endif endfor endwhile endfunction return break continue".split(" "));
+const BI=new Set("disp fprintf input mod sum mean length size max min zeros ones plot xlabel ylabel title grid axis figure pause clf bar pi sin cos numel hold".split(" "));
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+function hl(src){
+  let o="",i=0,prev="";const n=src.length;
+  while(i<n){const ch=src[i];
+    if(ch==="%"){let j=src.indexOf("\n",i);if(j<0)j=n;o+=`<span class="t-c">${esc(src.slice(i,j))}</span>`;i=j;prev="";continue}
+    if(ch==='"'||(ch==="'"&&!/[\w)\]'.]/.test(prev))){let j=i+1;while(j<n&&src[j]!==ch&&src[j]!=="\n")j++;j=Math.min(j+1,n);o+=`<span class="t-s">${esc(src.slice(i,j))}</span>`;i=j;prev=ch;continue}
+    if(/[A-Za-z_]/.test(ch)){let j=i;while(j<n&&/\w/.test(src[j]))j++;const w=src.slice(i,j);
+      o+=KW.has(w)?`<span class="t-k">${w}</span>`:BI.has(w)?`<span class="t-b">${w}</span>`:w;i=j;prev="a";continue}
+    if(/\d/.test(ch)){let j=i;while(j<n&&/[\d.]/.test(src[j])&&!(src[j]==="."&&/[*\/^']/.test(src[j+1]||"")))j++;o+=`<span class="t-n">${src.slice(i,j)}</span>`;i=j;prev="1";continue}
+    o+=esc(ch);if(!/\s/.test(ch))prev=ch;i++}
+  return o}
+function highlightAll(root=document){$$("pre.m:not([data-hl])",root).forEach(p=>{p.innerHTML=hl(p.textContent);p.dataset.hl=1})}
+
+/* ---------- content helpers ---------- */
+const C=(s,...v)=>({c:String.raw(s,...v).replace(/^\n/,"").replace(/\s+$/,"")});
+function H(p){if(p==null)return"";if(typeof p==="string")return p;if(Array.isArray(p))return p.map(H).join("");if(p.c!==undefined)return`<pre class="m">${esc(p.c)}</pre>`;return""}
+
+const TAGS={
+  etik:{l:"Etik",sec:"a1"}, tasarim:{l:"Tasarım, kriter, karar",sec:"a2"}, takim:{l:"Takım çalışması",sec:"a2-takim"},
+  sunum:{l:"Sunum ve teknik yazım",sec:"a3"}, tahmin:{l:"Tahmin (estimation)",sec:"a4"}, sigfig:{l:"Anlamlı basamak, gösterim",sec:"a4-sig"},
+  terim:{l:"Slayt terimleri",sec:"a5"}, matris:{l:"Vektör, matris, indeks",sec:"b1"}, fonksiyon:{l:"Fonksiyon yazma",sec:"b2"},
+  kosul:{l:"if, mod, && ||",sec:"b4"}, dongu:{l:"Döngü ve kod izleme",sec:"b5"}
+};
+
+/* ---------- plan ---------- */
+const PLAN=[
+ {id:"d13",date:"2026-11-13",day:"13 Kas Cum",off:"MATH101 hazırlığı. ENS101 yok."},
+ {id:"d14",date:"2026-11-14",day:"14 Kas Cmt",sub:"MATH101 sonrası, akşam",min:40,what:"Teori A1 (etik) ve A2 (tasarım, takım) oku. Kalın terimleri sesli tekrar et.",go:"a1"},
+ {id:"d15",date:"2026-11-15",day:"15 Kas Paz",sub:"NS102 hazırlığı arası",min:25,what:"Teori A4 (tahmin). Eski sınavlardaki 3 tahmin sorusunu (F24·1, F25·14, F25·15) kâğıtta çöz.",go:"a4"},
+ {id:"d16",date:"2026-11-16",day:"16 Kas Pzt",sub:"NS102 09:00 sonrası",min:20,what:"Teori A3 (sunum, yazım) ve A5 (slayt terimleri).",go:"a3"},
+ {id:"d17",date:"2026-11-17",day:"17 Kas Sal",off:"ELIT100 17:45. ENS101 yok."},
+ {id:"d18",date:"2026-11-18",day:"18 Kas Çar",sub:"CS103 hazırlığı arası",min:30,what:"Kod B4–B5 (if, döngüler). B8'deki C++ fark tablosuna bak.",go:"b4"},
+ {id:"d19",date:"2026-11-19",day:"19 Kas Per",sub:"CS103 sonrası, gece",min:30,what:"Eski sınavlar: F25 teori 1–15'i çözümü açmadan çöz, sonra Bildim/Bilemedim işaretle.",go:"tab:eski"},
+ {id:"d20a",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 1",min:90,what:"Kod sekmesinin tamamı. Sonra materyal/ içindeki evenOrOdd.m, fued_speed.m, cylinderCal.m, pirmyds.m, simpleLoop3.m'yi bakmadan kâğıda yaz, MATLAB'da çalıştır.",go:"b1"},
+ {id:"d20b",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 2",min:75,what:"F24 sınavı, süreli (PDF). Bitince Eski sınavlar sekmesinde çözümlerle karşılaştır. Bu bloğu atlama: hocanın kendi soruları.",go:"tab:eski"},
+ {id:"d20c",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 3",min:90,what:"Deneme 1, süreli. Kontrol et ile puanla.",go:"tab:deneme"},
+ {id:"d20d",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 4",min:45,what:"Zayıf konular sekmesi. Her yanlış için tek satır not: ne sandım, doğrusu ne. Yanlış kodları yeniden yaz.",go:"tab:zayif"},
+ {id:"d20e",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 5",min:30,what:"Ek sorular E7–E9 (tahmin) ve Teori A5 terim listesi.",go:"tab:deneme"},
+ {id:"d21",date:"2026-11-21",day:"21 Kas Cmt",sub:"Sınav sabahı",min:60,what:"Hata notların, terim listesi ve iki fonksiyonu (ör. F24·7 ve F24·10) ezberden kâğıda yaz. Sınav 12:30.",go:"tab:eski"}
+];
+function today(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function renderPlan(){
+  const done=LS.get("plan",{}),t=today();
+  $("#planList").innerHTML=PLAN.map(p=>p.off
+    ?`<li class="off ${p.date===t?"today":""}"><span></span><span class="d">${p.day}</span><span class="what">${p.off}</span></li>`
+    :`<li class="${done[p.id]?"done":""} ${p.date===t?"today":""}"><input type="checkbox" id="pl-${p.id}" data-id="${p.id}" ${done[p.id]?"checked":""}>
+      <label class="d" for="pl-${p.id}">${p.day}<small>${p.sub}</small></label>
+      <span class="what">${p.what}<span class="min">${p.min} dk</span> <a href="#" class="go" data-go="${p.go}">aç →</a></span></li>`).join("");
+  updatePlanMeter()}
+function updatePlanMeter(){const done=LS.get("plan",{}),work=PLAN.filter(p=>!p.off);
+  const doneMin=work.filter(p=>done[p.id]).reduce((s,p)=>s+p.min,0),all=work.reduce((s,p)=>s+p.min,0);
+  const pct=Math.round(100*doneMin/all);$("#planPct").textContent=pct+"%";$("#planBar").style.width=pct+"%"}
+document.addEventListener("change",e=>{const id=e.target.dataset&&e.target.dataset.id;if(!id||!e.target.closest("#planList"))return;
+  const done=LS.get("plan",{});done[id]=e.target.checked;LS.set("plan",done);e.target.closest("li").classList.toggle("done",e.target.checked);updatePlanMeter()});
+$("#planReset").onclick=()=>{LS.set("plan",{});renderPlan();toast("Plan sıfırlandı")};
+
+function countdown(){const end=new Date(2026,10,21,12,30),ms=end-new Date();
+  if(ms<=0){$("#left").textContent="Sınav başladı";return}
+  const d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5);$("#left").textContent=`${d} gün ${h} sa`}
+
+/* ---------- answer checking ---------- */
+const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9çğıöşü]/g,"");
+function parseNum(raw){
+  let s=String(raw||"").trim().replace(/[−–]/g,"-").replace(/^[~≈]/,"").replace(/[a-zçğıöşü ]+$/i,"").replace(/\s/g,"");
+  if(/^\d{1,3}(,\d{3})+(\.\d+)?$/.test(s))s=s.replace(/,/g,"");else s=s.replace(/,/g,".");
+  const m=s.match(/^([-+]?\d*\.?\d+)(?:(?:[x×*·]10\^?|e)([-+]?\d+))?$/i);
+  if(!m)return NaN;return parseFloat(m[1])*Math.pow(10,m[2]?parseInt(m[2]):0)}
+function parseMantExp(raw){const s=String(raw||"").trim().replace(/[−–]/g,"-").replace(/\s/g,"");
+  const m=s.match(/^([-+]?\d*\.?\d+)(?:[x×*·]10\^?|e)([-+]?\d+)$/i);return m?{m:parseFloat(m[1]),e:parseInt(m[2])}:null}
+const nums=s=>(String(s||"").match(/-?\d+(\.\d+)?/g)||[]).map(Number);
+function checkField(f,val){
+  if(f.kind==="mc")return val===String(f.ans);
+  if(val==null||String(val).trim()==="")return false;
+  switch(f.kind){
+    case"text":return f.accept.some(a=>norm(a)===norm(val));
+    case"num":{const v=parseNum(val);if(isNaN(v))return false;return Array.isArray(f.val)?v>=f.val[0]&&v<=f.val[1]:Math.abs(v-f.val)<1e-9*Math.max(1,Math.abs(f.val))}
+    case"vec":{const a=nums(val);return a.length===f.val.length&&a.every((x,i)=>x===f.val[i])}
+    case"lines":{const a=String(val).split(/\n/).map(s=>s.trim()).filter(Boolean);return a.length===f.val.length&&a.every((x,i)=>x===f.val[i])}
+    case"fn":return f.fn(String(val))}
+  return false}
+
+/* ---------- question banks ---------- */
+const MC=(ans,opts)=>({kind:"mc",ans,opts});
+const DENEME=[
+ {id:"A1",tag:"etik",pts:1,q:"According to the NSPE Fundamental Canons, what must engineers hold paramount?",f:[MC(1,["The profit of their employer","The safety, health, and welfare of the public","The honor of the profession","The confidentiality of their client"])],why:"Canon 1 (s. 44)."},
+ {id:"A2",tag:"etik",pts:1,q:"In ethical decision making, which perspective ignores the outcome and considers only what the person meant to do?",f:[MC(1,["Consequences","Intent","Character","Stakeholders"])],why:"Intent sonuca bakmaz (s. 39)."},
+ {id:"A3",tag:"etik",pts:1,q:"The people, groups, institutions or natural systems that might be affected by a decision are called _________.",f:[{kind:"text",accept:["stakeholders","stakeholder"]}],why:"stakeholders (s. 38)."},
+ {id:"A4",tag:"tasarim",pts:1,q:"Which of the following is NOT a rule of brainstorming?",f:[MC(3,["More is better","Variety is better","Do not criticize","Evaluate each idea as soon as it is proposed"])],why:"Değerlendirme sonra yapılır (s. 55)."},
+ {id:"A5",tag:"tasarim",pts:1,q:"What is the main disadvantage of the pairwise comparisons approach?",f:[MC(1,["It needs special software","All criteria have equal weight","It works only for two options","It ignores safety"])],why:"Bu yüzden weighted benefit analysis kullanılır (s. 62)."},
+ {id:"A6",tag:"tasarim",pts:1,q:"A method in which each option is scored against each criterion, and each score is multiplied by the importance of that criterion, is called _________.",f:[{kind:"fn",fn:v=>/weighted|decisionmatrix/.test(norm(v))}],why:"weighted benefit analysis; F25'teki adıyla decision matrix da kabul."},
+ {id:"A7",tag:"takim",pts:1,q:"Which statement best describes a team, as opposed to a group?",f:[MC(2,["People who are in the same place at the same time","People who have the same manager","Individuals cooperating to accomplish a common goal","People with the same engineering discipline"])],why:"A şıkkı group tanımı (s. 65)."},
+ {id:"A8",tag:"takim",pts:1,q:"A table that lists the project tasks down the side and the team members across the top, showing who performs each task, is called a _________.",f:[{kind:"text",accept:["responsibility matrix"]}],why:"responsibility matrix (s. 72)."},
+ {id:"A9",tag:"sunum",pts:1,q:"Which of the following follows the guidelines for presentation slides?",f:[MC(1,["Complete sentences so the audience can read everything","A font size of at least 18 points, preferably 24 or more","A black background with white text","A different background style on every slide"])],why:"s. 81."},
+ {id:"A10",tag:"sunum",pts:1,q:"The 4-S formula for structuring a presentation is: Short, Simple, Strong and _________.",f:[{kind:"text",accept:["sincere","sincerity"]}],why:"Sincere (s. 80)."},
+ {id:"A11",tag:"sunum",pts:1,q:"In a technical report, where do the captions go?",f:[MC(2,["Above tables and above figures","Below tables and below figures","Above tables and below figures","Below tables and above figures"])],why:"Table üstte, figure altta (s. 86)."},
+ {id:"A12",tag:"tahmin",pts:1,q:"You count the floor tiles across a room and multiply by the size of one tile to find the length of the room. This is estimation by:",f:[MC(1,["Analogy","Aggregation","Modeling","Upper and lower bounds"])],why:"Parçaları sayıp çarpmak aggregation (s. 112)."},
+ {id:"A13",tag:"sigfig",pts:1,q:"Five measurements of the same length are very close to each other, but all of them are far from the true value. The measurements are _________ but not _________.",f:[{kind:"text",label:"1",accept:["repeatable"]},{kind:"text",label:"2",accept:["accurate"]}],why:"repeatable, accurate (s. 119)."},
+ {id:"A14",tag:"sigfig",pts:1,q:"How many significant figures does each number have? (a) 0.00450 (b) 3000 (c) 20.05",f:[{kind:"num",label:"(a)",val:3},{kind:"num",label:"(b)",val:1},{kind:"num",label:"(c)",val:4}],why:"3, 1, 4 (s. 115)."},
+ {id:"A15",tag:"sigfig",pts:1,q:"Write 0.000047 in (a) scientific notation and (b) engineering notation. <span class='muted small'>Biçim: 4.7x10^-5 ya da 4.7e-5</span>",
+  f:[{kind:"fn",label:"(a)",fn:v=>{const r=parseMantExp(v);return!!r&&Math.abs(r.m-4.7)<1e-9&&r.e===-5}},{kind:"fn",label:"(b)",fn:v=>{const r=parseMantExp(v);return!!r&&Math.abs(r.m-47)<1e-9&&r.e===-6}}],why:"4.7 × 10⁻⁵ ve 47 × 10⁻⁶ (üs 3'ün katı)."},
+ {id:"A16",tag:"tahmin",pts:2,q:"Estimate the number of liters of water needed to fill your classroom completely. <span class='muted small'>Tek sayı yaz (L). Varsayımları kâğıda.</span>",f:[{kind:"num",val:[1e5,3e5],wide:1}],why:"8 × 6 × 3 m = 144 m³ ≈ 150,000 L. Kabul: 100,000–300,000."},
+ {id:"A17",tag:"tahmin",pts:2,q:"Estimate how many times a human heart beats in one year.",f:[{kind:"num",val:[3e7,4.5e7],wide:1}],why:"70 × 60 × 24 × 365 ≈ 3.7 × 10⁷. Kabul: 3–4.5 × 10⁷."},
+
+ {id:"B1",tag:"dongu",pts:2,q:["What is <code>count</code> after this code runs?",C`
+count = 0;
+for n = 1:30
+  if mod(n,3)==0 || mod(n,7)==0
+    count = count + 1;
+  end
+end`],f:[{kind:"num",val:13}],why:"3'ün katı 10, 7'nin katı 4, 21 ikisinde: 10 + 4 − 1 = 13."},
+ {id:"B2",tag:"fonksiyon",pts:2,q:["What is the value of <code>r</code>?",C`
+function y = f(x)
+  y = 2*x^2 - 3*x + 4;
+end
+
+r = f(4);`],f:[{kind:"num",val:24}],why:"32 − 12 + 4 = 24."},
+ {id:"B3",tag:"matris",pts:2,q:["What is the value of <code>s</code>?",C`
+A = [2 4 6; 1 3 5; 8 7 9];
+s = sum(A(2,:)) + A(3,1) - A(1,3);`],f:[{kind:"num",val:11}],why:"9 + 8 − 6 = 11."},
+ {id:"B4",tag:"matris",pts:2,q:["What is the vector <code>result</code>? (<code>'</code> is transpose)",C`
+B = [1 2 3; 4 5 6; 7 8 9];
+result = B(:,1)' .* B(3,:);`],f:[{kind:"vec",val:[7,32,63],wide:1}],why:"[1 4 7] .* [7 8 9] = [7 32 63]."},
+ {id:"B5",tag:"dongu",pts:2,q:["What is the value of <code>total</code>?",C`
+total = 0;
+for k = 1:20
+  if mod(k,2)==0 && mod(k,3)~=0
+    total = total + k;
+  end
+end`],f:[{kind:"num",val:74}],why:"Çiftlerin toplamı 110, 6 + 12 + 18 = 36 çıkar: 74."},
+ {id:"B6",tag:"dongu",pts:2,q:["What are the values of <code>s</code> and <code>k</code> after the loop?",C`
+k = 10;
+s = 0;
+while k > 3
+  s = s + k;
+  k = k - 2;
+end`],f:[{kind:"num",label:"s",val:28},{kind:"num",label:"k",val:2}],why:"k: 10, 8, 6, 4 eklenir (s = 28); k = 2'de döngü biter."},
+ {id:"B7",tag:"dongu",pts:2,q:["What is the vector <code>v</code>, and what is <code>length(v)</code>?",C`
+v = [];
+for k = 1:2:9
+  v = [v k^2];
+end`],f:[{kind:"vec",label:"v",val:[1,9,25,49,81],wide:1},{kind:"num",label:"len",val:5}],why:"k = 1, 3, 5, 7, 9 → [1 9 25 49 81], uzunluk 5."},
+ {id:"B8",tag:"dongu",pts:2,q:["What does this code print? <span class='muted small'>Her satırı alt alta yaz.</span>",C`
+for k = 1:3
+  for j = 1:k
+    fprintf('%d', j);
+  end
+  fprintf('\n');
+end`],f:[{kind:"lines",val:["1","12","123"]}],why:"1 / 12 / 123."},
+ {id:"B9",tag:"fonksiyon",pts:3,self:1,q:"Write a function <code>myColMax(A, c)</code> that returns the largest element of column <code>c</code> and the row where it is found. Do not use <code>max</code>. Example: <code>A = [1 5; 7 2; 3 9]</code>, <code>[m, row] = myColMax(A, 1)</code> gives 7 and 2.",
+  sol:[C`
+function [mx, row] = myColMax(A, c)
+  [rows, cols] = size(A);
+  mx = A(1,c);
+  row = 1;
+  for k = 2:rows
+    if A(k,c) > mx
+      mx = A(k,c);
+      row = k;
+    end
+  end
+end`,"<p>MATLAB'da doğrulandı: sütun 1 → 7, satır 2. Sütun 2 → 9, satır 3.</p>"]},
+ {id:"B10",tag:"kosul",pts:3,self:1,q:"Write a function <code>countFiveSeven(n)</code> that counts how many numbers between 1 and <code>n</code> are divisible by 5 or by 7, but not by both. Example: <code>countFiveSeven(40)</code> is 11.",
+  sol:[C`
+function count = countFiveSeven(n)
+  count = 0;
+  for k = 1:n
+    a = mod(k,5) == 0;
+    b = mod(k,7) == 0;
+    if (a || b) && ~(a && b)
+      count = count + 1;
+    end
+  end
+end`,"<p>Doğrulandı: <code>countFiveSeven(40)</code> = 11, <code>(70)</code> = 20.</p>"]}
+];
+
+const LEVEL=[
+ {id:"L1",tag:"matris",pts:1,q:["<code>A = [1 2 3; 4 5 6; 7 8 9];</code> için <code>A(2,:)</code> ve <code>A(:,3)</code> nedir?"],f:[{kind:"vec",label:"A(2,:)",val:[4,5,6]},{kind:"vec",label:"A(:,3)",val:[3,6,9]}],why:"[4 5 6] ve [3; 6; 9]."},
+ {id:"L2",tag:"matris",pts:1,q:"<code>[1 2 3] .* [4 5 6]</code> sonucu nedir? Nokta olmadan <code>[1 2 3] * [4 5 6]</code> ne olur?",f:[{kind:"vec",label:".*",val:[4,10,18]},MC(2,["[4 10 18]","32","Hata verir: boyutlar uyuşmaz","[4 5 6]"])],why:"[4 10 18]; nokta olmadan matris çarpımı denenir ve 1×3 · 1×3 hata verir (MATLAB'da denendi)."},
+ {id:"L3",tag:"dongu",pts:1,q:["Bu döngüden sonra <code>total</code> kaçtır?",C`
+total = 0;
+for k = 1:10
+  if mod(k,2)==0 && mod(k,4)~=0
+    total = total + k;
+  end
+end`],f:[{kind:"num",val:18}],why:"2 + 6 + 10 = 18."},
+ {id:"L4",tag:"fonksiyon",pts:1,q:"İki sayı alıp toplamını ve farkını döndüren fonksiyonun ilk satırını yaz.",f:[{kind:"fn",wide:1,fn:v=>/^function\s*\[\s*\w+\s*,?\s*\w+\s*\]\s*=\s*\w+\s*\(\s*\w+\s*,\s*\w+\s*\)\s*;?$/.test(v.trim())}],why:"<code>function [s, d] = sumDiff(a, b)</code>"},
+ {id:"L5",tag:"tasarim",pts:1,q:"Brainstorming'in üç kuralı nedir? (İngilizce ya da Türkçe)",f:[{kind:"fn",wide:1,fn:v=>{v=v.toLowerCase();return/(more|çok|fazla|quantit)/.test(v)&&/(variet|çeşit)/.test(v)&&/(critic|eleştir|yargıla)/.test(v)}}],why:"More is better, variety is better, do not criticize."},
+ {id:"L6",tag:"etik",pts:1,q:"Etik karar vermede ikinci adımdaki üç bakış açısı nedir?",f:[{kind:"fn",wide:1,fn:v=>{v=v.toLowerCase();return/(conseq|sonuç)/.test(v)&&/(intent|niyet)/.test(v)&&/(charac|karakter)/.test(v)}}],why:"Consequences, intent, character."},
+ {id:"L7",tag:"tahmin",pts:1,q:"Dört tahmin yönteminden ikisini say.",f:[{kind:"fn",wide:1,fn:v=>{v=v.toLowerCase();return[/(analog|benzet)/,/(aggregat|toplam|parça)/,/(bound|sınır)/,/(model)/].filter(r=>r.test(v)).length>=2}}],why:"Analogy, aggregation, upper and lower bounds, modeling."},
+ {id:"L8",tag:"tahmin",pts:1,q:"Bir yılda kaç saniye var? Tahmin et. <span class='muted small'>Biçim: 3.2e7 ya da 3.2x10^7</span>",f:[{kind:"num",val:[3.0e7,3.3e7]}],why:"365 × 24 × 3600 ≈ 3.15 × 10⁷ (MATLAB: 3.154e+07)."}
+];
+
+const F24=[
+ {id:"F24-1",n:"F24·1",tag:"tahmin",pts:4,q:"<p>(a) Estimate how many liters of water you can fit in a 15 in laptop (1 in = 2.54 cm). (b) Estimate how much money you would spend on a trip to Paris for 7 days.</p>",
+  sol:`<p><b>(a)</b> Köşegen 15 × 2.54 ≈ 38 cm → ekran ~32 × 21 cm, gövde ~34 × 23 cm. Kalınlık ~2 cm. Hacim 34 × 23 × 2 ≈ 1500 cm³ → <b>~1.5 L</b> (1–2.5 L mantıklı).</p>
+  <p><b>(b)</b> Uçak 300 € + konaklama 7 × 100 € + yemek 7 × 40 € + ulaşım 7 × 10 € + müze 100 € ≈ <b>1500 €</b>. Puanı yöntem getirir: kalemlere böl, varsayımları yaz, topla, yuvarla.</p>`},
+ {id:"F24-2",n:"F24·2",tag:"tahmin",pts:2,q:"<p>What are the methods you could use for estimating certain variables?</p>",sol:"<p>By <b>analogy</b> (bilinen şeyle karşılaştırma), by <b>aggregation</b> (parçaları toplama), by <b>upper and lower bounds</b> (conservative, en kötü durum), using <b>modeling</b> (model, istatistik). Ch 5.2–5.5.</p>"},
+ {id:"F24-3",n:"F24·3",tag:"tasarim",pts:2,q:"<p>What is your first choice for generating ideas for a design problem? Why?</p>",sol:"<p><b>Brainstorming.</b> Çok sayıda ve çeşitli fikir üretir; eleştiri yasağı sıra dışı fikirleri açar. Fikir sayısı arttıkça iyi fikir çıkma olasılığı artar (\"quality is quantity\"). Kurallar: more is better, variety is better, do not criticize.</p>"},
+ {id:"F24-4",n:"F24·4",tag:"takim",pts:2,q:"<p>What is the first character you would look for in your team members? Why?</p>",sol:"<p>Tek doğru yok; bir özellik seç, gerekçelendir. Örnek: <b>Reliability.</b> A reliable member keeps commitments and completes a fair share of the work on time. One missed deadline delays the whole project. Skills can be learned, but the team cannot plan without trust. (CATME: contributing to the team's work.)</p>"},
+ {id:"F24-5",n:"F24·5",tag:"sunum",pts:2,q:"<p>How would the content of your presentation about your designed software change if you were presenting it (a) to an investor, or (b) to your team members?</p>",
+  sol:`<p>İlk soru "Who is my audience?".</p><div class="tblwrap"><table><tr><th></th><th>Yatırımcı</th><th>Takım</th></tr>
+  <tr><td>Amaç</td><td>Para almak, ikna</td><td>Bilgi paylaşmak, iş bölmek</td></tr>
+  <tr><td>İçerik</td><td>Problem, pazar, maliyet, kazanç, takvim</td><td>Mimari, kod yapısı, algoritma, hatalar, kim ne yapacak</td></tr>
+  <tr><td>Dil</td><td>Teknik olmayan, kısa</td><td>Teknik, ayrıntılı</td></tr></table></div>`},
+ {id:"F24-6",n:"F24·6",tag:"etik",pts:2,q:"<p>Give an example of an action that is legal but not ethical, and something ethical but not legal.</p>",sol:"<p><b>Legal, not ethical:</b> plagiarism (kitaba göre telif ihlali yoksa yasa dışı değil). <b>Ethical, not legal:</b> ağır yaralıyı hastaneye yetiştirmek için hız sınırını aşmak; tarihten Harriet Tubman.</p>"},
+ {id:"F24-7",n:"F24·7",tag:"kosul",pts:3,q:"<p>Write an Octave/MATLAB function that asks the user to enter a number, and returns: odd or even, positive or negative, larger than its square or not (0.5 is larger than its square 0.25).</p>",
+  sol:[C`
+function numberInfo()
+  x = input('Enter a number: ');
+
+  if mod(x,2) == 0
+    disp('even')
+  elseif mod(x,2) == 1
+    disp('odd')
+  else
+    disp('not an integer: neither odd nor even')
+  end
+
+  if x > 0
+    disp('positive')
+  elseif x < 0
+    disp('negative')
+  else
+    disp('zero')
+  end
+
+  if x > x^2
+    disp('larger than its square')
+  else
+    disp('not larger than its square')
+  end
+end`,"<p>Doğrulandı: 0.5 → neither, positive, larger. −3 → odd, negative, not larger. 4 → even, positive, not larger. Üç ayrı <code>if</code>: üç bağımsız soru. Bir sayı karesinden ancak 0 ile 1 arasında büyüktür.</p>"]},
+ {id:"F24-8",n:"F24·8",tag:"fonksiyon",pts:3,q:"<p>Bacteria double every 20 minutes: p = p₀ · 2^(t/20). Write a function that returns the population after t minutes, given t and p₀. Modify it for hours or seconds.</p>",
+  sol:[C`
+function p = bacteria(p0, t)
+  p = p0 * 2^(t/20);
+end`,"<p><code>bacteria(100, 60)</code> = 800. Birimli hali:</p>",C`
+function p = bacteriaUnit(p0, t, unit)
+  if unit == 'h'
+    t = t * 60;
+  elseif unit == 's'
+    t = t / 60;
+  end
+  p = p0 * 2^(t/20);
+end`,"<p>Doğrulandı: <code>bacteriaUnit(100,1,'h')</code> = 800, <code>(100,3600,'s')</code> = 800.</p>"]},
+ {id:"F24-9",n:"F24·9",tag:"kosul",pts:3,q:"<p>Optimal motherboard temperature is 30–80 °C. Write a function that takes the temperature and warns if it is too cold or too hot.</p>",
+  sol:[C`
+function tempCheck(T)
+  if T < 30
+    disp('WARNING: too cold')
+  elseif T > 80
+    disp('WARNING: too hot')
+  else
+    disp('Temperature is OK')
+  end
+end`,"<p>Doğrulandı: 25 → cold, 55 → OK, 95 → hot; 30 ve 80 OK.</p>"]},
+ {id:"F24-10",n:"F24·10",tag:"dongu",pts:3,q:"<p>Speed 10…130 km/h, fuel 100 70 55 50 45 42 40 41 42 48 52 58 65 g/km. Write a function that takes speed and fuel, shows the speeds with the highest and lowest consumption, and plots speed vs consumption. (General for any data.)</p>",
+  sol:[C`
+function [vMax, vMin] = fuelAnalysis(speed, fuel)
+  maxi = fuel(1);  iMax = 1;
+  mini = fuel(1);  iMin = 1;
+
+  for k = 2:length(fuel)
+    if fuel(k) > maxi
+      maxi = fuel(k);
+      iMax = k;
+    end
+    if fuel(k) < mini
+      mini = fuel(k);
+      iMin = k;
+    end
+  end
+
+  vMax = speed(iMax);
+  vMin = speed(iMin);
+  fprintf('Highest consumption %g at speed %g\n', maxi, vMax);
+  fprintf('Lowest consumption %g at speed %g\n', mini, vMin);
+
+  plot(speed, fuel, '-o')
+  xlabel('Speed (km/h)')
+  ylabel('Fuel consumption (g/km)')
+  title('Speed vs fuel consumption')
+  grid on
+end`,"<p>Doğrulandı: en yüksek 100 (hız 10), en düşük 40 (hız 70). Kısa yol <code>[maxi, iMax] = max(fuel)</code>; hoca derste döngülü yazdı (<code>fued_speed.m</code>).</p>"]}
+];
+
+const F25T=[
+ ["etik","What is the primary purpose of an engineering code of ethics?","A. To increase company profits · B. To protect public safety and guide professional conduct · C. To standardize engineering salaries · D. To reduce paperwork","<b>B</b>. Canon 1."],
+ ["etik","A material used in a product meets legal requirements but has rare safety failures. Which ethical principle is most relevant?","A. Loyalty to employer · B. Respect for intellectual property · C. Public welfare and safety · D. Confidentiality","<b>C</b>. Yasal olması etik olması demek değil."],
+ ["etik","Engineers who report safety concerns internally and externally when necessary are engaging in _________.","","<b>whistle-blowing</b>"],
+ ["terim","A requirement describes a function the design must perform, while a constraint is:","A. A possible bonus feature · B. A limitation or boundary the design must not violate · C. A marketing objective · D. A manufacturing preference","<b>B</b>"],
+ ["tasarim","What is the primary purpose of a decision matrix in engineering design?","A. To determine project scheduling · B. To compare design alternatives using weighted criteria · C. To store manufacturing data · D. To calculate mechanical stress","<b>B</b>. Kitaptaki weighted benefit analysis."],
+ ["terim","Choosing between higher cost for better aesthetics versus lower cost for simple construction is an example of a _________.","","<b>tradeoff</b>"],
+ ["terim","A team charter most often includes:","A. Salary information · B. Team roles and communication expectations · C. Purchasing forms · D. Prototype test results","<b>B</b>"],
+ ["terim","Which of the following is a common cause of miscommunication in engineering teams?","A. Too many prototypes · B. Assumed shared knowledge · C. Having more than one project manager · D. Using structured documentation","<b>B</b>"],
+ ["terim","A meeting technique where each team member speaks once in turn before open discussion is called a _________.","","<b>round-robin</b>"],
+ ["sunum","Which of the following improves the clarity of a technical presentation slide?","A. Long paragraphs · B. Multiple complex charts on one slide · C. Concise bullet points and readable font sizes · D. Full pages of text from the report","<b>C</b>. Kitap: bullet, en az 18 pt."],
+ ["sunum","The section of a written report that explains how an engineer performed tests, calculations, or experiments is called the _________ section.","","<b>methods</b>"],
+ ["tahmin","When making an estimation, which strategy is most commonly used?","A. Avoiding assumptions · B. Breaking the problem into simpler, estimable components · C. Ignoring units · D. Using only the smallest possible numbers","<b>B</b>. Aggregation."],
+ ["tahmin","An estimate used to check whether a detailed calculation is reasonable is called a _________ check.","","<b>sanity</b> ya da <b>reasonableness</b> check"],
+ ["tahmin","Estimate the number of liters of water a typical household (4 people) uses in one week.","","<b>3500–5000 L</b> (anahtar). 4 kişi × 150 L × 7 gün = 4200 L."],
+ ["tahmin","Estimate the number of steps, and the hours to walk from IUS to old town Sarajevo.","","<b>14000–18000 adım, 2–4 saat</b> (anahtar). ~12 km ÷ 0.75 m ≈ 16,000 adım; 12 km ÷ 5 km/sa ≈ 2.4 saat."]
+].map(([tag,q,o,s],i)=>({id:"F25T-"+(i+1),n:"F25·"+(i+1),tag,pts:1,q:`<p>${q}</p>${o?`<p class="small muted">${o}</p>`:""}`,sol:`<p>${s}</p>`}));
+
+const F25M=[
+ {id:"F25M-1",n:"M1",tag:"dongu",q:["How much is <code>count</code> after this code is run?",C`
+count = 0;
+for n = 1:20
+  if mod(n,4)==0 || mod(n,5)==0
+    count = count + 1;
+  end
+end`],sol:"<p>4'ün katı 5 tane, 5'in katı 4 tane, 20 ikisinde: <b>count = 8</b>.</p>"},
+ {id:"F25M-2",n:"M2",tag:"fonksiyon",q:["What is the value of <code>result</code>?",C`
+function y = mypoly(x)
+  y = x^3 - 2*x + 1;
+end
+
+result = mypoly(3);`],sol:"<p>27 − 6 + 1 = <b>22</b>.</p>"},
+ {id:"F25M-3",n:"M3",tag:"matris",q:["What is the value of <code>s</code>?",C`
+A = [1 2 3; 4 5 6; 7 8 9];
+s = sum(A(:,3)) - A(2,2);`],sol:"<p>3. sütun toplamı 18, <code>A(2,2)</code> = 5: <b>s = 13</b>.</p>"},
+ {id:"F25M-4",n:"M4",tag:"matris",q:["What is the resulting vector <code>result</code>?",C`
+B = [2 4 6; 1 3 5; 7 9 11];
+result = B(2,:) + B(3,:);`],sol:"<p>[1 3 5] + [7 9 11] = <b>[8 12 16]</b>.</p>"},
+ {id:"F25M-5",n:"M5",tag:"dongu",q:["What is the value of <code>total</code>?",C`
+total = 0;
+for k = 1:15
+  if mod(k,3)==0 && mod(k,5)~=0
+    total = total + k;
+  end
+end`],sol:"<p>3 + 6 + 9 + 12 = <b>30</b> (15 elenir).</p>"},
+ {id:"F25M-6",n:"M6",tag:"fonksiyon",q:"<p>Write a function that takes a matrix and a row number and returns the mean of that row. <code>A = [1 5; 5 5]</code>, <code>myMean(A, 2)</code> → 5.</p>",
+  sol:[C`
+function m = myMean(A, r)
+  m = mean(A(r,:));
+end`,"<p><code>mean</code> olmadan:</p>",C`
+function m = myMeanLoop(A, r)
+  [rows, cols] = size(A);
+  total = 0;
+  for j = 1:cols
+    total = total + A(r,j);
+  end
+  m = total / cols;
+end`,"<p>İkisi de doğrulandı: 5.</p>"]},
+ {id:"F25M-7",n:"M7",tag:"dongu",q:"<p>Count how many numbers between 1 and <b>n</b> are divisible by 3 but not by 2. <code>MyCheck(20)</code> → 3 (3, 9, 15).</p>",
+  sol:[C`
+function count = MyCheck(n)
+  count = 0;
+  for k = 1:n
+    if mod(k,3) == 0 && mod(k,2) ~= 0
+      count = count + 1;
+    end
+  end
+end`,"<p>Doğrulandı: 3. Soru \"script\" diyor ama <code>MyCheck(n)</code> diye çağırıyor; script isterse en üste <code>n = 20;</code> yaz, <code>function</code> ve son <code>end</code> satırlarını sil.</p>"]}
+].map(x=>({...x,pts:1}));
+
+const EK=[
+ {id:"E1",n:"E1",tag:"kosul",q:"<p>A phone battery works best between 20% and 80%. Write a function that takes the charge level and warns if it is too low or too high. Below 0 or above 100: invalid.</p>",
+  sol:[C`
+function batteryCheck(level)
+  if level < 0 || level > 100
+    disp('Invalid level')
+  elseif level < 20
+    disp('WARNING: battery low, plug in')
+  elseif level > 80
+    disp('WARNING: battery high, unplug')
+  else
+    disp('Battery is OK')
+  end
+end`,"<p>Geçersiz kontrolü en başta; yoksa 120 \"high\" dalına girer. Doğrulandı.</p>"]},
+ {id:"E2",n:"E2",tag:"fonksiyon",q:"<p>N = N₀ · (1/2)^(t/T), T half-life. Write a function taking N₀, t, T (years). Modify it for t in days.</p>",
+  sol:[C`
+function N = decay(N0, t, halfLife)
+  N = N0 * (1/2)^(t/halfLife);
+end`,"<p><code>decay(800, 30, 10)</code> = 100. t gün ise: <code>N = N0 * (1/2)^((t/365)/halfLife);</code></p>"]},
+ {id:"E3",n:"E3",tag:"dongu",q:"<p>Given student numbers and grades, show the best and worst student, count passes (≥ 60), and plot the grades.</p>",
+  sol:[C`
+function [best, worst, nPass] = gradeStats(ids, grades)
+  iMax = 1;  iMin = 1;  nPass = 0;
+  for k = 1:length(grades)
+    if grades(k) > grades(iMax)
+      iMax = k;
+    end
+    if grades(k) < grades(iMin)
+      iMin = k;
+    end
+    if grades(k) >= 60
+      nPass = nPass + 1;
+    end
+  end
+  best = ids(iMax);
+  worst = ids(iMin);
+  fprintf('Best: student %g (%g)\n', best, grades(iMax));
+  fprintf('Worst: student %g (%g)\n', worst, grades(iMin));
+  fprintf('Passed: %g of %g\n', nPass, length(grades));
+  bar(ids, grades)
+  xlabel('Student'); ylabel('Grade'); title('Grades')
+end`,"<p>Doğrulandı: <code>[101..105]</code>, <code>[55 90 72 40 61]</code> → 102, 104, 3.</p>"]},
+ {id:"E4",n:"E4",tag:"etik",q:"<p>List the four steps of ethical decision making and explain the three perspectives in step 2.</p>",sol:"<p>1 Issues and stakeholders · 2 Three perspectives · 3 Correlate (uyuşmazsa üçte iki) · 4 Act (cesaret). <b>Consequences:</b> each stakeholder, each alternative, weight of each effect. <b>Intent:</b> only intentions; should everyone do it, should it be law, would I want to be the victim. <b>Character:</b> would a person of good character do it; does it enhance or degrade my character.</p>"},
+ {id:"E5",n:"E5",tag:"tasarim",q:"<p>Why should the criteria be defined before the team starts generating solutions?</p>",sol:"<p>If solutions come first, members form a favourite and pick criteria that fit it. Criteria first → all ideas evaluated fairly, no hidden criteria (s. 59).</p>"},
+ {id:"E6",n:"E6",tag:"sunum",q:"<p>How would a presentation about a new bridge change for (a) high school students, (b) civil engineering professors?</p>",sol:"<p>(a) Simple language, no equations, pictures, why it matters, short, strong hook. (b) Loads, materials, calculations, criteria, test results, alternatives, precise terms. İlk soru: \"Who is my audience?\"</p>"},
+ {id:"E7",n:"E7",tag:"tahmin",q:"<p>Estimate how many A4 sheets are needed to cover a football pitch.</p>",sol:"<p>100 × 70 m = 7000 m²; A4 ≈ 0.063 m² → <b>~110,000</b> (100k–130k).</p>"},
+ {id:"E8",n:"E8",tag:"tahmin",q:"<p>Estimate how many liters of fuel a taxi in Sarajevo uses in one year.</p>",sol:"<p>200 km/gün × 300 gün × 8 L/100 km = 4800 → <b>~5000 L</b> (3000–8000).</p>"},
+ {id:"E9",n:"E9",tag:"tahmin",q:"<p>Estimate how many hours you will spend in lectures during your whole undergraduate education.</p>",sol:"<p>4 yıl × 2 dönem × 15 hafta × 20 saat = <b>2400 saat</b> (2000–3000).</p>"}
+];
+
+/* ---------- self-graded cards (old exams, extra) ---------- */
+function tagBtn(tag){return`<button type="button" class="tag" data-go="${TAGS[tag].sec}" title="Özete git">${TAGS[tag].l}</button>`}
+function renderCards(el,list){
+  const self=LS.get("self",{});
+  el.innerHTML=list.map(x=>`<article class="q" data-card="${x.id}">
+    <header><span class="qid">${x.n}</span>${tagBtn(x.tag)}<span class="st ${self[x.id]===1?"ok":self[x.id]===0?"bad":""}">${self[x.id]===1?"Bildim":self[x.id]===0?"Bilemedim":""}</span></header>
+    <div class="prompt">${H(x.q)}</div>
+    <div class="row"><button class="btn soft" type="button" data-toggle aria-expanded="false">Çözümü göster</button>
+      <span class="self">Bu soruyu:</span>
+      <button class="btn ghost ${self[x.id]===1?"on-ok":""}" type="button" data-self="1">Bildim</button>
+      <button class="btn ghost ${self[x.id]===0?"on-bad":""}" type="button" data-self="0">Bilemedim</button></div>
+    <div class="sol" hidden>${H(x.sol)}</div></article>`).join("");
+  highlightAll(el)}
+const ALLCARDS=[...F24,...F25T,...F25M,...EK];
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-toggle]");
+  if(t){const sol=t.closest(".q").querySelector(".sol");sol.hidden=!sol.hidden;t.setAttribute("aria-expanded",String(!sol.hidden));t.textContent=sol.hidden?"Çözümü göster":"Çözümü gizle";return}
+  const s=e.target.closest("[data-self]");
+  if(s&&s.closest("[data-card]")){const card=s.closest("[data-card]"),id=card.dataset.card,v=+s.dataset.self,self=LS.get("self",{});
+    if(self[id]===v)delete self[id];else self[id]=v;LS.set("self",self);
+    card.querySelectorAll("[data-self]").forEach(b=>b.classList.remove("on-ok","on-bad"));
+    const st=card.querySelector(".st");
+    if(self[id]===1){s.classList.add("on-ok");st.className="st ok";st.textContent="Bildim"}
+    else if(self[id]===0){s.classList.add("on-bad");st.className="st bad";st.textContent="Bilemedim"}
+    else{st.className="st";st.textContent=""}
+    renderWeak();return}
+  const g=e.target.closest("[data-go]");
+  if(g){e.preventDefault();go(g.dataset.go)}
+});
+
+/* ---------- auto-graded quizzes ---------- */
+function fieldHTML(set,q,f,fi,val){
+  const name=`${set}-${q.id}-${fi}`,lab=f.label?`<label for="${name}">${f.label}</label>`:"";
+  if(f.kind==="mc")return`<div class="opts" role="radiogroup">${f.opts.map((o,oi)=>`<label><input type="radio" name="${name}" value="${oi}" ${val===String(oi)?"checked":""}><span>${String.fromCharCode(65+oi)}. ${o}</span></label>`).join("")}</div>`;
+  if(f.kind==="lines")return`<div class="field" style="display:block">${lab}<textarea id="${name}" rows="4" spellcheck="false">${esc(val||"")}</textarea></div>`;
+  return`<div class="field">${lab}<input type="text" id="${name}" class="${f.wide?"wide":""}" value="${esc(val||"").replace(/"/g,"&quot;")}" autocomplete="off" spellcheck="false"></div>`}
+function renderQuiz(el,set,list){
+  const ans=LS.get("ans:"+set,{}),dself=LS.get("dself",{});
+  el.innerHTML=list.map(q=>`<article class="q" data-q="${q.id}">
+    <header><span class="qid">${q.id}</span>${tagBtn(q.tag)}<span class="pts">${q.pts} puan</span><span class="st"></span></header>
+    <div class="prompt">${H(q.q)}</div>
+    ${q.self?`<textarea rows="6" spellcheck="false" data-draft="${set}-${q.id}" placeholder="Kodunu buraya ya da kâğıda yaz">${esc(ans[q.id+"-draft"]||"")}</textarea>
+      <div class="row"><button class="btn soft" type="button" data-toggle aria-expanded="false">Çözümü göster</button>
+      <span class="self">Kendin puanla:</span>
+      ${[[q.pts,"Tam"],[q.pts/2,"Kısmen"],[0,"Yanlış"]].map(([p,l])=>`<button class="btn ghost ${dself[q.id]===p?(p===q.pts?"on-ok":p?"on-mid":"on-bad"):""}" type="button" data-dself="${p}">${l} (${p})</button>`).join("")}</div>
+      <div class="sol" hidden>${H(q.sol)}</div>`
+    :q.f.map((f,fi)=>fieldHTML(set,q,f,fi,ans[q.id+"-"+fi])).join("")+`<div class="fb" hidden></div>`}
+  </article>`).join("");
+  highlightAll(el)}
+function readVal(set,q,fi,f){const name=`${set}-${q.id}-${fi}`;
+  if(f.kind==="mc"){const r=$(`input[name="${name}"]:checked`);return r?r.value:null}
+  const el=document.getElementById(name);return el?el.value:""}
+document.addEventListener("input",e=>{
+  const t=e.target;const art=t.closest("[data-q]");if(!art)return;
+  const set=art.closest("#quizL")?"L":"D";const ans=LS.get("ans:"+set,{});
+  if(t.dataset.draft){ans[art.dataset.q+"-draft"]=t.value}else{const m=(t.id||t.name).match(/-(\d+)$/);if(m)ans[art.dataset.q+"-"+m[1]]=t.type==="radio"?t.value:t.value}
+  LS.set("ans:"+set,ans)});
+document.addEventListener("change",e=>{if(e.target.type==="radio"&&e.target.closest("[data-q]"))e.target.dispatchEvent(new Event("input",{bubbles:true}))});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-dself]");if(!b)return;
+  const art=b.closest("[data-q]"),id=art.dataset.q,p=+b.dataset.dself,q=DENEME.find(x=>x.id===id),ds=LS.get("dself",{});
+  if(ds[id]===p)delete ds[id];else ds[id]=p;LS.set("dself",ds);
+  art.querySelectorAll("[data-dself]").forEach(x=>x.classList.remove("on-ok","on-mid","on-bad"));
+  if(ds[id]!==undefined)b.classList.add(p===q.pts?"on-ok":p?"on-mid":"on-bad");
+  if(LS.get("res:D",null))gradeQuiz("D",DENEME,true)});
+
+function gradeQuiz(set,list,silent){
+  const box=set==="D"?$("#tab-deneme"):$("#quizL"),ds=LS.get("dself",{}),res={};let got=0,tot=0,pend=0;
+  list.forEach(q=>{const art=$(`[data-q="${q.id}"]`,box);tot+=q.pts;
+    if(q.self){const v=ds[q.id];if(v===undefined){pend++;res[q.id]={score:0,pts:q.pts,pending:1}}else{res[q.id]={score:v,pts:q.pts};got+=v}
+      setStatus(art,v===undefined?null:v/q.pts);return}
+    let ok=0;q.f.forEach((f,fi)=>{const val=readVal(set,q,fi,f),good=checkField(f,val);if(good)ok++;
+      if(f.kind==="mc"){$$(`input[name="${set}-${q.id}-${fi}"]`,art).forEach(r=>{const l=r.closest("label");l.classList.remove("right","wrong");
+        if(r.value===String(f.ans))l.classList.add("right");else if(r.checked)l.classList.add("wrong")})}
+      else{const el=document.getElementById(`${set}-${q.id}-${fi}`);el.classList.remove("right","wrong");el.classList.add(good?"right":"wrong")}});
+    const sc=q.pts*ok/q.f.length;got+=sc;res[q.id]={score:sc,pts:q.pts};
+    const fb=$(".fb",art);fb.hidden=false;fb.className="fb "+(ok===q.f.length?"ok":"bad");fb.innerHTML=(ok===q.f.length?"Doğru. ":"Doğru cevap: ")+q.why;
+    setStatus(art,ok/q.f.length)});
+  LS.set("res:"+set,res);
+  const sb=set==="D"?$("#dScore"):$("#lScore");sb.hidden=false;
+  const pct=Math.round(100*got/tot);
+  sb.innerHTML=`<span class="big">${+got.toFixed(1)} / ${tot}</span><span>%${pct}</span>${pend?`<span class="small muted">${pend} soru kendin puanlanmayı bekliyor (0 sayıldı)</span>`:""}<a href="#" data-go="tab:zayif">Zayıf konulara git →</a>`;
+  renderWeak();if(!silent)toast(`Puan: ${+got.toFixed(1)} / ${tot}`)}
+function setStatus(art,r){const st=$(".st",art);if(r===null){st.className="st";st.textContent="";return}
+  st.className="st "+(r===1?"ok":r===0?"bad":"mid");st.textContent=r===1?"Doğru":r===0?"Yanlış":"Kısmen"}
+function clearQuiz(set){LS.set("ans:"+set,{});LS.set("res:"+set,null);
+  if(set==="D"){LS.set("dself",{});renderDeneme();$("#dScore").hidden=true}else{renderQuiz($("#quizL"),"L",LEVEL);$("#lScore").hidden=true}
+  renderWeak();toast("Temizlendi")}
+$("#dCheck").onclick=()=>gradeQuiz("D",DENEME);
+$("#lCheck").onclick=()=>gradeQuiz("L",LEVEL);
+$("#dClear").onclick=()=>{if(confirm("Deneme cevapları silinsin mi?"))clearQuiz("D")};
+$("#lClear").onclick=()=>clearQuiz("L");
+function renderDeneme(){renderQuiz($("#quizA"),"D",DENEME.filter(q=>q.id[0]==="A"));renderQuiz($("#quizB"),"D",DENEME.filter(q=>q.id[0]==="B"))}
+
+/* ---------- timer ---------- */
+const T={dur:90*60};
+function tState(){return LS.get("timer",{start:null,acc:0})}
+function tTick(){const s=tState(),el=$("#clock"),used=s.acc+(s.start?(Date.now()-s.start)/1000:0),left=T.dur-used,a=Math.abs(left);
+  el.textContent=(left<0?"−":"")+String(Math.floor(a/60)).padStart(2,"0")+":"+String(Math.floor(a%60)).padStart(2,"0");
+  $("#timer").classList.toggle("over",left<0);$("#tStart").textContent=s.start?"Durdur":(s.acc?"Devam":"Başlat");
+  $("#tNote").textContent=left<0?"Süre doldu":""}
+$("#tStart").onclick=()=>{const s=tState();if(s.start){s.acc+=(Date.now()-s.start)/1000;s.start=null}else s.start=Date.now();LS.set("timer",s);tTick()};
+$("#tReset").onclick=()=>{LS.set("timer",{start:null,acc:0});tTick()};
+
+/* ---------- weak topics ---------- */
+function renderWeak(){
+  const agg={};Object.keys(TAGS).forEach(k=>agg[k]={lost:0,pts:0,know:0,dont:0});
+  const add=(list,res)=>{if(!res)return;list.forEach(q=>{const r=res[q.id];if(!r)return;agg[q.tag].pts+=r.pts;agg[q.tag].lost+=r.pts-r.score})};
+  add(DENEME,LS.get("res:D",null));add(LEVEL,LS.get("res:L",null));
+  const self=LS.get("self",{});ALLCARDS.forEach(c=>{if(self[c.id]===1)agg[c.tag].know++;if(self[c.id]===0)agg[c.tag].dont++});
+  const rows=Object.entries(agg).map(([k,a])=>{const n=a.pts+a.know+a.dont,bad=a.lost+a.dont,ratio=n?bad/n:-1;return{k,a,n,bad,ratio}})
+    .sort((x,y)=>y.ratio-x.ratio||y.bad-x.bad);
+  const any=rows.some(r=>r.n>0);
+  $("#weakEmpty").textContent=any?"":"Henüz veri yok. Seviye testini çöz, denemeyi puanla ya da eski sınavlarda Bildim/Bilemedim işaretle.";
+  $("#weakTbl").innerHTML=`<tr><th>Konu</th><th>Durum</th><th>Kayıp puan</th><th>Bilemedim</th><th></th></tr>`+rows.map(r=>{
+    const lvl=r.n===0?["none","veri yok"]:r.ratio>=.5?["bad","zayıf"]:r.ratio>=.2?["mid","orta"]:["ok","iyi"];
+    const g=r.n?Math.round(100*(1-r.ratio)):0;
+    return`<tr><td>${TAGS[r.k].l}</td><td><span class="lvl ${lvl[0]}">${lvl[1]}</span>${r.n?`<div class="weakbar" title="%${g} doğru"><i class="g" style="width:${g}%"></i><i class="r" style="width:${100-g}%"></i></div>`:""}</td>
+      <td class="mono">${r.a.pts?`${+r.a.lost.toFixed(1)} / ${r.a.pts}`:"—"}</td><td class="mono">${r.a.know+r.a.dont?`${r.a.dont} / ${r.a.know+r.a.dont}`:"—"}</td>
+      <td><a href="#" data-go="${TAGS[r.k].sec}">özete git →</a></td></tr>`}).join("")}
+$("#allReset").onclick=()=>{if(!confirm("Plan, cevaplar ve puanlar silinsin mi?"))return;LS.clear();init();toast("Sıfırlandı")};
+
+/* ---------- navigation ---------- */
+const TABS=["plan","teori","kod","eski","deneme","zayif"];
+function showTab(tab){TABS.forEach(t=>{$("#tab-"+t).hidden=t!==tab;const b=$(`nav [data-tab="${t}"]`);b.setAttribute("aria-selected",String(t===tab));b.tabIndex=t===tab?0:-1});LS.set("tab",tab);
+  const nb=$("#tabs"),sb=$(`nav [data-tab="${tab}"]`);nb.scrollLeft=sb.offsetLeft-nb.clientWidth/2+sb.offsetWidth/2}
+function go(target){
+  if(target.startsWith("tab:")){const tab=target.slice(4);showTab(tab);history.replaceState(null,"","#"+tab);window.scrollTo(0,0);return}
+  const tab=target[0]==="a"?"teori":"kod";showTab(tab);const d=document.getElementById(target);
+  if(d){d.open=true;history.replaceState(null,"","#"+tab+"/"+target);
+    requestAnimationFrame(()=>{const y=d.getBoundingClientRect().top+scrollY-$(".top").offsetHeight-8;scrollTo({top:y,behavior:"smooth"});d.classList.remove("flash");void d.offsetWidth;d.classList.add("flash")})}}
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(b)go("tab:"+b.dataset.tab)});
+$("#tabs").addEventListener("keydown",e=>{if(!["ArrowLeft","ArrowRight"].includes(e.key))return;const cur=TABS.findIndex(t=>!$("#tab-"+t).hidden);
+  const nx=TABS[(cur+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length];go("tab:"+nx);$(`nav [data-tab="${nx}"]`).focus()});
+
+/* ---------- theme ---------- */
+function applyTheme(){const t=LS.get("theme",null);if(t)document.documentElement.dataset.theme=t;else delete document.documentElement.dataset.theme}
+$("#themeBtn").onclick=()=>{const dark=document.documentElement.dataset.theme?document.documentElement.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+  LS.set("theme",dark?"light":"dark");applyTheme()};
+
+/* ---------- init ---------- */
+function init(){
+  applyTheme();renderPlan();countdown();
+  renderCards($("#listF24"),F24);renderCards($("#listF25T"),F25T);renderCards($("#listF25M"),F25M);renderCards($("#listEk"),EK);
+  renderDeneme();renderQuiz($("#quizL"),"L",LEVEL);highlightAll();
+  if(LS.get("res:D",null))gradeQuiz("D",DENEME,true);else $("#dScore").hidden=true;
+  if(LS.get("res:L",null))gradeQuiz("L",LEVEL,true);else $("#lScore").hidden=true;
+  renderWeak();tTick();
+  const h=location.hash.slice(1);
+  if(h){const [tab,sec]=h.split("/");if(sec)go(sec);else if(TABS.includes(tab))showTab(tab);else showTab("plan")}
+  else showTab(LS.get("tab","plan"))}
+init();setInterval(()=>{tTick();countdown()},1000);
+</script>
+</body>
+</html>
