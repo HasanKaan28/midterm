@@ -3,171 +3,305 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NS102 Çalışma Masası</title>
+<title>NS102 Etkileşimli Çalışma Alanı · Fizik Midterm</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <style>
 :root{
-  --paper:#f5f3ee; --paper-2:#fffefa; --grid:rgba(20,110,110,.07); --ink:#1b2430; --ink-2:#4b5566;
-  --acc:#0f6e6e; --acc-soft:#dcefee; --red:#c0392b; --red-soft:#f8e1dd; --green:#1f7a4a; --green-soft:#dcefe3;
-  --line:#d8d3c6; --amber:#a86a00; --amber-soft:#f6ead2; --shadow:0 1px 0 rgba(0,0,0,.04),0 6px 18px -10px rgba(20,40,60,.25);
+  --paper:#f4f6fb; --paper-2:#ffffff; --paper-3:#eef2fa; --grid:rgba(35,70,168,.055);
+  --ink:#111827; --ink-2:#4b5563; --ink-3:#6b7280;
+  --blue:#1d4ed8; --blue-soft:#dbeafe; --blue-border:#93c5fd;
+  --red:#dc2626; --red-soft:#fee2e2;
+  --green:#15803d; --green-soft:#dcfce7;
+  --amber:#b45309; --amber-soft:#fef3c7;
+  --purple:#6d28d9; --purple-soft:#ede9fe;
+  --line:#d5dce8; --shadow:0 1px 2px rgba(15,23,42,.05),0 10px 26px -12px rgba(29,78,216,.14);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#12171b; --paper-2:#192026; --grid:rgba(120,220,220,.05); --ink:#e6eaee; --ink-2:#a3adba;
-  --acc:#6fd0cc; --acc-soft:#18363a; --red:#ff8a7a; --red-soft:#3a2020; --green:#6fd39b; --green-soft:#1b3326;
-  --line:#2b343d; --amber:#f0b955; --amber-soft:#382b14; --shadow:0 6px 18px -10px rgba(0,0,0,.6);
+  --paper:#0b0f19; --paper-2:#131a2a; --paper-3:#1c2539; --grid:rgba(96,165,250,.05);
+  --ink:#f1f5f9; --ink-2:#94a3b8; --ink-3:#64748b;
+  --blue:#60a5fa; --blue-soft:#1e293b; --blue-border:#2563eb;
+  --red:#f87171; --red-soft:#3b181c;
+  --green:#4ade80; --green-soft:#143022;
+  --amber:#fbbf24; --amber-soft:#362812;
+  --purple:#c084fc; --purple-soft:#2b1c44;
+  --line:#263147; --shadow:0 10px 30px -12px rgba(0,0,0,.7);
 }}
 :root[data-theme="dark"]{
-  --paper:#12171b; --paper-2:#192026; --grid:rgba(120,220,220,.05); --ink:#e6eaee; --ink-2:#a3adba;
-  --acc:#6fd0cc; --acc-soft:#18363a; --red:#ff8a7a; --red-soft:#3a2020; --green:#6fd39b; --green-soft:#1b3326;
-  --line:#2b343d; --amber:#f0b955; --amber-soft:#382b14; --shadow:0 6px 18px -10px rgba(0,0,0,.6);
+  --paper:#0b0f19; --paper-2:#131a2a; --paper-3:#1c2539; --grid:rgba(96,165,250,.05);
+  --ink:#f1f5f9; --ink-2:#94a3b8; --ink-3:#64748b;
+  --blue:#60a5fa; --blue-soft:#1e293b; --blue-border:#2563eb;
+  --red:#f87171; --red-soft:#3b181c;
+  --green:#4ade80; --green-soft:#143022;
+  --amber:#fbbf24; --amber-soft:#362812;
+  --purple:#c084fc; --purple-soft:#2b1c44;
+  --line:#263147; --shadow:0 10px 30px -12px rgba(0,0,0,.7);
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "IBM Plex Sans",system-ui,sans-serif;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
-a{color:var(--acc)}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:15.5px/1.58 "IBM Plex Sans",system-ui,sans-serif;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
 button{font:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:4px}
-.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
-.top-in{max-width:900px;margin:0 auto;padding:12px 16px 0}
-.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.brand h1{font:700 1.45rem/1.1 "Fraunces",Georgia,serif;margin:0;letter-spacing:-.01em}
-.brand h1 span{color:var(--acc)}
-.count{font:500 .85rem "IBM Plex Mono",monospace;color:var(--ink-2)}
+:focus-visible{outline:2.5px solid var(--blue);outline-offset:2px;border-radius:6px}
+
+/* Sticky Top Command HUD */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1120px;margin:0 auto;padding:10px 18px 0}
+.brand{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand h1{font:800 1.38rem/1.1 "Outfit",system-ui,sans-serif;margin:0;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.brand h1 span.badge-course{background:var(--blue);color:#fff;font-size:.75rem;padding:3px 8px;border-radius:6px;letter-spacing:.04em;text-transform:uppercase}
+.brand h1 span.sub{color:var(--red);font-weight:700}
+.hud-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.count{font:500 .82rem "IBM Plex Mono",monospace;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--line);padding:4px 10px;border-radius:7px}
 .count b{color:var(--ink)}
-.theme{margin-left:auto;border:1px solid var(--line);background:none;color:var(--ink-2);border-radius:6px;padding:3px 8px;font-size:.8rem}
-.bar{height:6px;background:var(--line);border-radius:3px;margin:10px 0 0;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--acc);width:0;transition:width .4s}
-.barlbl{font-size:.78rem;color:var(--ink-2);margin-top:4px}
-nav{display:flex;gap:4px;overflow-x:auto;padding:10px 0 0;scrollbar-width:none}
+.pomo-pill{display:flex;align-items:center;gap:6px;background:var(--paper-2);border:1px solid var(--line);padding:3px 9px;border-radius:7px;font:600 .8rem "IBM Plex Mono",monospace}
+.pomo-pill button{border:none;background:var(--blue-soft);color:var(--blue);border-radius:4px;padding:2px 6px;font-size:.74rem;font-weight:600}
+.search-trigger{border:1px solid var(--line);background:var(--paper-2);color:var(--ink-2);border-radius:7px;padding:4px 10px;font-size:.8rem;display:flex;align-items:center;gap:6px}
+.search-trigger kbd{font:500 .72rem "IBM Plex Mono",monospace;background:var(--paper-3);padding:1px 5px;border-radius:4px;border:1px solid var(--line)}
+.theme{border:1px solid var(--line);background:var(--paper-2);color:var(--ink-2);border-radius:7px;padding:4px 10px;font-size:.8rem;font-weight:500}
+
+.bar-wrap{display:flex;align-items:center;gap:12px;margin-top:8px}
+.bar{flex:1;height:7px;background:var(--line);border-radius:99px;overflow:hidden;display:flex}
+.bar i.g{display:block;height:100%;background:var(--green);width:0;transition:width .35s}
+.bar i.r{display:block;height:100%;background:var(--red);width:0;transition:width .35s}
+.barlbl{font:500 .76rem "IBM Plex Mono",monospace;color:var(--ink-2);white-space:nowrap}
+
+nav{display:flex;gap:4px;overflow-x:auto;padding:8px 0 0;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
-nav button{border:1px solid transparent;border-bottom:none;background:none;color:var(--ink-2);padding:8px 12px;border-radius:8px 8px 0 0;white-space:nowrap;font-weight:500}
-nav button[aria-selected="true"]{background:var(--paper-2);color:var(--ink);border-color:var(--line);box-shadow:0 1px 0 var(--paper-2)}
-main{max-width:900px;margin:0 auto;padding:20px 16px 80px}
-.sheet{background:var(--paper-2);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:20px 20px 20px 34px;position:relative;margin-bottom:18px}
-.sheet::before{content:"";position:absolute;left:20px;top:0;bottom:0;width:2px;background:var(--acc);opacity:.35}
-h2{font:700 1.35rem/1.2 "Fraunces",Georgia,serif;margin:0 0 6px}
-h3{font:700 1.08rem/1.3 "Fraunces",Georgia,serif;margin:18px 0 6px}
+nav button{border:1px solid transparent;border-bottom:none;background:none;color:var(--ink-2);padding:8px 13px;border-radius:9px 9px 0 0;white-space:nowrap;font-weight:600;font-size:.9rem;transition:all .15s}
+nav button:hover{color:var(--ink);background:color-mix(in srgb,var(--paper-2) 50%,transparent)}
+nav button[aria-selected="true"]{background:var(--paper-2);color:var(--blue);border-color:var(--line);box-shadow:0 1px 0 var(--paper-2)}
+
+main{max-width:1120px;margin:0 auto;padding:20px 18px 90px}
+.sheet{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:22px 24px 22px 34px;position:relative;margin-bottom:18px}
+.sheet::before{content:"";position:absolute;left:18px;top:0;bottom:0;width:2.5px;background:var(--blue);opacity:.3}
+h2{font:700 1.38rem/1.22 "Outfit",system-ui,sans-serif;margin:0 0 6px;letter-spacing:-.01em}
+h3{font:700 1.1rem/1.3 "Outfit",system-ui,sans-serif;margin:18px 0 8px}
 .muted{color:var(--ink-2)}
 .small{font-size:.86rem}
-.note{background:var(--amber-soft);border-left:3px solid var(--amber);padding:10px 12px;border-radius:6px;margin:10px 0}
-.warn{background:var(--red-soft);border-left:3px solid var(--red);padding:10px 12px;border-radius:6px;margin:0 0 14px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
-.chip{font-size:.78rem;padding:2px 8px;border-radius:999px;background:var(--acc-soft);color:var(--acc);font-weight:500;border:1px solid transparent}
-button.chip{cursor:pointer}
-button.chip[aria-pressed="true"]{background:var(--acc);color:var(--paper-2)}
-.q{border-top:1px dashed var(--line);padding:16px 0 14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{font-size:.77rem;padding:3px 9px;border-radius:999px;background:var(--blue-soft);color:var(--blue);font-weight:600}
+.chip.purple{background:var(--purple-soft);color:var(--purple)}
+.chip.amber{background:var(--amber-soft);color:var(--amber)}
+.chip.green{background:var(--green-soft);color:var(--green)}
+.chip.red{background:var(--red-soft);color:var(--red)}
+
+/* Filter bar for Zbirka & Question sets */
+.filter-bar{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;padding:10px;background:var(--paper-3);border-radius:10px;border:1px solid var(--line)}
+.filter-btn{border:1px solid var(--line);background:var(--paper-2);color:var(--ink-2);padding:5px 11px;border-radius:7px;font-size:.82rem;font-weight:600;transition:all .15s}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* Question Card */
+.q{border-top:1px dashed var(--line);padding:18px 0 14px}
 .q:first-of-type{border-top:none}
-.q header{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
-.qid{font:500 .82rem "IBM Plex Mono",monospace;background:var(--ink);color:var(--paper-2);padding:1px 7px;border-radius:4px}
-.st{margin-left:auto;font-size:.8rem;font-weight:600;padding:2px 8px;border-radius:999px}
-.st:empty{display:none}
+.q header{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.qid{font:600 .8rem "IBM Plex Mono",monospace;background:var(--ink);color:var(--paper-2);padding:2px 8px;border-radius:5px}
+.qsrc{font:500 .75rem "IBM Plex Mono",monospace;color:var(--ink-2);background:var(--paper-3);padding:2px 7px;border-radius:5px;border:1px solid var(--line)}
+.st{margin-left:auto;font-size:.78rem;font-weight:700;padding:2px 9px;border-radius:999px}
 .st.ok{background:var(--green-soft);color:var(--green)}
 .st.bad{background:var(--red-soft);color:var(--red)}
+.prompt{font-size:1.05rem;overflow-x:auto;overflow-y:hidden;padding:4px 0 8px}
+.prompt .katex-display,.sol .katex-display{overflow:visible;margin:.25em 0}
+
+/* Input Fields */
+.fields{display:grid;gap:8px;margin-top:8px}
+.field{display:grid;grid-template-columns:minmax(130px,200px) minmax(0,1fr);gap:4px 10px;align-items:center}
+.field label{font-size:.88rem;color:var(--ink-2);font-weight:500}
+.field .inwrap{display:flex;gap:8px;align-items:center;min-width:0}
+input[type=text],input[type=number],select,textarea{font:500 .95rem "IBM Plex Mono",monospace;padding:7px 10px;border:1.5px solid var(--line);border-radius:7px;background:var(--paper);color:var(--ink);min-width:0}
+input[type=text]:focus,textarea:focus,select:focus{border-color:var(--blue);outline:none}
+.field input[type=text]{width:100%;max-width:350px}
+.field input.val{max-width:180px}
+.mk{font-weight:700;min-width:1.2em}
+.mk.ok{color:var(--green)} .mk.bad{color:var(--red)}
+.pv{grid-column:2;font-size:.92rem;color:var(--ink-2);overflow-x:auto;overflow-y:hidden;padding:2px 0 4px}
+.pv:empty,.ferr:empty{display:none}
+.ferr{grid-column:2;font-size:.82rem;color:var(--red)}
+.syntax{font-size:.82rem;color:var(--ink-2);background:var(--paper-3);padding:8px 12px;border-radius:8px;border:1px solid var(--line)}
+
+/* Buttons */
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.btn{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper-2);padding:6px 13px;border-radius:7px;font-weight:600;font-size:.88rem;transition:all .15s}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.soft{background:var(--blue-soft);color:var(--blue);border-color:transparent}
+.btn.purple{background:var(--purple-soft);color:var(--purple);border-color:transparent}
+.btn.ok{background:var(--green);border-color:var(--green);color:#fff}
+.btn.bad{background:var(--red);border-color:var(--red);color:#fff}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.fb{font-weight:600;font-size:.9rem}
+.fb.ok{color:var(--green)} .fb.bad{color:var(--red)}
+
+/* Solution, Hint, Scratchpad */
+.sol,.hint,.scratch-box{margin-top:10px;padding:13px 15px;border-radius:9px;overflow-x:auto}
+.sol{background:var(--blue-soft);border-left:3.5px solid var(--blue)}
+.hint{background:var(--amber-soft);border-left:3.5px solid var(--amber)}
+.scratch-box{background:var(--paper-3);border:1px solid var(--line)}
+.sol p,.hint p{margin:.35em 0}
+.ans{font-weight:700;color:var(--blue)}
+.self{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center;padding-top:8px;border-top:1px dashed var(--line)}
+.scratch-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.scratch-Area{width:100%;height:130px;resize:vertical;font-size:.86rem}
+.scratch-canvas-wrap{border:1px solid var(--line);border-radius:7px;background:var(--paper-2);position:relative;height:130px;overflow:hidden}
+.scratch-canvas{width:100%;height:100%;cursor:crosshair;touch-action:none;display:block}
+@media (max-width:680px){.scratch-grid{grid-template-columns:1fr}.field{grid-template-columns:1fr}.pv,.ferr{grid-column:1}}
+
+/* Visual Calculus Lab (Atölye) */
+.lab-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(290px,1fr);gap:16px;margin-top:12px}
+@media (max-width:860px){.lab-grid{grid-template-columns:1fr}}
+.canvas-card{background:var(--paper-3);border:1px solid var(--line);border-radius:10px;padding:12px}
+#calcCanvas{width:100%;height:380px;background:var(--paper-2);border:1px solid var(--line);border-radius:8px;display:block;cursor:crosshair}
+.lab-controls{display:flex;flex-direction:column;gap:10px}
+.ctrl-box{background:var(--paper-3);border:1px solid var(--line);border-radius:9px;padding:11px 13px}
+.ctrl-box label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-2);margin-bottom:4px}
+.num-table{width:100%;font:500 .78rem "IBM Plex Mono",monospace;border-collapse:collapse}
+.num-table th,.num-table td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right}
+.num-table th:first-child,.num-table td:first-child{text-align:left}
+
+/* Step-by-Step Definition of Derivative Trainer */
+.step-card{border:1px solid var(--line);background:var(--paper-3);border-radius:9px;padding:12px 14px;margin-bottom:9px}
+.step-head{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:.92rem}
+.step-body{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+
+/* Flashcards */
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-top:12px}
+.fc-card{background:var(--paper-3);border:1.5px solid var(--line);border-radius:10px;padding:15px;min-height:155px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:transform .15s,border-color .15s}
+.fc-card:hover{transform:translateY(-2px);border-color:var(--blue)}
+.fc-card.flipped{background:var(--blue-soft);border-color:var(--blue)}
+.fc-card.mastered{opacity:.65;border-color:var(--green)}
+.fc-top{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-2);font-family:"IBM Plex Mono",monospace}
+.fc-main{margin:12px 0;font-size:.98rem;font-weight:500}
+.fc-foot{display:flex;justify-content:space-between;align-items:center;font-size:.76rem;color:var(--ink-2)}
+
+/* Tables, Plan, Details */
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--ink-2);font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+.tblwrap{overflow-x:auto}
+.plan li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:9px 6px;border-bottom:1px dashed var(--line)}
+.plan ul{padding:0;margin:0}
+.plan input{margin-top:4px;width:18px;height:18px;accent-color:var(--blue)}
+.plan .time{font:600 .82rem "IBM Plex Mono",monospace;color:var(--ink-2);min-width:100px}
+.plan li.done .what{text-decoration:line-through;color:var(--ink-2)}
+.timer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 14px;border:1.5px solid var(--blue);border-radius:9px;margin:10px 0;background:var(--paper-3)}
+.timer .clock{font:600 1.55rem "IBM Plex Mono",monospace;min-width:92px;color:var(--blue)}
+.timer.over .clock{color:var(--red)}
+details{border-top:1px dashed var(--line);padding:11px 0}
+summary{cursor:pointer;font:700 1.04rem "Outfit",system-ui,sans-serif}
+details[open] summary{margin-bottom:8px;color:var(--blue)}
+.meter{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line);min-width:120px}
+.meter .g{background:var(--green)} .meter .r{background:var(--red)}
+.weak{color:var(--red);font-weight:700}
+
+/* Quick Search Modal (Ctrl+K) */
+.modal-backdrop{position:fixed;inset:0;background:rgba(10,15,28,.65);backdrop-filter:blur(4px);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:70px 16px 20px}
+.modal-backdrop[hidden]{display:none}
+.modal-box{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;width:100%;max-width:620px;box-shadow:var(--shadow);overflow:hidden}
+.modal-box input{width:100%;border:none;border-bottom:1px solid var(--line);padding:14px 16px;font-size:1rem;border-radius:0;background:var(--paper-2)}
+.modal-results{max-height:380px;overflow-y:auto;padding:8px}
+.modal-item{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:8px;cursor:pointer;gap:10px}
+.modal-item:hover{background:var(--blue-soft)}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--paper-2);padding:10px 18px;border-radius:8px;font-size:.9rem;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60}
+.toast.on{opacity:1}
+/* ---------- NS102 additions (same token system) ---------- */
+.back{font:600 .78rem "IBM Plex Sans",system-ui,sans-serif;color:var(--ink-2);border:1px solid var(--line);background:var(--paper-2);padding:3px 9px;border-radius:7px}
+.back:hover{color:var(--blue);text-decoration:none}
+.st:empty{display:none}
 .st.mid{background:var(--amber-soft);color:var(--amber)}
-.prompt{overflow-x:auto;overflow-y:hidden;padding:2px 0 6px}
-.prompt p{margin:.3em 0}
+.btn.mid{background:var(--amber);border-color:var(--amber);color:#fff}
+.btn.sel-off{opacity:.55}
 .opts{display:grid;gap:6px;margin-top:6px}
-.opt{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border:1.5px solid var(--line);border-radius:7px;background:var(--paper);cursor:pointer}
-.opt input{margin-top:5px;accent-color:var(--acc)}
-.opt .L{font:500 .9rem "IBM Plex Mono",monospace;color:var(--ink-2);min-width:1.4em}
+.opt{display:flex;gap:9px;align-items:flex-start;padding:8px 11px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);cursor:pointer;overflow-x:auto}
+.opt input{margin-top:5px;accent-color:var(--blue);flex:none}
+.opt .L{font:600 .86rem "IBM Plex Mono",monospace;color:var(--ink-2);min-width:1.4em}
 .opt.ok{border-color:var(--green);background:var(--green-soft)}
 .opt.bad{border-color:var(--red);background:var(--red-soft)}
 .opt.dis{cursor:default}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
-.btn{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper-2);padding:7px 14px;border-radius:6px;font-weight:600;font-size:.92rem}
-.btn.ghost{background:transparent;color:var(--ink)}
-.btn.soft{background:var(--acc-soft);color:var(--acc);border-color:transparent}
-.btn.sel-ok{background:var(--green);border-color:var(--green);color:#fff}
-.btn.sel-mid{background:var(--amber);border-color:var(--amber);color:#fff}
-.btn.sel-bad{background:var(--red);border-color:var(--red);color:#fff}
-.btn:hover{filter:brightness(1.08)}
-.sol{margin-top:10px;padding:12px 14px;border-radius:8px;overflow-x:auto;background:var(--acc-soft);border-left:3px solid var(--acc)}
-.sol p,.sol li{margin:.3em 0}
-.sol ul{margin:.2em 0;padding-left:1.2em}
-.ans{font-weight:600}
-.score{font:500 1.05rem "IBM Plex Mono",monospace;padding:12px 14px;border:1.5px solid var(--ink);border-radius:8px;background:var(--paper);margin:12px 0}
-.score b{font-size:1.3rem}
-table{border-collapse:collapse;width:100%;font-size:.93rem}
-th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-weight:600;color:var(--ink-2);font-size:.82rem}
-.tblwrap{overflow-x:auto}
-.plan ul{padding:0;margin:0}
-.plan li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line)}
-.plan input{margin-top:5px;width:18px;height:18px;accent-color:var(--acc);flex:none}
-.plan li.done .what{text-decoration:line-through;color:var(--ink-2)}
-.day{margin-top:16px}
-.day h3{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:2px}
-.day.today{background:var(--amber-soft);border-radius:8px;padding:2px 10px 6px;margin-left:-10px;margin-right:-10px}
-.go{font-size:.8rem;margin-left:4px;border:none;background:none;color:var(--acc);text-decoration:underline;padding:0}
-.timer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 12px;border:1.5px solid var(--ink);border-radius:8px;margin:10px 0 4px;background:var(--paper)}
-.timer .clock{font:500 1.6rem "IBM Plex Mono",monospace;min-width:92px}
-.timer.over .clock{color:var(--red)}
-details{border-top:1px dashed var(--line);padding:10px 0}
-details:first-of-type{border-top:none}
-summary{cursor:pointer;font:700 1.05rem "Fraunces",Georgia,serif}
-details[open] summary{margin-bottom:6px}
-.sub{font-weight:600;margin:.8em 0 .2em}
-.flist{display:grid;gap:4px}
-.f{padding:6px 0;border-bottom:1px dotted var(--line);overflow-x:auto;overflow-y:hidden}
+.note{background:var(--amber-soft);border-left:3.5px solid var(--amber);padding:10px 13px;border-radius:8px;margin:10px 0}
+.warn{background:var(--red-soft);border-left:3.5px solid var(--red);padding:10px 13px;border-radius:8px;margin:0 0 14px}
+.score{font:600 1rem "IBM Plex Mono",monospace;padding:12px 15px;border:1.5px solid var(--blue);border-radius:9px;background:var(--paper-3);margin:12px 0}
+.score b{font-size:1.25rem;color:var(--blue)}
+.score .small{font-family:"IBM Plex Sans",system-ui,sans-serif;font-weight:500;margin-top:6px}
+.day{margin-top:14px;padding:4px 10px 6px;border-radius:9px}
+.day.today{background:var(--amber-soft)}
+.day h3{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin:6px 0 2px}
+.day h3 .muted{font:500 .82rem "IBM Plex Sans",system-ui,sans-serif}
+.plan .what{flex:1}
+.go{font-size:.8rem;border:none;background:none;color:var(--blue);text-decoration:underline;padding:0;font-weight:600}
+.flist{display:grid;gap:2px}
+.f{padding:7px 0;border-bottom:1px dotted var(--line);overflow-x:auto;overflow-y:hidden}
 .f:last-child{border-bottom:none}
-.f .k{font-size:.82rem;color:var(--ink-2)}
-.meter{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line);min-width:120px;flex:1}
-.meter .g{background:var(--green)} .meter .r{background:var(--red)}
-.wk{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 0;border-bottom:1px dashed var(--line)}
-.wk .nm{min-width:210px;font-weight:600}
-.wk.weak .nm{color:var(--red)}
-.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--paper-2);padding:10px 16px;border-radius:8px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s}
-.toast.on{opacity:1}
-.katex-display{margin:.4em 0;overflow-x:auto;overflow-y:hidden}
-[hidden]{display:none!important}
+.f .k{display:block;font-size:.8rem;color:var(--ink-2);font-weight:600}
+.sub{font-weight:700;margin:.8em 0 .2em;color:var(--ink-2);font-size:.86rem;text-transform:uppercase;letter-spacing:.03em}
+.fc-card:focus-visible{outline:2.5px solid var(--blue);outline-offset:2px}
+.fc-main{overflow-x:auto;overflow-y:hidden}
+.wklist{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.errrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:9px 0;border-bottom:1px dashed var(--line)}
+.errrow .what{flex:1;min-width:180px;font-size:.92rem}
+.modal-item{width:100%;text-align:left;border:none;background:none;color:var(--ink);font:inherit}
+.modal-item:focus-visible{background:var(--blue-soft)}
+.flash{outline:2.5px solid var(--blue);outline-offset:4px;border-radius:8px}
 @media (max-width:560px){
-  .sheet{padding:16px 14px 16px 26px}.sheet::before{left:13px}
-  .wk .nm{min-width:100%}
+  .top-in{padding:8px 12px 0} main{padding:16px 12px 80px}
+  .sheet{padding:16px 14px 16px 26px}.sheet::before{left:12px}
+  .brand h1{font-size:1.15rem}
+  .brand{gap:8px}
+  .hud-right{margin-left:0;width:100%;gap:6px}
+  .count{font-size:.74rem;padding:3px 7px}
+  .pomo-pill{padding:2px 6px;gap:4px;font-size:.74rem}
+  .search-trigger,.theme{padding:3px 8px;font-size:.76rem}
+  .search-trigger kbd,.search-trigger .lbl{display:none}
+  .bar-wrap{margin-top:6px}
+  nav{padding-top:6px} nav button{padding:6px 10px;font-size:.84rem}
+  .scratch-grid{grid-template-columns:1fr}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.btn:hover,.fc-card:hover{transform:none}}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="top-in">
     <div class="brand">
-      <h1>NS102 <span>fizik</span></h1>
-      <span class="count" id="count">Sınav: 16 Kasım Pzt 09:00</span>
-      <button class="theme" id="themeBtn" type="button" aria-label="Tema değiştir">Tema</button>
+      <a class="back" href="../index.html">← Dersler</a>
+      <h1><span class="badge-course">IUS</span> NS102 <span class="sub">Midterm Stüdyosu</span></h1>
+      <div class="hud-right">
+        <span class="count" id="count">Sınav: 16 Kas 09:00</span>
+        <div class="pomo-pill" title="Pomodoro çalışma sayacı">
+          <span aria-hidden="true">🍅</span><span id="pomoClock">25:00</span>
+          <button type="button" id="pomoToggle">Başlat</button>
+          <button type="button" id="pomoReset" aria-label="Pomodoro sıfırla">↺</button>
+        </div>
+        <button class="search-trigger" id="searchBtn" type="button" aria-label="Soru / Konu Ara (Ctrl+K)"><span aria-hidden="true">⌕</span><span class="lbl">Soru / Konu Ara</span><kbd>Ctrl+K</kbd></button>
+        <button class="theme" id="themeBtn" type="button" aria-label="Tema değiştir">Tema</button>
+      </div>
     </div>
-    <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
-    <div class="barlbl" id="barLbl"></div>
-    <nav role="tablist" aria-label="Bölümler" id="tabs">
-      <button role="tab" data-tab="plan">Plan</button>
-      <button role="tab" data-tab="qt">Hızlı test</button>
-      <button role="tab" data-tab="ozet">Özet</button>
-      <button role="tab" data-tab="form">Formüller</button>
-      <button role="tab" data-tab="ornek">Örnekler</button>
-      <button role="tab" data-tab="deneme">Deneme</button>
-      <button role="tab" data-tab="zayif">Zayıf konular</button>
-    </nav>
+    <div class="bar-wrap">
+      <div class="bar" aria-hidden="true"><i class="g" id="barOk"></i><i class="r" id="barBad"></i></div>
+      <div class="barlbl" id="barLbl"></div>
+    </div>
+    <nav role="tablist" aria-label="Bölümler" id="tabs"></nav>
   </div>
 </header>
 
-<main id="main">
-<div class="warn" id="storeWarn" hidden>Bu sayfa ilerlemeni kaydedemiyor (tarayıcı depolaması kapalı). İşaretlerin sayfa kapanınca kaybolur.</div>
+<main id="main" role="tabpanel"></main>
 
-<!-- ================= PLAN ================= -->
-<section id="t-plan" role="tabpanel" hidden>
-  <div class="sheet plan">
-    <h2>Gün gün plan</h2>
-    <p class="muted small">Kaynak: Young &amp; Freedman, <i>University Physics</i> 15. baskı, Bölüm 1–7 slaytları. MATH101 Cumartesi 12:30'da, bu yüzden Cuma hafif, asıl yük Cumartesi akşamı ve Pazar'da. Bitirdiğin maddeyi işaretle; işaretler bu tarayıcıda kalır.</p>
-    <div class="note small"><b>Teyit edilmedi:</b> kapsam Bölüm 1–7 varsayıldı (klasöre yedi bölümün slaytı geldi). Sınav formatı ve formül kâğıdı verilip verilmeyeceği bilinmiyor. Hoca farklı bir şey söylediyse plan değişir.</div>
-    <div id="planList"></div>
+<div class="modal-backdrop" id="searchModal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Soru ve konu arama">
+    <input type="text" id="searchModalInput" placeholder="Soru kodu (H3, Ö7, A13, B4), konu (sürtünme, eğik atış, yay) veya formül yaz..." autocomplete="off" aria-controls="searchModalResults">
+    <div class="modal-results" id="searchModalResults" role="listbox"></div>
   </div>
-  <div class="sheet">
-    <h2>Bölümler ve ağırlık</h2>
-    <div class="tblwrap"><table>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Content carried over verbatim from the previous version of this page -->
+<template id="tpl-weights"><div class="tblwrap"><table>
       <tr><th>Bölüm</th><th>Konu</th><th>Ağırlık (tahmin)</th></tr>
       <tr><td>1</td><td>Birimler, vektörler, skaler ve vektörel çarpım</td><td>Orta</td></tr>
       <tr><td>2</td><td>Doğru boyunca hareket, serbest düşme</td><td>Yüksek</td></tr>
@@ -176,32 +310,8 @@ details[open] summary{margin-bottom:6px}
       <tr><td>5</td><td>Newton yasalarının uygulamaları, sürtünme, çembersel dinamik</td><td>Çok yüksek</td></tr>
       <tr><td>6</td><td>İş, kinetik enerji, güç</td><td>Yüksek</td></tr>
       <tr><td>7</td><td>Potansiyel enerji, enerji korunumu</td><td>Çok yüksek</td></tr>
-    </table></div>
-    <p class="muted small">Ağırlık sütunu tahmindir: bu kitapla yapılan midterm'lerde hesap soruları en çok 3, 5 ve 7. bölümlerden gelir. Clicker soruları <code>NS102\materyal</code> klasöründe; her sorudan sonraki slayt doğru cevabı işaretli gösterir.</p>
-  </div>
-</section>
-
-<!-- ================= HIZLI TEST ================= -->
-<section id="t-qt" role="tabpanel" hidden>
-  <div class="sheet">
-    <h2>Hızlı test</h2>
-    <p class="muted small">14 soru, her bölümden iki tane. Kaynak açma. Bilmiyorsan boş bırak, tahmin etme: boş da yanlış sayılır ve zayıf konuyu daha doğru gösterir. Yaklaşık 15 dakika.</p>
-    <div id="qtList"></div>
-    <div id="qtScore"></div>
-    <div class="row">
-      <button class="btn" id="qtCheck" type="button">Kontrol et</button>
-      <button class="btn ghost" id="qtReset" type="button">Sıfırla</button>
-    </div>
-  </div>
-</section>
-
-<!-- ================= ÖZET ================= -->
-<section id="t-ozet" role="tabpanel" hidden>
-  <div class="sheet">
-    <h2>Konu özeti</h2>
-    <p class="muted small">Formüller ayrı sekmede. Burada fikirler ve sık yapılan hatalar var.</p>
-
-    <details id="oz-b1">
+    </table></div></template>
+<template id="tpl-ozet"><details id="oz-b1">
       <summary>Bölüm 1: Birimler, fiziksel büyüklükler, vektörler</summary>
       <p class="sub">Ana fikirler</p>
       <ul>
@@ -368,17 +478,8 @@ details[open] summary{margin-bottom:6px}
         <li>Doğanın dört temel kuvveti: kütle çekim, elektromanyetik, güçlü, zayıf.</li>
         <li>Eğri boyunca iş için çizgi integrali ve üç boyutta gradyan.</li>
       </ul>
-    </details>
-  </div>
-</section>
-
-<!-- ================= FORMÜLLER ================= -->
-<section id="t-form" role="tabpanel" hidden>
-  <div class="sheet">
-    <h2>Formül sayfası</h2>
-    <p class="muted small">$g=9{,}80\ \text{m/s}^2$. Açılar derece. Formül kâğıdı verilmeyecekmiş gibi ezberle.</p>
-
-    <h3 id="fo-b1">Bölüm 1: Birimler ve vektörler</h3>
+    </details></template>
+<template id="tpl-form"><h3 id="fo-b1">Bölüm 1: Birimler ve vektörler</h3>
     <div class="flist">
       <div class="f"><span class="k">Birim çevirme</span> $1\ \text{km/h}=\dfrac{1}{3{,}6}\ \text{m/s}$</div>
       <div class="f"><span class="k">Bileşenler ($\theta$, $+x$ ekseninden saat yönünün tersine)</span> $$A_x=A\cos\theta,\qquad A_y=A\sin\theta$$</div>
@@ -450,19 +551,8 @@ details[open] summary{margin-bottom:6px}
       <div class="f"><span class="k">Potansiyelden kuvvet</span> $$F_x=-\frac{dU}{dx},\qquad \vec F=-\left(\frac{\partial U}{\partial x}\hat\imath+\frac{\partial U}{\partial y}\hat\jmath+\frac{\partial U}{\partial z}\hat k\right)$$</div>
       <div class="f"><span class="k">Denge</span> $dU/dx=0$. $U$ minimum: kararlı. $U$ maksimum: kararsız.</div>
       <div class="f"><span class="k">Enerji diyagramı</span> $K=E-U\ge0$. Cisim $U\gt E$ bölgesine giremez, $U=E$ olan yerde döner.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= ÖRNEKLER ================= -->
-<section id="t-ornek" role="tabpanel" hidden>
-  <div class="sheet">
-    <h2>Çözümlü örnekler</h2>
-    <p class="muted small">Önce kâğıtta kendin çöz, sonra çözümü aç. Sonunda "Çözdüm" ya da "Çözemedim" işaretle; zayıf konu listesi buna göre hesaplanır. $g=9{,}80\ \text{m/s}^2$.</p>
-    <div class="chips" id="exFilter"></div>
-    <div id="exList">
-
-      <div class="q ex" data-ex="1" data-ch="b1">
+    </div></template>
+<template id="tpl-ex"><div class="q ex" data-ex="1" data-ch="b1">
         <header><span class="qid">Örnek 1</span><span class="chip">Bölüm 1</span><span class="st"></span></header>
         <div class="prompt"><p><b>Bileşenlerle vektör toplama.</b> $\vec A$ vektörü $5{,}0$ m büyüklüğünde ve $+x$ ekseniyle $37°$ yapıyor. $\vec B$ vektörü $8{,}0$ m büyüklüğünde ve $+x$ ekseniyle $150°$ yapıyor. $\vec R=\vec A+\vec B$ vektörünün büyüklüğünü ve yönünü bul.</p></div>
         <div class="sol" hidden><ul>
@@ -614,46 +704,7 @@ details[open] summary{margin-bottom:6px}
           <li>(b) $F_x=0$: $3x(x-2)=0$, $x=0$ ve $x=2$ m</li>
           <li>$d^2U/dx^2=6-6x$. $x=0$'da $+6$: $U$ minimum, kararlı. $x=2$ m'de $-6$: $U$ maksimum, kararsız.</li>
         </ul></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ================= DENEME ================= -->
-<section id="t-deneme" role="tabpanel" hidden>
-  <div class="sheet">
-    <h2>Deneme sınavı</h2>
-    <p class="muted small">90 dakika. Kaynak ve formül sayfası kapalı, hesap makinesi serbest. $g=9{,}80\ \text{m/s}^2$. A bölümü 20 × 2 = 40 puan, B bölümü 5 × 12 = 60 puan. Sorular slaytlardaki konulara göre hazırlandı; hocanın gerçek sınav formatı bilinmiyor.</p>
-    <div class="timer" id="timer">
-      <span class="clock" id="clock">90:00</span>
-      <button class="btn" id="tStart" type="button">Başlat</button>
-      <button class="btn ghost" id="tReset" type="button">Süreyi sıfırla</button>
-      <span class="muted small" id="tNote"></span>
-    </div>
-    <h3>A Bölümü: Çoktan seçmeli</h3>
-    <div id="daList"></div>
-    <div class="row">
-      <button class="btn" id="daCheck" type="button">A bölümünü kontrol et</button>
-      <button class="btn ghost" id="daReset" type="button">A bölümünü sıfırla</button>
-    </div>
-    <h3>B Bölümü: Klasik sorular</h3>
-    <p class="muted small">Kâğıtta adım adım çöz, gereken yerde serbest cisim diyagramı çiz. Sonra çözümü aç ve kendine puan ver: tam 12, yarım 6, yanlış 0.</p>
-    <div id="dbList"></div>
-    <div id="dScore"></div>
-  </div>
-</section>
-
-<!-- ================= ZAYIF KONULAR ================= -->
-<section id="t-zayif" role="tabpanel" hidden>
-  <div class="sheet">
-    <h2>Zayıf konular</h2>
-    <p class="muted small">Hızlı test, deneme ve örneklerdeki işaretlerinden hesaplanır. Doğru oranı %70'in altındaki bölümler kırmızı. Önce en üsttekine çalış.</p>
-    <div id="wkList"></div>
-  </div>
-</section>
-</main>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </div></template>
 
 <script>
 const R = String.raw;
@@ -742,251 +793,521 @@ const DB = [
    s:R`<ul><li>(a) $W=\int_0^4(6x-2)\,dx=\left[3x^2-2x\right]_0^4=48-8=40$ J</li><li>(b) $K_1=\tfrac12(3{,}0)(2{,}0)^2=6{,}0$ J, $K_2=46$ J, $v=\sqrt{2(46)/3{,}0}=5{,}54$ m/s</li><li>(c) $F(4)=22$ N, $P=Fv=(22)(5{,}54)=122$ W</li></ul>`}
 ];
 
-/* ---------- state ---------- */
+/* ---------- labels, hints, flashcards ---------- */
+const SRC = {qt:"Hızlı test", da:"Deneme A", db:"Deneme B", ex:"Çözümlü örnek"};
+const PFX = {qt:"H", da:"A", db:"", ex:"Ö"};
+/* Hints are one-line restatements of the first step of each existing solution. */
+const HINT_EX = {
+  1:R`Her vektörü bileşenlerine ayır, bileşenleri topla; açının çeyreğini $R_x$, $R_y$ işaretlerinden kontrol et.`,
+  2:R`Skaler çarpımda aynı bileşenleri çarpıp topla; vektörel çarpımda $C_x=A_yB_z-A_zB_y$ kalıbını kullan.`,
+  3:R`İki aşamaya böl: önce hızlanma sonundaki hızı bul, sonra frende $v^2=v_0^2+2a\Delta x$ kullan.`,
+  4:R`Yukarıyı pozitif al, çatıyı $y=0$ say; yer $y=-20$ m olur ve tek denklem yeter.`,
+  5:R`Hızı $v_{0x}=v_0\cos53°$ ve $v_{0y}=v_0\sin53°$ olarak ayır; tepede $v_y=0$.`,
+  6:R`Merkeze doğru tek kuvvet statik sürtünme: $\mu_s mg\ge mv^2/R$.`,
+  14:R`Yere göre hız = suya göre hız + suyun hızı; (b)'de suya göre hızın batı bileşeni akıntıyı götürmeli.`,
+  7:R`Eksenleri düzleme paralel ve dik al; $n=mg\cos30°$, sonra $f_k=\mu_k n$.`,
+  8:R`Her blok için ayrı $\sum F=ma$ yaz ve iki denklemi topla; $T$ sadeleşir.`,
+  9:R`Yukarı pozitif: $n-mg=ma$. Belirleyici olan ivmenin yönü.`,
+  15:R`Düşeyde $n\cos\beta=mg$, yatayda $n\sin\beta=mv^2/R$; iki denklemi birbirine böl.`,
+  10:R`Kuvvetin yukarı bileşeni normal kuvveti azaltır: $n=mg-F\sin37°$.`,
+  12:R`Sabit hızda çekme kuvveti $mg$'ye eşit; $P=Fv$.`,
+  11:R`Önce yaydaki enerjiyi bul ($\tfrac12kx^2$), sonra kinetik ve potansiyel enerjiye çevir; (c)'de sürtünme işini çıkar.`,
+  13:R`$F_x=-dU/dx$; dengede $F_x=0$, kararlılık için $d^2U/dx^2$ işaretine bak.`
+};
+const HINT_DB = {
+  B1:R`Düşey hareket serbest düşme gibi: $45=\tfrac12gt^2$; yatayda hız sabit.`,
+  B2:R`Her blok için ayrı denklem yaz; $m_1$ yukarı kaydığı için sürtünme düzlem boyunca aşağı.`,
+  B3:R`Düşeyde $T\cos25°=mg$, yatayda $T\sin25°=mv^2/R$ ve $R=L\sin25°$.`,
+  B4:R`Enerjiyi aşama aşama izle: rampada $mgh$, pürüzlü bölgede $-\mu_kmgd$, yayda $\tfrac12kx^2$.`,
+  B5:R`İş $=\int F_x\,dx$; sonra iş–enerji teoremi; güç $P=Fv$.`
+};
+const FC = [
+  {id:"f1",ch:"b1",q:R`İki vektör arasındaki açı skaler çarpımla nasıl bulunur?`,a:R`$\cos\varphi=\dfrac{\vec A\cdot\vec B}{AB}$`},
+  {id:"f2",ch:"b1",q:R`$\hat\jmath\times\hat\imath=\ ?$`,a:R`$-\hat k$. Sıra değişince işaret değişir: $\vec A\times\vec B=-\vec B\times\vec A$.`},
+  {id:"f3",ch:"b1",q:R`Hesap makinesindeki arctan yanlış çeyrek verirse ne yapılır?`,a:R`$A_x\lt0$ ise sonuca $180°$ ekle.`},
+  {id:"f4",ch:"b2",q:R`Zamanın olmadığı sabit ivme denklemi?`,a:R`$v^2=v_0^2+2a(x-x_0)$`},
+  {id:"f5",ch:"b2",q:R`Yukarı atılan cisim tepe noktasında: hız ve ivme?`,a:R`Hız sıfır, ivme $g$ aşağı yönlü.`},
+  {id:"f6",ch:"b2",q:R`$v$–$t$ grafiğinin eğimi ve altındaki alan neyi verir?`,a:R`Eğim ivmeyi, alan yer değiştirmeyi verir.`},
+  {id:"f7",ch:"b3",q:R`Menzil formülü ve geçerlilik şartı?`,a:R`$R=\dfrac{v_0^2\sin2\alpha_0}{g}$, yalnız atış ve iniş aynı yükseklikteyse.`},
+  {id:"f8",ch:"b3",q:R`Düzgün çembersel harekette merkezcil ivme (iki biçim)?`,a:R`$a_{rad}=\dfrac{v^2}{R}=\dfrac{4\pi^2R}{T^2}$, merkeze doğru.`},
+  {id:"f9",ch:"b3",q:R`Bağıl hız zinciri?`,a:R`$\vec v_{P/A}=\vec v_{P/B}+\vec v_{B/A}$`},
+  {id:"f10",ch:"b4",q:R`Net kuvvet sıfırsa cisim ne yapar?`,a:R`Hızı sabit kalır: ya durur ya da düz çizgide sabit süratle gider.`},
+  {id:"f11",ch:"b4",q:R`Masadaki kitabın ağırlığının 3. yasa tepkisi hangisi?`,a:R`Kitabın Dünya'yı çekmesi. Normal kuvvet değil.`},
+  {id:"f12",ch:"b4",q:R`Kütle ile ağırlığın farkı?`,a:R`Kütle her yerde aynı; ağırlık $w=mg$, $g$'ye bağlı bir kuvvet.`},
+  {id:"f13",ch:"b5",q:R`Asansörde görünür ağırlık?`,a:R`$n=m(g+a_y)$, yukarı pozitif.`},
+  {id:"f14",ch:"b5",q:R`Kaymayan cisimde statik sürtünme kaç?`,a:R`Dengeyi sağlayan değer, $f_s\le\mu_s n$. Doğrudan $\mu_s n$ alınmaz.`},
+  {id:"f15",ch:"b5",q:R`Sürtünmesiz eğimli virajın açısı?`,a:R`$\tan\beta=\dfrac{v^2}{gR}$`},
+  {id:"f16",ch:"b5",q:R`Düşey çemberde dipte ve tepede ip denklemi?`,a:R`Dipte $T-mg=\dfrac{mv^2}{R}$, tepede $T+mg=\dfrac{mv^2}{R}$.`},
+  {id:"f17",ch:"b5",q:R`Sürtünmeli eğik düzlemde aşağı kayma ivmesi?`,a:R`$a=g(\sin\theta-\mu_k\cos\theta)$`},
+  {id:"f18",ch:"b6",q:R`Sabit kuvvetin işi?`,a:R`$W=Fs\cos\varphi=\vec F\cdot\vec s$`},
+  {id:"f19",ch:"b6",q:R`İş–enerji teoremi?`,a:R`$W_{top}=K_2-K_1$, bütün kuvvetlerin işi toplanır.`},
+  {id:"f20",ch:"b6",q:R`Güç, kuvvet ve hız cinsinden?`,a:R`$P=\vec F\cdot\vec v$, birimi watt ($1\ \text{W}=1\ \text{J/s}$).`},
+  {id:"f21",ch:"b6",q:R`Yayı 0'dan $x$'e germek için yapılan iş?`,a:R`$W=\tfrac12kx^2$`},
+  {id:"f22",ch:"b7",q:R`Sürtünme varken enerji denklemi?`,a:R`$K_1+U_1+W_{other}=K_2+U_2$, sürtünme için $W_{other}=-f_ks$.`},
+  {id:"f23",ch:"b7",q:R`Potansiyel enerjiden kuvvet?`,a:R`$F_x=-\dfrac{dU}{dx}$`},
+  {id:"f24",ch:"b7",q:R`$U(x)$ minimum ve maksimumunda denge türü?`,a:R`Minimum kararlı, maksimum kararsız denge.`},
+  {id:"f25",ch:"b7",q:R`Korunumlu kuvvetin üç özelliği?`,a:R`İşi yoldan bağımsız, kapalı yolda sıfır, potansiyel enerji fonksiyonu var.`}
+];
+const OZ_TITLES = {b1:"oz-b1",b2:"oz-b2",b3:"oz-b3",b4:"oz-b4",b5:"oz-b5",b6:"oz-b6",b7:"oz-b7"};
+
+/* ---------- examples come from the carried-over template ---------- */
+const EX = Array.from(document.getElementById("tpl-ex").content.querySelectorAll(".ex")).map(el=>({
+  id:el.dataset.ex, ch:el.dataset.ch, p:el.querySelector(".prompt").innerHTML, s:el.querySelector(".sol").innerHTML
+}));
+
+/* ---------- state (same key and shape as before; new fields are additive) ---------- */
 const KEY = "ns102-calis-v1";
-let S = {plan:{}, qt:{}, qtDone:false, da:{}, daDone:false, db:{}, dbOpen:{}, ex:{}, exOpen:{}, timer:null, tab:"plan", theme:null, exf:"all"};
+const DEF = {plan:{}, qt:{}, qtDone:false, da:{}, daDone:false, db:{}, dbOpen:{}, ex:{}, exOpen:{}, timer:null, tab:"plan", theme:null, exf:"all",
+             tBase:null, open:{}, scratch:{}, fc:{}, fcOpen:{}};
+let S = JSON.parse(JSON.stringify(DEF));
 let storeOK = true;
 try{
   const raw = localStorage.getItem(KEY);
   if(raw) S = Object.assign(S, JSON.parse(raw));
   localStorage.setItem(KEY+"-probe","1"); localStorage.removeItem(KEY+"-probe");
 }catch(e){ storeOK = false; }
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ storeOK = false; showWarn(); } }
-function showWarn(){ document.getElementById("storeWarn").hidden = storeOK; }
+for(const k of ["plan","qt","da","db","dbOpen","ex","exOpen","open","scratch","fc","fcOpen"]) if(!S[k] || typeof S[k]!=="object") S[k] = {};
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ if(storeOK){ storeOK=false; render(); } } }
 
+/* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
-const $$ = s => Array.from(document.querySelectorAll(s));
-function math(el){
-  if(window.renderMathInElement){
-    try{ renderMathInElement(el,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false,strict:false}); }catch(e){}
-  }
-}
-function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove("on"),1800); }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function math(el){ if(window.renderMathInElement){ try{ renderMathInElement(el,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false,strict:false}); }catch(e){} } }
+function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"); clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.remove("on"),2300); }
 function todayISO(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function tpl(id){ return document.getElementById(id).innerHTML; }
+function plain(s){ return String(s).replace(/<[^>]+>/g," ").replace(/\\[a-zA-Z]+/g," ").replace(/[\\${}^_]/g," ").replace(/\s+/g," ").toLocaleLowerCase("tr"); }
 
-/* ---------- theme ---------- */
-function applyTheme(){ if(S.theme) document.documentElement.setAttribute("data-theme",S.theme); else document.documentElement.removeAttribute("data-theme"); }
-$("#themeBtn").addEventListener("click",()=>{
-  const dark = S.theme ? S.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-  S.theme = dark ? "light" : "dark"; applyTheme(); save();
-});
+/* ---------- all gradable items ---------- */
+const QT_BY = Object.fromEntries(QT.map(q=>[String(q.id),q]));
+const DA_BY = Object.fromEntries(DA.map(q=>[String(q.id),q]));
+const ITEMS = [
+  ...QT.map(q=>({set:"qt", id:String(q.id), ch:q.ch, tab:"qt", text:q.q})),
+  ...EX.map(x=>({set:"ex", id:x.id, ch:x.ch, tab:"ornek", text:x.p})),
+  ...DA.map(q=>({set:"da", id:String(q.id), ch:q.ch, tab:"deneme", text:q.q})),
+  ...DB.map(p=>({set:"db", id:p.id, ch:p.ch, tab:"deneme", text:p.q}))
+];
+function label(it){ return PFX[it.set]+it.id; }
+function cid(it){ return "q-"+it.set+"-"+it.id; }
+function status(it){
+  if(it.set==="qt") return S.qtDone ? (S.qt[it.id]===QT_BY[it.id].a ? "ok":"bad") : null;
+  if(it.set==="da") return S.daDone ? (S.da[it.id]===DA_BY[it.id].a ? "ok":"bad") : null;
+  if(it.set==="db"){ const v=S.db[it.id]; return v===12?"ok":v===6?"mid":v===0?"bad":null; }
+  return S.ex[it.id]==="ok"||S.ex[it.id]==="bad" ? S.ex[it.id] : null;
+}
+function stText(st){ return st==="ok"?"✓ Doğru":st==="bad"?"✗ Yanlış":st==="mid"?"½ Yarım":""; }
 
 /* ---------- tabs ---------- */
-function showTab(id){
-  $$("#tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.tab===id ? "true":"false"));
-  $$("main > section").forEach(s=>s.hidden = s.id !== "t-"+id);
-  S.tab = id; save();
-  if(id==="zayif") renderWeak();
-  window.scrollTo(0,0);
+const TABS = [
+  ["plan","🧭 Plan"],
+  ["qt","⚡ Hızlı test"],
+  ["ornek","📚 Örnekler"],
+  ["konu","🧠 Konu & Ezber"],
+  ["form","📐 Formüller"],
+  ["deneme","📝 Deneme"],
+  ["ilerleme","📊 İlerleme & Hatalar"]
+];
+const TAB_SETS = {qt:["qt"], ornek:["ex"], deneme:["da","db"]};
+const LEGACY = {ozet:"konu", zayif:"ilerleme"};
+function badge(k){
+  if(!TAB_SETS[k]) return "";
+  const its = ITEMS.filter(i=>TAB_SETS[k].includes(i.set));
+  return ` <span class="muted small">${its.filter(i=>status(i)).length}/${its.length}</span>`;
 }
-$("#tabs").addEventListener("click",e=>{ const b=e.target.closest("button[data-tab]"); if(b) showTab(b.dataset.tab); });
-
-/* ---------- header ---------- */
-function updateHeader(){
-  const all = PLAN.flatMap(d=>d.items); const done = all.filter(i=>S.plan[i.id]).length;
-  $("#barFill").style.width = (100*done/all.length)+"%";
-  $("#barLbl").textContent = `Plan: ${done}/${all.length} madde bitti`;
-  const exam = new Date(2026,10,16,9,0,0); const ms = exam - new Date();
-  if(ms>0){ const h=Math.floor(ms/3600000); $("#count").innerHTML = `Sınava <b>${Math.floor(h/24)} gün ${h%24} saat</b> · 16 Kasım Pzt 09:00`; }
-  else $("#count").textContent = "Sınav: 16 Kasım Pzt 09:00";
+function renderTabs(){
+  $("#tabs").innerHTML = TABS.map(([k,l])=>`<button role="tab" id="tab-${k}" aria-controls="main" aria-selected="${S.tab===k}" tabindex="${S.tab===k?0:-1}" data-tab="${k}" type="button">${l}${badge(k)}</button>`).join("");
+}
+function go(k){
+  if(!TABS.some(([t])=>t===k)) k="plan";
+  S.tab=k; save();
+  if(location.hash.slice(1)!==k) history.replaceState(null,"","#"+k);
+  render(); window.scrollTo(0,0);
+  const b=$("#tab-"+k); if(b) b.scrollIntoView({block:"nearest",inline:"nearest"});
 }
 
-/* ---------- plan ---------- */
-function renderPlan(){
+/* ---------- shared card pieces ---------- */
+function headHTML(it, st, stOverride){
+  return `<header><span class="qid">${label(it)}</span><span class="chip">${CH[it.ch]}</span><span class="qsrc">${SRC[it.set]}</span><span class="st ${st||""}" aria-live="polite">${stOverride??stText(st)}</span></header>`;
+}
+function scratchBtn(it){ return `<button class="btn ghost" data-scratch="${it.set}:${it.id}" type="button" aria-expanded="${!!S.open["sc:"+it.set+":"+it.id]}">✏️ Karalama</button>`; }
+function scratchHTML(it){
+  const k=it.set+":"+it.id, open=!!S.open["sc:"+k];
+  return `<div class="scratch-box" id="sc-${it.set}-${it.id}" ${open?"":"hidden"}>
+    <div class="small muted"><b>Karalama alanı:</b> soldaki kutuya adımlarını yaz (kaydedilir), sağa fare ya da kalemle çiz.</div>
+    <div class="scratch-grid">
+      <textarea class="scratch-Area" data-scinput="${k}" aria-label="${label(it)} karalama metni" placeholder="Verilenler, serbest cisim diyagramı, denklemler...">${esc(S.scratch[k]||"")}</textarea>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas" id="canv-${it.set}-${it.id}" width="420" height="130" aria-label="${label(it)} çizim alanı"></canvas>
+        <button type="button" class="btn ghost" data-clearcanv="${it.set}-${it.id}" style="position:absolute;top:5px;right:5px;padding:2px 7px;font-size:.73rem">Temizle</button>
+      </div>
+    </div>
+  </div>`;
+}
+function hintParts(it, h){
+  if(!h) return ["",""];
+  const k="h:"+it.set+":"+it.id, open=!!S.open[k];
+  return [`<button class="btn ghost" data-hint="${it.set}:${it.id}" type="button" aria-expanded="${open}">💡 İpucu</button>`,
+          `<div class="hint" id="h-${it.set}-${it.id}" ${open?"":"hidden"}><b>İpucu:</b> ${h}</div>`];
+}
+
+/* ---------- multiple-choice card (hızlı test, deneme A) ---------- */
+function mcCard(it){
+  const q = it.set==="qt" ? QT_BY[it.id] : DA_BY[it.id];
+  const ans = it.set==="qt" ? S.qt : S.da, done = it.set==="qt" ? S.qtDone : S.daDone;
+  const sel = ans[it.id], has = sel!==undefined && sel!==null;
+  const st = status(it);
+  return `<article class="q" id="${cid(it)}">
+    ${headHTML(it, st, done && !has ? "Boş" : null)}
+    <div class="prompt"><p>${q.q}</p></div>
+    <div class="opts" role="radiogroup" aria-label="${label(it)} seçenekleri">${q.o.map((o,i)=>{
+      let c="opt"; if(done){ c+=" dis"; if(i===q.a) c+=" ok"; else if(i===sel) c+=" bad"; }
+      return `<label class="${c}"><input type="radio" name="${it.set}${it.id}" data-mc="${it.set}" data-qid="${it.id}" value="${i}" ${sel===i?"checked":""} ${done?"disabled":""}><span class="L">${L[i]})</span><span>${o}</span></label>`;
+    }).join("")}</div>
+    <div class="actions">${scratchBtn(it)}</div>
+    ${scratchHTML(it)}
+    ${done?`<div class="sol"><p><b>Cevap ${L[q.a]}.</b> ${q.e}</p></div>`:""}
+  </article>`;
+}
+
+/* ---------- worked example card ---------- */
+function exCard(x){
+  const it = ITEMS.find(i=>i.set==="ex"&&i.id===x.id), st=status(it), open=!!S.exOpen[x.id];
+  const [hb,hd] = hintParts(it, HINT_EX[x.id]);
+  return `<article class="q" id="${cid(it)}">
+    ${headHTML(it, st)}
+    <div class="prompt">${x.p}</div>
+    <div class="actions">${hb}<button class="btn soft" data-reveal="ex:${x.id}" type="button" aria-expanded="${open}">${open?"Çözümü gizle":"Çözümü göster"}</button>${scratchBtn(it)}</div>
+    ${hd}${scratchHTML(it)}
+    <div class="sol" id="s-ex-${x.id}" ${open?"":"hidden"}>${x.s}
+      <div class="self"><span class="small muted">Kağıttaki çözümün:</span>
+        <button class="btn ${st==="ok"?"ok":"ghost"}" data-mark="ok" data-key="ex:${x.id}" type="button" aria-pressed="${st==="ok"}">✓ Doğru yaptım</button>
+        <button class="btn ${st==="bad"?"bad":"ghost"}" data-mark="bad" data-key="ex:${x.id}" type="button" aria-pressed="${st==="bad"}">✗ Yanlış yaptım</button></div>
+    </div>
+  </article>`;
+}
+
+/* ---------- deneme B card ---------- */
+function dbCard(p){
+  const it = ITEMS.find(i=>i.set==="db"&&i.id===p.id), st=status(it), open=!!S.dbOpen[p.id], v=S.db[p.id];
+  const [hb,hd] = hintParts(it, HINT_DB[p.id]);
+  return `<article class="q" id="${cid(it)}">
+    ${headHTML(it, st)}
+    <div class="prompt"><p>${p.q}</p></div>
+    <div class="actions">${hb}<button class="btn soft" data-reveal="db:${p.id}" type="button" aria-expanded="${open}">${open?"Çözümü gizle":"Çözümü göster"}</button>${scratchBtn(it)}</div>
+    ${hd}${scratchHTML(it)}
+    <div class="sol" id="s-db-${p.id}" ${open?"":"hidden"}>${p.s}
+      <div class="self"><span class="small muted">Kendine puan ver:</span>
+        <button class="btn ${v===12?"ok":"ghost"}" data-dbscore="12" data-id="${p.id}" type="button" aria-pressed="${v===12}">✓ Tam (12)</button>
+        <button class="btn ${v===6?"mid":"ghost"}" data-dbscore="6" data-id="${p.id}" type="button" aria-pressed="${v===6}">½ Yarım (6)</button>
+        <button class="btn ${v===0?"bad":"ghost"}" data-dbscore="0" data-id="${p.id}" type="button" aria-pressed="${v===0}">✗ Yanlış (0)</button></div>
+    </div>
+  </article>`;
+}
+
+/* ---------- views ---------- */
+function warnHTML(){ return storeOK ? "" : `<div class="warn">Bu sayfa ilerlemeni kaydedemiyor (tarayıcı depolaması kapalı). İşaretlerin sayfa kapanınca kaybolur.</div>`; }
+
+function planView(){
   const today = todayISO();
-  $("#planList").innerHTML = PLAN.map(d=>`
-    <div class="day ${d.d===today?"today":""}">
-      <h3>${d.t} ${d.d===today?'<span class="chip">bugün</span>':""}<span class="muted small" style="font-family:'IBM Plex Sans'">${d.n}</span></h3>
-      <ul>${d.items.map(i=>`<li class="${S.plan[i.id]?"done":""}"><input type="checkbox" id="${i.id}" ${S.plan[i.id]?"checked":""}><label class="what" for="${i.id}">${i.w}</label>${i.go?`<button class="go" type="button" data-go="${i.go}">aç</button>`:""}</li>`).join("")}</ul>
-    </div>`).join("");
+  return `<section class="sheet plan">
+    <h2>NS102 Midterm Çalışma Planı</h2>
+    <p class="muted"><b>Sınav:</b> 16 Kasım 2026 Pazartesi 09:00 · <b>Kaynak:</b> Young &amp; Freedman, <i>University Physics</i> 15. baskı, Bölüm 1–7 slaytları. MATH101 Cumartesi 12:30'da, bu yüzden Cuma hafif, asıl yük Cumartesi akşamı ve Pazar'da.</p>
+    <div class="chips"><span class="chip">${ITEMS.length} etkileşimli soru</span><span class="chip purple">${FC.length} ezber kartı</span><span class="chip green">Otomatik puanlanan test ve deneme</span><span class="chip amber">${EX.length} çözümlü örnek</span></div>
+    <div class="note small"><b>Teyit edilmedi:</b> kapsam Bölüm 1–7 varsayıldı (klasöre yedi bölümün slaytı geldi). Sınav formatı ve formül kâğıdı verilip verilmeyeceği bilinmiyor. Hoca farklı bir şey söylediyse plan değişir.</div>
+    ${PLAN.map(d=>`<div class="day ${d.d===today?"today":""}">
+      <h3>${d.t} ${d.d===today?'<span class="chip amber">bugün</span>':""}<span class="muted">${d.n}</span></h3>
+      <ul>${d.items.map(i=>`<li class="${S.plan[i.id]?"done":""}"><input type="checkbox" id="pl-${i.id}" data-plan="${i.id}" ${S.plan[i.id]?"checked":""}><label class="what" for="pl-${i.id}">${i.w}</label>${i.go?`<button class="go" type="button" data-tab="${LEGACY[i.go]||i.go}">aç</button>`:""}</li>`).join("")}</ul>
+    </div>`).join("")}
+  </section>
+  <section class="sheet"><h2>Bölümler ve ağırlık</h2>${tpl("tpl-weights")}
+    <p class="muted small">Ağırlık sütunu tahmindir: bu kitapla yapılan midterm'lerde hesap soruları en çok 3, 5 ve 7. bölümlerden gelir. Clicker soruları bilgisayarındaki <code>NS102\\materyal</code> klasöründe (sitede yok); her sorudan sonraki slayt doğru cevabı işaretli gösterir.</p>
+  </section>`;
 }
-$("#planList").addEventListener("change",e=>{
-  if(e.target.type!=="checkbox") return;
-  S.plan[e.target.id] = e.target.checked; save();
-  e.target.closest("li").classList.toggle("done", e.target.checked); updateHeader();
-});
-document.addEventListener("click",e=>{ const g=e.target.closest("[data-go]"); if(g) showTab(g.dataset.go); });
 
-/* ---------- multiple choice ---------- */
-function renderMC(list, rootSel, ans, done, prefix){
-  const root = $(rootSel);
-  root.innerHTML = list.map(q=>{
-    const sel = ans[q.id]; const has = sel!==undefined;
-    let st = "", stc = "";
-    if(done){ if(!has){st="Boş";stc="bad";} else if(sel===q.a){st="Doğru";stc="ok";} else {st="Yanlış";stc="bad";} }
-    return `<div class="q" data-q="${q.id}">
-      <header><span class="qid">${q.id}</span><span class="chip">${CHS[q.ch]}</span><span class="st ${stc}">${st}</span></header>
-      <div class="prompt"><p>${q.q}</p></div>
-      <div class="opts">${q.o.map((o,i)=>{
-        let c = "opt"; if(done){ c+=" dis"; if(i===q.a) c+=" ok"; else if(i===sel) c+=" bad"; }
-        return `<label class="${c}"><input type="radio" name="${prefix}${q.id}" value="${i}" ${sel===i?"checked":""} ${done?"disabled":""}><span class="L">${L[i]})</span><span>${o}</span></label>`;
-      }).join("")}</div>
-      ${done?`<div class="sol"><p><b>Cevap ${L[q.a]}.</b> ${q.e}</p></div>`:""}
-    </div>`;
-  }).join("");
-  math(root);
-}
-function mcScore(list, ans){ return list.filter(q=>ans[q.id]===q.a).length; }
-
-/* ---------- hızlı test ---------- */
-function renderQT(){
-  renderMC(QT, "#qtList", S.qt, S.qtDone, "qt");
-  const box = $("#qtScore");
+function qtView(){
+  const its = ITEMS.filter(i=>i.set==="qt");
+  let h = `<section class="sheet"><h2>⚡ Hızlı test</h2>
+    <p class="muted">14 soru, her bölümden iki tane. Kaynak açma. Bilmiyorsan boş bırak, tahmin etme: boş da yanlış sayılır ve zayıf konuyu daha doğru gösterir. Yaklaşık 15 dakika.</p>`;
+  h += its.map(mcCard).join("");
   if(S.qtDone){
-    const sc = mcScore(QT, S.qt);
-    const wrongCh = [...new Set(QT.filter(q=>S.qt[q.id]!==q.a).map(q=>q.ch))];
-    box.innerHTML = `<div class="score">Puan: <b>${sc}/${QT.length}</b>
-      <div class="small" style="font-family:'IBM Plex Sans';margin-top:6px">${wrongCh.length?`Hata çıkan bölümler: ${wrongCh.map(c=>CHS[c]).join(", ")}. <button class="go" type="button" data-go="zayif">Zayıf konulara git</button>`:"Hepsi doğru. Plan aynen devam."}</div></div>`;
-  } else box.innerHTML = "";
-  $("#qtCheck").hidden = S.qtDone;
-}
-$("#qtList").addEventListener("change",e=>{ if(e.target.type==="radio"){ S.qt[e.target.name.slice(2)] = +e.target.value; save(); } });
-$("#qtCheck").addEventListener("click",()=>{
-  const blank = QT.length - Object.keys(S.qt).length;
-  S.qtDone = true; save(); renderQT(); toast(blank?`${blank} boş soru yanlış sayıldı`:"Kontrol edildi");
-  const p = S.plan.p1; if(!p){ S.plan.p1 = true; save(); renderPlan(); updateHeader(); }
-});
-twoStep($("#qtReset"), ()=>{ S.qt={}; S.qtDone=false; save(); renderQT(); toast("Hızlı test sıfırlandı"); });
-
-/* ---------- two-step confirm ---------- */
-function twoStep(btn, fn){
-  const orig = btn.textContent;
-  btn.addEventListener("click",()=>{
-    if(btn.dataset.arm){ delete btn.dataset.arm; btn.textContent=orig; fn(); return; }
-    btn.dataset.arm="1"; btn.textContent="Emin misin? Tekrar bas";
-    setTimeout(()=>{ if(btn.dataset.arm){ delete btn.dataset.arm; btn.textContent=orig; } },3000);
-  });
+    const sc = its.filter(i=>status(i)==="ok").length;
+    const wrongCh = [...new Set(its.filter(i=>status(i)==="bad").map(i=>i.ch))];
+    h += `<div class="score" role="status">Puan: <b>${sc}/${its.length}</b><div class="small">${wrongCh.length?`Hata çıkan bölümler: ${wrongCh.map(c=>CHS[c]).join(", ")}. <button class="go" type="button" data-tab="ilerleme">İlerleme & Hatalar</button>`:"Hepsi doğru. Plan aynen devam."}</div></div>`;
+  }
+  h += `<div class="actions">${S.qtDone?"":`<button class="btn" id="qtCheck" type="button">Kontrol et</button>`}<button class="btn ghost" id="qtReset" type="button">Testi sıfırla</button></div></section>`;
+  return h;
 }
 
-/* ---------- örnekler ---------- */
-function renderEx(){
-  $$(".ex").forEach(el=>{
-    const id = el.dataset.ex; const mk = S.ex[id]; const open = !!S.exOpen[id];
-    el.querySelector(".sol").hidden = !open;
-    const st = el.querySelector(".st"); st.className = "st "+(mk==="ok"?"ok":mk==="bad"?"bad":""); st.textContent = mk==="ok"?"Çözdüm":mk==="bad"?"Çözemedim":"";
-    let row = el.querySelector(".row");
-    if(!row){ row=document.createElement("div"); row.className="row"; el.appendChild(row); }
-    row.innerHTML = `<button class="btn soft" type="button" data-act="tog">${open?"Çözümü gizle":"Çözümü göster"}</button>
-      <button class="btn ${mk==="ok"?"sel-ok":"ghost"}" type="button" data-act="ok">Çözdüm</button>
-      <button class="btn ${mk==="bad"?"sel-bad":"ghost"}" type="button" data-act="bad">Çözemedim</button>`;
-    const f = S.exf; el.hidden = !(f==="all" || f===el.dataset.ch || (f==="bad" && mk==="bad"));
-  });
-  const opts = [["all","Tümü"],...Object.keys(CHS).map(c=>[c,CHS[c]]),["bad","Çözemediklerim"]];
-  $("#exFilter").innerHTML = opts.map(([k,l])=>`<button class="chip" type="button" data-f="${k}" aria-pressed="${S.exf===k}">${l}</button>`).join("");
+function ornekView(){
+  const its = ITEMS.filter(i=>i.set==="ex");
+  const ok = its.filter(i=>status(i)==="ok").length, bad = its.filter(i=>status(i)==="bad").length;
+  const cnt = c=>its.filter(i=>i.ch===c).length;
+  const filters = [["all",`Tümü (${its.length})`], ...Object.keys(CHS).filter(c=>cnt(c)).map(c=>[c,`${CHS[c]} (${cnt(c)})`]), ["bad",`✗ Yanlışlarım (${bad})`], ["todo",`⏳ Çözülmemiş (${its.length-ok-bad})`]];
+  if(!filters.some(([k])=>k===S.exf)) S.exf="all";
+  let list = EX;
+  if(S.exf==="bad") list = EX.filter(x=>S.ex[x.id]==="bad");
+  else if(S.exf==="todo") list = EX.filter(x=>S.ex[x.id]!=="ok"&&S.ex[x.id]!=="bad");
+  else if(S.exf!=="all") list = EX.filter(x=>x.ch===S.exf);
+  return `<section class="sheet"><h2>📚 Çözümlü örnekler</h2>
+    <p class="muted">Önce kâğıtta kendin çöz, sonra çözümü aç ve "Doğru yaptım" ya da "Yanlış yaptım" işaretle. İlerleme ve hata listesi buna göre hesaplanır. $g=9{,}80\\ \\text{m/s}^2$.</p>
+    <p class="small">Bu setteki durumun: <b style="color:var(--green)">${ok} doğru</b> · <b style="color:var(--red)">${bad} yanlış</b> · <b>${its.length-ok-bad} çözülmemiş</b></p>
+    <div class="filter-bar" role="group" aria-label="Örnek filtresi">${filters.map(([k,l])=>`<button type="button" class="filter-btn ${S.exf===k?"active":""}" data-exf="${k}" aria-pressed="${S.exf===k}">${l}</button>`).join("")}</div>
+    <div class="actions"><button class="btn ghost" data-expandall="ex" type="button">Tüm çözümleri aç/kapat</button></div>
+    ${list.length ? list.map(exCard).join("") : `<p class="muted" style="padding:20px 0">Bu filtrede örnek yok.</p>`}
+  </section>`;
 }
-$("#exList").addEventListener("click",e=>{
-  const b = e.target.closest("button[data-act]"); if(!b) return;
-  const id = b.closest(".ex").dataset.ex;
-  if(b.dataset.act==="tog") S.exOpen[id] = !S.exOpen[id];
-  else S.ex[id] = S.ex[id]===b.dataset.act ? undefined : b.dataset.act;
-  save(); renderEx();
-});
-$("#exFilter").addEventListener("click",e=>{ const b=e.target.closest("[data-f]"); if(b){ S.exf=b.dataset.f; save(); renderEx(); } });
 
-/* ---------- deneme ---------- */
-function renderDA(){ renderMC(DA, "#daList", S.da, S.daDone, "da"); $("#daCheck").hidden = S.daDone; renderDScore(); }
-$("#daList").addEventListener("change",e=>{ if(e.target.type==="radio"){ S.da[e.target.name.slice(2)] = +e.target.value; save(); } });
-$("#daCheck").addEventListener("click",()=>{ S.daDone=true; save(); renderDA(); toast("A bölümü kontrol edildi"); });
-twoStep($("#daReset"), ()=>{ S.da={}; S.daDone=false; save(); renderDA(); toast("A bölümü sıfırlandı"); });
-
-function renderDB(){
-  const root = $("#dbList");
-  root.innerHTML = DB.map(p=>{
-    const v = S.db[p.id]; const open = !!S.dbOpen[p.id];
-    const st = v===12?["Tam","ok"]:v===6?["Yarım","mid"]:v===0?["Yanlış","bad"]:["",""];
-    return `<div class="q" data-p="${p.id}">
-      <header><span class="qid">${p.id}</span><span class="chip">${CHS[p.ch]}</span><span class="st ${st[1]}">${st[0]}</span></header>
-      <div class="prompt"><p>${p.q}</p></div>
-      <div class="sol" ${open?"":"hidden"}>${p.s}</div>
-      <div class="row">
-        <button class="btn soft" type="button" data-act="tog">${open?"Çözümü gizle":"Çözümü göster"}</button>
-        <button class="btn ${v===12?"sel-ok":"ghost"}" type="button" data-act="12">Tam (12)</button>
-        <button class="btn ${v===6?"sel-mid":"ghost"}" type="button" data-act="6">Yarım (6)</button>
-        <button class="btn ${v===0?"sel-bad":"ghost"}" type="button" data-act="0">Yanlış (0)</button>
-      </div></div>`;
-  }).join("");
-  math(root); renderDScore();
+function konuView(){
+  const m = FC.filter(f=>S.fc[f.id]==="ok").length;
+  return `<section class="sheet"><h2>🧠 Ezber kartları (${m}/${FC.length} öğrenildi)</h2>
+    <p class="muted">Karta tıkla ya da Enter'a bas, cevap çevrilsin. Bildiğin kartı "Öğrendim" ile işaretle. Kartlar Formüller ve Özet'ten alındı.</p>
+    <div class="fc-grid">${FC.map(f=>{ const fl=!!S.fcOpen[f.id], ok=S.fc[f.id]==="ok";
+      return `<div class="fc-card ${fl?"flipped":""} ${ok?"mastered":""}" id="fc-${f.id}" data-fcflip="${f.id}" role="button" tabindex="0" aria-pressed="${fl}" aria-label="${CHS[f.ch]} kartı, ${fl?"cevap gösteriliyor":"soru gösteriliyor"}">
+        <div class="fc-top"><span>${CHS[f.ch]}</span><span>${fl?"CEVAP":"SORU · çevir ↻"}</span></div>
+        <div class="fc-main">${fl?f.a:f.q}</div>
+        <div class="fc-foot"><span>${ok?"✓ Öğrenildi":"Tekrar gerekli"}</span>
+          <button type="button" class="btn ${ok?"ok":"ghost"}" data-fcmark="${f.id}" aria-pressed="${ok}" style="padding:2px 8px;font-size:.74rem">${ok?"✓ Öğrendim":"Öğrendim"}</button></div>
+      </div>`; }).join("")}</div>
+  </section>
+  <section class="sheet"><h2>📖 Konu özeti</h2><p class="muted small">Formüller ayrı sekmede. Burada fikirler ve sık yapılan hatalar var.</p>${tpl("tpl-ozet")}</section>`;
 }
-$("#dbList").addEventListener("click",e=>{
-  const b = e.target.closest("button[data-act]"); if(!b) return;
-  const id = b.closest("[data-p]").dataset.p;
-  if(b.dataset.act==="tog") S.dbOpen[id] = !S.dbOpen[id];
-  else { const v=+b.dataset.act; S.db[id] = S.db[id]===v ? undefined : v; }
-  save(); renderDB();
-});
-function renderDScore(){
-  const a = S.daDone ? mcScore(DA,S.da)*2 : null;
-  const marked = DB.filter(p=>S.db[p.id]!==undefined);
+
+function formView(){
+  return `<section class="sheet"><h2>📐 Formül sayfası</h2>
+    <p class="muted small">$g=9{,}80\\ \\text{m/s}^2$. Açılar derece. Formül kâğıdı verilmeyecekmiş gibi ezberle.</p>${tpl("tpl-form")}</section>`;
+}
+
+const DUR = 90*60*1000;
+function tLeftMs(){ const base = S.tBase ?? DUR; return S.timer ? base-(Date.now()-S.timer) : base; }
+function denemeView(){
+  const a = ITEMS.filter(i=>i.set==="da");
+  return `<section class="sheet"><h2>📝 Deneme sınavı</h2>
+    <p class="muted">90 dakika. Kaynak ve formül sayfası kapalı, hesap makinesi serbest. $g=9{,}80\\ \\text{m/s}^2$. A bölümü 20 × 2 = 40 puan, B bölümü 5 × 12 = 60 puan. Sorular slaytlardaki konulara göre hazırlandı; hocanın gerçek sınav formatı bilinmiyor.</p>
+    <div class="timer" id="dTimer"><span class="clock" id="dClock" aria-live="off">90:00</span>
+      <button class="btn" id="tStart" type="button">Süreyi başlat</button>
+      <button class="btn ghost" id="tPause" type="button">Duraklat</button>
+      <button class="btn ghost" id="tReset" type="button">Sıfırla</button>
+      <span class="small muted" id="tNote">Sınav süresi: 90 dk (kapalı defter)</span></div>
+    <h3>A Bölümü: Çoktan seçmeli</h3>
+    ${a.map(mcCard).join("")}
+    <div class="actions">${S.daDone?"":`<button class="btn" id="daCheck" type="button">A bölümünü kontrol et</button>`}<button class="btn ghost" id="daReset" type="button">A bölümünü sıfırla</button></div>
+    <h3>B Bölümü: Klasik sorular</h3>
+    <p class="muted small">Kâğıtta adım adım çöz, gereken yerde serbest cisim diyagramı çiz. Sonra çözümü aç ve kendine puan ver: tam 12, yarım 6, yanlış 0.</p>
+    ${DB.map(dbCard).join("")}
+    ${scoreHTML()}
+  </section>`;
+}
+function scoreHTML(){
+  const a = S.daDone ? ITEMS.filter(i=>i.set==="da"&&status(i)==="ok").length*2 : null;
+  const marked = DB.filter(p=>[0,6,12].includes(S.db[p.id]));
   const b = marked.reduce((s,p)=>s+S.db[p.id],0);
-  if(a===null && !marked.length){ $("#dScore").innerHTML=""; return; }
-  let msg = "";
+  if(a===null && !marked.length) return "";
+  let msg="";
   if(a!==null && marked.length===DB.length){
     const t=a+b;
     msg = t>=80 ? "Hazırsın. Yanlış yaptığın bölümlerin clicker sorularını bir kez daha çöz."
-        : t>=60 ? "Yanlışların bölümünü Özet ve Örnekler'den tekrar et."
-        : "Zayıf konular sekmesine bak, en üstteki bölümden başla.";
+        : t>=60 ? "Yanlışların bölümünü Konu & Ezber ve Örnekler'den tekrar et."
+        : "İlerleme & Hatalar sekmesine bak, en zayıf bölümden başla.";
   }
-  $("#dScore").innerHTML = `<div class="score">A: <b>${a===null?"–":a}</b>/40 · B: <b>${b}</b>/60 <span class="small">(${marked.length}/5 işaretli)</span>${a!==null&&marked.length===DB.length?` · Toplam: <b>${a+b}</b>/100`:""}
-    ${msg?`<div class="small" style="font-family:'IBM Plex Sans';margin-top:6px">${msg} <button class="go" type="button" data-go="zayif">Zayıf konular</button></div>`:""}</div>`;
+  return `<div class="score" role="status">A: <b>${a===null?"–":a}</b>/40 · B: <b>${b}</b>/60 <span class="small">(${marked.length}/5 işaretli)</span>${a!==null&&marked.length===DB.length?` · Toplam: <b>${a+b}</b>/100`:""}
+    ${msg?`<div class="small">${msg} <button class="go" type="button" data-tab="ilerleme">İlerleme & Hatalar</button></div>`:""}</div>`;
 }
 
-/* ---------- timer ---------- */
-const DUR = 90*60*1000;
-function tick(){
-  const el=$("#timer");
-  if(!S.timer){ $("#clock").textContent="90:00"; el.classList.remove("over"); $("#tStart").hidden=false; $("#tNote").textContent=""; return; }
-  $("#tStart").hidden=true;
-  const left = DUR - (Date.now()-S.timer); const over = left<0; const a=Math.abs(left);
-  const m=Math.floor(a/60000), s=Math.floor(a%60000/1000);
-  $("#clock").textContent=(over?"+":"")+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
-  el.classList.toggle("over",over); $("#tNote").textContent = over ? "Süre doldu, kalemi bırak." : "Sayfayı kapatsan da süre devam eder.";
-}
-$("#tStart").addEventListener("click",()=>{ S.timer=Date.now(); save(); tick(); toast("Süre başladı: 90 dakika"); });
-twoStep($("#tReset"), ()=>{ S.timer=null; save(); tick(); });
-
-/* ---------- zayıf konular ---------- */
 function stats(){
-  const s={}; Object.keys(CHS).forEach(c=>s[c]={ok:0,bad:0});
-  if(S.qtDone) QT.forEach(q=> S.qt[q.id]===q.a ? s[q.ch].ok++ : s[q.ch].bad++);
-  if(S.daDone) DA.forEach(q=> S.da[q.id]===q.a ? s[q.ch].ok++ : s[q.ch].bad++);
-  DB.forEach(p=>{ const v=S.db[p.id]; if(v===12) s[p.ch].ok++; else if(v===6){s[p.ch].ok+=.5;s[p.ch].bad+=.5;} else if(v===0) s[p.ch].bad++; });
-  $$(".ex").forEach(el=>{ const m=S.ex[el.dataset.ex], c=el.dataset.ch; if(m==="ok") s[c].ok++; else if(m==="bad") s[c].bad++; });
-  return s;
+  const r={}; for(const c in CHS) r[c]={ok:0,bad:0,tot:0};
+  for(const it of ITEMS){ const s=status(it); r[it.ch].tot++; if(s==="ok") r[it.ch].ok++; else if(s==="bad") r[it.ch].bad++; else if(s==="mid"){ r[it.ch].ok+=.5; r[it.ch].bad+=.5; } }
+  return r;
 }
-function renderWeak(){
-  const s = stats();
-  const rows = Object.keys(CHS).map(c=>{ const n=s[c].ok+s[c].bad; return {c, ...s[c], n, r: n? s[c].ok/n : null}; });
-  const withData = rows.filter(r=>r.n).sort((a,b)=>a.r-b.r);
-  const noData = rows.filter(r=>!r.n);
-  if(!withData.length){
-    $("#wkList").innerHTML = `<p>Henüz veri yok. Önce <button class="go" type="button" data-go="qt">hızlı testi</button> çöz.</p>`; return;
-  }
-  const row = r=>{
-    const weak = r.n && r.r<0.7; const fmt=x=>Number.isInteger(x)?x:x.toFixed(1).replace(".",",");
-    return `<div class="wk ${weak?"weak":""}">
-      <span class="nm">${CH[r.c]}</span>
-      ${r.n?`<span class="meter" aria-hidden="true"><i class="g" style="width:${100*r.r}%"></i><i class="r" style="width:${100*(1-r.r)}%"></i></span>
-      <span class="small">${fmt(r.ok)} doğru · ${fmt(r.bad)} yanlış</span>`:`<span class="small muted">veri yok</span>`}
-      <span class="small"><button class="go" type="button" data-oz="${r.c}">özet</button> <button class="go" type="button" data-fo="${r.c}">formül</button> <button class="go" type="button" data-ef="${r.c}">örnekler</button></span>
-    </div>`;
-  };
-  $("#wkList").innerHTML = withData.map(row).join("") + (noData.length?`<h3>Henüz test edilmedi</h3>`+noData.map(row).join(""):"");
+function fmt(x){ return Number.isInteger(x)?String(x):x.toFixed(1).replace(".",","); }
+function ilerlemeView(){
+  const r = stats();
+  const weak = Object.keys(CHS).filter(c=>{ const s=r[c], n=s.ok+s.bad; return n && s.ok/n<0.7; }).sort((a,b)=>r[a].ok/(r[a].ok+r[a].bad)-r[b].ok/(r[b].ok+r[b].bad));
+  let h = `<section class="sheet"><h2>📊 Bölüm bazlı ilerleme</h2>
+    <p class="muted">Hızlı test, deneme ve örneklerdeki işaretlerinden hesaplanır. Doğru oranı %70'in altındaki bölümler kırmızı.</p>
+    <p class="small"><b>Zayıf bölümler:</b> ${weak.length?`<span class="wklist">${weak.map(c=>`<span class="chip red">${CH[c]}</span>`).join("")}</span> En baştakinden başla.`:"Henüz yok ya da veri yetersiz. Önce hızlı testi çöz."}</p>
+    <div class="tblwrap"><table>
+    <tr><th>Bölüm</th><th>Doğru</th><th>Yanlış</th><th>Boş</th><th>Oran</th><th>Çalış</th></tr>`;
+  for(const c in CHS){ const s=r[c], n=s.ok+s.bad, isWeak=weak.includes(c);
+    h += `<tr><td class="${isWeak?"weak":""}">${CH[c]}</td><td style="color:var(--green);font-weight:700">${fmt(s.ok)}</td><td style="color:var(--red);font-weight:700">${fmt(s.bad)}</td><td>${fmt(s.tot-n)}</td>
+      <td><div class="meter" role="img" aria-label="${fmt(s.ok)} doğru, ${fmt(s.bad)} yanlış, ${fmt(s.tot-n)} boş"><span class="g" style="width:${100*s.ok/s.tot}%"></span><span class="r" style="width:${100*s.bad/s.tot}%"></span></div></td>
+      <td><button type="button" class="go" data-exgo="${c}">örnekler</button> · <button type="button" class="go" data-ozgo="${c}">özet</button> · <button type="button" class="go" data-fogo="${c}">formül</button></td></tr>`; }
+  h += `</table></div><div class="actions"><button class="btn" id="copyBtn" type="button">📋 İlerleme özetini kopyala</button><button class="btn ghost" id="resetAll" type="button">Tüm ilerlemeyi sıfırla</button></div></section>`;
+  const bad = ITEMS.filter(i=>{ const s=status(i); return s==="bad"||s==="mid"; });
+  h += `<section class="sheet"><h2>📕 Hata listesi (${bad.length} soru)</h2>`;
+  h += bad.length ? `<p class="muted">Sınavdan önce bu soruları tekrar çöz. Örneklerde "Doğru yaptım" deyince listeden düşer.</p>`+bad.map(it=>{
+      const s=status(it), extra = (it.set==="qt"||it.set==="da") && (it.set==="qt"?S.qt:S.da)[it.id]===undefined ? " · boş" : "";
+      return `<div class="errrow"><span class="qid">${label(it)}</span><span class="chip ${s==="mid"?"amber":"red"}">${s==="mid"?"Yarım":"Yanlış"+extra}</span><span class="what">${SRC[it.set]} · ${CH[it.ch]}</span><button type="button" class="btn soft" data-jump="${it.set}:${it.id}" style="padding:3px 10px;font-size:.8rem">Soruya git</button></div>`;
+    }).join("")
+    : `<p class="muted">Henüz yanlış yok. Hızlı test, deneme ve örneklerde yanlış çıkan sorular burada birikir.</p>`;
+  return h+`</section>`;
 }
-document.addEventListener("click",e=>{
-  const oz=e.target.closest("[data-oz]"), fo=e.target.closest("[data-fo]"), ef=e.target.closest("[data-ef]");
-  if(oz){ showTab("ozet"); const d=$("#oz-"+oz.dataset.oz); d.open=true; d.scrollIntoView({block:"start"}); window.scrollBy(0,-150); }
-  if(fo){ showTab("form"); $("#fo-"+fo.dataset.fo).scrollIntoView({block:"start"}); window.scrollBy(0,-150); }
-  if(ef){ S.exf=ef.dataset.ef; save(); renderEx(); showTab("ornek"); }
-});
+function summaryText(){
+  const r=stats(), lines=["NS102 ilerleme özeti:"];
+  for(const c in CHS){ const s=r[c]; lines.push(`- ${CH[c]}: ${fmt(s.ok)} doğru, ${fmt(s.bad)} yanlış, ${fmt(s.tot-s.ok-s.bad)} boş`); }
+  const bad=ITEMS.filter(i=>["bad","mid"].includes(status(i))).map(label);
+  lines.push("Yanlışlar: "+(bad.length?bad.join(", "):"yok"));
+  if(S.daDone || DB.some(p=>S.db[p.id]!==undefined)){ const a=S.daDone?ITEMS.filter(i=>i.set==="da"&&status(i)==="ok").length*2:"–"; const b=DB.reduce((s,p)=>s+(S.db[p.id]||0),0); lines.push(`Deneme: A ${a}/40, B ${b}/60`); }
+  return lines.join("\n");
+}
 
-/* ---------- init ---------- */
-function init(){
-  showWarn(); applyTheme(); updateHeader(); renderPlan(); renderQT(); renderEx(); renderDA(); renderDB(); tick();
-  math($("#t-ozet")); math($("#t-form")); math($("#t-ornek")); math($("#t-deneme").querySelector("p"));
-  showTab(S.tab || "plan");
-  setInterval(tick,1000); setInterval(updateHeader,60000);
+/* ---------- timers ---------- */
+let pomo = {left:25*60, run:false, at:0};
+function pomoLeft(){ return pomo.run ? pomo.left-(Date.now()-pomo.at)/1000 : pomo.left; }
+function tick(){
+  const el=$("#dClock");
+  if(el){
+    const l=tLeftMs(), a=Math.abs(Math.round(l/1000));
+    el.textContent=(l<0?"−":"")+String(Math.floor(a/60)).padStart(2,"0")+":"+String(a%60).padStart(2,"0");
+    $("#dTimer").classList.toggle("over",l<0);
+    $("#tStart").hidden=!!S.timer; $("#tPause").hidden=!S.timer;
+    $("#tNote").textContent = l<0 ? "Süre doldu, kalemi bırak." : S.timer ? "Sayfayı kapatsan da süre devam eder." : (S.tBase!=null && S.tBase<DUR ? "Duraklatıldı." : "Sınav süresi: 90 dk (kapalı defter)");
+  }
+  const pl=Math.max(0,Math.round(pomoLeft()));
+  $("#pomoClock").textContent=String(Math.floor(pl/60)).padStart(2,"0")+":"+String(pl%60).padStart(2,"0");
+  if(pl===0 && pomo.run){ pomo={left:25*60,run:false,at:0}; $("#pomoToggle").textContent="Başlat"; toast("🍅 Pomodoro tamamlandı. 5 dk mola ver."); }
 }
-if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init); else init();
+setInterval(tick,1000);
+
+/* ---------- scratch canvas ---------- */
+function initScratchCanvases(){
+  document.querySelectorAll(".scratch-canvas").forEach(canv=>{
+    if(canv.dataset.bound) return; canv.dataset.bound="1";
+    const ctx=canv.getContext("2d"); let drawing=false;
+    const pos=e=>{ const r=canv.getBoundingClientRect(); const p=e.touches?e.touches[0]:e; return [(p.clientX-r.left)*(canv.width/r.width),(p.clientY-r.top)*(canv.height/r.height)]; };
+    const start=e=>{ drawing=true; const [x,y]=pos(e); ctx.beginPath(); ctx.moveTo(x,y); e.preventDefault(); };
+    const move=e=>{ if(!drawing) return; const [x,y]=pos(e); ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--blue").trim()||"#3b82f6"; ctx.lineWidth=2; ctx.lineCap="round"; ctx.lineTo(x,y); ctx.stroke(); e.preventDefault(); };
+    const stop=()=>{ drawing=false; };
+    canv.addEventListener("mousedown",start); canv.addEventListener("mousemove",move); window.addEventListener("mouseup",stop);
+    canv.addEventListener("touchstart",start,{passive:false}); canv.addEventListener("touchmove",move,{passive:false}); window.addEventListener("touchend",stop);
+  });
+}
+
+/* ---------- render ---------- */
+function render(){
+  const m=$("#main"), k=S.tab;
+  m.setAttribute("aria-labelledby","tab-"+k);
+  m.innerHTML = warnHTML() + (k==="plan"?planView(): k==="qt"?qtView(): k==="ornek"?ornekView(): k==="konu"?konuView(): k==="form"?formView(): k==="deneme"?denemeView(): ilerlemeView());
+  math(m); initScratchCanvases(); tick(); header();
+}
+function header(){
+  const n=ITEMS.length, sts=ITEMS.map(status);
+  const ok=sts.filter(s=>s==="ok").length, bad=sts.filter(s=>s==="bad").length, mid=sts.filter(s=>s==="mid").length, d=ok+bad+mid;
+  $("#barOk").style.width=(100*(ok+mid/2)/n)+"%"; $("#barBad").style.width=(100*(bad+mid/2)/n)+"%";
+  $("#barLbl").textContent=`${d}/${n} çözüldü (${ok} ✓ · ${bad} ✗${mid?` · ${mid} ½`:""})`;
+  renderTabs();
+}
+function countdown(){
+  const exam=new Date("2026-11-16T09:00:00+01:00"), ms=exam-Date.now(), el=$("#count");
+  if(ms<=0){ el.textContent="Sınav başladı · Başarılar!"; return; }
+  const h=Math.floor(ms/3600000), mi=Math.floor(ms%3600000/60000);
+  el.innerHTML=`Sınava <b>${h} sa ${mi} dk</b> · 16 Kas 09:00`;
+}
+
+/* ---------- jump & search ---------- */
+function flash(el){ if(!el) return; el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1800); }
+function jumpTo(tab, targetId, prep){
+  if(prep) prep();
+  go(tab);
+  setTimeout(()=>{ const el=document.getElementById(targetId); if(el && el.tagName==="DETAILS") el.open=true; flash(el); },60);
+}
+function jumpItem(set,id){
+  const it=ITEMS.find(i=>i.set===set&&i.id===id); if(!it) return;
+  jumpTo(it.tab, cid(it), ()=>{ if(set==="ex"&&S.exf!=="all"&&S.exf!==it.ch) S.exf="all"; });
+}
+let INDEX=null;
+function buildIndex(){
+  const tmp=document.createElement("div");
+  const out=[];
+  ITEMS.forEach(it=>out.push({kind:"q", title:label(it), sub:`${SRC[it.set]} · ${CH[it.ch]}`, text:plain(label(it)+" "+it.text+" "+CH[it.ch]+" "+SRC[it.set]+" "+(it.set==="ex"?HINT_EX[it.id]||"":it.set==="db"?HINT_DB[it.id]||"":"")), run:()=>jumpItem(it.set,it.id)}));
+  FC.forEach(f=>out.push({kind:"k", title:"Kart", sub:CHS[f.ch], snippet:plain(f.q).slice(0,70), text:plain("kart ezber "+f.q+" "+f.a+" "+CH[f.ch]), run:()=>jumpTo("konu","fc-"+f.id)}));
+  tmp.innerHTML=tpl("tpl-ozet");
+  tmp.querySelectorAll("details").forEach(d=>out.push({kind:"o", title:"Özet", sub:d.querySelector("summary").textContent, text:plain("özet "+d.textContent), run:()=>jumpTo("konu",d.id)}));
+  tmp.innerHTML=tpl("tpl-form");
+  tmp.querySelectorAll("h3").forEach(h=>{ let t=h.textContent, n=h.nextElementSibling; if(n) t+=" "+n.textContent; out.push({kind:"f", title:"Formül", sub:h.textContent, text:plain("formül "+t), run:()=>jumpTo("form",h.id)}); });
+  return out;
+}
+function openSearch(){ const m=$("#searchModal"), inp=$("#searchModalInput"); m.hidden=false; inp.value=""; renderSearch(""); inp.focus(); }
+function closeSearch(){ $("#searchModal").hidden=true; $("#searchBtn").focus(); }
+let RESULTS=[];
+function renderSearch(qs){
+  if(!INDEX) INDEX=buildIndex();
+  const words=plain(qs).trim().split(" ").filter(Boolean);
+  RESULTS=INDEX.filter(e=>words.every(w=>e.text.includes(w)||plain(e.title+" "+e.sub).includes(w))).slice(0,25);
+  const box=$("#searchModalResults");
+  box.innerHTML=RESULTS.map((e,i)=>`<button type="button" class="modal-item" role="option" data-res="${i}">
+    <div><b>${esc(e.title)}</b> · <span class="small muted">${esc(e.sub)}</span>${e.snippet?`<div class="small">${esc(e.snippet)}</div>`:""}</div>
+    <span class="chip ${e.kind==="q"?"":e.kind==="k"?"purple":e.kind==="o"?"green":"amber"}">${e.kind==="q"?"Soru":e.kind==="k"?"Kart":e.kind==="o"?"Özet":"Formül"}</span></button>`).join("") || `<div class="small muted" style="padding:12px">Sonuç bulunamadı.</div>`;
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button,a,[data-fcflip]"); if(!t) return;
+  const d=t.dataset;
+  if(d.res!==undefined){ const r=RESULTS[+d.res]; $("#searchModal").hidden=true; r && r.run(); return; }
+  if(d.fcmark){ S.fc[d.fcmark]=S.fc[d.fcmark]==="ok"?null:"ok"; save(); render(); const c=document.getElementById("fc-"+d.fcmark); c&&c.querySelector("[data-fcmark]").focus(); return; }
+  if(d.fcflip){ S.fcOpen[d.fcflip]=!S.fcOpen[d.fcflip]; save(); render(); const c=document.getElementById("fc-"+d.fcflip); c&&c.focus(); return; }
+  if(d.tab){ go(d.tab); return; }
+  if(d.exf){ S.exf=d.exf; save(); render(); return; }
+  if(d.exgo){ S.exf=d.exgo; go("ornek"); return; }
+  if(d.ozgo){ jumpTo("konu","oz-"+d.ozgo); return; }
+  if(d.fogo){ jumpTo("form","fo-"+d.fogo); return; }
+  if(d.jump){ const [s,i]=d.jump.split(":"); jumpItem(s,i); return; }
+  if(d.reveal){ const [s,id]=d.reveal.split(":"), store=s==="ex"?S.exOpen:S.dbOpen, el=document.getElementById(`s-${s}-${id}`), open=el.hidden;
+    el.hidden=!open; store[id]=open; t.textContent=open?"Çözümü gizle":"Çözümü göster"; t.setAttribute("aria-expanded",open); save(); return; }
+  if(d.hint){ const [s,id]=d.hint.split(":"), el=document.getElementById(`h-${s}-${id}`), open=el.hidden; el.hidden=!open; S.open["h:"+d.hint]=open; t.setAttribute("aria-expanded",open); save(); return; }
+  if(d.scratch){ const [s,id]=d.scratch.split(":"), el=document.getElementById(`sc-${s}-${id}`), open=el.hidden; el.hidden=!open; S.open["sc:"+d.scratch]=open; t.setAttribute("aria-expanded",open); save(); initScratchCanvases(); return; }
+  if(d.clearcanv){ const c=document.getElementById("canv-"+d.clearcanv); if(c) c.getContext("2d").clearRect(0,0,c.width,c.height); return; }
+  if(d.mark){ const id=d.key.split(":")[1]; S.ex[id] = S.ex[id]===d.mark ? undefined : d.mark; save(); render();
+    toast(S.ex[id]==="ok"?"✓ Doğru olarak işaretlendi":S.ex[id]==="bad"?"✗ Hata listesine eklendi":"İşaret kaldırıldı"); const c=document.getElementById("q-ex-"+id); c&&c.querySelector(`[data-mark="${d.mark}"]`).focus(); return; }
+  if(d.dbscore!==undefined){ const v=+d.dbscore; S.db[d.id] = S.db[d.id]===v ? undefined : v; save(); render(); const c=document.getElementById("q-db-"+d.id); c&&c.querySelector(`[data-dbscore="${v}"]`).focus(); return; }
+  if(d.expandall==="ex"){ const any=EX.some(x=>!S.exOpen[x.id]); EX.forEach(x=>S.exOpen[x.id]=any); save(); render(); return; }
+  switch(t.id){
+    case "qtCheck": { const blank=QT.filter(q=>S.qt[q.id]===undefined).length; S.qtDone=true; if(!S.plan.p1) S.plan.p1=true; save(); render(); toast(blank?`${blank} boş soru yanlış sayıldı`:"Kontrol edildi"); return; }
+    case "qtReset": if(confirm("Hızlı test cevapları silinsin mi?")){ S.qt={}; S.qtDone=false; save(); render(); toast("Hızlı test sıfırlandı"); } return;
+    case "daCheck": { const blank=DA.filter(q=>S.da[q.id]===undefined).length; S.daDone=true; save(); render(); toast(blank?`${blank} boş soru yanlış sayıldı`:"A bölümü kontrol edildi"); return; }
+    case "daReset": if(confirm("Deneme A cevapları silinsin mi?")){ S.da={}; S.daDone=false; save(); render(); toast("A bölümü sıfırlandı"); } return;
+    case "tStart": if(!S.timer){ if(S.tBase==null) S.tBase=DUR; S.timer=Date.now(); save(); tick(); toast("Süre başladı"); } return;
+    case "tPause": if(S.timer){ S.tBase=tLeftMs(); S.timer=null; save(); tick(); } return;
+    case "tReset": S.timer=null; S.tBase=DUR; save(); tick(); return;
+    case "pomoToggle": if(pomo.run){ pomo.left=pomoLeft(); pomo.run=false; t.textContent="Başlat"; } else { pomo.run=true; pomo.at=Date.now(); t.textContent="Durdur"; toast("🍅 25 dk Pomodoro başladı"); } tick(); return;
+    case "pomoReset": pomo={left:25*60,run:false,at:0}; $("#pomoToggle").textContent="Başlat"; tick(); return;
+    case "searchBtn": openSearch(); return;
+    case "copyBtn": { const txt=summaryText(); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("İlerleme özeti kopyalandı"),()=>prompt("Kopyala:",txt)); return; }
+    case "resetAll": if(confirm("Tüm ilerleme (plan, test, deneme, örnek, kart ve karalama) silinsin mi? Geri alınamaz.")){ const th=S.theme; S=JSON.parse(JSON.stringify(DEF)); S.theme=th; S.tab="ilerleme"; save(); render(); toast("Tüm ilerleme sıfırlandı"); } return;
+    case "themeBtn": { const r=document.documentElement, cur=r.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"); r.dataset.theme=cur==="dark"?"light":"dark"; S.theme=r.dataset.theme; save(); return; }
+  }
+});
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.dataset.plan){ S.plan[t.dataset.plan]=t.checked; t.closest("li").classList.toggle("done",t.checked); save(); return; }
+  if(t.dataset.mc){ (t.dataset.mc==="qt"?S.qt:S.da)[t.dataset.qid]=+t.value; save(); return; }
+});
+document.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset && t.dataset.scinput!==undefined){ S.scratch[t.dataset.scinput]=t.value; save(); return; }
+  if(t.id==="searchModalInput"){ renderSearch(t.value); return; }
+});
+document.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==="k"){ e.preventDefault(); openSearch(); return; }
+  const modalOpen=!$("#searchModal").hidden;
+  if(modalOpen && e.key==="Escape"){ closeSearch(); return; }
+  if(modalOpen && e.key==="Enter" && e.target.id==="searchModalInput"){ e.preventDefault(); const r=RESULTS[0]; if(r){ $("#searchModal").hidden=true; r.run(); } return; }
+  if(e.target.dataset && e.target.dataset.fcflip && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); e.target.click(); return; }
+  if(e.target.getAttribute && e.target.getAttribute("role")==="tab" && (e.key==="ArrowRight"||e.key==="ArrowLeft")){
+    const i=TABS.findIndex(([k])=>k===S.tab), n=(i+(e.key==="ArrowRight"?1:-1)+TABS.length)%TABS.length; go(TABS[n][0]); $("#tab-"+TABS[n][0]).focus();
+  }
+});
+$("#searchModal").addEventListener("click",e=>{ if(e.target.id==="searchModal") closeSearch(); });
+window.addEventListener("hashchange",()=>{ const k=LEGACY[location.hash.slice(1)]||location.hash.slice(1); if(TABS.some(([t])=>t===k) && k!==S.tab) go(k); });
+
+/* ---------- boot ---------- */
+if(S.theme) document.documentElement.dataset.theme=S.theme;
+S.tab = LEGACY[S.tab]||S.tab;
+{ const h0=LEGACY[location.hash.slice(1)]||location.hash.slice(1); if(TABS.some(([k])=>k===h0)) S.tab=h0; }
+if(!TABS.some(([k])=>k===S.tab)) S.tab="plan";
+countdown(); setInterval(countdown,30000);
+function boot(){ render(); if(location.hash.slice(1)!==S.tab) history.replaceState(null,"","#"+S.tab); }
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else boot();
 </script>
 </body>
 </html>

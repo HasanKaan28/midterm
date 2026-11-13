@@ -283,7 +283,7 @@ review:{title:"Hocanın Review Kağıdı (MIDTERM REVIEW 101.docx)", intro:"mate
  q("R5","sonsuz",R`$\displaystyle\lim_{x\to0^+}\Big(\frac1{x^2}-\frac2x\Big)$ &nbsp;<span class="muted small">(<code>inf</code> / <code>-inf</code>)</span>`,"inf",R`<p>Payda eşitle: $\dfrac{1-2x}{x^2}$. Pay $\to1$, payda $\to0^+$. Sonuç $+\infty$.</p>`,"∞ − ∞: önce tek kesir yap.","Review #5"),
  q("R6","cebir",R`$\displaystyle\lim_{x\to3}\frac{\frac1{x+2}-\frac15}{x^2-5x+6}$`,"-1/25",R`<p>$\dfrac1{x+2}-\dfrac15=\dfrac{3-x}{5(x+2)}$, payda $(x-2)(x-3)$.</p><p>$\dfrac{-(x-3)}{5(x+2)(x-2)(x-3)}=\dfrac{-1}{5(x+2)(x-2)}\to\dfrac{-1}{25}$</p>`,"Payı tek kesir yap, paydayı çarpanlarına ayır. 3 − x = −(x − 3).","Review #6"),
  q("R7","sonsuz",R`$\displaystyle\lim_{x\to-\infty}\frac{x^3+6}{(1-x)^2}$`,"-inf",R`<p>Pay derecesi 3, payda 2. $x^2$'ye böl: $\dfrac{x+6/x^2}{1-2/x+1/x^2}$. Pay $\to-\infty$, payda $\to1$. Sonuç $-\infty$.</p>`,"(1-x)² = x² - 2x + 1. Payın derecesi daha büyük.","Review #7"),
- q("R8","surek",R`$f(x)=\begin{cases}-x & x<-1\\ 1 & -1\le x\le1\\ 4 & 1<x<2\\ 3-x & x\ge2\end{cases}$ &nbsp; Süreksizlikleri bul ve açıkla.`,null,R`<p>Geçiş noktaları: $-1,1,2$.</p><p>$x=-1$: sol $1$, sağ $1$, $f(-1)=1$. Sürekli.</p><p>$x=1$: sol $1$, sağ $4$. Limit yok, <b>süreksiz (jump)</b>.</p><p>$x=2$: sol $4$, sağ $1$. Limit yok, <b>süreksiz (jump)</b>.</p><p class="small">Sınavda her nokta için sol limit, sağ limit ve $f(a)$'yı ayrı yaz.</p>`,"Sadece kırılma noktaları x = -1, 1, 2'yi incele.","Review #8","r8"),
+ q("R8","surek",R`$f(x)=\begin{cases}-x & x<-1\\ 1 & -1\le x\le1\\ 4 & 1\lt x\lt 2\\ 3-x & x\ge2\end{cases}$ &nbsp; Süreksizlikleri bul ve açıkla.`,null,R`<p>Geçiş noktaları: $-1,1,2$.</p><p>$x=-1$: sol $1$, sağ $1$, $f(-1)=1$. Sürekli.</p><p>$x=1$: sol $1$, sağ $4$. Limit yok, <b>süreksiz (jump)</b>.</p><p>$x=2$: sol $4$, sağ $1$. Limit yok, <b>süreksiz (jump)</b>.</p><p class="small">Sınavda her nokta için sol limit, sağ limit ve $f(a)$'yı ayrı yaz.</p>`,"Sadece kırılma noktaları x = -1, 1, 2'yi incele.","Review #8","r8"),
  q("R9","surek",R`$f(x)=2-x\ (x\le1),\quad ax^2-3\ (x>1)$. Her $x$ için sürekli olsun. $a=?$`,"4",R`<p>$x=1$: sol $=f(1)=1$, sağ $=a-3$. $a-3=1\Rightarrow a=4$.</p>`,"x = 1'de sol limit = sağ limit.","Review #9"),
  q("R10","tanim",R`Tanımdan $f'(x)$: $f(x)=2x^2-x$. $x=-1$'de teğet doğrusu.`,null,R`<p>$f(x+h)-f(x)=4xh+2h^2-h$</p><p>$f'(x)=\displaystyle\lim_{h\to0}(4x+2h-1)=4x-1$</p><p>$f(-1)=3,\ f'(-1)=-5$: $y-3=-5(x+1)\Rightarrow$ <span class="ans">$y=-5x-2$</span></p>`,"f(x+h) = 2(x+h)² - (x+h) aç ve sadeleştir.","Review #10","r10"),
  q("R11","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac1{3x-1}$. $x=1$'de teğet doğrusu.`,null,R`<p>$\dfrac1{3x+3h-1}-\dfrac1{3x-1}=\dfrac{-3h}{(3x+3h-1)(3x-1)}$</p><p>$f'(x)=\displaystyle\lim_{h\to0}\frac{-3}{(3x+3h-1)(3x-1)}=\frac{-3}{(3x-1)^2}$</p><p>$f(1)=\tfrac12,\ f'(1)=-\tfrac34$: <span class="ans">$y=-\tfrac34x+\tfrac54$</span></p>`,"Ortak payda, sonra h sadeleşir.","Review #11","r11"),
@@ -309,7 +309,7 @@ zbirka:{title:"Kitap Soru Bankası (Leila Miller · Calculus Problem Book)", int
 
  // BLOK 2: 1.3 One-Sided Limits & 1.4 Trig Limits (15 questions)
  q("Z3_1","tek",R`$f(x)=\begin{cases}2-x & x\le 1\\ x^2-3 & x>1\end{cases}$ için $\lim_{x\to 1^+}f(x),\ \lim_{x\to 1^-}f(x),\ \lim_{x\to 1}f(x)$`,null,R`<p>Sağdan ($x>1$): $1^2-3=-2$. Soldan ($x\le 1$): $2-1=1$. Sol $\ne$ sağ olduğu için iki taraflı limit <b>DNE</b>.</p>`,"x>1 için alt satırı, x<1 için üst satırı kullan.","Zbirka 1.3 #1"),
- q("Z3_2","tek",R`$f(x)=\begin{cases}2 & x\le 0\\ x^2+1 & 0<x<1\\ 3 & x=1\\ 5-x & x>1\end{cases}$ için $\lim_{x\to 0^+}f(x)$ ve $\lim_{x\to 1^+}f(x)$`,null,R`<p>$x\to 0^+$ için $0^2+1=1$ (soldan $2$, limit DNE). $x\to 1^+$ için $5-1=4$ (soldan $1^2+1=2$, limit DNE).</p>`,"0⁺ için ortadaki, 1⁺ için en alttaki parçayı kullan.","Zbirka 1.3 #2"),
+ q("Z3_2","tek",R`$f(x)=\begin{cases}2 & x\le 0\\ x^2+1 & 0\lt x\lt 1\\ 3 & x=1\\ 5-x & x>1\end{cases}$ için $\lim_{x\to 0^+}f(x)$ ve $\lim_{x\to 1^+}f(x)$`,null,R`<p>$x\to 0^+$ için $0^2+1=1$ (soldan $2$, limit DNE). $x\to 1^+$ için $5-1=4$ (soldan $1^2+1=2$, limit DNE).</p>`,"0⁺ için ortadaki, 1⁺ için en alttaki parçayı kullan.","Zbirka 1.3 #2"),
  q("Z3_5","tek",R`$f(x)=\begin{cases}ax+b & x<0\\ 2-x & 0\le x\le 1\\ ax^2-3 & x>1\end{cases}$ fonksiyonunun $x=0$ ve $x=1$'de limiti var olsun. $a,b=?$`,null,R`<p>$x=0$'da sol $=b$, sağ $=2 \implies b=2$.</p><p>$x=1$'de sol $=2-1=1$, sağ $=a(1)^2-3=a-3 \implies a=4$.</p>`,"Her iki kırılma noktasında sol limit = sağ limit.","Zbirka 1.3 #5"),
  q("Z3_6","tek",R`$\displaystyle\lim_{x\to 2^+}\frac{|x-2|}{x-2}$`,"1",R`<p>$x>2 \implies |x-2|=x-2 \implies \dfrac{x-2}{x-2}=1$.</p>`,"x > 2 iken |x-2| pozitif çıkar.","Zbirka 1.3 #6"),
  q("Z3_10","tek",R`$\displaystyle\lim_{x\to 4^+}\frac{|x-4|}{4-x}$`,"-1",R`<p>$x>4 \implies |x-4|=x-4$. Oran: $\dfrac{x-4}{4-x}=-1$.</p>`,"(x-4)/(4-x) = -1.","Zbirka 1.3 #10"),
@@ -346,9 +346,9 @@ zbirka:{title:"Kitap Soru Bankası (Leila Miller · Calculus Problem Book)", int
  q("Z6_3","surek",R`$f(x)=\dfrac{x}{x^2-1}$ süreksiz olduğu $x$ değerleri`,null,R`<p>$x^2-1=0 \implies x=-1$ ve $x=1$.</p>`,"x² - 1 = 0 kökleri.","Zbirka 1.6 #3"),
  q("Z6_4","surek",R`$f(x)=\dfrac{x-1}{x^2-1}$ süreksiz olduğu $x$'ler ve removable olan`,null,R`<p>$x=-1$ ve $x=1$'de tanımsız (süreksiz). $\dfrac{x-1}{(x-1)(x+1)}=\dfrac{1}{x+1}$ olduğundan $x=1$'de limit $\tfrac12$ vardır (<b>removable</b>), $x=-1$'de limit $\pm\infty$ (<b>infinite</b>).</p>`,"Sadeleşen çarpan (x=1) removable süreksizliktir.","Zbirka 1.6 #4"),
  q("Z6_7","surek",R`$f(x)=\begin{cases}2-x & x\le 1\\ x^2-3 & x>1\end{cases}$ süreksiz olduğu $x$ noktası`,"1",R`<p>$x=1$'de sol limit $=1$, sağ limit $=-2$. Sol $\ne$ sağ olduğu için $x=1$'de <b>jump discontinuity</b> vardır.</p>`,"Geçiş noktası x = 1.","Zbirka 1.6 #7"),
- q("Z6_8","surek",R`$f(x)=\begin{cases}2 & x\le 0\\ x^2+1 & 0<x<1\\ 3 & x=1\\ 5-x & x>1\end{cases}$ süreksiz olduğu $x$ noktaları`,null,R`<p>$x=0$: sol $2 \ne$ sağ $1$ (jump). $x=1$: sol $2 \ne$ sağ $4$ (jump). İki noktada da süreksiz: $0, 1$.</p>`,"x = 0 ve x = 1 geçiş noktalarını kontrol et.","Zbirka 1.6 #8"),
- q("Z6_9","surek",R`$f(x)=\begin{cases}2 & x\le -2\\ x^2-3 & -2<x<2\\ 7 & x=2\\ 3-x & x>2\end{cases}$ süreksiz olduğu $x$'ler ve removable olan`,null,R`<p>$x=-2$: sol $2$, sağ $(-2)^2-3=1$ (jump).</p><p>$x=2$: sol $2^2-3=1$, sağ $3-2=1$ (limit $1$), fakat $f(2)=7\ne 1$ olduğu için $x=2$ <b>removable discontinuity</b>'dir!</p>`,"Limit var ama f(a)'ya eşit değilse removable olur.","Zbirka 1.6 #9"),
- q("Z6_10","surek",R`$f(x)=\begin{cases}-x & x\le -1\\ x^2 & -1<x<1\\ 0 & x=1\\ 2x+3 & x>1\end{cases}$ süreksiz olduğu $x$ noktası`,"1",R`<p>$x=-1$'de sol $=1$, sağ $=(-1)^2=1$, $f(-1)=1$ (<b>sürekli!</b>). Sadece $x=1$'de sol $=1$, sağ $=5$ olduğundan süreksizdir.</p>`,"x = -1'de sürekli olduğuna dikkat et!","Zbirka 1.6 #10"),
+ q("Z6_8","surek",R`$f(x)=\begin{cases}2 & x\le 0\\ x^2+1 & 0\lt x\lt 1\\ 3 & x=1\\ 5-x & x>1\end{cases}$ süreksiz olduğu $x$ noktaları`,null,R`<p>$x=0$: sol $2 \ne$ sağ $1$ (jump). $x=1$: sol $2 \ne$ sağ $4$ (jump). İki noktada da süreksiz: $0, 1$.</p>`,"x = 0 ve x = 1 geçiş noktalarını kontrol et.","Zbirka 1.6 #8"),
+ q("Z6_9","surek",R`$f(x)=\begin{cases}2 & x\le -2\\ x^2-3 & -2\lt x\lt 2\\ 7 & x=2\\ 3-x & x>2\end{cases}$ süreksiz olduğu $x$'ler ve removable olan`,null,R`<p>$x=-2$: sol $2$, sağ $(-2)^2-3=1$ (jump).</p><p>$x=2$: sol $2^2-3=1$, sağ $3-2=1$ (limit $1$), fakat $f(2)=7\ne 1$ olduğu için $x=2$ <b>removable discontinuity</b>'dir!</p>`,"Limit var ama f(a)'ya eşit değilse removable olur.","Zbirka 1.6 #9"),
+ q("Z6_10","surek",R`$f(x)=\begin{cases}-x & x\le -1\\ x^2 & -1\lt x\lt 1\\ 0 & x=1\\ 2x+3 & x>1\end{cases}$ süreksiz olduğu $x$ noktası`,"1",R`<p>$x=-1$'de sol $=1$, sağ $=(-1)^2=1$, $f(-1)=1$ (<b>sürekli!</b>). Sadece $x=1$'de sol $=1$, sağ $=5$ olduğundan süreksizdir.</p>`,"x = -1'de sürekli olduğuna dikkat et!","Zbirka 1.6 #10"),
  q("Z6_12","surek",R`$f(x)=\begin{cases}ax+b & x<0\\ 2-x & 0\le x\le 1\\ ax^2-3 & x>1\end{cases}$ her yerde sürekli olsun. $a,b=?$`,null,R`<p>$x=0 \implies b=2$. $x=1 \implies 2-1=a-3 \implies a=4$.</p>`,"Önce x=0'dan b'yi, sonra x=1'den a'yı bul.","Zbirka 1.6 #12"),
  q("Z6_13","surek",R`$f(x)=\begin{cases}ax+b & x<-1\\ x+2 & -1\le x\le 1\\ ax^2+b & x>1\end{cases}$ her yerde sürekli olsun. $a,b=?$`,null,R`<p>$x=-1$: $-a+b=-1+2=1$.</p><p>$x=1$: $1+2=a+b \implies a+b=3$.</p><p>Taraf tarafa topla: $2b=4 \implies b=2,\ a=1$.</p>`,"İki denklem: -a + b = 1 ve a + b = 3.","Zbirka 1.6 #13"),
 
@@ -1386,10 +1386,33 @@ document.addEventListener("keydown",e=>{
   if(e.key==="Escape" && !$("#searchModal").hidden){ $("#searchModal").hidden=true; return; }
   if(e.key==="Enter"&&e.target.dataset&&e.target.dataset.in){
     e.preventDefault();
-    const b=document.querySelector(`[data-check="${e.target.dataset.in.split("#")[0]}"]`);
+    const qid=e.target.dataset.in.split("#")[0];
+    const b=document.querySelector(`[data-check="${qid}"]`);
     b&&b.click();
+    advanceAfterCheck(e.target,qid);
   }
 });
+
+/* After Enter: a correct box hands focus to the next box still to do, in this question
+   first, then in the next question that is not solved yet. A wrong box keeps the focus. */
+function advanceAfterCheck(inp,qid){
+  const isOk=k=>{const m=document.getElementById("mk-"+k); return !!m&&m.classList.contains("ok");};
+  if(!isOk(inp.dataset.in)) return;
+  const card=document.getElementById("q-"+qid);
+  const todo=[...card.querySelectorAll("input[data-in]")].filter(i=>!isOk(i.dataset.in));
+  let target=todo.find(i=>inp.compareDocumentPosition(i)&Node.DOCUMENT_POSITION_FOLLOWING)||todo[0];
+  if(!target){
+    let n=card.nextElementSibling;
+    while(n&&!(n.matches("article.q")&&S.status[n.dataset.id]!=="ok")) n=n.nextElementSibling;
+    if(!n){ toast("Bu listede çözülmemiş soru kalmadı."); return; }
+    /* A question without boxes is solved on paper: stop on its solution button instead of skipping it. */
+    target=n.querySelector("input[data-in]")||n.querySelector("[data-reveal]");
+  }
+  if(!target) return;
+  target.focus({preventScroll:true});
+  target.scrollIntoView({block:"center"});
+  if(target.select) target.select();
+}
 
 $("#searchModal").addEventListener("click",e=>{ if(e.target.id==="searchModal") $("#searchModal").hidden=true; });
 

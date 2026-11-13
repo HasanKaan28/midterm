@@ -3,181 +3,234 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CS103 Çalışma Masası</title>
+<title>CS103 Etkileşimli Çalışma Alanı · C++ Midterm</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" id="hlLight" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<link rel="stylesheet" id="hlDark" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" disabled>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
 <style>
 :root{
-  --paper:#f5f3ee; --card:#fffefb; --ink:#1b2130; --ink-2:#525b70; --line:#dcd6c8;
-  --acc:#0f6b5c; --acc-soft:#dcefe9; --red:#b5352a; --red-soft:#f7e0dc; --green:#1f7a4a; --green-soft:#dcefe3;
-  --amber:#9a6200; --amber-soft:#f5e9d0; --code:#f3f1ea; --shadow:0 1px 0 rgba(0,0,0,.04),0 8px 20px -14px rgba(30,40,70,.35);
+  --paper:#f4f6fb; --paper-2:#ffffff; --paper-3:#eef2fa; --grid:rgba(35,70,168,.055);
+  --ink:#111827; --ink-2:#4b5563; --ink-3:#6b7280;
+  --blue:#1d4ed8; --blue-soft:#dbeafe; --blue-border:#93c5fd;
+  --red:#dc2626; --red-soft:#fee2e2;
+  --green:#15803d; --green-soft:#dcfce7;
+  --amber:#b45309; --amber-soft:#fef3c7;
+  --purple:#6d28d9; --purple-soft:#ede9fe;
+  --line:#d5dce8; --shadow:0 1px 2px rgba(15,23,42,.05),0 10px 26px -12px rgba(29,78,216,.14);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#12151c; --card:#1a1e28; --ink:#e6e8ee; --ink-2:#a3abbd; --line:#2b3140;
-  --acc:#5fd0b8; --acc-soft:#173530; --red:#ff8a7a; --red-soft:#3a2020; --green:#6fd39b; --green-soft:#1b3326;
-  --amber:#f0b955; --amber-soft:#382b14; --code:#151922; --shadow:0 8px 20px -14px rgba(0,0,0,.7);
+  --paper:#0b0f19; --paper-2:#131a2a; --paper-3:#1c2539; --grid:rgba(96,165,250,.05);
+  --ink:#f1f5f9; --ink-2:#94a3b8; --ink-3:#64748b;
+  --blue:#60a5fa; --blue-soft:#1e293b; --blue-border:#2563eb;
+  --red:#f87171; --red-soft:#3b181c;
+  --green:#4ade80; --green-soft:#143022;
+  --amber:#fbbf24; --amber-soft:#362812;
+  --purple:#c084fc; --purple-soft:#2b1c44;
+  --line:#263147; --shadow:0 10px 30px -12px rgba(0,0,0,.7);
 }}
 :root[data-theme="dark"]{
-  --paper:#12151c; --card:#1a1e28; --ink:#e6e8ee; --ink-2:#a3abbd; --line:#2b3140;
-  --acc:#5fd0b8; --acc-soft:#173530; --red:#ff8a7a; --red-soft:#3a2020; --green:#6fd39b; --green-soft:#1b3326;
-  --amber:#f0b955; --amber-soft:#382b14; --code:#151922; --shadow:0 8px 20px -14px rgba(0,0,0,.7);
+  --paper:#0b0f19; --paper-2:#131a2a; --paper-3:#1c2539; --grid:rgba(96,165,250,.05);
+  --ink:#f1f5f9; --ink-2:#94a3b8; --ink-3:#64748b;
+  --blue:#60a5fa; --blue-soft:#1e293b; --blue-border:#2563eb;
+  --red:#f87171; --red-soft:#3b181c;
+  --green:#4ade80; --green-soft:#143022;
+  --amber:#fbbf24; --amber-soft:#362812;
+  --purple:#c084fc; --purple-soft:#2b1c44;
+  --line:#263147; --shadow:0 10px 30px -12px rgba(0,0,0,.7);
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "IBM Plex Sans",system-ui,sans-serif}
-button{font:inherit;cursor:pointer;color:inherit}
-:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:4px}
-code,pre,textarea.out{font-family:"IBM Plex Mono",ui-monospace,monospace}
-.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
-.top-in{max-width:920px;margin:0 auto;padding:12px 16px 0}
-.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.brand h1{font:700 1.4rem/1.1 "Fraunces",Georgia,serif;margin:0}
-.brand h1 span{color:var(--acc)}
-.count{font:500 .82rem "IBM Plex Mono",monospace;color:var(--ink-2)}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:15.5px/1.58 "IBM Plex Sans",system-ui,sans-serif;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--blue);outline-offset:2px;border-radius:6px}
+
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1120px;margin:0 auto;padding:10px 18px 0}
+.brand{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand h1{font:800 1.38rem/1.1 "Outfit",system-ui,sans-serif;margin:0;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.brand h1 span.badge-course{background:var(--blue);color:#fff;font-size:.75rem;padding:3px 8px;border-radius:6px;letter-spacing:.04em;text-transform:uppercase}
+.brand h1 span.sub{color:var(--red);font-weight:700}
+.back{font:600 .78rem "IBM Plex Mono",monospace;color:var(--ink-2);border:1px solid var(--line);background:var(--paper-2);padding:3px 8px;border-radius:6px}
+.hud-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.count{font:500 .82rem "IBM Plex Mono",monospace;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--line);padding:4px 10px;border-radius:7px}
 .count b{color:var(--ink)}
-nav.tabs{display:flex;gap:4px;overflow-x:auto;margin-top:10px;scrollbar-width:none}
-nav.tabs::-webkit-scrollbar{display:none}
-nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:8px 10px;white-space:nowrap;color:var(--ink-2);font-weight:500}
-nav.tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--acc)}
-main{max-width:920px;margin:0 auto;padding:20px 16px 80px}
-section[hidden]{display:none}
-h2{font:700 1.5rem/1.2 "Fraunces",Georgia,serif;margin:.2em 0 .3em}
-.lead{color:var(--ink-2);margin:0 0 18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 14px;box-shadow:var(--shadow)}
-.q-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-.qid{font:600 .85rem "IBM Plex Mono",monospace;background:var(--ink);color:var(--card);padding:2px 8px;border-radius:5px}
-.tag{font-size:.75rem;padding:2px 8px;border-radius:99px;background:var(--acc-soft);color:var(--acc);font-weight:600}
-.status{margin-left:auto;font:600 .8rem "IBM Plex Mono",monospace}
-.status.ok{color:var(--green)} .status.no{color:var(--red)}
-.prompt{margin:0 0 8px}
-pre{margin:0 0 10px;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px;overflow-x:auto;font-size:.88rem;line-height:1.5}
+.pomo-pill{display:flex;align-items:center;gap:6px;background:var(--paper-2);border:1px solid var(--line);padding:3px 9px;border-radius:7px;font:600 .8rem "IBM Plex Mono",monospace;color:var(--ink)}
+.pomo-pill button{border:none;background:var(--blue-soft);color:var(--blue);border-radius:4px;padding:2px 6px;font-size:.74rem;font-weight:600}
+.search-trigger{border:1px solid var(--line);background:var(--paper-2);color:var(--ink-2);border-radius:7px;padding:4px 10px;font-size:.8rem;display:flex;align-items:center;gap:6px}
+.search-trigger kbd{font:500 .72rem "IBM Plex Mono",monospace;background:var(--paper-3);padding:1px 5px;border-radius:4px;border:1px solid var(--line)}
+.theme{border:1px solid var(--line);background:var(--paper-2);color:var(--ink-2);border-radius:7px;padding:4px 10px;font-size:.8rem;font-weight:500}
+
+.bar-wrap{display:flex;align-items:center;gap:12px;margin-top:8px}
+.bar{flex:1;height:7px;background:var(--line);border-radius:99px;overflow:hidden;display:flex}
+.bar i.g{display:block;height:100%;background:var(--green);width:0;transition:width .35s}
+.bar i.r{display:block;height:100%;background:var(--red);width:0;transition:width .35s}
+.barlbl{font:500 .76rem "IBM Plex Mono",monospace;color:var(--ink-2);white-space:nowrap}
+
+nav{display:flex;gap:4px;overflow-x:auto;padding:8px 0 0;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{border:1px solid transparent;border-bottom:none;background:none;color:var(--ink-2);padding:8px 13px;border-radius:9px 9px 0 0;white-space:nowrap;font-weight:600;font-size:.9rem;transition:all .15s}
+nav button:hover{color:var(--ink);background:color-mix(in srgb,var(--paper-2) 50%,transparent)}
+nav button[aria-selected="true"]{background:var(--paper-2);color:var(--blue);border-color:var(--line);box-shadow:0 1px 0 var(--paper-2)}
+
+main{max-width:1120px;margin:0 auto;padding:20px 18px 90px}
+.sheet{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:22px 24px 22px 34px;position:relative;margin-bottom:18px;min-width:0}
+.sheet::before{content:"";position:absolute;left:18px;top:0;bottom:0;width:2.5px;background:var(--blue);opacity:.3}
+h2{font:700 1.38rem/1.22 "Outfit",system-ui,sans-serif;margin:0 0 6px;letter-spacing:-.01em}
+h3{font:700 1.1rem/1.3 "Outfit",system-ui,sans-serif;margin:18px 0 8px}
+.muted{color:var(--ink-2)}
+.small{font-size:.86rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{font-size:.77rem;padding:3px 9px;border-radius:999px;background:var(--blue-soft);color:var(--blue);font-weight:600}
+.chip.purple{background:var(--purple-soft);color:var(--purple)}
+.chip.amber{background:var(--amber-soft);color:var(--amber)}
+.chip.green{background:var(--green-soft);color:var(--green)}
+.chip.red{background:var(--red-soft);color:var(--red)}
+code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.88em}
+:not(pre)>code{background:var(--paper-3);padding:1px 5px;border-radius:4px;border:1px solid var(--line)}
+
+.filter-bar{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;padding:10px;background:var(--paper-3);border-radius:10px;border:1px solid var(--line)}
+.filter-btn{border:1px solid var(--line);background:var(--paper-2);color:var(--ink-2);padding:5px 11px;border-radius:7px;font-size:.82rem;font-weight:600;transition:all .15s}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+.q{border-top:1px dashed var(--line);padding:18px 0 14px;min-width:0}
+.q:first-of-type{border-top:none}
+.q header{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.qid{font:600 .8rem "IBM Plex Mono",monospace;background:var(--ink);color:var(--paper-2);padding:2px 8px;border-radius:5px}
+.qsrc{font:500 .75rem "IBM Plex Mono",monospace;color:var(--ink-2);background:var(--paper-3);padding:2px 7px;border-radius:5px;border:1px solid var(--line)}
+.st{margin-left:auto;font-size:.78rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.st.ok{background:var(--green-soft);color:var(--green)}
+.st.bad{background:var(--red-soft);color:var(--red)}
+.prompt{font-size:1rem;padding:2px 0 8px;overflow-wrap:anywhere}
+.prompt pre{margin:6px 0}
+pre{margin:0 0 10px;background:var(--paper-3);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:.86rem;line-height:1.5;max-width:100%}
 pre code.hljs{background:transparent;padding:0}
-textarea{width:100%;min-height:64px;resize:vertical;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--card);color:var(--ink);font-size:.92rem}
-textarea.scratch{min-height:140px;font-family:"IBM Plex Mono",monospace}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center}
-.btn{border:1px solid var(--line);background:var(--card);padding:6px 12px;border-radius:7px;font-weight:500}
-.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--card)}
-.btn:hover{border-color:var(--acc)}
-.fb{margin-top:10px;padding:10px 12px;border-radius:8px;font-size:.93rem}
-.fb.ok{background:var(--green-soft)} .fb.no{background:var(--red-soft)} .fb.info{background:var(--amber-soft)}
-.fb pre{margin:6px 0 0;background:transparent}
+pre code{font-size:inherit}
+
+input[type=text],textarea{font:500 .92rem "IBM Plex Mono",monospace;padding:7px 10px;border:1.5px solid var(--line);border-radius:7px;background:var(--paper);color:var(--ink);min-width:0;width:100%}
+input[type=text]:focus,textarea:focus{border-color:var(--blue);outline:none}
+textarea.out{min-height:68px;resize:vertical}
 .choices{display:grid;gap:6px}
-.choices label{display:flex;gap:8px;align-items:flex-start;padding:6px 10px;border:1px solid var(--line);border-radius:7px;cursor:pointer}
-.choices label:hover{border-color:var(--acc)}
-.plan-day{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--line)}
-.plan-day:last-child{border-bottom:0}
-.plan-day input{width:20px;height:20px;margin-top:3px;accent-color:var(--acc);flex:none}
-.plan-day.done .pd-body{opacity:.55}
-.pd-date{font-weight:600}
-.pd-meta{font:500 .8rem "IBM Plex Mono",monospace;color:var(--ink-2)}
-.pd-body p{margin:4px 0 0}
-.jump{background:none;border:0;padding:0;color:var(--acc);text-decoration:underline;font:inherit}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
-.stat b{display:block;font:700 1.6rem "Fraunces",serif}
-.stat span{color:var(--ink-2);font-size:.85rem}
-.weak{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
-.weak .meter{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
-.weak .meter i{display:block;height:100%;background:var(--red)}
-.weak .lbl{width:190px;font-weight:500}
-.weak .num{font:500 .8rem "IBM Plex Mono",monospace;color:var(--ink-2);width:90px;text-align:right}
-.md h2{font-size:1.25rem;margin-top:1.6em;border-top:1px solid var(--line);padding-top:.8em}
-.md h2:first-child{border-top:0;margin-top:0;padding-top:0}
+.choices label{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border:1.5px solid var(--line);border-radius:7px;cursor:pointer;background:var(--paper);overflow-wrap:anywhere}
+.choices label:hover{border-color:var(--blue)}
+.choices input{margin-top:4px;accent-color:var(--blue)}
+
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.btn{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper-2);padding:6px 13px;border-radius:7px;font-weight:600;font-size:.88rem;transition:all .15s}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.soft{background:var(--blue-soft);color:var(--blue);border-color:transparent}
+.btn.purple{background:var(--purple-soft);color:var(--purple);border-color:transparent}
+.btn.ok{background:var(--green);border-color:var(--green);color:#fff}
+.btn.bad{background:var(--red);border-color:var(--red);color:#fff}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.fb{font-weight:600;font-size:.9rem}
+.fb.ok{color:var(--green)} .fb.bad{color:var(--red)}
+
+.sol,.hint,.scratch-box{margin-top:10px;padding:13px 15px;border-radius:9px;overflow-x:auto;min-width:0}
+.sol{background:var(--blue-soft);border-left:3.5px solid var(--blue)}
+.hint{background:var(--amber-soft);border-left:3.5px solid var(--amber)}
+.scratch-box{background:var(--paper-3);border:1px solid var(--line)}
+.sol p,.hint p{margin:.35em 0}
+.sol pre{background:var(--paper-2)}
+.ans{font-weight:700;color:var(--blue)}
+.self{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center;padding-top:8px;border-top:1px dashed var(--line)}
+.scratch-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.scratch-grid.code{grid-template-columns:1.4fr 1fr}
+.scratch-Area{width:100%;height:130px;resize:vertical;font-size:.86rem}
+.scratch-grid.code .scratch-Area{height:220px;tab-size:4}
+.scratch-canvas-wrap{border:1px solid var(--line);border-radius:7px;background:var(--paper-2);position:relative;height:130px;overflow:hidden}
+.scratch-grid.code .scratch-canvas-wrap{height:220px}
+.scratch-canvas{width:100%;height:100%;cursor:crosshair;touch-action:none;display:block}
+@media (max-width:680px){.scratch-grid,.scratch-grid.code{grid-template-columns:1fr}}
+
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:12px}
+.fc-card{background:var(--paper-3);border:1.5px solid var(--line);border-radius:10px;padding:15px;min-height:155px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:transform .15s,border-color .15s;text-align:left;color:var(--ink);width:100%}
+.fc-card:hover{transform:translateY(-2px);border-color:var(--blue)}
+.fc-card.flipped{background:var(--blue-soft);border-color:var(--blue)}
+.fc-card.mastered{opacity:.7;border-color:var(--green)}
+.fc-top{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-2);font-family:"IBM Plex Mono",monospace;gap:8px}
+.fc-main{margin:12px 0;font-size:.98rem;font-weight:500;overflow-wrap:anywhere}
+.fc-foot{display:flex;justify-content:space-between;align-items:center;font-size:.76rem;color:var(--ink-2);gap:8px}
+
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--ink-2);font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+.tblwrap{overflow-x:auto}
+.md table{display:block;overflow-x:auto}
 .md h1{display:none}
-.md table{border-collapse:collapse;width:100%;font-size:.9rem;margin:8px 0 12px;display:block;overflow-x:auto}
-.md th,.md td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
-.md th{background:var(--code)}
-.md :not(pre)>code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.88em}
-.md strong{color:var(--ink)}
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
-.toc button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px;font-size:.85rem}
-.filter{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
-.filter button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px;font-size:.85rem}
-.filter button[aria-pressed="true"]{background:var(--acc);color:var(--card);border-color:var(--acc)}
-.note{font-size:.88rem;color:var(--ink-2)}
-.theme{margin-left:auto;background:none;border:1px solid var(--line);border-radius:7px;padding:3px 8px;font-size:.8rem;color:var(--ink-2)}
-@media (max-width:560px){.weak .lbl{width:120px}.weak .num{width:70px}}
+.plan ul{padding:0;margin:0}
+.plan li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:10px 6px;border-bottom:1px dashed var(--line)}
+.plan input{margin-top:4px;width:18px;height:18px;accent-color:var(--blue);flex:none}
+.plan .time{font:600 .82rem "IBM Plex Mono",monospace;color:var(--ink-2);min-width:150px}
+.plan .what{flex:1;min-width:0}
+.plan li.done .what{text-decoration:line-through;color:var(--ink-2)}
+@media (max-width:600px){.plan li{flex-wrap:wrap}.plan .time{min-width:0;flex:1}.plan .what{flex-basis:100%}}
+.timer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 14px;border:1.5px solid var(--blue);border-radius:9px;margin:10px 0;background:var(--paper-3)}
+.timer .clock{font:600 1.55rem "IBM Plex Mono",monospace;min-width:92px;color:var(--blue)}
+.timer.over .clock{color:var(--red)}
+details{border-top:1px dashed var(--line);padding:11px 0;min-width:0}
+summary{cursor:pointer;font:700 1.04rem "Outfit",system-ui,sans-serif}
+details[open] summary{margin-bottom:8px;color:var(--blue)}
+.meter{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line);min-width:120px}
+.meter .g{background:var(--green)} .meter .r{background:var(--red)}
+.weak{color:var(--red);font-weight:700}
+
+.modal-backdrop{position:fixed;inset:0;background:rgba(10,15,28,.65);backdrop-filter:blur(4px);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:70px 16px 20px}
+.modal-backdrop[hidden]{display:none}
+.modal-box{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;width:100%;max-width:620px;box-shadow:var(--shadow);overflow:hidden}
+.modal-box input{width:100%;border:none;border-bottom:1px solid var(--line);padding:14px 16px;font-size:1rem;border-radius:0;background:var(--paper-2)}
+.modal-results{max-height:380px;overflow-y:auto;padding:8px}
+.modal-item{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:8px;cursor:pointer;gap:10px;width:100%;border:0;background:none;color:var(--ink);text-align:left}
+.modal-item:hover,.modal-item:focus-visible{background:var(--blue-soft)}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--paper-2);padding:10px 18px;border-radius:8px;font-size:.9rem;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60}
+.toast.on{opacity:1}
+.flash{outline:2.5px solid var(--blue);outline-offset:4px;border-radius:8px}
+@media (max-width:560px){.sheet{padding:18px 14px 18px 24px}.sheet::before{left:11px}main{padding:16px 12px 80px}.top-in{padding:10px 12px 0}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.btn:hover,.fc-card:hover{transform:none}}
 </style>
 </head>
 <body>
-<header class="top"><div class="top-in">
-  <div class="brand">
-    <h1>CS103 <span>Çalışma Masası</span></h1>
-    <span class="count" id="countdown"></span>
-    <button class="theme" id="themeBtn" type="button">Tema</button>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <h1><span class="badge-course">IUS</span> CS103 <span class="sub">Midterm Stüdyosu</span></h1>
+      <a class="back" href="../index.html">← Dersler</a>
+      <div class="hud-right">
+        <span class="count" id="count">Sınav: 19 Kas Per 17:45</span>
+        <div class="pomo-pill" title="Pomodoro çalışma sayacı">
+          <span aria-hidden="true">🍅</span><span id="pomoClock" aria-label="Pomodoro süresi">25:00</span>
+          <button type="button" id="pomoToggle">Başlat</button>
+          <button type="button" id="pomoReset" aria-label="Pomodoro sıfırla">↺</button>
+        </div>
+        <button class="search-trigger" id="searchBtn" type="button"><span>⌕ Soru / Konu Ara</span><kbd>Ctrl+K</kbd></button>
+        <button class="theme" id="themeBtn" type="button">Tema</button>
+      </div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar" aria-hidden="true"><i class="g" id="barOk"></i><i class="r" id="barBad"></i></div>
+      <div class="barlbl" id="barLbl" aria-live="polite"></div>
+    </div>
+    <nav role="tablist" aria-label="Bölümler" id="tabs"></nav>
   </div>
-  <div class="count" id="scoreline" style="margin-top:4px"></div>
-  <nav class="tabs" role="tablist" id="tabs"></nav>
-</div></header>
-<main>
+</header>
 
-<section id="s-plan" data-title="Plan">
-  <h2>Gün gün plan</h2>
-  <p class="lead">Sınav 19 Kasım Perşembe 17:45, 80 dakika, kâğıt üstünde. Kapsam 1–7. haftalar. Puanın çoğu fonksiyon yazmada (Part IV). Bitirdiğin günü işaretle; işaretler bu tarayıcıda saklanır.</p>
-  <div class="card" id="planList"></div>
-  <div class="card">
-    <h3 style="margin-top:0">Sınav biçimi (örnek midterm'e göre)</h3>
-    <ul>
-      <li><b>Part I:</b> 10 kısa soru (çoktan seçmeli, doğru/yanlış, boşluk).</li>
-      <li><b>Part II:</b> 6 kod parçası, çıktıyı yaz.</li>
-      <li><b>Part III:</b> iç içe döngü + <code>switch</code> fall-through (10 puan).</li>
-      <li><b>Part IV:</b> kâğıtta fonksiyon yazma: bildirim/tanım, girdi doğrulama, faktöriyel/permütasyon, <code>void</code> + <code>return</code>. En yüksek puan.</li>
-    </ul>
-    <p class="note">Kâğıt kuralı: bildirim <code>main</code>'den önce (<code>;</code> ile biter), tanım sonra. <code>sum = 0</code>, <code>product = 1</code> ile başlat. Bitince küçük bir girdiyle elde izle.</p>
+<main id="main" role="tabpanel" tabindex="-1"></main>
+
+<div class="modal-backdrop" id="searchModal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Hızlı soru ve konu arama">
+    <input type="text" id="searchModalInput" placeholder="Soru kodu (A13, B5, C2, M-III), konu (switch, reference, overloading)..." autocomplete="off" aria-label="Ara">
+    <div class="modal-results" id="searchModalResults"></div>
   </div>
-</section>
+</div>
 
-<section id="s-ozet" data-title="Özet" hidden>
-  <h2>Konu özetleri</h2>
-  <p class="lead">Kaynak: <code>ozet.md</code>. Sınav sabahı en alttaki tuzak listesini oku.</p>
-  <div class="toc" id="ozetToc"></div>
-  <div class="card md" id="ozetBody"></div>
-</section>
-
-<section id="s-teshis" data-title="Teşhis" hidden>
-  <h2>Teşhis testi</h2>
-  <p class="lead">Önce bunu çöz (20 dk). Yanlışlar "Zayıf konular" sekmesine düşer. Çok satırlı çıktıda her satırı ayrı satıra yaz.</p>
-  <div id="teshisList"></div>
-</section>
-
-<section id="s-cikti" data-title="Çıktı" hidden>
-  <h2>Çıktı tahmini</h2>
-  <p class="lead">Önce kâğıtta izle, sonra yaz ve kontrol et. Boşluklar esnek değerlendirilir. Tüm cevaplar derleyiciyle doğrulandı.</p>
-  <div class="filter" id="ciktiFilter"></div>
-  <div id="ciktiList"></div>
-</section>
-
-<section id="s-hata" data-title="Hata bulma" hidden>
-  <h2>Hata bulma</h2>
-  <p class="lead">Hatalı satırları ve düzeltmeyi not et, sonra cevabı aç ve kendini puanla.</p>
-  <div id="hataList"></div>
-</section>
-
-<section id="s-kod" data-title="Kod yazma" hidden>
-  <h2>Kâğıtta kod yazma</h2>
-  <p class="lead">Önce kâğıda yaz (ya da kutuya). Sonra çözümü aç, karşılaştır, kendini puanla. Çözümler derlendi ve test girdisiyle çalıştı.</p>
-  <div id="kodList"></div>
-</section>
-
-<section id="s-sinav" data-title="Örnek sınav" hidden>
-  <h2>Örnek midterm ve quiz</h2>
-  <p class="lead">Kaynak: <code>materyal/genel/midtermSample.pdf</code> ve <code>quizSample.pdf</code>. Çarşamba 80 dakika süre tutarak kâğıtta çöz, sonra burada kontrol et. Part IV soruları "Kod yazma" sekmesinde (C1–C3).</p>
-  <div id="sinavList"></div>
-</section>
-
-<section id="s-zayif" data-title="Zayıf konular" hidden>
-  <h2>Puan ve zayıf konular</h2>
-  <p class="lead">Kontrol ettiğin ve kendini puanladığın sorulardan hesaplanır.</p>
-  <div class="grid2" id="stats"></div>
-  <div class="card" id="weakList" style="margin-top:14px"></div>
-  <div class="row"><button class="btn" id="resetBtn" type="button">Tüm cevapları sıfırla</button></div>
-</section>
-
-</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script type="text/markdown" id="ozetMd">
 # CS103 Konu Özetleri (Hafta 1–7)
@@ -471,11 +524,18 @@ out.close();
 </script>
 
 <script>
+/* ---------- STATE (anahtar ve eski alanlar korunur: plan, ans, self, txt) ---------- */
 const KEY="cs103-calis-v1";
 let S={plan:{},ans:{},self:{},txt:{}};
 try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r));}catch(e){}
+const DEF={inputs:{},scratch:{},open:{},fc:{},filter:"all",timers:{},tab:null,theme:null};
+for(const k in DEF) if(S[k]===undefined) S[k]=JSON.parse(JSON.stringify(DEF[k]));
+try{ if(!S.theme){const t=localStorage.getItem(KEY+"-theme"); if(t) S.theme=t;}
+     if(!S.tab){const t=localStorage.getItem(KEY+"-tab"); if(t) S.tab=({ozet:"konu",zayif:"ilerleme"})[t]||t;} }catch(e){}
+if(!S.tab) S.tab="plan";
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 
+/* ---------- İÇERİK (önceki sayfadan aynen aktarıldı) ---------- */
 const TOPICS={
   tip:"Tipler, int bölme, casting",artis:"++ / -- operatörleri",karar:"if / else, mantık",switch:"switch ve fall-through",
   dongu:"Döngüler",fonk:"Fonksiyonlar (bildirim, return)",overload:"Overloading",ref:"void ve call-by-reference",
@@ -1088,177 +1148,441 @@ int sumDigits(int n) {
 }`,tip:"% 10 son basamak, / 10 son basamağı atar."}
 ];
 
-/* ---------- yardımcılar ---------- */
+/* ---------- İPUÇLARI (çözümlerden türetildi; cevabı vermez) ---------- */
+const HINTS={
+ T1:"Sonek ++ eski değeri kullanır, önek ++ önce artırır.",
+ T2:"break görmeden alttaki case'lere düşer; her i için ayrı izle.",
+ T3:"a kopya, b reference. İkinci çağrıda argümanların yeri değişiyor.",
+ T4:"İki aday da birer tip dönüşümüyle mi uyuyor?",
+ T5:"else hangi if'e bağlı? Girintiye bakma.",
+ A1:"int / int kesri atar; cast parantezin içinde mi dışında mı?",
+ A3:"Karşılaştırma eski değerle; azaltma her kontrolde olur, son kontrol dahil.",
+ A4:"do-while koşulu sonda kontrol eder.",
+ A5:"for satırının sonundaki ; işaretine bak.",
+ A7:"Dış döngü satırı, iç döngü 1'den i'ye kadar yazar.",
+ A8:"continue çiftleri atlar; break hangi i'de çalışır?",
+ A9:"= atama mı karşılaştırma mı? Atanan değer koşul olur.",
+ A12:"Hangi fonksiyon reference alıyor?",
+ A13:"Her çağrıda tam eşleşen sürümü bul; fonksiyon önce kendi yazısını basar.",
+ A13b:"(int, double) argümanı için iki aday da birer dönüşüm ister.",
+ A14:"İç blokta yeni x hangi satırda doğuyor?",
+ A15:"change içindeki g global mi local mi?",
+ A16:"i = 1, 3, 5, 7, 9; i+1 hep çift mi?",
+ A17:"Karşılaştırma eski x ile yapılır, y'ye artmış x eklenir.",
+ A18:"'A' kaçtır? bool sıfır olmayan değeri nasıl saklar?",
+ A19:"Satırları sırayla uygula; b *= a - 14 önce sağ tarafı hesaplar.",
+ A20:"update'in ilk parametresi reference, ikincisi kopya.",
+ A21:"j % 3 değerine göre giriş case'ini bul, break'e kadar devam et.",
+ A22:"fixed/precision sadece double'ları etkiler; 10/4 int bölme.",
+ A23:"&& solu false ise sağ taraf hesaplanır mı?",
+ A24:"İlk okunan sayı, kaç sayı daha okunacağını söyler.",
+ A25:"abs int döndürür, 7/int ne olur? ceil yukarı, floor aşağı.",
+ A26:"11/2 hangi tipte hesaplanır? static_cast<int> yuvarlar mı keser mi?",
+ A27:"Değer verilmeyen enum sabiti bir öncekinin bir fazlası.",
+ "M-I.1":"++x önce artırır; koşul kaç kez doğru?",
+ "M-I.2":"Önce parantezin içi: 3/4 int bölme.",
+ "M-I.5":"Overload için parametre listesi farklı olmalı; dönüş tipi ya da ad değişikliği yetmez.",
+ "M-I.6":"fabs bir değer döndürür; cin bir değişkene yazmalı.",
+ "M-I.8":"void fonksiyonda return; yazılabilir mi?",
+ "M-II.1":"a ve c reference; fonksiyondaki b local.",
+ "M-II.2":"Döngü kaç tur döner?",
+ "M-II.3":"i. satırda j 1'den i'ye kadar.",
+ "M-II.4":"a reference: önce 2 artar, sonra kare + 5.",
+ "M-II.5":"İkinci çağrıda (int,double,int) mı (int,double,double) mı daha iyi uyar? İki çıktı arasında boşluk yok.",
+ "M-II.6":"x > 5 koşulu x = 5 için doğru mu?",
+ "M-III":"Her (i, j) için j - i farkını hesapla; break'siz case'ler düşer.",
+ "Q-1":"Ondalık sonuç int değişkene atanınca ne olur?",
+ "Q-2":"-3 % 2 kaçtır?",
+ "Q-3":"j = i++ ve k = --i bildirimlerini sırayla izle.",
+ "Q-5":"x > y doğru mu?",
+ B1:"Satır 5 ve 6'ya bak.",
+ B2:"main'den önce ne eksik? Satır 8 bir değer döndürüyor mu?",
+ B3:"Parametreler kopya mı, reference mı?",
+ B4:"Satır 2'nin sonuna bak.",
+ B5:"Satır 4 ve 6; case'ler arasında break var mı?",
+ B6:"Koşul ve sayaç güncellemesi.",
+ B7:"int / int.",
+ B8:"Parametre listelerini karşılaştır.",
+ B9:"void fonksiyon ne döndürebilir, nerede kullanılabilir?",
+ B10:"include satırları ve dosya adı.",
+ QB3:"Satır 5, 7, 9 ve 12.",
+ QB4:"include, satır 6, 10, 11, 14, 15 ve kapanış."
+};
+
+/* ---------- EZBER KARTLARI (ozet.md'den) ---------- */
+const FLASHCARDS=[
+ {id:"f1",cat:"Tipler",q:"7/2 ve 7/2.0 kaç?",a:"3 ve 3.5. int / int kesri atar, yuvarlamaz."},
+ {id:"f2",cat:"Tipler",q:"static_cast<double>(a/b) neden yanlış?",a:"Önce int bölme yapılır; cast sonuca uygulanır. Doğrusu static_cast<double>(a)/b."},
+ {id:"f3",cat:"Tipler",q:"x++ ile ++x farkı?",a:"x++ eski değeri kullanır, ++x önce artırır. İkisinde de x artar."},
+ {id:"f4",cat:"Tipler",q:"-3 % 2 kaç?",a:"-1. İşaret soldakinden gelir; bu yüzden x % 2 == 1 negatif tek sayıda yanlış verir."},
+ {id:"f5",cat:"Tipler",q:"int a = 4.75; ve double d = 11/2; ne tutar?",a:"a = 4 (kesilir). d = 5 (önce int bölme)."},
+ {id:"f6",cat:"Karar",q:"else hangi if'e bağlanır?",a:"En yakın, eşleşmemiş if'e. Girintiye bakılmaz."},
+ {id:"f7",cat:"Karar",q:"if (x = 5) ne yapar?",a:"x'e 5 atar; koşul her zaman true. Karşılaştırma == ile."},
+ {id:"f8",cat:"Karar",q:"Short-circuit nedir?",a:"&&'de sol false ise, ||'de sol true ise sağ taraf hesaplanmaz."},
+ {id:"f9",cat:"Karar",q:"2 <= x <= 15 C++'ta nasıl yazılır?",a:"(x >= 2 && x <= 15)"},
+ {id:"f10",cat:"switch",q:"break olmayan case'ten sonra ne olur?",a:"Alttaki tüm satırlar, break veya } görülene kadar çalışır; case etiketleri durdurmaz."},
+ {id:"f11",cat:"switch",q:"switch hangi tiplerle çalışır?",a:"int, char, bool, enum. string ve double olamaz."},
+ {id:"f12",cat:"Döngü",q:"while ile do-while farkı?",a:"while başta kontrol eder, hiç çalışmayabilir. do-while en az bir kez çalışır; while(...) sonrası ; var."},
+ {id:"f13",cat:"Döngü",q:"for (...); ne yapar?",a:"Noktalı virgül gövdeyi boşaltır; alttaki satır döngüden sonra bir kez çalışır."},
+ {id:"f14",cat:"Döngü",q:"İç içe döngüde break?",a:"Sadece içinde bulunduğu döngüden çıkar."},
+ {id:"f15",cat:"Döngü",q:"continue ne yapar?",a:"Turun geri kalanını atlar; for'da güncelleme yine yapılır."},
+ {id:"f16",cat:"Döngü",q:"Toplam ve çarpım neyle başlar?",a:"sum = 0, product = 1."},
+ {id:"f17",cat:"Fonksiyon",q:"Bildirim ile tanım farkı?",a:"Bildirim (prototype) ; ile biter, çağrıdan önce gelir. Tanım başlık + gövde, başlıkta ; yok."},
+ {id:"f18",cat:"Fonksiyon",q:"Call-by-value nedir?",a:"Parametre argümanın kopyasıdır; fonksiyondaki değişiklik çağıranı etkilemez."},
+ {id:"f19",cat:"Fonksiyon",q:"Global ile aynı isimde local olursa?",a:"Fonksiyon içinde local kazanır; global değişmez."},
+ {id:"f20",cat:"Overloading",q:"Geçerli overload kuralı?",a:"Aynı isim, farklı parametre listesi (sayı, tip veya sıra). Sadece dönüş tipi ya da adlar farklıysa geçersiz."},
+ {id:"f21",cat:"Overloading",q:"add(2, 3.0) ne zaman derleme hatası verir?",a:"add(int,int) ve add(double,double) ikisi de varsa: eşit derecede iyi iki aday, ambiguous."},
+ {id:"f22",cat:"Reference",q:"int& parametre ne demek?",a:"Argümanın kendisi (aynı adres). Değişiklik çağıranın değişkenini değiştirir. Argüman değişken olmalı, sabit olamaz."},
+ {id:"f23",cat:"Reference",q:"void fonksiyonda return?",a:"return; (değersiz) erken çıkış için yazılabilir. Çağrı cout << içinde kullanılamaz."},
+ {id:"f24",cat:"Hazır",q:"1–6 arası zar nasıl atılır?",a:"rand() % 6 + 1. srand(time(0)) bir kez çağrılır (<cstdlib>, <ctime>)."},
+ {id:"f25",cat:"Hazır",q:"abs ile fabs farkı?",a:"abs int döndürür (<cstdlib>), fabs double (<cmath>). 7 / abs(-2) = 3."},
+ {id:"f26",cat:"Dosya",q:"Dosyadaki tüm sayıları okuma kalıbı?",a:"ifstream in; in.open(\"f.txt\"); while (in >> x) { ... } in.close();  (#include <fstream>)"}
+];
+
+/* ---------- SETLER ---------- */
+const SRC=id=>/^T/.test(id)?"Teşhis":/^A/.test(id)?"Alıştırma A":/^M-I\./.test(id)?"Örnek midterm Part I":/^M-II/.test(id)?"Örnek midterm Part II":id==="M-III"?"Örnek midterm Part III":/^Q-/.test(id)?"Örnek quiz Part I":/^QB/.test(id)?"Örnek quiz Part II":/^B/.test(id)?"Alıştırma B":/^C/.test(id)?"Alıştırma C":"";
+const ALLQ={};
+OUT.forEach(q=>ALLQ[q.id]=Object.assign({kind:q.type==="choice"?"choice":"out"},q,{set:q.set||"cikti"}));
+BUG.forEach(q=>ALLQ[q.id]=Object.assign({kind:"bug"},q,{set:"hata"}));
+CODE.forEach(q=>ALLQ[q.id]=Object.assign({kind:"code"},q,{set:q.set||"kod"}));
+for(const id in ALLQ){const q=ALLQ[id]; q.src=SRC(id); q.h=q.kind==="code"?q.tip:HINTS[id];}
+const qsOf=k=>Object.values(ALLQ).filter(q=>q.set===k);
+const SETS={
+ teshis:{title:"🩺 Teşhis Testi",intro:"Önce bunu çöz (20 dk). Yanlışların İlerleme & Hatalar sekmesine düşer. Çok satırlı çıktıda her satırı ayrı satıra yaz.",qs:qsOf("teshis")},
+ cikti:{title:"🖥️ Çıktı Tahmini",intro:"Önce kâğıtta izle, sonra yaz ve kontrol et. Boşluklar esnek değerlendirilir. Tüm cevaplar derleyiciyle doğrulandı. A2, A6, A10 ve A11 teşhisteki T1, T2, T5 ve T3 ile aynı.",qs:qsOf("cikti")},
+ hata:{title:"🐞 Hata Bulma",intro:"Hatalı satırları ve düzeltmeyi Karalama'ya not et, sonra çözümü aç ve kendini puanla. Derleme mi mantık hatası mı, belirt.",qs:qsOf("hata")},
+ kod:{title:"⌨️ Kâğıtta Kod Yazma",intro:"Önce kâğıda ya da Karalama kutusuna yaz. Sonra çözümü aç, karşılaştır, kendini puanla. Çözümler derlendi ve test girdisiyle çalıştı. Bildirim main'den önce, tanım sonra.",qs:qsOf("kod")},
+ sinav:{title:"📝 Örnek Midterm ve Quiz",intro:"Kaynak: midtermSample.pdf ve quizSample.pdf. Çarşamba 80 dakika süre tutarak kâğıtta çöz, sonra burada kontrol et. Part IV soruları Kod Yazma sekmesinde (C1–C3).",qs:qsOf("sinav"),time:80}
+};
+const TABS=[["plan","🧭 Plan & Kapsam"],["teshis","🩺 Teşhis"],["cikti","🖥️ Çıktı Tahmini"],["hata","🐞 Hata Bulma"],["kod","⌨️ Kod Yazma"],["sinav","📝 Örnek Sınav"],["konu","⚡ Konu & Ezber"],["ilerleme","📊 İlerleme & Hatalar"]];
+
+/* ---------- YARDIMCILAR ---------- */
 const $=s=>document.querySelector(s);
-function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
-function norm(s){return s.replace(/\r/g,"").split("\n").map(l=>l.replace(/\s+/g," ").trim()).filter(l=>l.length).join("\n")}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function norm(s){return String(s).replace(/\r/g,"").split("\n").map(l=>l.replace(/\s+/g," ").trim()).filter(l=>l.length).join("\n")}
 function loose(s){return norm(s).replace(/ /g,"")}
-function tagHtml(t){return `<span class="tag">${TOPICS[t]}</span>`}
+function toast(t){const el=$("#toast"); el.textContent=t; el.classList.add("on"); clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.remove("on"),2300);}
 function codeBlock(c){return c?`<pre><code class="language-cpp">${esc(c)}</code></pre>`:""}
-function hl(root){if(window.hljs)root.querySelectorAll("pre code.language-cpp:not(.hljs)").forEach(e=>hljs.highlightElement(e))}
-
-function statusHtml(id){
-  const a=S.ans[id], s=S.self[id];
-  const v=a?a.ok:(s===undefined?undefined:s);
-  if(v===undefined)return `<span class="status" id="st-${id}"></span>`;
-  return `<span class="status ${v?"ok":"no"}" id="st-${id}">${v?"✓ doğru":"✗ yanlış"}</span>`;
+function hl(root){if(window.hljs)root.querySelectorAll("pre code:not(.hljs)").forEach(e=>{if(!/language-/.test(e.className))e.classList.add("language-cpp");try{hljs.highlightElement(e)}catch(_){}})}
+function status(id){const a=S.ans[id]; if(a&&typeof a.ok==="boolean"&&!(a.v===""||a.v===-1)) return a.ok?"ok":"bad"; if(S.self[id]!==undefined) return S.self[id]?"ok":"bad"; if(a&&typeof a.ok==="boolean") return a.ok?"ok":"bad"; return null;}
+function applyTheme(){
+  const r=document.documentElement; if(S.theme) r.dataset.theme=S.theme;
+  const dark=S.theme?S.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+  $("#hlLight").disabled=dark; $("#hlDark").disabled=!dark;
 }
-function setStatus(id){const el=document.getElementById("st-"+id);if(el)el.outerHTML=statusHtml(id);updateScore();}
 
-/* ---------- çıktı soruları ---------- */
-function outCard(q){
-  const d=document.createElement("div");d.className="card";d.dataset.topic=q.topic;d.id="q-"+q.id;
-  let body=`<div class="q-head"><span class="qid">${q.id}</span>${tagHtml(q.topic)}${statusHtml(q.id)}</div>`;
-  if(q.prompt)body+=`<p class="prompt">${q.prompt}</p>`;
-  else if(q.type!=="choice")body+=`<p class="prompt">Çıktı nedir?</p>`;
-  body+=codeBlock(q.code);
-  if(q.type==="choice"){
-    body+=`<div class="choices">${q.choices.map((c,i)=>`<label><input type="radio" name="r-${q.id}" value="${i}"${S.ans[q.id]&&S.ans[q.id].v==i?" checked":""}> <span>${esc(c)}</span></label>`).join("")}</div>`;
-  }else{
-    body+=`<textarea class="out" aria-label="${q.id} cevabı" placeholder="Çıktıyı yaz (her satır ayrı satıra)">${esc((S.ans[q.id]&&S.ans[q.id].v)||"")}</textarea>`;
+/* ---------- SEKMELER ---------- */
+function badge(k){ if(!SETS[k]) return ""; const qs=SETS[k].qs; return ` <span class="muted small">${qs.filter(x=>status(x.id)).length}/${qs.length}</span>`; }
+function renderTabs(){
+  $("#tabs").innerHTML=TABS.map(([k,l])=>`<button role="tab" id="tab-${k}" aria-controls="main" aria-selected="${S.tab===k}" tabindex="${S.tab===k?0:-1}" data-tab="${k}">${l}${badge(k)}</button>`).join("");
+  $("#main").setAttribute("aria-labelledby","tab-"+S.tab);
+}
+function go(k,filter){
+  if(filter) S.filter=filter;
+  S.tab=k; save();
+  if(location.hash.slice(1)!==k) history.replaceState(null,"","#"+k);
+  render(); window.scrollTo(0,0);
+  const b=$("#tab-"+k); if(b) b.scrollIntoView({block:"nearest",inline:"nearest"});
+}
+
+/* ---------- SORU KARTI ---------- */
+function qCard(x){
+  const st=status(x.id), open=S.open[x.id], hOpen=S.open["h"+x.id];
+  const txtKey=(x.kind==="code"||x.kind==="bug");
+  const scVal=txtKey?(S.txt[x.id]||""):(S.scratch[x.id]||"");
+  const scOpen=S.open["sc"+x.id]!==undefined?S.open["sc"+x.id]:(txtKey&&!!scVal);
+  let body="";
+  if(x.kind==="out"){ body=(x.prompt?`<div class="prompt">${x.prompt}</div>`:`<div class="prompt">Çıktı nedir?</div>`)+codeBlock(x.code)+
+     `<textarea class="out" id="in-${x.id}" data-in="${x.id}" aria-label="${x.id} cevabın" placeholder="Çıktıyı yaz (her satır ayrı satıra)" spellcheck="false">${esc(S.inputs[x.id]!==undefined?S.inputs[x.id]:((S.ans[x.id]&&typeof S.ans[x.id].v==="string")?S.ans[x.id].v:""))}</textarea>`; }
+  else if(x.kind==="choice"){ const sel=S.ans[x.id]?S.ans[x.id].v:null;
+     body=(x.prompt?`<div class="prompt">${x.prompt}</div>`:`<div class="prompt">Çıktı nedir?</div>`)+codeBlock(x.code)+
+     `<div class="choices" role="radiogroup" aria-label="${x.id} şıkları">${x.choices.map((c,i)=>`<label><input type="radio" name="r-${x.id}" value="${i}"${sel===i?" checked":""}> <span>${esc(c)}</span></label>`).join("")}</div>`; }
+  else if(x.kind==="bug"){ body=(x.prompt?`<div class="prompt">${x.prompt}</div>`:`<div class="prompt">Hatalı satırları bul ve düzelt.</div>`)+codeBlock(x.code); }
+  else { body=`<div class="prompt">${x.prompt}</div>`; }
+  let sol="";
+  if(x.kind==="out") sol=`<p><b>Cevap:</b></p><pre>${esc(x.ans)}</pre><p>${x.why}</p>`;
+  else if(x.kind==="choice") sol=`<p><b>Cevap:</b> <span class="ans">${esc(x.choices[x.correct])}</span></p><p>${x.why}</p>`;
+  else if(x.kind==="bug") sol=`<p>${x.sol}</p>`;
+  else sol=codeBlock(x.sol)+`<p class="small">${x.tip}</p>`;
+  const auto=(x.kind==="out"||x.kind==="choice");
+  return `<article class="q" id="q-${x.id}" data-id="${x.id}">
+   <header><span class="qid">${esc(x.id)}</span><span class="chip">${TOPICS[x.topic]}</span><span class="qsrc">${esc(x.src)}</span>
+     <span class="st ${st||""}" aria-live="polite">${st==="ok"?"✓ Doğru":st==="bad"?"✗ Yanlış":""}</span></header>
+   ${body}
+   <div class="actions">
+     ${auto?`<button class="btn" data-check="${x.id}" type="button">Kontrol et</button><span class="fb" id="fb-${x.id}" aria-live="polite"></span>`:""}
+     ${x.h?`<button class="btn ghost" data-hint="${x.id}" type="button" aria-expanded="${!!hOpen}">💡 İpucu</button>`:""}
+     <button class="btn soft" data-reveal="${x.id}" type="button" aria-expanded="${!!open}">${open?"Çözümü gizle":"Çözümü göster"}</button>
+     <button class="btn ghost" data-scratch="${x.id}" type="button" aria-expanded="${!!scOpen}">✏️ Karalama</button>
+   </div>
+   ${x.h?`<div class="hint" id="h-${x.id}" ${hOpen?"":"hidden"}><b>İpucu:</b> ${esc(x.h)}</div>`:""}
+   <div class="scratch-box" id="sc-${x.id}" ${scOpen?"":"hidden"}>
+     <div class="small muted"><b>Karalama</b> · ${x.kind==="code"?"sol kutuya kodunu yaz (kaydedilir), sağa çiz":x.kind==="bug"?"hatalı satırları ve düzeltmeyi yaz (kaydedilir), sağa çiz":"izleme tablonu yaz (kaydedilir), sağa çiz"}</div>
+     <div class="scratch-grid${x.kind==="code"?" code":""}">
+       <textarea class="scratch-Area" data-scinput="${x.id}" data-sckind="${txtKey?"txt":"scratch"}" aria-label="${x.id} karalama" spellcheck="false" placeholder="${x.kind==="code"?"int main() {\n    ...\n}":x.kind==="bug"?"Satır 5: ; eksik ...":"i | j | çıktı"}">${esc(scVal)}</textarea>
+       <div class="scratch-canvas-wrap">
+         <canvas class="scratch-canvas" id="canv-${x.id}" width="420" height="${x.kind==="code"?220:130}" aria-label="Çizim alanı"></canvas>
+         <button type="button" class="btn ghost" data-clearcanv="${x.id}" style="position:absolute;top:5px;right:5px;padding:2px 7px;font-size:.73rem">Temizle</button>
+       </div>
+     </div>
+   </div>
+   <div class="sol" id="s-${x.id}" ${open?"":"hidden"}>${sol}
+     <div class="self"><span class="small muted">Kâğıttaki cevabın:</span><button class="btn ok" data-mark="ok" data-id="${x.id}" type="button">✓ Doğru yaptım</button><button class="btn bad" data-mark="bad" data-id="${x.id}" type="button">✗ Yanlış yaptım</button></div>
+   </div>
+  </article>`;
+}
+
+function setView(k){
+  const set=SETS[k]; let qs=set.qs;
+  const ok=qs.filter(x=>status(x.id)==="ok").length, bad=qs.filter(x=>status(x.id)==="bad").length;
+  let h=`<section class="sheet"><h2>${set.title}</h2><p class="muted">${set.intro}</p>
+   <p class="small">Bu setteki durumun: <b style="color:var(--green)">${ok} doğru</b> · <b style="color:var(--red)">${bad} yanlış</b> · <b>${qs.length-ok-bad} çözülmemiş</b></p>`;
+  if(k==="cikti"){
+    const counts={}; qs.forEach(x=>counts[x.topic]=(counts[x.topic]||0)+1);
+    const filters=[["all",`Tümü (${qs.length})`],...Object.keys(TOPICS).filter(t=>counts[t]).map(t=>[t,`${TOPICS[t]} (${counts[t]})`]),["bad",`✗ Yanlışlarım (${bad})`],["todo",`⏳ Çözülmemiş (${qs.length-ok-bad})`]];
+    if(!filters.some(f=>f[0]===S.filter)) S.filter="all";
+    h+=`<div class="filter-bar" role="group" aria-label="Filtre">${filters.map(([fk,fl])=>`<button type="button" class="filter-btn ${S.filter===fk?"active":""}" aria-pressed="${S.filter===fk}" data-filter="${fk}">${fl}</button>`).join("")}</div>`;
+    if(S.filter==="bad") qs=qs.filter(x=>status(x.id)==="bad");
+    else if(S.filter==="todo") qs=qs.filter(x=>!status(x.id));
+    else if(S.filter!=="all") qs=qs.filter(x=>x.topic===S.filter);
   }
-  body+=`<div class="row"><button class="btn pri" type="button" data-act="check">Kontrol et</button><button class="btn" type="button" data-act="show">Cevabı göster</button></div><div class="fbwrap"></div>`;
-  d.innerHTML=body;
-  const fbw=d.querySelector(".fbwrap");
-  function showFb(ok,reveal){
-    const exp=q.type==="choice"?esc(q.choices[q.correct]):`<pre>${esc(q.ans)}</pre>`;
-    fbw.innerHTML=`<div class="fb ${reveal?"info":ok?"ok":"no"}"><b>${reveal?"Cevap":ok?"Doğru.":"Yanlış."}</b> ${ok&&!reveal?"":"Doğru cevap:"} ${ok&&!reveal?"":exp}<div style="margin-top:6px">${q.why}</div>${!ok&&!reveal?`<div class="note" style="margin-top:6px">Tekrar: Özet → ${OZETREF[q.topic]}</div>`:""}</div>`;
-  }
-  d.querySelector('[data-act="check"]').onclick=()=>{
-    let v,ok;
-    if(q.type==="choice"){const r=d.querySelector("input:checked");if(!r){fbw.innerHTML=`<div class="fb info">Bir şık seç.</div>`;return}v=+r.value;ok=v===q.correct}
-    else{v=d.querySelector("textarea").value;if(!v.trim()){fbw.innerHTML=`<div class="fb info">Önce cevabını yaz.</div>`;return}ok=norm(v)===norm(q.ans)||loose(v)===loose(q.ans)}
-    S.ans[q.id]={v,ok};save();showFb(ok,false);setStatus(q.id);
-  };
-  d.querySelector('[data-act="show"]').onclick=()=>{
-    if(!S.ans[q.id]){S.ans[q.id]={v:q.type==="choice"?-1:"",ok:false};save();setStatus(q.id)}
-    showFb(false,true);
-  };
-  return d;
+  if(set.time) h+=timerHTML(k,set.time);
+  h+=`<div class="actions"><button class="btn ghost" data-resetset="${k}" type="button">Bu setin işaretlerini sıfırla</button><button class="btn ghost" data-expandall="${k}" type="button">Tüm çözümleri aç/kapat</button></div>`;
+  h+=qs.length?qs.map(qCard).join(""):`<p class="muted" style="padding:20px 0">Bu filtrede soru yok.</p>`;
+  return h+`</section>`;
 }
 
-/* ---------- self-graded kartlar ---------- */
-function selfRow(id){
-  return `<div class="row selfrow" style="display:none"><span class="note">Kendini puanla:</span><button class="btn" type="button" data-self="1">Doğru buldum</button><button class="btn" type="button" data-self="0">Kaçırdım</button></div>`;
+/* ---------- SAYAÇLAR ---------- */
+function timerHTML(k,min){
+  return `<div class="timer" id="timer-${k}"><span class="clock" id="clock-${k}">${min}:00</span>
+   <button class="btn" data-tstart="${k}" type="button">Süreyi başlat</button>
+   <button class="btn ghost" data-tpause="${k}" type="button">Duraklat</button>
+   <button class="btn ghost" data-treset="${k}" type="button">Sıfırla</button>
+   <span class="small muted">Sınav süresi: ${min} dk, kâğıt üstünde</span></div>`;
 }
-function wireSelf(d,id){
-  d.querySelectorAll("[data-self]").forEach(b=>b.onclick=()=>{S.self[id]=b.dataset.self==="1";save();setStatus(id)});
+function tState(k){ if(!S.timers[k]) S.timers[k]={left:SETS[k].time*60,run:false,at:0}; return S.timers[k]; }
+function tLeft(k){ const t=tState(k); return t.run?t.left-(Date.now()-t.at)/1000:t.left; }
+let pomo={left:25*60,run:false,at:0};
+function pomoLeft(){ return pomo.run?pomo.left-(Date.now()-pomo.at)/1000:pomo.left; }
+function tTick(){
+  for(const k in SETS){ if(!SETS[k].time) continue; const el=$("#clock-"+k); if(!el) continue;
+    const l=tLeft(k), a=Math.abs(Math.round(l)); el.textContent=(l<0?"−":"")+Math.floor(a/60)+":"+String(a%60).padStart(2,"0");
+    $("#timer-"+k).classList.toggle("over",l<0); }
+  const pel=$("#pomoClock"); const pl=Math.max(0,Math.round(pomoLeft()));
+  pel.textContent=String(Math.floor(pl/60)).padStart(2,"0")+":"+String(pl%60).padStart(2,"0");
+  if(pl===0&&pomo.run){ pomo={left:25*60,run:false,at:0}; $("#pomoToggle").textContent="Başlat"; toast("🍅 Pomodoro bitti. 5 dk mola ver."); }
 }
-function bugCard(q){
-  const d=document.createElement("div");d.className="card";d.id="q-"+q.id;
-  d.innerHTML=`<div class="q-head"><span class="qid">${q.id}</span>${tagHtml(q.topic)}${statusHtml(q.id)}</div>${q.prompt?`<p class="prompt">${q.prompt}</p>`:""}${codeBlock(q.code)}
-  <textarea aria-label="${q.id} notların" placeholder="Hatalı satırlar ve düzeltme">${esc(S.txt[q.id]||"")}</textarea>
-  <div class="row"><button class="btn pri" type="button" data-act="show">Cevabı göster</button></div>
-  <div class="fbwrap"></div>${selfRow(q.id)}`;
-  d.querySelector("textarea").oninput=e=>{S.txt[q.id]=e.target.value;save()};
-  d.querySelector('[data-act="show"]').onclick=e=>{
-    const fb=d.querySelector(".fbwrap");const open=!fb.innerHTML;
-    fb.innerHTML=open?`<div class="fb info">${q.sol}</div>`:"";e.target.textContent=open?"Cevabı gizle":"Cevabı göster";
-    d.querySelector(".selfrow").style.display=open?"flex":"none";
-  };
-  wireSelf(d,q.id);return d;
-}
-function codeCard(q){
-  const d=document.createElement("div");d.className="card";d.id="q-"+q.id;
-  d.innerHTML=`<div class="q-head"><span class="qid">${q.id}</span>${tagHtml(q.topic)}${statusHtml(q.id)}</div><div class="prompt">${q.prompt}</div>
-  <textarea class="scratch" aria-label="${q.id} kodun" placeholder="Kodunu buraya yaz (ya da kâğıda)" spellcheck="false">${esc(S.txt[q.id]||"")}</textarea>
-  <div class="row"><button class="btn pri" type="button" data-act="show">Çözümü göster</button></div>
-  <div class="solwrap" hidden><div class="fb info" style="padding:10px">${codeBlock(q.sol)}<div>${q.tip}</div></div></div>${selfRow(q.id)}`;
-  d.querySelector("textarea").oninput=e=>{S.txt[q.id]=e.target.value;save()};
-  d.querySelector('[data-act="show"]').onclick=e=>{
-    const w=d.querySelector(".solwrap");w.hidden=!w.hidden;e.target.textContent=w.hidden?"Çözümü göster":"Çözümü gizle";
-    d.querySelector(".selfrow").style.display=w.hidden?"none":"flex";if(!w.hidden)hl(w);
-  };
-  wireSelf(d,q.id);return d;
+setInterval(tTick,1000);
+
+/* ---------- PLAN ---------- */
+function planView(){
+  const total=Object.keys(ALLQ).length;
+  return `<section class="sheet">
+    <h2>CS103 Midterm Çalışma Masası & Plan</h2>
+    <p class="muted"><b>Sınav:</b> 19 Kasım 2026 Perşembe 17:45, 80 dakika, kâğıt üstünde · <b>Kapsam:</b> 1–7. haftalar (Savitch Bölüm 1–5 ve 6.1 dosya I/O) · <b>Kaynaklar:</b> ders slaytları, ders kodları, örnek midterm ve quiz.</p>
+    <div class="chips"><span class="chip">${total} etkileşimli soru</span><span class="chip green">Otomatik çıktı kontrolü</span><span class="chip purple">Derleyiciyle doğrulanmış cevaplar</span><span class="chip amber">${FLASHCARDS.length} ezber kartı</span></div>
+    <h3>Gün gün plan</h3>
+    <p class="small muted">Bitirdiğin günü işaretle; işaretler bu tarayıcıda saklanır.</p>
+    <div class="plan"><ul>${PLAN.map((p,i)=>`<li class="${S.plan[i]?"done":""}"><input type="checkbox" id="pl-${i}" data-plan="${i}" ${S.plan[i]?"checked":""}><span class="time">${esc(p.d)}<br><span class="small">${esc(p.t)}</span></span><label class="what" for="pl-${i}"><b>${esc(p.h)}</b><br><span class="small">${esc(p.b)}</span> <a href="#${({zayif:"ilerleme"})[p.go]||p.go}" data-go="${({zayif:"ilerleme"})[p.go]||p.go}" class="small">Sekmeye git →</a></label></li>`).join("")}</ul></div>
+  </section>
+  <section class="sheet">
+    <h2>Sınav biçimi (örnek midterm'e göre)</h2>
+    <div class="tblwrap"><table><tr><th>Bölüm</th><th>İçerik</th><th>Ağırlık</th></tr>
+     <tr><td>Part I</td><td>10 kısa soru: çoktan seçmeli, doğru/yanlış, boşluk doldurma</td><td>Düşük</td></tr>
+     <tr><td>Part II</td><td>6 kod parçası, çıktıyı yaz (reference, döngü, overloading, nested if)</td><td>Orta</td></tr>
+     <tr><td>Part III</td><td>İç içe döngü + <code>switch</code> fall-through çıktısı</td><td>10 puan</td></tr>
+     <tr><td>Part IV</td><td>Kâğıtta fonksiyon yazma: bildirim/tanım, girdi doğrulama döngüsü, faktöriyel/permütasyon, <code>void</code> + <code>return</code></td><td>En yüksek (tek soru 30 puan)</td></tr></table></div>
+    <h3>Kâğıt üstü kod yazma kuralları</h3>
+    <ul class="small"><li>Bildirim <code>main</code>'den önce (<code>;</code> ile biter), tanım sonra. Soru "kutuya yerleştir" diyorsa bildirim üst kutuya, tanım alt kutuya.</li>
+     <li><code>#include &lt;iostream&gt;</code>, <code>using namespace std;</code>; <code>string</code> için <code>&lt;string&gt;</code>, dosya için <code>&lt;fstream&gt;</code>.</li>
+     <li>Değişkeni kullanmadan önce bildir ve başlat: <code>int sum = 0;</code>, <code>int product = 1;</code>.</li>
+     <li>Girintiyi düzgün yap; uzayan kodu okla işaretle.</li><li>Bitince kodu küçük bir girdiyle elde izle (ör. <code>n = 3</code>).</li></ul>
+  </section>`;
 }
 
-/* ---------- puan ---------- */
-function allItems(){return [...OUT,...BUG,...CODE]}
-function resultOf(id){if(S.ans[id])return S.ans[id].ok;if(S.self[id]!==undefined)return S.self[id];return undefined}
-function updateScore(){
-  const items=allItems();let done=0,ok=0;
-  items.forEach(q=>{const r=resultOf(q.id);if(r!==undefined){done++;if(r)ok++}});
-  $("#scoreline").innerHTML=`Çözülen <b>${done}</b>/${items.length} · doğru <b>${ok}</b> · plan <b>${Object.values(S.plan).filter(Boolean).length}</b>/${PLAN.length}`;
-  if(!$("#s-zayif").hidden)renderWeak();
-}
-function renderWeak(){
-  const items=allItems();const per={};
-  items.forEach(q=>{const r=resultOf(q.id);per[q.topic]=per[q.topic]||{n:0,bad:0,tot:0,ids:[]};per[q.topic].tot++;if(r!==undefined){per[q.topic].n++;if(!r){per[q.topic].bad++;per[q.topic].ids.push(q.id)}}});
-  let done=0,ok=0;items.forEach(q=>{const r=resultOf(q.id);if(r!==undefined){done++;if(r)ok++}});
-  $("#stats").innerHTML=`<div class="stat"><b>${done}/${items.length}</b><span>çözülen soru</span></div><div class="stat"><b>${done?Math.round(100*ok/done):0}%</b><span>başarı</span></div><div class="stat"><b>${done-ok}</b><span>yanlış</span></div>`;
-  const rows=Object.entries(per).filter(([,v])=>v.n>0).sort((a,b)=>(b[1].bad/b[1].n)-(a[1].bad/a[1].n)||b[1].bad-a[1].bad);
-  if(!rows.length){$("#weakList").innerHTML=`<p class="note" style="margin:0">Henüz veri yok. Teşhis testiyle başla.</p>`;return}
-  $("#weakList").innerHTML=`<h3 style="margin-top:0">Konu bazında yanlış oranı</h3>`+rows.map(([t,v])=>`<div class="weak"><span class="lbl">${TOPICS[t]}</span><span class="meter"><i style="width:${Math.round(100*v.bad/v.n)}%"></i></span><span class="num">${v.bad}/${v.n} yanlış</span></div>${v.ids.length?`<div class="note" style="padding:4px 0 8px">Yanlışlar: ${v.ids.map(i=>`<button class="jump" type="button" data-jump="${i}">${i}</button>`).join(", ")} · Tekrar: Özet → ${OZETREF[t]}</div>`:""}`).join("");
-  $("#weakList").querySelectorAll("[data-jump]").forEach(b=>b.onclick=()=>jumpTo(b.dataset.jump));
-}
-function jumpTo(id){
-  const el=document.getElementById("q-"+id);if(!el)return;
-  const sec=el.closest("section");show(sec.id.slice(2));
-  setTimeout(()=>{el.scrollIntoView({behavior:"smooth",block:"start"});el.style.outline="3px solid var(--acc)";setTimeout(()=>el.style.outline="",1600)},50);
-}
-
-/* ---------- sekmeler ---------- */
-const SECS=[...document.querySelectorAll("main>section")];
-function show(name){
-  SECS.forEach(s=>s.hidden=s.id!=="s-"+name);
-  document.querySelectorAll("#tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.s===name));
-  try{localStorage.setItem(KEY+"-tab",name)}catch(e){}
-  if(name==="zayif")renderWeak();
-  hl($("#s-"+name));window.scrollTo(0,0);
-}
-SECS.forEach(s=>{const b=document.createElement("button");b.type="button";b.role="tab";b.dataset.s=s.id.slice(2);b.textContent=s.dataset.title;b.onclick=()=>show(b.dataset.s);$("#tabs").appendChild(b)});
-
-/* ---------- plan ---------- */
-function renderPlan(){
-  $("#planList").innerHTML=PLAN.map((p,i)=>`<div class="plan-day${S.plan[i]?" done":""}"><input type="checkbox" id="pl-${i}"${S.plan[i]?" checked":""} aria-label="${p.d} bitti"><div class="pd-body"><label for="pl-${i}" class="pd-date">${p.d}</label> <span class="pd-meta">${p.t}</span><p><b>${p.h}</b></p><p>${p.b} <button class="jump" type="button" data-go="${p.go}">Sekmeye git →</button></p></div></div>`).join("");
-  PLAN.forEach((p,i)=>$("#pl-"+i).onchange=e=>{S.plan[i]=e.target.checked;save();e.target.closest(".plan-day").classList.toggle("done",e.target.checked);updateScore()});
-  $("#planList").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>show(b.dataset.go));
-}
-
-/* ---------- özet ---------- */
-function renderOzet(){
+/* ---------- KONU & EZBER ---------- */
+let OZET_SECTIONS=null;
+function ozetSections(){
+  if(OZET_SECTIONS) return OZET_SECTIONS;
   const md=$("#ozetMd").textContent;
-  const body=$("#ozetBody");
-  if(window.marked){body.innerHTML=marked.parse(md)}else{body.innerHTML=`<pre style="white-space:pre-wrap">${esc(md)}</pre>`}
-  body.querySelectorAll("pre code").forEach(c=>{if(!c.className)c.className="language-cpp";if(c.className.includes("language-cpp")||c.className==="")c.classList.add("language-cpp")});
-  const hs=[...body.querySelectorAll("h2")];
-  $("#ozetToc").innerHTML=hs.map((h,i)=>{h.id="oz-"+i;return `<button type="button" data-oz="${i}">${esc(h.textContent)}</button>`}).join("");
-  $("#ozetToc").querySelectorAll("button").forEach(b=>b.onclick=()=>document.getElementById("oz-"+b.dataset.oz).scrollIntoView({behavior:"smooth"}));
+  if(!window.marked) return [{t:"Konu özetleri",html:`<pre style="white-space:pre-wrap">${esc(md)}</pre>`}];
+  const div=document.createElement("div"); div.innerHTML=marked.parse(md);
+  const out=[]; let cur=null;
+  [...div.childNodes].forEach(n=>{ if(n.nodeName==="H1") return; if(n.nodeName==="H2"){cur={t:n.textContent,html:""};out.push(cur);return;} if(!cur){cur={t:"Giriş",html:""};out.push(cur);} cur.html+=n.outerHTML||esc(n.textContent||""); });
+  OZET_SECTIONS=out; return out;
+}
+function konuView(){
+  const m=FLASHCARDS.filter(f=>S.fc[f.id]==="ok").length;
+  let h=`<section class="sheet"><h2>⚡ Ezber Kartları (${m}/${FLASHCARDS.length} öğrenildi)</h2>
+   <p class="muted">Karta tıklayarak çevir. "Biliyorum" dediğin kartlar yeşil işaretlenir. Kartlar konu özetinden ve tuzak listesinden çıkarıldı.</p><div class="fc-grid">`+
+   FLASHCARDS.map(f=>{const fl=!!S.open["fc_"+f.id], ok=S.fc[f.id]==="ok";
+     return `<div class="fc-card ${fl?"flipped":""} ${ok?"mastered":""}" id="fc-${f.id}" data-fcflip="${f.id}" role="button" tabindex="0" aria-pressed="${fl}" aria-label="${esc(f.cat)} kartı, ${fl?"cevap":"soru"} yüzü">
+       <div class="fc-top"><span>${esc(f.cat)}</span><span>${fl?"CEVAP":"SORU · çevir ↻"}</span></div>
+       <div class="fc-main">${esc(fl?f.a:f.q)}</div>
+       <div class="fc-foot"><span>${ok?"✓ Öğrenildi":"Tekrar gerekli"}</span><button type="button" class="btn ${ok?"ok":"ghost"}" data-fcmark="${f.id}" style="padding:2px 8px;font-size:.74rem">${ok?"✓ Biliyorum":"Biliyorum"}</button></div></div>`;}).join("")+`</div></section>`;
+  h+=`<section class="sheet md"><h2>📖 Konu Özetleri (Hafta 1–7)</h2><p class="muted">Kaynak: ozet.md. Sınav sabahı en alttaki tuzak listesini oku.</p>`;
+  ozetSections().forEach((s,i)=>{h+=`<details id="oz-${i}" data-k="${i}" ${S.open["k"+i]===false?"":"open"}><summary>${esc(s.t)}</summary>${s.html}</details>`;});
+  return h+`</section>`;
 }
 
-/* ---------- çıktı filtresi ---------- */
-function renderFilter(){
-  const topics=[...new Set(OUT.filter(q=>!q.set).map(q=>q.topic))];
-  const f=$("#ciktiFilter");
-  f.innerHTML=`<button type="button" data-t="" aria-pressed="true">Tümü</button>`+topics.map(t=>`<button type="button" data-t="${t}" aria-pressed="false">${TOPICS[t]}</button>`).join("");
-  f.querySelectorAll("button").forEach(b=>b.onclick=()=>{f.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));$("#ciktiList").querySelectorAll(".card").forEach(c=>c.style.display=!b.dataset.t||c.dataset.topic===b.dataset.t?"":"none")});
+/* ---------- İLERLEME ---------- */
+function stats(){
+  const r={}; for(const t in TOPICS) r[t]={ok:0,bad:0,tot:0};
+  for(const id in ALLQ){const x=ALLQ[id], s=status(id); r[x.topic].tot++; if(s==="ok") r[x.topic].ok++; if(s==="bad") r[x.topic].bad++;}
+  return r;
+}
+function ilerlemeView(){
+  const r=stats();
+  let h=`<section class="sheet"><h2>📊 Konu Bazlı İlerleme & Zayıf Konular</h2><p class="muted">Yanlışı doğrusundan çok olan konular kırmızı. "Soruları aç" o konunun çıktı sorularına filtreli gider.</p>
+   <div class="tblwrap"><table><tr><th>Konu</th><th>Doğru</th><th>Yanlış</th><th>Boş</th><th>Oran</th><th>Özet</th><th></th></tr>`;
+  const weakList=[];
+  for(const t in TOPICS){const s=r[t]; if(!s.tot) continue; const tried=s.ok+s.bad, weak=s.bad>0&&s.bad>=s.ok; if(weak) weakList.push(TOPICS[t]);
+    const hasOut=SETS.cikti.qs.some(q=>q.topic===t);
+    h+=`<tr><td class="${weak?"weak":""}">${TOPICS[t]}</td><td style="color:var(--green);font-weight:700">${s.ok}</td><td style="color:var(--red);font-weight:700">${s.bad}</td><td>${s.tot-tried}</td>
+     <td><div class="meter" role="img" aria-label="${s.ok} doğru, ${s.bad} yanlış, toplam ${s.tot}"><span class="g" style="width:${100*s.ok/s.tot}%"></span><span class="r" style="width:${100*s.bad/s.tot}%"></span></div></td>
+     <td class="small">${OZETREF[t]}</td><td>${hasOut?`<button type="button" class="btn soft" data-go="cikti:${t}" style="padding:2px 8px;font-size:.76rem">Soruları aç</button>`:""}</td></tr>`;}
+  h+=`</table></div><p class="small"><b>Zayıf konular:</b> ${weakList.length?weakList.map(esc).join(", "):"henüz yok"}</p>
+   <div class="actions"><button class="btn" id="copyBtn" type="button">📋 İlerleme özetini kopyala</button><button class="btn ghost" id="resetAll" type="button">Tümünü sıfırla</button></div></section>`;
+  const bad=Object.keys(ALLQ).filter(id=>status(id)==="bad");
+  h+=`<section class="sheet"><h2>📕 Hata Listesi (${bad.length} soru)</h2>`;
+  h+=bad.length?`<p class="muted">Sınavdan önce bunları tekrar çöz. Doğru yapınca "✓ Doğru yaptım" ile listeden düşür.</p>`+bad.map(id=>`<p class="small" style="margin:6px 0 0"><a href="#${ALLQ[id].set}" data-jumpq="${id}">${esc(id)} · ${esc(SETS[ALLQ[id].set].title)} sekmesinde aç →</a></p>`+qCard(ALLQ[id])).join(""):`<p class="muted">Henüz yanlış işaretlenen soru yok.</p>`;
+  return h+`</section>`;
+}
+function summaryText(){
+  const r=stats(), lines=["CS103 İlerleme Raporu:"];
+  for(const t in TOPICS){const s=r[t]; if(s.tot) lines.push(`- ${TOPICS[t]}: ${s.ok} doğru, ${s.bad} yanlış, ${s.tot-s.ok-s.bad} boş`);}
+  const bad=Object.keys(ALLQ).filter(id=>status(id)==="bad");
+  lines.push("Yanlışlar: "+(bad.length?bad.join(", "):"yok"));
+  lines.push(`Plan: ${Object.values(S.plan).filter(Boolean).length}/${PLAN.length} gün · Kartlar: ${FLASHCARDS.filter(f=>S.fc[f.id]==="ok").length}/${FLASHCARDS.length}`);
+  return lines.join("\n");
 }
 
-/* ---------- geri sayım, tema ---------- */
+/* ---------- KARALAMA TUVALİ ---------- */
+function initScratchCanvases(){
+  document.querySelectorAll(".scratch-canvas").forEach(canv=>{
+    if(canv.dataset.bound) return; canv.dataset.bound="1";
+    const ctx=canv.getContext("2d"); let drawing=false;
+    const pos=e=>{const r=canv.getBoundingClientRect(); const p=e.touches?e.touches[0]:e; return [(p.clientX-r.left)*(canv.width/r.width),(p.clientY-r.top)*(canv.height/r.height)];};
+    const start=e=>{drawing=true; const [x,y]=pos(e); ctx.beginPath(); ctx.moveTo(x,y); e.preventDefault();};
+    const move=e=>{if(!drawing) return; const [x,y]=pos(e); ctx.strokeStyle="#3b82f6"; ctx.lineWidth=2; ctx.lineCap="round"; ctx.lineTo(x,y); ctx.stroke(); e.preventDefault();};
+    const stop=()=>{drawing=false;};
+    canv.addEventListener("mousedown",start); canv.addEventListener("mousemove",move); window.addEventListener("mouseup",stop);
+    canv.addEventListener("touchstart",start,{passive:false}); canv.addEventListener("touchmove",move,{passive:false}); window.addEventListener("touchend",stop);
+  });
+}
+
+/* ---------- RENDER ---------- */
+function render(){
+  const m=$("#main"), k=S.tab;
+  m.innerHTML=k==="plan"?planView():k==="konu"?konuView():k==="ilerleme"?ilerlemeView():setView(k);
+  hl(m); initScratchCanvases(); tTick(); header();
+}
+function header(){
+  const ids=Object.keys(ALLQ), ok=ids.filter(i=>status(i)==="ok").length, bad=ids.filter(i=>status(i)==="bad").length;
+  $("#barOk").style.width=(100*ok/ids.length)+"%"; $("#barBad").style.width=(100*bad/ids.length)+"%";
+  $("#barLbl").textContent=`${ok+bad}/${ids.length} çözüldü (${ok} ✓ · ${bad} ✗)`;
+  renderTabs();
+}
 function countdown(){
-  const exam=new Date("2026-11-19T17:45:00+01:00");const ms=exam-new Date();
-  if(ms<=0){$("#countdown").textContent="Sınav zamanı geldi";return}
-  const d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5);
-  $("#countdown").innerHTML=`Sınava <b>${d} gün ${h} saat</b> · Per 19 Kas 17:45`;
+  const ms=new Date("2026-11-19T17:45:00+01:00")-Date.now(), el=$("#count");
+  if(ms<=0){el.innerHTML="Sınav başladı · Başarılar!";return;}
+  const d=Math.floor(ms/864e5), h=Math.floor(ms%864e5/36e5), mi=Math.floor(ms%36e5/6e4);
+  el.innerHTML=`Sınava <b>${d?d+" g ":""}${h} sa ${mi} dk</b> · 19 Kas 17:45`;
 }
-$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";try{localStorage.setItem(KEY+"-theme",r.dataset.theme)}catch(e){}};
-try{const t=localStorage.getItem(KEY+"-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}
+function flash(el){ if(!el) return; el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1800); }
+function jumpQ(id){ const x=ALLQ[id]; if(!x) return; if(x.set==="cikti") S.filter="all"; go(x.set); setTimeout(()=>flash(document.getElementById("q-"+id)),80); }
 
-$("#resetBtn").onclick=()=>{if(confirm("Tüm cevaplar ve puanlar silinsin mi? Plan işaretleri kalır.")){S.ans={};S.self={};S.txt={};save();location.reload()}};
-
-/* ---------- başlat ---------- */
-function init(){
-  renderPlan();renderOzet();renderFilter();
-  OUT.forEach(q=>{const c=outCard(q);(q.set==="teshis"?$("#teshisList"):q.set==="sinav"?$("#sinavList"):$("#ciktiList")).appendChild(c)});
-  CODE.filter(q=>q.set==="teshis").forEach(q=>$("#teshisList").appendChild(codeCard(q)));
-  BUG.forEach(q=>$("#hataList").appendChild(bugCard(q)));
-  CODE.filter(q=>!q.set).forEach(q=>$("#kodList").appendChild(codeCard(q)));
-  const note=document.createElement("p");note.className="note";note.textContent="A2, A6, A10 ve A11 teşhis testindeki T1, T2, T5 ve T3 ile aynı.";$("#ciktiList").prepend(note);
-  countdown();setInterval(countdown,60000);updateScore();
-  let tab="plan";try{tab=localStorage.getItem(KEY+"-tab")||"plan"}catch(e){}
-  show(SECS.some(s=>s.id==="s-"+tab)?tab:"plan");
+/* ---------- OLAYLAR ---------- */
+function mark(id,v){
+  S.self[id]=(v==="ok"); if(S.ans[id]) S.ans[id].ok=(v==="ok"); save();
+  const c=document.getElementById("q-"+id);
+  if(c){const st=c.querySelector(".st"); st.className="st "+v; st.textContent=v==="ok"?"✓ Doğru":"✗ Yanlış";}
+  header();
 }
-window.addEventListener("load",init);
+function check(id){
+  const x=ALLQ[id], fb=document.getElementById("fb-"+id), c=document.getElementById("q-"+id); let v,ok;
+  if(x.kind==="choice"){const r=c.querySelector("input:checked"); if(!r){fb.className="fb bad"; fb.textContent="Bir şık seç."; return} v=+r.value; ok=v===x.correct;}
+  else{v=c.querySelector("textarea.out").value; if(!v.trim()){fb.className="fb bad"; fb.textContent="Önce cevabını yaz."; return} ok=norm(v)===norm(x.ans)||loose(v)===loose(x.ans);}
+  S.ans[id]={v,ok}; delete S.self[id]; save();
+  fb.className="fb "+(ok?"ok":"bad"); fb.textContent=ok?"Doğru!":"Yanlış. İpucuna ya da çözüme bak.";
+  const st=c.querySelector(".st"); st.className="st "+(ok?"ok":"bad"); st.textContent=ok?"✓ Doğru":"✗ Yanlış";
+  header();
+}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button,a,[data-fcflip]"); if(!t) return; const d=t.dataset;
+  if(d.fcmark){ e.stopPropagation(); S.fc[d.fcmark]=S.fc[d.fcmark]==="ok"?null:"ok"; save(); render(); const el=document.getElementById("fc-"+d.fcmark); el&&el.querySelector("[data-fcmark]").focus(); return; }
+  if(d.fcflip){ S.open["fc_"+d.fcflip]=!S.open["fc_"+d.fcflip]; save(); render(); const el=document.getElementById("fc-"+d.fcflip); el&&el.focus(); return; }
+  if(d.tab){ go(d.tab); return; }
+  if(d.jumpq){ e.preventDefault(); jumpQ(d.jumpq); return; }
+  if(d.go){ e.preventDefault(); const p=d.go.split(":"); go(p[0],p[1]||null); return; }
+  if(d.filter){ S.filter=d.filter; save(); render(); return; }
+  if(d.check){ check(d.check); return; }
+  if(d.reveal){ const id=d.reveal, s=document.getElementById("s-"+id), open=s.hidden; s.hidden=!open; S.open[id]=open; t.textContent=open?"Çözümü gizle":"Çözümü göster"; t.setAttribute("aria-expanded",open); if(open) hl(s); save(); return; }
+  if(d.hint){ const id=d.hint, s=document.getElementById("h-"+id), open=s.hidden; s.hidden=!open; S.open["h"+id]=open; t.setAttribute("aria-expanded",open); save(); return; }
+  if(d.scratch){ const id=d.scratch, s=document.getElementById("sc-"+id), open=s.hidden; s.hidden=!open; S.open["sc"+id]=open; t.setAttribute("aria-expanded",open); save(); initScratchCanvases(); if(open) s.querySelector("textarea").focus(); return; }
+  if(d.clearcanv){ const c=document.getElementById("canv-"+d.clearcanv); c&&c.getContext("2d").clearRect(0,0,c.width,c.height); return; }
+  if(d.mark){ mark(d.id,d.mark); toast(d.mark==="ok"?"✓ Doğru olarak işaretlendi":"✗ Hata listesine eklendi"); return; }
+  if(d.tstart){ const s=tState(d.tstart); if(!s.run){s.run=true; s.at=Date.now(); save(); toast("Sınav süresi başladı");} return; }
+  if(d.tpause){ const s=tState(d.tpause); if(s.run){s.left=tLeft(d.tpause); s.run=false; save();} tTick(); return; }
+  if(d.treset){ S.timers[d.treset]=null; tState(d.treset); save(); tTick(); return; }
+  if(d.resetset){ if(confirm("Bu setteki doğru/yanlış işaretleri ve cevaplar silinsin mi?")){ SETS[d.resetset].qs.forEach(x=>{delete S.ans[x.id]; delete S.self[x.id]; delete S.inputs[x.id];}); save(); render(); } return; }
+  if(d.expandall){ const qs=SETS[d.expandall].qs, any=qs.some(x=>!S.open[x.id]); qs.forEach(x=>S.open[x.id]=any); save(); render(); return; }
+  if(t.id==="pomoToggle"){ if(pomo.run){pomo.left=pomoLeft(); pomo.run=false; t.textContent="Başlat";} else {pomo.run=true; pomo.at=Date.now(); t.textContent="Durdur"; toast("🍅 25 dk Pomodoro başladı");} tTick(); return; }
+  if(t.id==="pomoReset"){ pomo={left:25*60,run:false,at:0}; $("#pomoToggle").textContent="Başlat"; tTick(); return; }
+  if(t.id==="searchBtn"){ openSearch(); return; }
+  if(t.id==="copyBtn"){ const txt=summaryText(); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("İlerleme özeti kopyalandı"),()=>prompt("Kopyala:",txt)); return; }
+  if(t.id==="resetAll"){ if(confirm("Tüm cevaplar, işaretler, karalamalar, kartlar ve plan işaretleri silinsin mi?")){ const th=S.theme; S={plan:{},ans:{},self:{},txt:{}}; for(const k in DEF) S[k]=JSON.parse(JSON.stringify(DEF[k])); S.theme=th; S.tab="ilerleme"; save(); render(); toast("Tüm ilerleme sıfırlandı"); } return; }
+  if(t.id==="themeBtn"){ const r=document.documentElement, cur=r.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"); S.theme=cur==="dark"?"light":"dark"; save(); applyTheme(); toast(S.theme==="dark"?"Koyu tema":"Açık tema"); return; }
+});
+document.addEventListener("toggle",e=>{ const t=e.target; if(t.matches&&t.matches("details[data-k]")){ S.open["k"+t.dataset.k]=t.open; save(); } },true);
+document.addEventListener("change",e=>{ const t=e.target;
+  if(t.dataset.plan!==undefined){ S.plan[t.dataset.plan]=t.checked; t.closest("li").classList.toggle("done",t.checked); save(); return; } });
+document.addEventListener("input",e=>{ const t=e.target;
+  if(t.dataset.in){ S.inputs[t.dataset.in]=t.value; save(); return; }
+  if(t.dataset.scinput){ (t.dataset.sckind==="txt"?S.txt:S.scratch)[t.dataset.scinput]=t.value; save(); return; }
+  if(t.id==="searchModalInput"){ renderSearch(t.value); return; } });
+document.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){ e.preventDefault(); openSearch(); return; }
+  if(e.key==="Escape"&&!$("#searchModal").hidden){ closeSearch(); return; }
+  const t=e.target;
+  if((e.key==="Enter"||e.key===" ")&&t.dataset&&t.dataset.fcflip&&t===document.activeElement&&!e.target.closest("button")){ e.preventDefault(); t.click(); return; }
+  if(t.getAttribute&&t.getAttribute("role")==="tab"&&(e.key==="ArrowRight"||e.key==="ArrowLeft")){ const i=TABS.findIndex(([k])=>k===S.tab), n=(i+(e.key==="ArrowRight"?1:-1)+TABS.length)%TABS.length; go(TABS[n][0]); $("#tab-"+TABS[n][0]).focus(); return; }
+  if(t.dataset&&t.dataset.scinput&&e.key==="Tab"&&t.dataset.sckind==="txt"&&!e.shiftKey){ e.preventDefault(); const s=t.selectionStart; t.setRangeText("    ",s,t.selectionEnd,"end"); t.dispatchEvent(new Event("input",{bubbles:true})); }
+});
+
+/* ---------- Ctrl+K ARAMA ---------- */
+let lastFocus=null;
+$("#searchModal").addEventListener("click",e=>{ if(e.target.id==="searchModal") closeSearch(); });
+function openSearch(){ lastFocus=document.activeElement; const m=$("#searchModal"), i=$("#searchModalInput"); m.hidden=false; i.value=""; renderSearch(""); i.focus(); }
+function closeSearch(){ $("#searchModal").hidden=true; lastFocus&&lastFocus.focus&&lastFocus.focus(); }
+function searchIndex(){
+  const items=Object.values(ALLQ).map(x=>({type:"q",id:x.id,title:x.id,sub:`${x.src} · ${TOPICS[x.topic]}`,chip:TABS.find(t=>t[0]===x.set)[1].split(" ").slice(1).join(" "),text:[x.id,x.prompt||"",x.code||"",x.src,TOPICS[x.topic],x.h||"",x.why||"",x.sol||"",x.tip||""].join(" ")}));
+  FLASHCARDS.forEach(f=>items.push({type:"fc",id:f.id,title:f.q,sub:"Ezber kartı · "+f.cat,chip:"Kart",text:[f.q,f.a,f.cat].join(" ")}));
+  ozetSections().forEach((s,i)=>items.push({type:"oz",id:i,title:s.t,sub:"Konu özeti",chip:"Özet",text:s.t+" "+s.html.replace(/<[^>]+>/g," ")}));
+  return items;
+}
+function renderSearch(qs){
+  const q=qs.trim().toLocaleLowerCase("tr"), box=$("#searchModalResults");
+  const list=searchIndex().filter(x=>!q||x.text.toLocaleLowerCase("tr").includes(q)).slice(0,24);
+  box.innerHTML=list.map(x=>`<button type="button" class="modal-item" data-stype="${x.type}" data-sid="${x.id}"><span><b>${esc(x.title)}</b><span class="small muted" style="display:block">${esc(x.sub)}</span></span><span class="chip">${esc(x.chip)}</span></button>`).join("")||`<div class="small muted" style="padding:12px">Sonuç bulunamadı.</div>`;
+  box.querySelectorAll(".modal-item").forEach(b=>b.addEventListener("click",()=>{
+    $("#searchModal").hidden=true; const ty=b.dataset.stype, id=b.dataset.sid;
+    if(ty==="q"){ jumpQ(id); return; }
+    go("konu");
+    setTimeout(()=>{ if(ty==="fc") flash(document.getElementById("fc-"+id)); else { const d=document.getElementById("oz-"+id); if(d){d.open=true; flash(d);} } },80);
+  }));
+}
+
+/* ---------- AÇILIŞ ---------- */
+applyTheme();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",applyTheme);
+const h0=location.hash.slice(1); if(TABS.some(([k])=>k===h0)) S.tab=h0;
+if(!TABS.some(([k])=>k===S.tab)) S.tab="plan";
+if(location.hash.slice(1)!==S.tab) history.replaceState(null,"","#"+S.tab);
+countdown(); setInterval(countdown,30000);
+render();
+window.addEventListener("load",()=>{OZET_SECTIONS=null; render();});
+window.addEventListener("hashchange",()=>{const k=location.hash.slice(1); if(TABS.some(([t])=>t===k)&&k!==S.tab) go(k);});
 </script>
 </body>
 </html>
