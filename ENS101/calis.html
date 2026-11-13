@@ -146,6 +146,11 @@ input.wrong,textarea.wrong{border-color:var(--red);background:var(--red-soft)}
 .sol{background:var(--blue-soft);border-left:3.5px solid var(--blue)}
 .hint{background:var(--amber-soft);border-left:3.5px solid var(--amber)}
 .scratch-box{background:var(--paper-3);border:1px solid var(--line)}
+.en-orig{margin:6px 0 2px;font-size:.86rem}
+.en-orig summary{cursor:pointer;color:var(--muted);font-weight:600;width:max-content;max-width:100%}
+.en-orig>div{margin-top:6px;padding:8px 12px;border-left:3px solid var(--line);background:var(--paper-3);border-radius:6px}
+.en-orig p{margin:.3em 0}
+.en-orig ol{margin:.3em 0;padding-left:1.4em}
 .sol p,.hint p{margin:.35em 0}
 .self{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center;padding-top:8px;border-top:1px dashed var(--line)}
 .scratch-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
@@ -275,20 +280,20 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
     <p>Bu yılın kapsamı elimizde yok. Liste iki eski sınavdan (F24, F25) ve ders kodlarından çıkarıldı. Hoca farklı bir kapsam duyurursa plan değişir.</p>
     <div class="tblwrap"><table>
       <tr><th>Bölüm</th><th>Konu</th><th>Kitap</th><th>Eski sınavda</th></tr>
-      <tr><td>Teori</td><td>Etik (Ch 2)</td><td>s. 36–45</td><td>F25: 3, F24: 1 soru</td></tr>
-      <tr><td>Teori</td><td>Tasarım ve takım (Ch 3)</td><td>s. 53–75</td><td>F25: 6, F24: 2 soru</td></tr>
-      <tr><td>Teori</td><td>Sunum ve yazım (Ch 4)</td><td>s. 79–90</td><td>F25: 2, F24: 1 soru</td></tr>
-      <tr><td>Teori</td><td>Tahmin (Ch 5)</td><td>s. 107–123</td><td>F25: 4, F24: 2 soru</td></tr>
+      <tr><td>Teori</td><td>Ethics (Ch 2)</td><td>s. 36–45</td><td>F25: 3, F24: 1 soru</td></tr>
+      <tr><td>Teori</td><td>Design process &amp; teamwork (Ch 3)</td><td>s. 53–75</td><td>F25: 6, F24: 2 soru</td></tr>
+      <tr><td>Teori</td><td>Presentations &amp; technical writing (Ch 4)</td><td>s. 79–90</td><td>F25: 2, F24: 1 soru</td></tr>
+      <tr><td>Teori</td><td>Estimation (Ch 5)</td><td>s. 107–123</td><td>F25: 4, F24: 2 soru</td></tr>
       <tr><td>Kod</td><td>Octave/MATLAB</td><td>Ch 16–19, ders kodları</td><td>F25: 7, F24: 4 soru</td></tr>
     </table></div>
-    <p class="small muted">Biçim: F24 75 dk, hepsi açık uçlu. F25 90 dk, 15 teori (çoktan seçmeli, boşluk, tahmin) + 7 kod (5 çıktı izleme, 2 fonksiyon yazma). Kod kâğıda yazılıyor. Ders slaytları zip'te yoktu.</p>
+    <p class="small muted">Biçim: F24 75 dk, hepsi açık uçlu. F25 90 dk, 15 teori (multiple choice, fill in the blank, estimation) + 7 kod (5 code tracing, 2 write a function). Kod kâğıda yazılıyor. Ders slaytları zip'te yoktu.</p>
   </div>
   <div class="sheet">
     <h2>Sınav günü taktikleri</h2>
     <ul>
-      <li>Kod izleme sorusunda tablo çiz: her döngü adımında değişkenlerin değeri. Kafadan yapma.</li>
+      <li>Code tracing sorusunda tablo çiz: her loop adımında değişkenlerin değeri. Kafadan yapma.</li>
       <li>"Fonksiyon yaz" sorusunda önce ilk satırı yaz: <code>function [çıktılar] = isim(girdiler)</code>, sonra <code>end</code>. Arasını sonra doldur.</li>
-      <li>Tahmin sorusunda varsayımları ve birimleri yaz. Cevap anahtarı aralık kabul ediyor.</li>
+      <li>Estimation sorusunda assumptions ve units yaz. Cevap anahtarı aralık kabul ediyor.</li>
       <li>F24 notu: dağınık ya da okunmayan cevap "does not exist". Soru numarasını net yaz.</li>
     </ul>
   </div>
@@ -300,13 +305,13 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 <h2>Teori özeti</h2>
 <p class="muted small">Sınav İngilizce, terimler İngilizce bırakıldı. Sayfa numaraları kitabın kendi numarası (PDF sayfası = +23).</p>
 
-<details class="sec" id="a1"><summary>A1. Etik <span class="k">Ch 2 · s. 36–45</span></summary>
-<h4>Etik karar vermenin 4 adımı (s. 37–41)</h4>
+<details class="sec" id="a1"><summary>A1. Ethics (etik) <span class="k">Ch 2 · s. 36–45</span></summary>
+<h4>Ethical decision making (etik karar verme): 4 adım (s. 37–41)</h4>
 <ol>
 <li><b>Issues and stakeholders.</b> Sorun ne (What), kim etkileniyor (Who). <i>Stakeholder</i> insan olmak zorunda değil: kişi, grup, kurum ya da doğal sistem.</li>
-<li><b>Üç bakış açısından değerlendir:</b>
+<li><b>Three perspectives (üç bakış açısı):</b>
   <ul>
-  <li><b>Consequences:</b> her seçenek her paydaşı nasıl etkiler, etkinin ağırlığı ne.</li>
+  <li><b>Consequences:</b> her option her stakeholder'ı nasıl etkiler, etkinin ağırlığı ne.</li>
   <li><b>Intent:</b> sonuca bakmaz, sadece niyete bakar ("rights perspective"). Kant: herkes yapsa olur mu, yasa olsa olur mu, mağdur ben olsam ister miyim.</li>
   <li><b>Character:</b> iyi karakterli biri bunu yapar mı, bu beni daha iyi mi kötü mü yapar.</li>
   </ul></li>
@@ -315,68 +320,68 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 </ol>
 <h4>Diğer kavramlar</h4>
 <ul>
-<li>Etik davranmanın iki nedeni: <i>altruism</i> ve kötü sonuçlardan kaçınmak.</li>
-<li><b>Plagiarism:</b> başkasının işini kendininmiş gibi sunmak. Kitaba göre kendi başına yasa dışı değil ama etik dışı; telif ihlali varsa yasa dışı. "Legal but not ethical" sorusunun hazır cevabı.</li>
+<li>Ethical davranmanın iki nedeni: <i>altruism</i> ve kötü sonuçlardan kaçınmak.</li>
+<li><b>Plagiarism:</b> başkasının işini kendininmiş gibi sunmak. Kitaba göre kendi başına illegal (yasa dışı) değil ama unethical; copyright infringement (telif ihlali) varsa illegal. "Legal but not ethical" sorusunun hazır cevabı.</li>
 <li><b>NSPE Fundamental Canons</b> (s. 44): hold paramount the <b>safety, health, and welfare of the public</b>; only in areas of their <b>competence</b>; public statements <b>objective and truthful</b>; <b>faithful agents or trustees</b>; avoid <b>deceptive acts</b>; honorably, responsibly, ethically, lawfully.</li>
 <li><b>Engineer's Creed:</b> "public welfare above all other considerations", "service before profit".</li>
 <li><b>Social responsibility:</b> bireyin topluma fayda sağlayacak şekilde davranma yükümlülüğü.</li>
 </ul>
 </details>
 
-<details class="sec" id="a2"><summary>A2. Tasarım <span class="k">Ch 3 · s. 53–64</span></summary>
+<details class="sec" id="a2"><summary>A2. Design process (tasarım) <span class="k">Ch 3 · s. 53–64</span></summary>
 <p>Tasarım yaratıcı ve <b>iterative</b> (design, build, test, redesign) ve <b>multiobjective</b>: birden fazla çözüm olur, amaç en önemli hedefleri karşılayanı bulmak. Adımlar: problem definition → generating ideas → analysis → prototyping, implementation, testing.</p>
 <h4>Brainstorming kuralları (s. 55)</h4>
 <ol><li>More is better</li><li>Variety is better</li><li>Do not criticize</li></ol>
 <p>"In brainstorming, quality is quantity." Kitap örneği: buzlanan telefon hatları için helikopter fikri 36. fikirdi.</p>
 <h4>Criteria and evaluation (s. 58–62)</h4>
 <ul>
-<li>Kriterler çözüm üretmeden <b>önce</b> tanımlanır; tersi olursa insanlar beğendiği çözüme uyan kriter seçer.</li>
-<li>Kriter <b>clear and measurable</b> olmalı: "inexpensive" yerine "less than $300".</li>
+<li><b>Criteria</b> (kriterler) çözüm üretmeden <b>önce</b> tanımlanır; tersi olursa insanlar beğendiği çözüme uyan criteria seçer.</li>
+<li>Criteria <b>clear and measurable</b> olmalı: "inexpensive" yerine "less than $300".</li>
 <li><b>Wants = criteria, needs = requirements.</b> Minimum requirement'ı karşılamayan çözüm doğrudan elenir.</li>
-<li>Az kriter iyidir: 10 kriter bulduysan en önemli 2'sini kullan.</li>
-<li><b>Pairwise comparisons:</b> her kriter için seçenekler ikişer ikişer (0 kötü, 1 eşit, 2 iyi). Dezavantaj: bütün kriterler eşit ağırlıkta.</li>
-<li><b>Weighted benefit analysis</b> (F25'te <b>decision matrix</b>): toplam = Σ(ağırlık × puan).</li>
+<li>Az criteria iyidir: 10 criteria bulduysan en önemli 2'sini kullan.</li>
+<li><b>Pairwise comparisons:</b> her criterion için options ikişer ikişer (0 kötü, 1 eşit, 2 iyi). Dezavantaj: bütün criteria eşit <b>weight</b>'te (ağırlık).</li>
+<li><b>Weighted benefit analysis</b> (F25'te <b>decision matrix</b>): toplam = Σ(weight × score).</li>
 <li><b>Reality check:</b> en iyi çıkan çözümü uygulamadan önce bir daha sorgula.</li>
 </ul>
-<p>Örnek (Tablo 3-2): ağırlıklar cost 2, safety 8, weight 10, wow 5. Seçenek 1 puanları 2, 10, 7, 2 → 4 + 80 + 70 + 10 = <b>164</b>.</p>
+<p>Örnek (Table 3-2): weights cost 2, safety 8, weight 10, wow 5. Option 1 scores 2, 10, 7, 2 → 4 + 80 + 70 + 10 = <b>164</b>.</p>
 <p><b>Sustainability</b> (s. 64): "meeting the needs of the present without compromising the ability of future generations to do the same." Üç boyut: <b>environmental, social, economic</b>.</p>
 </details>
 
-<details class="sec" id="a2-takim"><summary>A2b. Takım çalışması <span class="k">Ch 3 · s. 65–75</span></summary>
+<details class="sec" id="a2-takim"><summary>A2b. Teamwork (takım çalışması) <span class="k">Ch 3 · s. 65–75</span></summary>
 <ul>
 <li><b>Group:</b> aynı yerde, aynı zamanda toplanan insanlar. <b>Team:</b> ortak hedef için iş birliği yapan bireyler.</li>
-<li>Yeni takımın en kritik işi: purpose, process, ilerlemeyi ölçme yöntemi.</li>
-<li>Takım davranışı: ground rules, decision making (consensus ya da majority vote), communication, roles (uzun projede dönüşümlü), participation, values, outcomes.</li>
-<li><b>CATME</b> akran değerlendirmesinin 5 boyutu: contributing to the team's work; interacting with teammates; keeping the team on track; expecting quality; having relevant knowledge, skills, and abilities.</li>
-<li>Değerlendirirken kişiye dair fikre değil <b>davranışa</b> bak.</li>
+<li>Yeni bir team'in en kritik işi: purpose, process, ilerlemeyi ölçme yöntemi.</li>
+<li>Team behavior (takım davranışı): ground rules, decision making (consensus ya da majority vote), communication, roles (uzun projede dönüşümlü), participation, values, outcomes.</li>
+<li><b>CATME</b> peer evaluation (akran değerlendirmesi): 5 dimension: contributing to the team's work; interacting with teammates; keeping the team on track; expecting quality; having relevant knowledge, skills, and abilities.</li>
+<li>Değerlendirirken kişiye dair fikre değil <b>behavior</b>'a (davranış) bak.</li>
 <li><b>Project timeline:</b> teslim tarihinden <b>geriye doğru</b> planla, işleri alt işlere böl, haftada en az bir sabit toplantı.</li>
 <li><b>Responsibility matrix:</b> işler solda, üyeler üstte; kim yapacak, kim kontrol edecek.</li>
 </ul>
 </details>
 
-<details class="sec" id="a3"><summary>A3. Sunum ve teknik yazım <span class="k">Ch 4 · s. 79–90</span></summary>
-<p><b>Preplanning: 5 W + 1 H.</b> Who (dinleyici; listenin ilki), What, Where, When, Why, How long. Kitaba göre çok az insan 20 dakikadan uzun odaklanır.</p>
+<details class="sec" id="a3"><summary>A3. Presentations &amp; technical writing (sunum, teknik yazım) <span class="k">Ch 4 · s. 79–90</span></summary>
+<p><b>Preplanning: 5 W + 1 H.</b> Who (audience, dinleyici; listenin ilki), What, Where, When, Why, How long. Kitaba göre çok az insan 20 dakikadan uzun odaklanır.</p>
 <p><b>4-S formula:</b> Short, Simple, Strong (active voice, action verbs), Sincere.</p>
 <p><b>Üç parça:</b> Introduction (ilgiyi yakala) · Body (2–3 ana nokta, örnek, görsel) · Conclusion (özetle, teşekkür et, soru al).</p>
-<h4>Slayt kuralları (s. 81)</h4>
+<h4>Presentation slides kuralları (s. 81)</h4>
 <ul>
-<li>Slayt başına bir kavram, en fazla <b>6 satır</b>, ortalama <b>60 saniye</b></li>
+<li>Slide başına bir concept, en fazla <b>6 satır</b>, ortalama <b>60 saniye</b></li>
 <li>Tam cümle değil <b>bullet points</b></li>
-<li>Font en az <b>18 pt</b>, tercihen <b>24 pt</b> ve üstü</li>
-<li>Yüksek kontrast, <b>açık zemin koyu yazı</b>; tablo yerine basit grafik; az animasyon; aynı arka plan</li>
+<li>Font size en az <b>18 pt</b>, tercihen <b>24 pt</b> ve üstü</li>
+<li>High contrast, <b>light background, dark text</b> (açık zemin, koyu yazı); tablo yerine basit grafik; az animasyon; aynı arka plan</li>
 </ul>
-<p><b>Sunarken:</b> yavaş ve net konuş, göz teması, sesli prova, erken git. Metinden okuma, arkanı dönme, "um" deme.</p>
-<h4>Teknik yazım (s. 85–87)</h4>
+<p><b>Sunarken:</b> yavaş ve net konuş, eye contact (göz teması), sesli prova, erken git. Metinden okuma, arkanı dönme, "um" deme.</p>
+<h4>Technical writing (teknik yazım) (s. 85–87)</h4>
 <ul>
 <li>Açık ve kesin dil, genelde <b>past tense</b>, duygu değil gerçek</li>
-<li><b>Table:</b> numara ve başlık <b>üstte</b>. <b>Figure:</b> <b>altta</b>.</li>
+<li><b>Caption</b> (numara ve başlık): <b>Table</b>'da <b>üstte</b>, <b>Figure</b>'da <b>altta</b>.</li>
 <li>Cümle başındaki sayı yazıyla; ondalıkta baştaki sıfır kalır (<code>0.23</code>)</li>
 <li>İki kez oku: teknik içerik ve akış</li>
 </ul>
-<p><b>Kaynak değerlendirme ABC:</b> Authority, Bias, Currency. Üstüne: peer review, karşılaştırma, corroboration.</p>
+<p><b>Evaluating sources (kaynak değerlendirme): ABC:</b> Authority, Bias, Currency. Üstüne: peer review, karşılaştırma, corroboration.</p>
 </details>
 
-<details class="sec" id="a4"><summary>A4. Tahmin (estimation) <span class="k">Ch 5 · s. 107–123</span></summary>
+<details class="sec" id="a4"><summary>A4. Estimation (tahmin) <span class="k">Ch 5 · s. 107–123</span></summary>
 <p><b>Fermi problem:</b> gereken bilginin çoğu eksik problem; cevap genelde bir <i>order of magnitude</i> (10 kat) içinde.</p>
 <div class="tblwrap"><table>
 <tr><th>Yöntem</th><th>Ne yapar</th><th>Örnek</th></tr>
@@ -388,12 +393,12 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 <h4>İpuçları (s. 110–111)</h4>
 <ul>
 <li>Gereken doğruluğu belirle; "ballpark" değer çoğu zaman yeter.</li>
-<li>Hangi yöne hata güvenli? Köprünün taşıyacağı yük: <b>düşük</b> tahmin. Bir kirişin taşıması gereken yük: <b>yüksek</b> tahmin.</li>
+<li>Hangi yöne hata güvenli (conservative)? Köprünün taşıyacağı yük: <b>düşük</b> estimate. Bir kirişin taşıması gereken yük: <b>yüksek</b> estimate.</li>
 <li>Çarpımda biri aşağı yuvarlandıysa diğerini yukarı yuvarla.</li>
 <li>İkinci derece etkilere takılma.</li>
 </ul>
-<h4>Sınavda tahmin sorusu</h4>
-<ol><li>Varsayımları birimleriyle yaz.</li><li>Problemi parçalara böl.</li><li>Sayıları 1 anlamlı basamağa yuvarla.</li><li>Birimleri yazarak çarp.</li><li><i>Reasonableness check</i>.</li><li>Cevabı 1–2 anlamlı basamakla ya da aralık olarak ver.</li></ol>
+<h4>Sınavda estimation sorusu</h4>
+<ol><li><b>Assumptions</b> (varsayımlar) ve <b>units</b> (birimler) ile yaz.</li><li>Problemi parçalara böl.</li><li>Sayıları 1 significant figure'a yuvarla.</li><li>Units'i yazarak çarp.</li><li><i>Reasonableness check</i>.</li><li>Cevabı 1–2 significant figures ile ya da aralık olarak ver.</li></ol>
 <div class="tblwrap"><table>
 <tr><th>Referans (yuvarlak, kitaptan değil)</th><th>Değer</th></tr>
 <tr><td>1 in</td><td>2.54 cm</td></tr>
@@ -407,34 +412,34 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 </table></div>
 </details>
 
-<details class="sec" id="a4-sig"><summary>A4b. Anlamlı basamak, doğruluk, gösterim <span class="k">s. 114–123</span></summary>
+<details class="sec" id="a4-sig"><summary>A4b. Significant figures, accuracy, notation (anlamlı basamak, doğruluk, gösterim) <span class="k">s. 114–123</span></summary>
 <ul>
-<li>Sıfır dışı her rakam anlamlı.</li>
-<li>Sıfır anlamlı: iki rakam arasında (<code>306</code> → 3), ondalık noktalı sayının sonunda (<code>2.790</code> → 4).</li>
-<li>Sıfır anlamsız: ondalık yerini sabitliyorsa (<code>0.0456</code> → 3), noktasız tam sayının sonunda (<code>2000</code> → 1).</li>
-<li>Çarpma/bölme: en az anlamlı basamak kadar. <code>2.43 × 17.675 = 43.0</code></li>
-<li>Toplama/çıkarma: en az ondalık kadar. <code>1725.463 + 489.2 + 16.73 = 1931.4</code></li>
-<li>Ara adımlarda yuvarlama; genelde 3 anlamlı basamak.</li>
+<li>Sıfır dışı her rakam significant.</li>
+<li>Sıfır significant: iki rakam arasında (<code>306</code> → 3), ondalık noktalı sayının sonunda (<code>2.790</code> → 4).</li>
+<li>Sıfır significant değil: ondalık yerini sabitliyorsa (leading zeros) (<code>0.0456</code> → 3), noktasız tam sayının sonunda (trailing zeros, <code>2000</code> → 1).</li>
+<li>Çarpma/bölme: en az significant figures kadar. <code>2.43 × 17.675 = 43.0</code></li>
+<li>Toplama/çıkarma: en az decimal places (ondalık basamak) kadar. <code>1725.463 + 489.2 + 16.73 = 1931.4</code></li>
+<li>Ara adımlarda yuvarlama; genelde 3 significant figures.</li>
 </ul>
 <p><b>Accuracy:</b> gerçek değere yakınlık. <b>Repeatability:</b> ölçümlerin birbirine yakınlığı. <b>Precision:</b> ikisi birden.</p>
 <p><b>Reasonableness:</b> physically reasonable + reasonable precision. F25'te <i>sanity check</i>.</p>
-<p><b>Scientific:</b> <code>#.### × 10^N</code> → 43,480,000 = 4.348 × 10⁷. <b>Engineering:</b> <code>###.### × 10^M</code>, M 3'ün katı → 43.48 × 10⁶; 0.0351 = 35.1 × 10⁻³. Order of magnitude farkı = log farkı (10,000,000 ile 1,000: 4).</p>
+<p><b>Scientific notation:</b> <code>#.### × 10^N</code> → 43,480,000 = 4.348 × 10⁷. <b>Engineering notation:</b> <code>###.### × 10^M</code>, M (exponent) 3'ün katı → 43.48 × 10⁶; 0.0351 = 35.1 × 10⁻³. Order of magnitude farkı = log farkı (10,000,000 ile 1,000: 4).</p>
 </details>
 
-<details class="sec" id="a5"><summary>A5. Slayt terimleri <span class="k">F25'te var, kitapta bulunamadı</span></summary>
+<details class="sec" id="a5"><summary>A5. Slide terms (slayt terimleri) <span class="k">F25'te var, kitapta bulunamadı</span></summary>
 <p class="small muted">Tanımlar F25 cevap anahtarından. Slaytlar gelirse genişler.</p>
 <div class="tblwrap"><table>
 <tr><th>Terim</th><th>Anlam</th></tr>
 <tr><td><b>Requirement</b></td><td>Tasarımın yapması gereken işlev</td></tr>
 <tr><td><b>Constraint</b></td><td>Tasarımın aşmaması gereken sınır</td></tr>
 <tr><td><b>Trade-off</b></td><td>Bir özellik için diğerinden vazgeçmek</td></tr>
-<tr><td><b>Decision matrix</b></td><td>Seçenekleri ağırlıklı kriterlerle karşılaştıran tablo</td></tr>
+<tr><td><b>Decision matrix</b></td><td>Options'ı weighted criteria ile karşılaştıran tablo</td></tr>
 <tr><td><b>Team charter</b></td><td>Rolleri ve iletişim beklentilerini yazan belge</td></tr>
 <tr><td><b>Round-robin</b></td><td>Açık tartışmadan önce herkesin sırayla bir kez konuştuğu teknik</td></tr>
 <tr><td><b>Assumed shared knowledge</b></td><td>Herkesin aynı şeyi bildiğini varsaymak; yanlış anlaşma nedeni</td></tr>
 <tr><td><b>Whistle-blowing</b></td><td>Güvenlik sorununu içeride, gerekirse dışarıda bildirmek</td></tr>
 <tr><td><b>Methods section</b></td><td>Raporda testlerin <i>nasıl</i> yapıldığı bölüm</td></tr>
-<tr><td><b>Sanity check</b></td><td>Ayrıntılı hesabı kaba tahminle kontrol</td></tr>
+<tr><td><b>Sanity check</b></td><td>Ayrıntılı hesabı kaba bir estimate ile kontrol</td></tr>
 </table></div>
 </details>
 </div>
@@ -446,26 +451,26 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 <h2>Octave/MATLAB özeti</h2>
 <div class="note">Derste Octave yazımı kullanıldı (<code>endif</code>, <code>!=</code>, çift tırnak). Sınavda ikisinde de çalışan yazımı kullan: <code>end</code>, <code>~=</code>, <code>'tek tırnak'</code>.</div>
 
-<details class="sec" id="b1"><summary>B1. Değişken, vektör, matris</summary>
+<details class="sec" id="b1"><summary>B1. Variables, vectors, matrices (değişken, vektör, matris)</summary>
 <pre class="m">x = 5;                 % ; çıktıyı gizler
 v = [1 2 3 4];         % satır vektörü
 w = [1; 2; 3];         % sütun vektörü
 t = 0:2:10;            % başlangıç:adım:bitiş  -&gt;  [0 2 4 6 8 10]
 A = [1 2 3; 4 5 6];    % 2 satır, 3 sütun</pre>
-<p><b>İndeks 1'den başlar.</b> <code>A(satır, sütun)</code></p>
+<p><b>Index (indeks) 1'den başlar.</b> <code>A(satır, sütun)</code> = <code>A(row, column)</code></p>
 <pre class="m">A(2,3)      % 6
 A(2,:)      % 2. satırın tamamı  -&gt; [4 5 6]
 A(:,2)      % 2. sütunun tamamı  -&gt; [2; 5]
 A(end,end)  % son eleman         -&gt; 6</pre>
 <div class="tblwrap"><table>
-<tr><th>Fonksiyon</th><th><code>A = [1 2 3; 4 5 6]</code> için</th></tr>
-<tr><td><code>length(v)</code></td><td>eleman sayısı</td></tr>
+<tr><th>Function</th><th><code>A = [1 2 3; 4 5 6]</code> için</th></tr>
+<tr><td><code>length(v)</code></td><td>element sayısı</td></tr>
 <tr><td><code>size(A)</code></td><td><code>[2 3]</code>; <code>[r, c] = size(A)</code></td></tr>
-<tr><td><code>sum(A)</code></td><td>sütun toplamları <code>[5 7 9]</code></td></tr>
+<tr><td><code>sum(A)</code></td><td>column toplamları <code>[5 7 9]</code></td></tr>
 <tr><td><code>sum(A(1,:))</code> · <code>mean(A(1,:))</code></td><td><code>6</code> · <code>2</code></td></tr>
-<tr><td><code>max(v)</code>, <code>min(v)</code></td><td><code>[m, i] = max(v)</code> indeksi de verir</td></tr>
-<tr><td><code>mod(a, b)</code></td><td>kalan; <code>mod(17,5)</code> = 2</td></tr>
-<tr><td><code>zeros(1,7)</code></td><td>7 sıfırlık satır</td></tr>
+<tr><td><code>max(v)</code>, <code>min(v)</code></td><td><code>[m, i] = max(v)</code> index'i de verir</td></tr>
+<tr><td><code>mod(a, b)</code></td><td>remainder (kalan); <code>mod(17,5)</code> = 2</td></tr>
+<tr><td><code>zeros(1,7)</code></td><td>7 sıfırlık row</td></tr>
 </table></div>
 <pre class="m">a = [1 2 3];  b = [4 5 6];
 a .* b     % [4 10 18]  eleman eleman çarpma
@@ -474,8 +479,8 @@ a .^ 2     % [1 4 9]
 a * b      % HATA: boyutlar uyuşmaz (matris çarpımı)</pre>
 </details>
 
-<details class="sec" id="b2"><summary>B2. Script ve function</summary>
-<p><b>Script:</b> sırayla çalışan komutlar; workspace'i görür; başka script'i adıyla çağırır (dersteki <code>manager.m</code>). <b>Function:</b> girdi alır, çıktı verir, kendi değişkenleri var. Dosya adı = fonksiyon adı.</p>
+<details class="sec" id="b2"><summary>B2. Scripts and functions</summary>
+<p><b>Script:</b> sırayla çalışan komutlar; workspace'i görür; başka script'i adıyla çağırır (dersteki <code>manager.m</code>). <b>Function:</b> girdi alır, çıktı verir, kendi değişkenleri var. File name (dosya adı) = function name.</p>
 <pre class="m">function [V, SA] = cylinderCal(r, h)
   V  = pi * r^2 * h;
   SA = 2*pi*r*h + 2*pi*r^2;
@@ -485,10 +490,10 @@ v = cylinderCal(2, 5);        % sadece ilk çıktı</pre>
 <pre class="m">function y = f(x)             % 1 girdi, 1 çıktı
 function [a, b] = f(x, y)     % 2 girdi, 2 çıktı
 function [] = f()             % girdi yok, çıktı yok</pre>
-<p>Çıktı değişkenine içeride değer atamayı unutma. Fonksiyon başka fonksiyonu çağırabilir (<code>cylinderCal</code> → <code>addNums</code>).</p>
+<p>Output variable'a (çıktı değişkeni) içeride değer atamayı unutma. Function başka function'ı çağırabilir (<code>cylinderCal</code> → <code>addNums</code>).</p>
 </details>
 
-<details class="sec" id="b3"><summary>B3. Girdi ve çıktı</summary>
+<details class="sec" id="b3"><summary>B3. Input and output (girdi, çıktı)</summary>
 <pre class="m">x = input('Enter a number: ');        % sayı okur
 disp('Hello')                          % metin yazar
 disp(x)                                % değer yazar
@@ -496,7 +501,7 @@ fprintf('x = %d, y = %.2f\n', x, y);   % biçimli; \n satır atlar</pre>
 <p><code>%d</code> tam sayı, <code>%f</code> ondalık, <code>%g</code> otomatik, <code>%s</code> metin. <code>fprintf('*')</code> satır atlamaz, <code>disp</code> atlar.</p>
 </details>
 
-<details class="sec" id="b4"><summary>B4. Koşullar</summary>
+<details class="sec" id="b4"><summary>B4. Conditionals (koşullar)</summary>
 <pre class="m">if T &lt; 30
   disp('too cold')
 elseif T &gt; 80
@@ -505,19 +510,19 @@ else
   disp('OK')
 end</pre>
 <div class="tblwrap"><table>
-<tr><th>Karşılaştırma</th><th></th><th>Mantık</th><th></th></tr>
+<tr><th>Comparison</th><th></th><th>Logical</th><th></th></tr>
 <tr><td><code>==</code></td><td>eşit</td><td><code>&amp;&amp;</code></td><td>ve</td></tr>
 <tr><td><code>~=</code></td><td>eşit değil</td><td><code>||</code></td><td>veya</td></tr>
 <tr><td><code>&lt; &gt; &lt;= &gt;=</code></td><td></td><td><code>~</code></td><td>değil</td></tr>
 </table></div>
 <ul>
-<li><code>=</code> atama, <code>==</code> karşılaştırma.</li>
-<li><code>elseif</code> bitişik. İlk doğru dal çalışır, gerisi atlanır.</li>
-<li>Çift: <code>mod(x,2) == 0</code> · Tek: <code>mod(x,2) == 1</code> · "A'ya bölünür, B'ye bölünmez": <code>mod(k,A)==0 &amp;&amp; mod(k,B)~=0</code></li>
+<li><code>=</code> assignment (atama), <code>==</code> comparison (karşılaştırma).</li>
+<li><code>elseif</code> bitişik. İlk true branch (doğru dal) çalışır, gerisi atlanır.</li>
+<li>Even (çift): <code>mod(x,2) == 0</code> · Odd (tek): <code>mod(x,2) == 1</code> · "divisible by A but not by B" (A'ya bölünür, B'ye bölünmez): <code>mod(k,A)==0 &amp;&amp; mod(k,B)~=0</code></li>
 </ul>
 </details>
 
-<details class="sec" id="b5"><summary>B5. Döngüler ve 6 kalıp</summary>
+<details class="sec" id="b5"><summary>B5. Loops (döngüler) and 6 patterns</summary>
 <pre class="m">for k = 1:5          % 1 2 3 4 5
 for k = 1:2:10       % 1 3 5 7 9
 for k = 10:-1:1      % geriye
@@ -527,21 +532,21 @@ while k &gt; 3
   disp(k)
   k = k - 1;         % unutursan sonsuz döngü
 end</pre>
-<h4>1. Sayaç</h4>
+<h4>1. Counter (sayaç)</h4>
 <pre class="m">count = 0;
 for n = 1:20
   if mod(n,4)==0 || mod(n,5)==0
     count = count + 1;
   end
 end</pre>
-<h4>2. Toplam</h4>
+<h4>2. Sum (toplam)</h4>
 <pre class="m">total = 0;
 for k = 1:15
   if mod(k,3)==0 &amp;&amp; mod(k,5)~=0
     total = total + k;
   end
 end</pre>
-<h4>3. En büyük ve yeri (<code>fued_speed.m</code>)</h4>
+<h4>3. Max ve index'i (<code>fued_speed.m</code>)</h4>
 <pre class="m">maxi = v(1);  iMax = 1;
 for k = 2:length(v)
   if v(k) &gt; maxi
@@ -549,12 +554,12 @@ for k = 2:length(v)
     iMax = k;
   end
 end</pre>
-<h4>4. Vektör büyütme (<code>crazyFor.m</code>)</h4>
+<h4>4. Vector büyütme (<code>crazyFor.m</code>)</h4>
 <pre class="m">vec = [];
 for k = 1:10
   vec = [vec k^2];
 end</pre>
-<h4>5. Matris gezme (<code>oddies.m</code>)</h4>
+<h4>5. Nested loop ile matrix gezme (<code>oddies.m</code>)</h4>
 <pre class="m">[r, c] = size(B);
 for k = 1:r
   for j = 1:c
@@ -563,14 +568,14 @@ for k = 1:r
     end
   end
 end</pre>
-<h4>6. Desen (<code>pirmyds.m</code>)</h4>
+<h4>6. Pattern (desen) (<code>pirmyds.m</code>)</h4>
 <pre class="m">for k = 1:4
   for j = 1:k
     fprintf('*')
   end
   fprintf('\n')
 end</pre>
-<h4>Kod izleme tablosu (kalıp 2)</h4>
+<h4>Code tracing (kod izleme) tablosu (kalıp 2)</h4>
 <div class="tblwrap"><table>
 <tr><th>k</th><th>mod(k,3)==0</th><th>mod(k,5)~=0</th><th>total</th></tr>
 <tr><td>3</td><td>evet</td><td>evet</td><td>3</td></tr>
@@ -581,7 +586,7 @@ end</pre>
 </table></div>
 </details>
 
-<details class="sec" id="b6"><summary>B6. Grafik</summary>
+<details class="sec" id="b6"><summary>B6. Plotting (grafik)</summary>
 <pre class="m">t = 0:0.01:10;
 y = 3*sin(2*pi*t);
 figure(1)
@@ -594,12 +599,12 @@ grid on</pre>
 <p><code>pause(2)</code> bekler, <code>clf</code> temizler, <code>hold on</code> üst üste çizer, <code>plot(x, y, '-o')</code> noktaları işaretler.</p>
 </details>
 
-<details class="sec" id="b7"><summary>B7. Sık hatalar</summary>
+<details class="sec" id="b7"><summary>B7. Common errors (sık hatalar)</summary>
 <ul>
 <li>Her <code>if</code>, <code>for</code>, <code>while</code>, <code>function</code> bir <code>end</code> ister.</li>
 <li><code>=</code> ile <code>==</code> karışıklığı. İndeksi 0'dan başlatmak (<code>v(0)</code> hata).</li>
-<li>Tanımsız değişken: dersteki <code>oddies.m</code>'de <code>r</code>, <code>c</code> yok; <code>[r, c] = size(B);</code> gerekir.</li>
-<li>Sayaç/toplamı döngüden önce sıfırlamamak. Çıktı değişkenine değer atamamak.</li>
+<li>Undefined variable (tanımsız değişken): dersteki <code>oddies.m</code>'de <code>r</code>, <code>c</code> yok; <code>[r, c] = size(B);</code> gerekir.</li>
+<li>Counter/sum'ı loop'tan önce sıfırlamamak. Output variable'a değer atamamak.</li>
 <li><code>.*</code>, <code>.^</code> yerine <code>*</code>, <code>^</code>. <code>while</code> içinde değişkeni güncellememek.</li>
 <li><code>elseif</code> yerine <code>else if</code> (fazladan <code>end</code> ister).</li>
 </ul>
@@ -608,14 +613,14 @@ grid on</pre>
 <details class="sec" id="b8"><summary>B8. C++ (CS103) ile farklar</summary>
 <div class="tblwrap"><table>
 <tr><th></th><th>C++</th><th>Octave/MATLAB</th></tr>
-<tr><td>İndeks</td><td>0'dan</td><td>1'den</td></tr>
+<tr><td>Index</td><td>0'dan</td><td>1'den</td></tr>
 <tr><td>Blok</td><td><code>{ }</code></td><td><code>end</code></td></tr>
 <tr><td>Eşit değil · değil</td><td><code>!=</code> · <code>!</code></td><td><code>~=</code> · <code>~</code></td></tr>
-<tr><td>Döngü</td><td><code>for (int k=1; k&lt;=5; k++)</code></td><td><code>for k = 1:5</code></td></tr>
-<tr><td>Kalan</td><td><code>a % b</code></td><td><code>mod(a, b)</code></td></tr>
-<tr><td>Yorum</td><td><code>//</code></td><td><code>%</code></td></tr>
-<tr><td>Yazdırma</td><td><code>cout &lt;&lt; x;</code></td><td><code>disp(x)</code>, <code>fprintf</code></td></tr>
-<tr><td>Fonksiyon</td><td><code>int f(int x) { return y; }</code></td><td><code>function y = f(x) ... end</code></td></tr>
+<tr><td>Loop</td><td><code>for (int k=1; k&lt;=5; k++)</code></td><td><code>for k = 1:5</code></td></tr>
+<tr><td>Remainder</td><td><code>a % b</code></td><td><code>mod(a, b)</code></td></tr>
+<tr><td>Comment</td><td><code>//</code></td><td><code>%</code></td></tr>
+<tr><td>Print</td><td><code>cout &lt;&lt; x;</code></td><td><code>disp(x)</code>, <code>fprintf</code></td></tr>
+<tr><td>Function</td><td><code>int f(int x) { return y; }</code></td><td><code>function y = f(x) ... end</code></td></tr>
 </table></div>
 </details>
 </div>
@@ -709,27 +714,28 @@ function highlightAll(root=document){$$("pre.m:not([data-hl])",root).forEach(p=>
 const C=(s,...v)=>({c:String.raw(s,...v).replace(/^\n/,"").replace(/\s+$/,"")});
 function H(p){if(p==null)return"";if(typeof p==="string")return p;if(Array.isArray(p))return p.map(H).join("");if(p.c!==undefined)return`<pre class="m">${esc(p.c)}</pre>`;return""}
 
+/* l = label shown (exam term, English); tr = Turkish words, used only by search */
 const TAGS={
-  etik:{l:"Etik",sec:"a1"}, tasarim:{l:"Tasarım, kriter, karar",sec:"a2"}, takim:{l:"Takım çalışması",sec:"a2-takim"},
-  sunum:{l:"Sunum ve teknik yazım",sec:"a3"}, tahmin:{l:"Tahmin (estimation)",sec:"a4"}, sigfig:{l:"Anlamlı basamak, gösterim",sec:"a4-sig"},
-  terim:{l:"Slayt terimleri",sec:"a5"}, matris:{l:"Vektör, matris, indeks",sec:"b1"}, fonksiyon:{l:"Fonksiyon yazma",sec:"b2"},
-  kosul:{l:"if, mod, && ||",sec:"b4"}, dongu:{l:"Döngü ve kod izleme",sec:"b5"}
+  etik:{l:"Ethics",tr:"etik paydaş niyet sonuç karakter yasal yasa dışı",sec:"a1"}, tasarim:{l:"Design process & criteria",tr:"tasarım kriter karar ağırlık seçenek fikir",sec:"a2"}, takim:{l:"Teamwork",tr:"takım çalışması grup üye görev",sec:"a2-takim"},
+  sunum:{l:"Presentations & technical writing",tr:"sunum teknik yazım slayt dinleyici rapor başlık",sec:"a3"}, tahmin:{l:"Estimation",tr:"tahmin varsayım birim",sec:"a4"}, sigfig:{l:"Significant figures & notation",tr:"anlamlı basamak gösterim doğruluk",sec:"a4-sig"},
+  terim:{l:"Slide terms",tr:"slayt terimleri kısıt gereksinim",sec:"a5"}, matris:{l:"Vectors, matrices, indexing",tr:"vektör matris indeks satır sütun eleman",sec:"b1"}, fonksiyon:{l:"Functions",tr:"fonksiyon yazma girdi çıktı",sec:"b2"},
+  kosul:{l:"Conditionals: if, mod, && ||",tr:"koşul bölünür tek çift",sec:"b4"}, dongu:{l:"Loops & code tracing",tr:"döngü kod izleme sayaç toplam",sec:"b5"}
 };
 
 const PLAN=[
  {id:"d13",date:"2026-11-13",day:"13 Kas Cum",off:"MATH101 hazırlığı. ENS101 yok."},
- {id:"d14",date:"2026-11-14",day:"14 Kas Cmt",sub:"MATH101 sonrası, akşam",min:40,what:"Teori A1 (etik) ve A2 (tasarım, takım) oku. Kalın terimleri sesli tekrar et.",go:"a1"},
- {id:"d15",date:"2026-11-15",day:"15 Kas Paz",sub:"NS102 hazırlığı arası",min:25,what:"Teori A4 (tahmin). Eski sınavlardaki 3 tahmin sorusunu (F24·1, F25·14, F25·15) kâğıtta çöz.",go:"a4"},
- {id:"d16",date:"2026-11-16",day:"16 Kas Pzt",sub:"NS102 09:00 sonrası",min:20,what:"Teori A3 (sunum, yazım) ve A5 (slayt terimleri).",go:"a3"},
+ {id:"d14",date:"2026-11-14",day:"14 Kas Cmt",sub:"MATH101 sonrası, akşam",min:40,what:"Teori A1 (ethics) ve A2 (design process, teamwork) oku. Kalın terimleri sesli tekrar et.",go:"a1"},
+ {id:"d15",date:"2026-11-15",day:"15 Kas Paz",sub:"NS102 hazırlığı arası",min:25,what:"Teori A4 (estimation). Eski sınavlardaki 3 estimation sorusunu (F24·1, F25·14, F25·15) kâğıtta çöz.",go:"a4"},
+ {id:"d16",date:"2026-11-16",day:"16 Kas Pzt",sub:"NS102 09:00 sonrası",min:20,what:"Teori A3 (presentations, technical writing) ve A5 (slide terms).",go:"a3"},
  {id:"d17",date:"2026-11-17",day:"17 Kas Sal",off:"ELIT100 17:45. ENS101 yok."},
- {id:"d18",date:"2026-11-18",day:"18 Kas Çar",sub:"CS103 hazırlığı arası",min:30,what:"Kod B4–B5 (if, döngüler). B8'deki C++ fark tablosuna bak.",go:"b4"},
+ {id:"d18",date:"2026-11-18",day:"18 Kas Çar",sub:"CS103 hazırlığı arası",min:30,what:"Kod B4–B5 (if, loops). B8'deki C++ fark tablosuna bak.",go:"b4"},
  {id:"d19",date:"2026-11-19",day:"19 Kas Per",sub:"CS103 sonrası, gece",min:30,what:"Eski sınavlar: F25 teori 1–15'i çözümü açmadan çöz, sonra Bildim/Bilemedim işaretle.",go:"tab:eski"},
  {id:"d20a",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 1",min:90,what:"Kod sekmesinin tamamı. Sonra materyal/ içindeki evenOrOdd.m, fued_speed.m, cylinderCal.m, pirmyds.m, simpleLoop3.m'yi bakmadan kâğıda yaz, MATLAB'da çalıştır.",go:"b1"},
  {id:"d20b",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 2",min:75,what:"F24 sınavı, süreli (PDF). Bitince Eski sınavlar sekmesinde çözümlerle karşılaştır. Bu bloğu atlama: hocanın kendi soruları.",go:"tab:eski"},
  {id:"d20c",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 3",min:90,what:"Deneme 1, süreli. Kontrol et ile puanla.",go:"tab:deneme"},
- {id:"d20d",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 4",min:45,what:"Zayıf konular sekmesi. Her yanlış için tek satır not: ne sandım, doğrusu ne. Yanlış kodları yeniden yaz.",go:"tab:zayif"},
- {id:"d20e",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 5",min:30,what:"Ek sorular E7–E9 (tahmin) ve Teori A5 terim listesi.",go:"tab:deneme"},
- {id:"d21",date:"2026-11-21",day:"21 Kas Cmt",sub:"Sınav sabahı",min:60,what:"Hata notların, terim listesi ve iki fonksiyonu (ör. F24·7 ve F24·10) ezberden kâğıda yaz. Sınav 12:30.",go:"tab:eski"}
+ {id:"d20d",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 4",min:45,what:"İlerleme &amp; Hatalar sekmesi. Her yanlış için tek satır not: ne sandım, doğrusu ne. Yanlış kodları yeniden yaz.",go:"tab:zayif"},
+ {id:"d20e",date:"2026-11-20",day:"20 Kas Cum",sub:"Blok 5",min:30,what:"Ek sorular E7–E9 (estimation) ve Teori A5 terim listesi.",go:"tab:deneme"},
+ {id:"d21",date:"2026-11-21",day:"21 Kas Cmt",sub:"Sınav sabahı",min:60,what:"Hata notların, terim listesi ve iki function'ı (ör. F24·7 ve F24·10) ezberden kâğıda yaz. Sınav 12:30.",go:"tab:eski"}
 ];
 
 const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9çğıöşü]/g,"");
@@ -755,71 +761,89 @@ function checkField(f,val){
 /* ---------- question banks ---------- */
 const MC=(ans,opts)=>({kind:"mc",ans,opts});
 const DENEME=[
- {id:"A1",tag:"etik",pts:1,q:"According to the NSPE Fundamental Canons, what must engineers hold paramount?",f:[MC(1,["The profit of their employer","The safety, health, and welfare of the public","The honor of the profession","The confidentiality of their client"])],why:"Canon 1 (s. 44)."},
- {id:"A2",tag:"etik",pts:1,q:"In ethical decision making, which perspective ignores the outcome and considers only what the person meant to do?",f:[MC(1,["Consequences","Intent","Character","Stakeholders"])],why:"Intent sonuca bakmaz (s. 39)."},
- {id:"A3",tag:"etik",pts:1,q:"The people, groups, institutions or natural systems that might be affected by a decision are called _________.",f:[{kind:"text",accept:["stakeholders","stakeholder"]}],why:"stakeholders (s. 38)."},
- {id:"A4",tag:"tasarim",pts:1,q:"Which of the following is NOT a rule of brainstorming?",f:[MC(3,["More is better","Variety is better","Do not criticize","Evaluate each idea as soon as it is proposed"])],why:"Değerlendirme sonra yapılır (s. 55)."},
- {id:"A5",tag:"tasarim",pts:1,q:"What is the main disadvantage of the pairwise comparisons approach?",f:[MC(1,["It needs special software","All criteria have equal weight","It works only for two options","It ignores safety"])],why:"Bu yüzden weighted benefit analysis kullanılır (s. 62)."},
- {id:"A6",tag:"tasarim",pts:1,q:"A method in which each option is scored against each criterion, and each score is multiplied by the importance of that criterion, is called _________.",f:[{kind:"fn",fn:v=>/weighted|decisionmatrix/.test(norm(v))}],why:"weighted benefit analysis; F25'teki adıyla decision matrix da kabul."},
- {id:"A7",tag:"takim",pts:1,q:"Which statement best describes a team, as opposed to a group?",f:[MC(2,["People who are in the same place at the same time","People who have the same manager","Individuals cooperating to accomplish a common goal","People with the same engineering discipline"])],why:"A şıkkı group tanımı (s. 65)."},
- {id:"A8",tag:"takim",pts:1,q:"A table that lists the project tasks down the side and the team members across the top, showing who performs each task, is called a _________.",f:[{kind:"text",accept:["responsibility matrix"]}],why:"responsibility matrix (s. 72)."},
- {id:"A9",tag:"sunum",pts:1,q:"Which of the following follows the guidelines for presentation slides?",f:[MC(1,["Complete sentences so the audience can read everything","A font size of at least 18 points, preferably 24 or more","A black background with white text","A different background style on every slide"])],why:"s. 81."},
- {id:"A10",tag:"sunum",pts:1,q:"The 4-S formula for structuring a presentation is: Short, Simple, Strong and _________.",f:[{kind:"text",accept:["sincere","sincerity"]}],why:"Sincere (s. 80)."},
- {id:"A11",tag:"sunum",pts:1,q:"In a technical report, where do the captions go?",f:[MC(2,["Above tables and above figures","Below tables and below figures","Above tables and below figures","Below tables and above figures"])],why:"Table üstte, figure altta (s. 86)."},
- {id:"A12",tag:"tahmin",pts:1,q:"You count the floor tiles across a room and multiply by the size of one tile to find the length of the room. This is estimation by:",f:[MC(1,["Analogy","Aggregation","Modeling","Upper and lower bounds"])],why:"Parçaları sayıp çarpmak aggregation (s. 112)."},
- {id:"A13",tag:"sigfig",pts:1,q:"Five measurements of the same length are very close to each other, but all of them are far from the true value. The measurements are _________ but not _________.",f:[{kind:"text",label:"1",accept:["repeatable"]},{kind:"text",label:"2",accept:["accurate"]}],why:"repeatable, accurate (s. 119)."},
- {id:"A14",tag:"sigfig",pts:1,q:"How many significant figures does each number have? (a) 0.00450 (b) 3000 (c) 20.05",f:[{kind:"num",label:"(a)",val:3},{kind:"num",label:"(b)",val:1},{kind:"num",label:"(c)",val:4}],why:"3, 1, 4 (s. 115)."},
- {id:"A15",tag:"sigfig",pts:1,q:"Write 0.000047 in (a) scientific notation and (b) engineering notation. <span class='muted small'>Biçim: 4.7x10^-5 ya da 4.7e-5</span>",
-  f:[{kind:"fn",label:"(a)",fn:v=>{const r=parseMantExp(v);return!!r&&Math.abs(r.m-4.7)<1e-9&&r.e===-5}},{kind:"fn",label:"(b)",fn:v=>{const r=parseMantExp(v);return!!r&&Math.abs(r.m-47)<1e-9&&r.e===-6}}],why:"4.7 × 10⁻⁵ ve 47 × 10⁻⁶ (üs 3'ün katı)."},
- {id:"A16",tag:"tahmin",pts:2,q:"Estimate the number of liters of water needed to fill your classroom completely. <span class='muted small'>Tek sayı yaz (L). Varsayımları kâğıda.</span>",f:[{kind:"num",val:[1e5,3e5],wide:1}],why:"8 × 6 × 3 m = 144 m³ ≈ 150,000 L. Kabul: 100,000–300,000."},
- {id:"A17",tag:"tahmin",pts:2,q:"Estimate how many times a human heart beats in one year.",f:[{kind:"num",val:[3e7,4.5e7],wide:1}],why:"70 × 60 × 24 × 365 ≈ 3.7 × 10⁷. Kabul: 3–4.5 × 10⁷."},
+ {id:"A1",tag:"etik",pts:1,q:"NSPE Fundamental Canons'a göre mühendisler neyi her şeyin üstünde tutmalıdır (hold paramount)?",f:[MC(1,["The profit of their employer","The safety, health, and welfare of the public","The honor of the profession","The confidentiality of their client"])],why:"Canon 1 (s. 44).",
+  en:"According to the NSPE Fundamental Canons, what must engineers hold paramount?",enOpts:["The profit of their employer","The safety, health, and welfare of the public","The honor of the profession","The confidentiality of their client"]},
+ {id:"A2",tag:"etik",pts:1,q:"Ethical decision making'de hangi perspective sonucu yok sayar ve yalnızca kişinin ne yapmak istediğine bakar?",f:[MC(1,["Consequences","Intent","Character","Stakeholders"])],why:"Intent sonuca bakmaz (s. 39).",
+  en:"In ethical decision making, which perspective ignores the outcome and considers only what the person meant to do?",enOpts:["Consequences","Intent","Character","Stakeholders"]},
+ {id:"A3",tag:"etik",pts:1,q:"Bir karardan etkilenebilecek kişi, grup, kurum ya da doğal sistemlere _________ denir.",f:[{kind:"text",accept:["stakeholders","stakeholder"]}],why:"stakeholders (s. 38).",
+  en:"The people, groups, institutions or natural systems that might be affected by a decision are called _________."},
+ {id:"A4",tag:"tasarim",pts:1,q:"Aşağıdakilerden hangisi brainstorming kurallarından biri DEĞİLDİR?",f:[MC(3,["More is better","Variety is better","Do not criticize","Evaluate each idea as soon as it is proposed"])],why:"Evaluation sonra yapılır (s. 55).",
+  en:"Which of the following is NOT a rule of brainstorming?",enOpts:["More is better","Variety is better","Do not criticize","Evaluate each idea as soon as it is proposed"]},
+ {id:"A5",tag:"tasarim",pts:1,q:"Pairwise comparisons yönteminin temel dezavantajı nedir?",f:[MC(1,["It needs special software","All criteria have equal weight","It works only for two options","It ignores safety"])],why:"Bu yüzden weighted benefit analysis kullanılır (s. 62).",
+  en:"What is the main disadvantage of the pairwise comparisons approach?",enOpts:["It needs special software","All criteria have equal weight","It works only for two options","It ignores safety"]},
+ {id:"A6",tag:"tasarim",pts:1,q:"Her option'ın her criterion'a göre puanlandığı ve her puanın o criterion'ın önemiyle çarpıldığı yönteme _________ denir.",f:[{kind:"fn",fn:v=>/weighted|decisionmatrix/.test(norm(v))}],why:"weighted benefit analysis; F25'teki adıyla decision matrix da kabul.",
+  en:"A method in which each option is scored against each criterion, and each score is multiplied by the importance of that criterion, is called _________."},
+ {id:"A7",tag:"takim",pts:1,q:"Group'tan farklı olarak bir team'i en iyi hangisi tanımlar?",f:[MC(2,["People who are in the same place at the same time","People who have the same manager","Individuals cooperating to accomplish a common goal","People with the same engineering discipline"])],why:"A şıkkı group tanımı (s. 65).",
+  en:"Which statement best describes a team, as opposed to a group?",enOpts:["People who are in the same place at the same time","People who have the same manager","Individuals cooperating to accomplish a common goal","People with the same engineering discipline"]},
+ {id:"A8",tag:"takim",pts:1,q:"Proje task'lerini yanda, team member'ları üstte listeleyip her task'i kimin yaptığını gösteren tabloya _________ denir.",f:[{kind:"text",accept:["responsibility matrix"]}],why:"responsibility matrix (s. 72).",
+  en:"A table that lists the project tasks down the side and the team members across the top, showing who performs each task, is called a _________."},
+ {id:"A9",tag:"sunum",pts:1,q:"Aşağıdakilerden hangisi presentation slides kurallarına uyar?",f:[MC(1,["Audience her şeyi okuyabilsin diye tam cümleler","Font size en az 18 point, tercihen 24 ya da üstü","Siyah background üzerine beyaz yazı","Her slide'da farklı bir background style"])],why:"s. 81.",
+  en:"Which of the following follows the guidelines for presentation slides?",enOpts:["Complete sentences so the audience can read everything","A font size of at least 18 points, preferably 24 or more","A black background with white text","A different background style on every slide"]},
+ {id:"A10",tag:"sunum",pts:1,q:"Bir presentation'ı yapılandırmak için 4-S formula: Short, Simple, Strong ve _________.",f:[{kind:"text",accept:["sincere","sincerity"]}],why:"Sincere (s. 80).",
+  en:"The 4-S formula for structuring a presentation is: Short, Simple, Strong and _________."},
+ {id:"A11",tag:"sunum",pts:1,q:"Bir technical report'ta caption'lar nereye konur?",f:[MC(2,["Table'ların üstüne ve figure'ların üstüne","Table'ların altına ve figure'ların altına","Table'ların üstüne, figure'ların altına","Table'ların altına, figure'ların üstüne"])],why:"Table üstte, figure altta (s. 86).",
+  en:"In a technical report, where do the captions go?",enOpts:["Above tables and above figures","Below tables and below figures","Above tables and below figures","Below tables and above figures"]},
+ {id:"A12",tag:"tahmin",pts:1,q:"Odanın uzunluğunu bulmak için bir uçtan öbür uca zemin karolarını sayıp bir karonun boyuyla çarpıyorsun. Bu hangi yöntemle estimation'dır?",f:[MC(1,["Analogy","Aggregation","Modeling","Upper and lower bounds"])],why:"Parçaları sayıp çarpmak aggregation (s. 112).",
+  en:"You count the floor tiles across a room and multiply by the size of one tile to find the length of the room. This is estimation by:",enOpts:["Analogy","Aggregation","Modeling","Upper and lower bounds"]},
+ {id:"A13",tag:"sigfig",pts:1,q:"Aynı uzunluğun beş ölçümü birbirine çok yakın, ama hepsi gerçek değerden uzak. Ölçümler _________ ama _________ değil.",f:[{kind:"text",label:"1",accept:["repeatable"]},{kind:"text",label:"2",accept:["accurate"]}],why:"repeatable, accurate (s. 119).",
+  en:"Five measurements of the same length are very close to each other, but all of them are far from the true value. The measurements are _________ but not _________."},
+ {id:"A14",tag:"sigfig",pts:1,q:"Her sayının kaç significant figure'ı var? (a) 0.00450 (b) 3000 (c) 20.05",f:[{kind:"num",label:"(a)",val:3},{kind:"num",label:"(b)",val:1},{kind:"num",label:"(c)",val:4}],why:"3, 1, 4 (s. 115).",
+  en:"How many significant figures does each number have? (a) 0.00450 (b) 3000 (c) 20.05"},
+ {id:"A15",tag:"sigfig",pts:1,q:"0.000047'yi (a) scientific notation ve (b) engineering notation ile yaz. <span class='muted small'>Biçim: 4.7x10^-5 ya da 4.7e-5</span>",
+  f:[{kind:"fn",label:"(a)",fn:v=>{const r=parseMantExp(v);return!!r&&Math.abs(r.m-4.7)<1e-9&&r.e===-5}},{kind:"fn",label:"(b)",fn:v=>{const r=parseMantExp(v);return!!r&&Math.abs(r.m-47)<1e-9&&r.e===-6}}],why:"4.7 × 10⁻⁵ ve 47 × 10⁻⁶ (exponent 3'ün katı).",
+  en:"Write 0.000047 in (a) scientific notation and (b) engineering notation."},
+ {id:"A16",tag:"tahmin",pts:2,q:"Sınıfını tamamen doldurmak için kaç litre su gerektiğini tahmin et (estimate). <span class='muted small'>Tek sayı yaz (L). Assumptions'ı kâğıda yaz.</span>",f:[{kind:"num",val:[1e5,3e5],wide:1}],why:"8 × 6 × 3 m = 144 m³ ≈ 150,000 L. Kabul: 100,000–300,000.",
+  en:"Estimate the number of liters of water needed to fill your classroom completely."},
+ {id:"A17",tag:"tahmin",pts:2,q:"İnsan kalbinin bir yılda kaç kez attığını tahmin et (estimate).",f:[{kind:"num",val:[3e7,4.5e7],wide:1}],why:"70 × 60 × 24 × 365 ≈ 3.7 × 10⁷. Kabul: 3–4.5 × 10⁷.",
+  en:"Estimate how many times a human heart beats in one year."},
 
- {id:"B1",tag:"dongu",pts:2,q:["What is <code>count</code> after this code runs?",C`
+ {id:"B1",tag:"dongu",pts:2,q:["Bu kod çalıştıktan sonra <code>count</code> kaçtır?",C`
 count = 0;
 for n = 1:30
   if mod(n,3)==0 || mod(n,7)==0
     count = count + 1;
   end
-end`],f:[{kind:"num",val:13}],why:"3'ün katı 10, 7'nin katı 4, 21 ikisinde: 10 + 4 − 1 = 13."},
- {id:"B2",tag:"fonksiyon",pts:2,q:["What is the value of <code>r</code>?",C`
+end`],f:[{kind:"num",val:13}],why:"3'ün katı 10, 7'nin katı 4, 21 ikisinde: 10 + 4 − 1 = 13.",en:"What is <code>count</code> after this code runs?"},
+ {id:"B2",tag:"fonksiyon",pts:2,q:["<code>r</code>'nin değeri nedir?",C`
 function y = f(x)
   y = 2*x^2 - 3*x + 4;
 end
 
-r = f(4);`],f:[{kind:"num",val:24}],why:"32 − 12 + 4 = 24."},
- {id:"B3",tag:"matris",pts:2,q:["What is the value of <code>s</code>?",C`
+r = f(4);`],f:[{kind:"num",val:24}],why:"32 − 12 + 4 = 24.",en:"What is the value of <code>r</code>?"},
+ {id:"B3",tag:"matris",pts:2,q:["<code>s</code>'nin değeri nedir?",C`
 A = [2 4 6; 1 3 5; 8 7 9];
-s = sum(A(2,:)) + A(3,1) - A(1,3);`],f:[{kind:"num",val:11}],why:"9 + 8 − 6 = 11."},
- {id:"B4",tag:"matris",pts:2,q:["What is the vector <code>result</code>? (<code>'</code> is transpose)",C`
+s = sum(A(2,:)) + A(3,1) - A(1,3);`],f:[{kind:"num",val:11}],why:"9 + 8 − 6 = 11.",en:"What is the value of <code>s</code>?"},
+ {id:"B4",tag:"matris",pts:2,q:["<code>result</code> vector'ü nedir? (<code>'</code> transpose demek)",C`
 B = [1 2 3; 4 5 6; 7 8 9];
-result = B(:,1)' .* B(3,:);`],f:[{kind:"vec",val:[7,32,63],wide:1}],why:"[1 4 7] .* [7 8 9] = [7 32 63]."},
- {id:"B5",tag:"dongu",pts:2,q:["What is the value of <code>total</code>?",C`
+result = B(:,1)' .* B(3,:);`],f:[{kind:"vec",val:[7,32,63],wide:1}],why:"[1 4 7] .* [7 8 9] = [7 32 63].",en:"What is the vector <code>result</code>? (<code>'</code> is transpose)"},
+ {id:"B5",tag:"dongu",pts:2,q:["<code>total</code>'ın değeri nedir?",C`
 total = 0;
 for k = 1:20
   if mod(k,2)==0 && mod(k,3)~=0
     total = total + k;
   end
-end`],f:[{kind:"num",val:74}],why:"Çiftlerin toplamı 110, 6 + 12 + 18 = 36 çıkar: 74."},
- {id:"B6",tag:"dongu",pts:2,q:["What are the values of <code>s</code> and <code>k</code> after the loop?",C`
+end`],f:[{kind:"num",val:74}],why:"Çiftlerin toplamı 110, 6 + 12 + 18 = 36 çıkar: 74.",en:"What is the value of <code>total</code>?"},
+ {id:"B6",tag:"dongu",pts:2,q:["Loop'tan sonra <code>s</code> ve <code>k</code>'nin değerleri nedir?",C`
 k = 10;
 s = 0;
 while k > 3
   s = s + k;
   k = k - 2;
-end`],f:[{kind:"num",label:"s",val:28},{kind:"num",label:"k",val:2}],why:"k: 10, 8, 6, 4 eklenir (s = 28); k = 2'de döngü biter."},
- {id:"B7",tag:"dongu",pts:2,q:["What is the vector <code>v</code>, and what is <code>length(v)</code>?",C`
+end`],f:[{kind:"num",label:"s",val:28},{kind:"num",label:"k",val:2}],why:"k: 10, 8, 6, 4 eklenir (s = 28); k = 2'de loop biter.",en:"What are the values of <code>s</code> and <code>k</code> after the loop?"},
+ {id:"B7",tag:"dongu",pts:2,q:["<code>v</code> vector'ü nedir ve <code>length(v)</code> kaçtır?",C`
 v = [];
 for k = 1:2:9
   v = [v k^2];
-end`],f:[{kind:"vec",label:"v",val:[1,9,25,49,81],wide:1},{kind:"num",label:"len",val:5}],why:"k = 1, 3, 5, 7, 9 → [1 9 25 49 81], uzunluk 5."},
- {id:"B8",tag:"dongu",pts:2,q:["What does this code print? <span class='muted small'>Her satırı alt alta yaz.</span>",C`
+end`],f:[{kind:"vec",label:"v",val:[1,9,25,49,81],wide:1},{kind:"num",label:"len",val:5}],why:"k = 1, 3, 5, 7, 9 → [1 9 25 49 81], length 5.",en:"What is the vector <code>v</code>, and what is <code>length(v)</code>?"},
+ {id:"B8",tag:"dongu",pts:2,q:["Bu kod ne yazdırır (print)? <span class='muted small'>Her satırı alt alta yaz.</span>",C`
 for k = 1:3
   for j = 1:k
     fprintf('%d', j);
   end
   fprintf('\n');
-end`],f:[{kind:"lines",val:["1","12","123"]}],why:"1 / 12 / 123."},
- {id:"B9",tag:"fonksiyon",pts:3,self:1,q:"Write a function <code>myColMax(A, c)</code> that returns the largest element of column <code>c</code> and the row where it is found. Do not use <code>max</code>. Example: <code>A = [1 5; 7 2; 3 9]</code>, <code>[m, row] = myColMax(A, 1)</code> gives 7 and 2.",
+end`],f:[{kind:"lines",val:["1","12","123"]}],why:"1 / 12 / 123.",en:"What does this code print?"},
+ {id:"B9",tag:"fonksiyon",pts:3,self:1,q:"Column <code>c</code>'deki en büyük element'i ve bulunduğu row'u döndüren <code>myColMax(A, c)</code> function'ını yaz. <code>max</code> kullanma. Örnek: <code>A = [1 5; 7 2; 3 9]</code> için <code>[m, row] = myColMax(A, 1)</code> 7 ve 2 verir.",
+  en:"Write a function <code>myColMax(A, c)</code> that returns the largest element of column <code>c</code> and the row where it is found. Do not use <code>max</code>. Example: <code>A = [1 5; 7 2; 3 9]</code>, <code>[m, row] = myColMax(A, 1)</code> gives 7 and 2.",
   sol:[C`
 function [mx, row] = myColMax(A, c)
   [rows, cols] = size(A);
@@ -831,8 +855,9 @@ function [mx, row] = myColMax(A, c)
       row = k;
     end
   end
-end`,"<p>MATLAB'da doğrulandı: sütun 1 → 7, satır 2. Sütun 2 → 9, satır 3.</p>"]},
- {id:"B10",tag:"kosul",pts:3,self:1,q:"Write a function <code>countFiveSeven(n)</code> that counts how many numbers between 1 and <code>n</code> are divisible by 5 or by 7, but not by both. Example: <code>countFiveSeven(40)</code> is 11.",
+end`,"<p>MATLAB'da doğrulandı: column 1 → 7, row 2. Column 2 → 9, row 3.</p>"]},
+ {id:"B10",tag:"kosul",pts:3,self:1,q:"1 ile <code>n</code> arasında 5'e ya da 7'ye bölünen (divisible) ama ikisine birden bölünmeyen sayıları sayan <code>countFiveSeven(n)</code> function'ını yaz. Örnek: <code>countFiveSeven(40)</code> = 11.",
+  en:"Write a function <code>countFiveSeven(n)</code> that counts how many numbers between 1 and <code>n</code> are divisible by 5 or by 7, but not by both. Example: <code>countFiveSeven(40)</code> is 11.",
   sol:[C`
 function count = countFiveSeven(n)
   count = 0;
@@ -848,35 +873,35 @@ end`,"<p>Doğrulandı: <code>countFiveSeven(40)</code> = 11, <code>(70)</code> =
 
 const LEVEL=[
  {id:"L1",tag:"matris",pts:1,q:["<code>A = [1 2 3; 4 5 6; 7 8 9];</code> için <code>A(2,:)</code> ve <code>A(:,3)</code> nedir?"],f:[{kind:"vec",label:"A(2,:)",val:[4,5,6]},{kind:"vec",label:"A(:,3)",val:[3,6,9]}],why:"[4 5 6] ve [3; 6; 9]."},
- {id:"L2",tag:"matris",pts:1,q:"<code>[1 2 3] .* [4 5 6]</code> sonucu nedir? Nokta olmadan <code>[1 2 3] * [4 5 6]</code> ne olur?",f:[{kind:"vec",label:".*",val:[4,10,18]},MC(2,["[4 10 18]","32","Hata verir: boyutlar uyuşmaz","[4 5 6]"])],why:"[4 10 18]; nokta olmadan matris çarpımı denenir ve 1×3 · 1×3 hata verir (MATLAB'da denendi)."},
- {id:"L3",tag:"dongu",pts:1,q:["Bu döngüden sonra <code>total</code> kaçtır?",C`
+ {id:"L2",tag:"matris",pts:1,q:"<code>[1 2 3] .* [4 5 6]</code> sonucu nedir? Nokta olmadan <code>[1 2 3] * [4 5 6]</code> ne olur?",f:[{kind:"vec",label:".*",val:[4,10,18]},MC(2,["Sonuç [4 10 18] olur","Sonuç 32 olur","Sonuç error olur: dimensions uyuşmaz","Sonuç [4 5 6] olur"])],why:"[4 10 18]; nokta olmadan matrix multiplication denenir ve 1×3 · 1×3 error verir (MATLAB'da denendi)."},
+ {id:"L3",tag:"dongu",pts:1,q:["Bu loop'tan sonra <code>total</code> kaçtır?",C`
 total = 0;
 for k = 1:10
   if mod(k,2)==0 && mod(k,4)~=0
     total = total + k;
   end
 end`],f:[{kind:"num",val:18}],why:"2 + 6 + 10 = 18."},
- {id:"L4",tag:"fonksiyon",pts:1,q:"İki sayı alıp toplamını ve farkını döndüren fonksiyonun ilk satırını yaz.",f:[{kind:"fn",wide:1,fn:v=>/^function\s*\[\s*\w+\s*,?\s*\w+\s*\]\s*=\s*\w+\s*\(\s*\w+\s*,\s*\w+\s*\)\s*;?$/.test(v.trim())}],why:"<code>function [s, d] = sumDiff(a, b)</code>"},
+ {id:"L4",tag:"fonksiyon",pts:1,q:"İki sayı alıp toplamını ve farkını döndüren function'ın ilk satırını yaz.",f:[{kind:"fn",wide:1,fn:v=>/^function\s*\[\s*\w+\s*,?\s*\w+\s*\]\s*=\s*\w+\s*\(\s*\w+\s*,\s*\w+\s*\)\s*;?$/.test(v.trim())}],why:"<code>function [s, d] = sumDiff(a, b)</code>"},
  {id:"L5",tag:"tasarim",pts:1,q:"Brainstorming'in üç kuralı nedir? (İngilizce ya da Türkçe)",f:[{kind:"fn",wide:1,fn:v=>{v=v.toLowerCase();return/(more|çok|fazla|quantit)/.test(v)&&/(variet|çeşit)/.test(v)&&/(critic|eleştir|yargıla)/.test(v)}}],why:"More is better, variety is better, do not criticize."},
- {id:"L6",tag:"etik",pts:1,q:"Etik karar vermede ikinci adımdaki üç bakış açısı nedir?",f:[{kind:"fn",wide:1,fn:v=>{v=v.toLowerCase();return/(conseq|sonuç)/.test(v)&&/(intent|niyet)/.test(v)&&/(charac|karakter)/.test(v)}}],why:"Consequences, intent, character."},
- {id:"L7",tag:"tahmin",pts:1,q:"Dört tahmin yönteminden ikisini say.",f:[{kind:"fn",wide:1,fn:v=>{v=v.toLowerCase();return[/(analog|benzet)/,/(aggregat|toplam|parça)/,/(bound|sınır)/,/(model)/].filter(r=>r.test(v)).length>=2}}],why:"Analogy, aggregation, upper and lower bounds, modeling."},
- {id:"L8",tag:"tahmin",pts:1,q:"Bir yılda kaç saniye var? Tahmin et. <span class='muted small'>Biçim: 3.2e7 ya da 3.2x10^7</span>",f:[{kind:"num",val:[3.0e7,3.3e7]}],why:"365 × 24 × 3600 ≈ 3.15 × 10⁷ (MATLAB: 3.154e+07)."}
+ {id:"L6",tag:"etik",pts:1,q:"Ethical decision making'in ikinci adımındaki üç perspective nedir?",f:[{kind:"fn",wide:1,fn:v=>{v=v.toLowerCase();return/(conseq|sonuç)/.test(v)&&/(intent|niyet)/.test(v)&&/(charac|karakter)/.test(v)}}],why:"Consequences, intent, character."},
+ {id:"L7",tag:"tahmin",pts:1,q:"Dört estimation yönteminden ikisini say.",f:[{kind:"fn",wide:1,fn:v=>{v=v.toLowerCase();return[/(analog|benzet)/,/(aggregat|toplam|parça)/,/(bound|sınır)/,/(model)/].filter(r=>r.test(v)).length>=2}}],why:"Analogy, aggregation, upper and lower bounds, modeling."},
+ {id:"L8",tag:"tahmin",pts:1,q:"Bir yılda kaç saniye var? Tahmin et (estimate). <span class='muted small'>Biçim: 3.2e7 ya da 3.2x10^7</span>",f:[{kind:"num",val:[3.0e7,3.3e7]}],why:"365 × 24 × 3600 ≈ 3.15 × 10⁷ (MATLAB: 3.154e+07)."}
 ];
 
 const F24=[
- {id:"F24-1",n:"F24·1",tag:"tahmin",pts:4,q:"<p>(a) Estimate how many liters of water you can fit in a 15 in laptop (1 in = 2.54 cm). (b) Estimate how much money you would spend on a trip to Paris for 7 days.</p>",
+ {id:"F24-1",n:"F24·1",tag:"tahmin",pts:4,q:"<p>(a) 15 inç bir laptop'a kaç litre su sığdırabileceğini tahmin et (estimate) (1 in = 2.54 cm). (b) 7 günlük bir Paris gezisinde ne kadar para harcayacağını tahmin et.</p>",en:"<p>(a) Estimate how many liters of water you can fit in a 15 in laptop (1 in = 2.54 cm). (b) Estimate how much money you would spend on a trip to Paris for 7 days.</p>",
   sol:`<p><b>(a)</b> Köşegen 15 × 2.54 ≈ 38 cm → ekran ~32 × 21 cm, gövde ~34 × 23 cm. Kalınlık ~2 cm. Hacim 34 × 23 × 2 ≈ 1500 cm³ → <b>~1.5 L</b> (1–2.5 L mantıklı).</p>
-  <p><b>(b)</b> Uçak 300 € + konaklama 7 × 100 € + yemek 7 × 40 € + ulaşım 7 × 10 € + müze 100 € ≈ <b>1500 €</b>. Puanı yöntem getirir: kalemlere böl, varsayımları yaz, topla, yuvarla.</p>`},
- {id:"F24-2",n:"F24·2",tag:"tahmin",pts:2,q:"<p>What are the methods you could use for estimating certain variables?</p>",sol:"<p>By <b>analogy</b> (bilinen şeyle karşılaştırma), by <b>aggregation</b> (parçaları toplama), by <b>upper and lower bounds</b> (conservative, en kötü durum), using <b>modeling</b> (model, istatistik). Ch 5.2–5.5.</p>"},
- {id:"F24-3",n:"F24·3",tag:"tasarim",pts:2,q:"<p>What is your first choice for generating ideas for a design problem? Why?</p>",sol:"<p><b>Brainstorming.</b> Çok sayıda ve çeşitli fikir üretir; eleştiri yasağı sıra dışı fikirleri açar. Fikir sayısı arttıkça iyi fikir çıkma olasılığı artar (\"quality is quantity\"). Kurallar: more is better, variety is better, do not criticize.</p>"},
- {id:"F24-4",n:"F24·4",tag:"takim",pts:2,q:"<p>What is the first character you would look for in your team members? Why?</p>",sol:"<p>Tek doğru yok; bir özellik seç, gerekçelendir. Örnek: <b>Reliability.</b> A reliable member keeps commitments and completes a fair share of the work on time. One missed deadline delays the whole project. Skills can be learned, but the team cannot plan without trust. (CATME: contributing to the team's work.)</p>"},
- {id:"F24-5",n:"F24·5",tag:"sunum",pts:2,q:"<p>How would the content of your presentation about your designed software change if you were presenting it (a) to an investor, or (b) to your team members?</p>",
-  sol:`<p>İlk soru "Who is my audience?".</p><div class="tblwrap"><table><tr><th></th><th>Yatırımcı</th><th>Takım</th></tr>
+  <p><b>(b)</b> Uçak 300 € + konaklama 7 × 100 € + yemek 7 × 40 € + ulaşım 7 × 10 € + müze 100 € ≈ <b>1500 €</b>. Puanı yöntem getirir: kalemlere böl, assumptions'ı yaz, topla, yuvarla.</p>`},
+ {id:"F24-2",n:"F24·2",tag:"tahmin",pts:2,q:"<p>Bazı değişkenleri tahmin etmek için hangi yöntemleri (estimation methods) kullanabilirsin?</p>",en:"<p>What are the methods you could use for estimating certain variables?</p>",sol:"<p>By <b>analogy</b> (bilinen şeyle karşılaştırma), by <b>aggregation</b> (parçaları toplama), by <b>upper and lower bounds</b> (conservative, en kötü durum), using <b>modeling</b> (model, istatistik). Ch 5.2–5.5.</p>"},
+ {id:"F24-3",n:"F24·3",tag:"tasarim",pts:2,q:"<p>Bir design problem için generating ideas aşamasında ilk tercihin ne olur? Neden?</p>",en:"<p>What is your first choice for generating ideas for a design problem? Why?</p>",sol:"<p><b>Brainstorming.</b> Çok sayıda ve çeşitli fikir üretir; eleştiri yasağı sıra dışı fikirleri açar. Fikir sayısı arttıkça iyi fikir çıkma olasılığı artar (\"quality is quantity\"). Kurallar: more is better, variety is better, do not criticize.</p>"},
+ {id:"F24-4",n:"F24·4",tag:"takim",pts:2,q:"<p>Team member'larında arayacağın ilk özellik ne olur? Neden?</p>",en:"<p>What is the first character you would look for in your team members? Why?</p>",sol:"<p>Tek doğru yok; bir özellik seç, gerekçelendir. Örnek: <b>Reliability.</b> A reliable member keeps commitments and completes a fair share of the work on time. One missed deadline delays the whole project. Skills can be learned, but the team cannot plan without trust. (CATME: contributing to the team's work.)</p>"},
+ {id:"F24-5",n:"F24·5",tag:"sunum",pts:2,q:"<p>Tasarladığın yazılımla ilgili presentation'ının içeriği, onu (a) bir investor'a ya da (b) team member'larına sunarken nasıl değişir?</p>",en:"<p>How would the content of your presentation about your designed software change if you were presenting it (a) to an investor, or (b) to your team members?</p>",
+  sol:`<p>İlk soru "Who is my audience?".</p><div class="tblwrap"><table><tr><th></th><th>Investor</th><th>Team members</th></tr>
   <tr><td>Amaç</td><td>Para almak, ikna</td><td>Bilgi paylaşmak, iş bölmek</td></tr>
   <tr><td>İçerik</td><td>Problem, pazar, maliyet, kazanç, takvim</td><td>Mimari, kod yapısı, algoritma, hatalar, kim ne yapacak</td></tr>
   <tr><td>Dil</td><td>Teknik olmayan, kısa</td><td>Teknik, ayrıntılı</td></tr></table></div>`},
- {id:"F24-6",n:"F24·6",tag:"etik",pts:2,q:"<p>Give an example of an action that is legal but not ethical, and something ethical but not legal.</p>",sol:"<p><b>Legal, not ethical:</b> plagiarism (kitaba göre telif ihlali yoksa yasa dışı değil). <b>Ethical, not legal:</b> ağır yaralıyı hastaneye yetiştirmek için hız sınırını aşmak; tarihten Harriet Tubman.</p>"},
- {id:"F24-7",n:"F24·7",tag:"kosul",pts:3,q:"<p>Write an Octave/MATLAB function that asks the user to enter a number, and returns: odd or even, positive or negative, larger than its square or not (0.5 is larger than its square 0.25).</p>",
+ {id:"F24-6",n:"F24·6",tag:"etik",pts:2,q:"<p>Legal olup ethical olmayan bir eyleme ve ethical olup legal olmayan bir şeye örnek ver.</p>",en:"<p>Give an example of an action that is legal but not ethical, and something ethical but not legal.</p>",sol:"<p><b>Legal, not ethical:</b> plagiarism (kitaba göre copyright infringement yoksa illegal değil). <b>Ethical, not legal:</b> ağır yaralıyı hastaneye yetiştirmek için hız sınırını aşmak; tarihten Harriet Tubman.</p>"},
+ {id:"F24-7",n:"F24·7",tag:"kosul",pts:3,q:"<p>Kullanıcıdan bir sayı girmesini isteyen (input) ve şunları veren bir Octave/MATLAB function yaz: odd ya da even, positive ya da negative, karesinden büyük mü değil mi (0.5, karesi olan 0.25'ten büyüktür).</p>",en:"<p>Write an Octave/MATLAB function that asks the user to enter a number, and returns: odd or even, positive or negative, larger than its square or not (0.5 is larger than its square 0.25).</p>",
   sol:[C`
 function numberInfo()
   x = input('Enter a number: ');
@@ -903,11 +928,11 @@ function numberInfo()
     disp('not larger than its square')
   end
 end`,"<p>Doğrulandı: 0.5 → neither, positive, larger. −3 → odd, negative, not larger. 4 → even, positive, not larger. Üç ayrı <code>if</code>: üç bağımsız soru. Bir sayı karesinden ancak 0 ile 1 arasında büyüktür.</p>"]},
- {id:"F24-8",n:"F24·8",tag:"fonksiyon",pts:3,q:"<p>Bacteria double every 20 minutes: p = p₀ · 2^(t/20). Write a function that returns the population after t minutes, given t and p₀. Modify it for hours or seconds.</p>",
+ {id:"F24-8",n:"F24·8",tag:"fonksiyon",pts:3,q:"<p>Bakteriler her 20 dakikada ikiye katlanır: p = p₀ · 2^(t/20). t ve p₀ verildiğinde t dakika sonraki population'ı döndüren bir function yaz. Sonra saat ya da saniye için değiştir.</p>",en:"<p>Bacteria double every 20 minutes: p = p₀ · 2^(t/20). Write a function that returns the population after t minutes, given t and p₀. Modify it for hours or seconds.</p>",
   sol:[C`
 function p = bacteria(p0, t)
   p = p0 * 2^(t/20);
-end`,"<p><code>bacteria(100, 60)</code> = 800. Birimli hali:</p>",C`
+end`,"<p><code>bacteria(100, 60)</code> = 800. <code>unit</code> girdili hali:</p>",C`
 function p = bacteriaUnit(p0, t, unit)
   if unit == 'h'
     t = t * 60;
@@ -916,7 +941,7 @@ function p = bacteriaUnit(p0, t, unit)
   end
   p = p0 * 2^(t/20);
 end`,"<p>Doğrulandı: <code>bacteriaUnit(100,1,'h')</code> = 800, <code>(100,3600,'s')</code> = 800.</p>"]},
- {id:"F24-9",n:"F24·9",tag:"kosul",pts:3,q:"<p>Optimal motherboard temperature is 30–80 °C. Write a function that takes the temperature and warns if it is too cold or too hot.</p>",
+ {id:"F24-9",n:"F24·9",tag:"kosul",pts:3,q:"<p>Motherboard için optimal sıcaklık 30–80 °C. Sıcaklığı alıp çok soğuk (too cold) ya da çok sıcaksa (too hot) uyaran bir function yaz.</p>",en:"<p>Optimal motherboard temperature is 30–80 °C. Write a function that takes the temperature and warns if it is too cold or too hot.</p>",
   sol:[C`
 function tempCheck(T)
   if T < 30
@@ -927,7 +952,7 @@ function tempCheck(T)
     disp('Temperature is OK')
   end
 end`,"<p>Doğrulandı: 25 → cold, 55 → OK, 95 → hot; 30 ve 80 OK.</p>"]},
- {id:"F24-10",n:"F24·10",tag:"dongu",pts:3,q:"<p>Speed 10…130 km/h, fuel 100 70 55 50 45 42 40 41 42 48 52 58 65 g/km. Write a function that takes speed and fuel, shows the speeds with the highest and lowest consumption, and plots speed vs consumption. (General for any data.)</p>",
+ {id:"F24-10",n:"F24·10",tag:"dongu",pts:3,q:"<p>Speed 10…130 km/h, fuel 100 70 55 50 45 42 40 41 42 48 52 58 65 g/km. Speed ve fuel'ı alan, en yüksek ve en düşük consumption'ın olduğu hızları gösteren ve speed vs consumption plot'unu çizen bir function yaz. (Her veri için genel olsun.)</p>",en:"<p>Speed 10…130 km/h, fuel 100 70 55 50 45 42 40 41 42 48 52 58 65 g/km. Write a function that takes speed and fuel, shows the speeds with the highest and lowest consumption, and plots speed vs consumption. (General for any data.)</p>",
   sol:[C`
 function [vMax, vMin] = fuelAnalysis(speed, fuel)
   maxi = fuel(1);  iMax = 1;
@@ -958,51 +983,51 @@ end`,"<p>Doğrulandı: en yüksek 100 (hız 10), en düşük 40 (hız 70). Kısa
 ];
 
 const F25T=[
- ["etik","What is the primary purpose of an engineering code of ethics?","A. To increase company profits · B. To protect public safety and guide professional conduct · C. To standardize engineering salaries · D. To reduce paperwork","<b>B</b>. Canon 1."],
- ["etik","A material used in a product meets legal requirements but has rare safety failures. Which ethical principle is most relevant?","A. Loyalty to employer · B. Respect for intellectual property · C. Public welfare and safety · D. Confidentiality","<b>C</b>. Yasal olması etik olması demek değil."],
- ["etik","Engineers who report safety concerns internally and externally when necessary are engaging in _________.","","<b>whistle-blowing</b>"],
- ["terim","A requirement describes a function the design must perform, while a constraint is:","A. A possible bonus feature · B. A limitation or boundary the design must not violate · C. A marketing objective · D. A manufacturing preference","<b>B</b>"],
- ["tasarim","What is the primary purpose of a decision matrix in engineering design?","A. To determine project scheduling · B. To compare design alternatives using weighted criteria · C. To store manufacturing data · D. To calculate mechanical stress","<b>B</b>. Kitaptaki weighted benefit analysis."],
- ["terim","Choosing between higher cost for better aesthetics versus lower cost for simple construction is an example of a _________.","","<b>tradeoff</b>"],
- ["terim","A team charter most often includes:","A. Salary information · B. Team roles and communication expectations · C. Purchasing forms · D. Prototype test results","<b>B</b>"],
- ["terim","Which of the following is a common cause of miscommunication in engineering teams?","A. Too many prototypes · B. Assumed shared knowledge · C. Having more than one project manager · D. Using structured documentation","<b>B</b>"],
- ["terim","A meeting technique where each team member speaks once in turn before open discussion is called a _________.","","<b>round-robin</b>"],
- ["sunum","Which of the following improves the clarity of a technical presentation slide?","A. Long paragraphs · B. Multiple complex charts on one slide · C. Concise bullet points and readable font sizes · D. Full pages of text from the report","<b>C</b>. Kitap: bullet, en az 18 pt."],
- ["sunum","The section of a written report that explains how an engineer performed tests, calculations, or experiments is called the _________ section.","","<b>methods</b>"],
- ["tahmin","When making an estimation, which strategy is most commonly used?","A. Avoiding assumptions · B. Breaking the problem into simpler, estimable components · C. Ignoring units · D. Using only the smallest possible numbers","<b>B</b>. Aggregation."],
- ["tahmin","An estimate used to check whether a detailed calculation is reasonable is called a _________ check.","","<b>sanity</b> ya da <b>reasonableness</b> check"],
- ["tahmin","Estimate the number of liters of water a typical household (4 people) uses in one week.","","<b>3500–5000 L</b> (anahtar). 4 kişi × 150 L × 7 gün = 4200 L."],
- ["tahmin","Estimate the number of steps, and the hours to walk from IUS to old town Sarajevo.","","<b>14000–18000 adım, 2–4 saat</b> (anahtar). ~12 km ÷ 0.75 m ≈ 16,000 adım; 12 km ÷ 5 km/sa ≈ 2.4 saat."]
-].map(([tag,q,o,s],i)=>({id:"F25T-"+(i+1),n:"F25·"+(i+1),tag,pts:1,q:`<p>${q}</p>${o?`<p class="small muted">${o}</p>`:""}`,sol:`<p>${s}</p>`}));
+ ["etik","Bir engineering code of ethics'in temel amacı nedir?","A. To increase company profits · B. To protect public safety and guide professional conduct · C. To standardize engineering salaries · D. To reduce paperwork","<b>B</b>. Canon 1.","What is the primary purpose of an engineering code of ethics?","A. To increase company profits · B. To protect public safety and guide professional conduct · C. To standardize engineering salaries · D. To reduce paperwork"],
+ ["etik","Bir üründe kullanılan malzeme legal requirements'ı karşılıyor ama nadiren safety failure'a yol açıyor. En ilgili ethical principle hangisi?","A. Loyalty to employer · B. Respect for intellectual property · C. Public welfare and safety · D. Confidentiality","<b>C</b>. Legal olması ethical olması demek değil.","A material used in a product meets legal requirements but has rare safety failures. Which ethical principle is most relevant?","A. Loyalty to employer · B. Respect for intellectual property · C. Public welfare and safety · D. Confidentiality"],
+ ["etik","Safety concern'lerini şirket içinde ve gerektiğinde dışarıda bildiren engineers _________ yapmış olur.","","<b>whistle-blowing</b>","Engineers who report safety concerns internally and externally when necessary are engaging in _________.",""],
+ ["terim","Requirement, design'ın yerine getirmesi gereken bir işlevi tanımlar; constraint ise:","A. A possible bonus feature · B. A limitation or boundary the design must not violate · C. A marketing objective · D. A manufacturing preference","<b>B</b>","A requirement describes a function the design must perform, while a constraint is:","A. A possible bonus feature · B. A limitation or boundary the design must not violate · C. A marketing objective · D. A manufacturing preference"],
+ ["tasarim","Engineering design'da bir decision matrix'in temel amacı nedir?","A. To determine project scheduling · B. To compare design alternatives using weighted criteria · C. To store manufacturing data · D. To calculate mechanical stress","<b>B</b>. Kitaptaki weighted benefit analysis.","What is the primary purpose of a decision matrix in engineering design?","A. To determine project scheduling · B. To compare design alternatives using weighted criteria · C. To store manufacturing data · D. To calculate mechanical stress"],
+ ["terim","Daha iyi estetik için yüksek maliyet ile basit yapım için düşük maliyet arasında seçim yapmak bir _________ örneğidir.","","<b>tradeoff</b>","Choosing between higher cost for better aesthetics versus lower cost for simple construction is an example of a _________.",""],
+ ["terim","Bir team charter çoğunlukla neyi içerir?","A. Salary information · B. Team roles and communication expectations · C. Purchasing forms · D. Prototype test results","<b>B</b>","A team charter most often includes:","A. Salary information · B. Team roles and communication expectations · C. Purchasing forms · D. Prototype test results"],
+ ["terim","Engineering team'lerinde miscommunication'ın yaygın nedeni hangisi?","A. Too many prototypes · B. Assumed shared knowledge · C. Having more than one project manager · D. Using structured documentation","<b>B</b>","Which of the following is a common cause of miscommunication in engineering teams?","A. Too many prototypes · B. Assumed shared knowledge · C. Having more than one project manager · D. Using structured documentation"],
+ ["terim","Açık tartışmadan önce her team member'ın sırayla bir kez konuştuğu meeting technique'e _________ denir.","","<b>round-robin</b>","A meeting technique where each team member speaks once in turn before open discussion is called a _________.",""],
+ ["sunum","Aşağıdakilerden hangisi bir technical presentation slide'ının clarity'sini artırır?","A. Long paragraphs · B. Multiple complex charts on one slide · C. Concise bullet points and readable font sizes · D. Full pages of text from the report","<b>C</b>. Kitap: bullet, en az 18 pt.","Which of the following improves the clarity of a technical presentation slide?","A. Long paragraphs · B. Multiple complex charts on one slide · C. Concise bullet points and readable font sizes · D. Full pages of text from the report"],
+ ["sunum","Yazılı bir report'ta engineer'ın testleri, hesapları ya da deneyleri nasıl yaptığını anlatan bölüme _________ section denir.","","<b>methods</b>","The section of a written report that explains how an engineer performed tests, calculations, or experiments is called the _________ section.",""],
+ ["tahmin","Estimation yaparken en yaygın kullanılan strateji hangisi?","A. Avoiding assumptions · B. Breaking the problem into simpler, estimable components · C. Ignoring units · D. Using only the smallest possible numbers","<b>B</b>. Aggregation.","When making an estimation, which strategy is most commonly used?","A. Avoiding assumptions · B. Breaking the problem into simpler, estimable components · C. Ignoring units · D. Using only the smallest possible numbers"],
+ ["tahmin","Ayrıntılı bir hesabın makul olup olmadığını kontrol etmek için kullanılan estimate'e _________ check denir.","","<b>sanity</b> ya da <b>reasonableness</b> check","An estimate used to check whether a detailed calculation is reasonable is called a _________ check.",""],
+ ["tahmin","Tipik bir household'un (4 kişi) bir haftada kaç litre su kullandığını tahmin et (estimate).","","<b>3500–5000 L</b> (anahtar). 4 kişi × 150 L × 7 gün = 4200 L.","Estimate the number of liters of water a typical household (4 people) uses in one week.",""],
+ ["tahmin","IUS'ten Sarajevo old town'a yürümek için adım sayısını ve kaç saat süreceğini tahmin et (estimate).","","<b>14000–18000 adım, 2–4 saat</b> (anahtar). ~12 km ÷ 0.75 m ≈ 16,000 adım; 12 km ÷ 5 km/sa ≈ 2.4 saat.","Estimate the number of steps, and the hours to walk from IUS to old town Sarajevo.",""]
+].map(([tag,q,o,s,qEn,oEn],i)=>({id:"F25T-"+(i+1),n:"F25·"+(i+1),tag,pts:1,q:`<p>${q}</p>${o?`<p class="small muted">${o}</p>`:""}`,sol:`<p>${s}</p>`,en:`<p>${qEn}</p>${oEn?`<p class="small muted">${oEn}</p>`:""}`}));
 
 const F25M=[
- {id:"F25M-1",n:"M1",tag:"dongu",q:["How much is <code>count</code> after this code is run?",C`
+ {id:"F25M-1",n:"M1",tag:"dongu",en:"How much is <code>count</code> after this code is run?",q:["Bu kod çalıştıktan sonra <code>count</code> kaçtır?",C`
 count = 0;
 for n = 1:20
   if mod(n,4)==0 || mod(n,5)==0
     count = count + 1;
   end
 end`],sol:"<p>4'ün katı 5 tane, 5'in katı 4 tane, 20 ikisinde: <b>count = 8</b>.</p>"},
- {id:"F25M-2",n:"M2",tag:"fonksiyon",q:["What is the value of <code>result</code>?",C`
+ {id:"F25M-2",n:"M2",tag:"fonksiyon",en:"What is the value of <code>result</code>?",q:["<code>result</code>'ın değeri nedir?",C`
 function y = mypoly(x)
   y = x^3 - 2*x + 1;
 end
 
 result = mypoly(3);`],sol:"<p>27 − 6 + 1 = <b>22</b>.</p>"},
- {id:"F25M-3",n:"M3",tag:"matris",q:["What is the value of <code>s</code>?",C`
+ {id:"F25M-3",n:"M3",tag:"matris",en:"What is the value of <code>s</code>?",q:["<code>s</code>'nin değeri nedir?",C`
 A = [1 2 3; 4 5 6; 7 8 9];
-s = sum(A(:,3)) - A(2,2);`],sol:"<p>3. sütun toplamı 18, <code>A(2,2)</code> = 5: <b>s = 13</b>.</p>"},
- {id:"F25M-4",n:"M4",tag:"matris",q:["What is the resulting vector <code>result</code>?",C`
+s = sum(A(:,3)) - A(2,2);`],sol:"<p>3. column toplamı 18, <code>A(2,2)</code> = 5: <b>s = 13</b>.</p>"},
+ {id:"F25M-4",n:"M4",tag:"matris",en:"What is the resulting vector <code>result</code>?",q:["Sonuçta çıkan <code>result</code> vector'ü nedir?",C`
 B = [2 4 6; 1 3 5; 7 9 11];
 result = B(2,:) + B(3,:);`],sol:"<p>[1 3 5] + [7 9 11] = <b>[8 12 16]</b>.</p>"},
- {id:"F25M-5",n:"M5",tag:"dongu",q:["What is the value of <code>total</code>?",C`
+ {id:"F25M-5",n:"M5",tag:"dongu",en:"What is the value of <code>total</code>?",q:["<code>total</code>'ın değeri nedir?",C`
 total = 0;
 for k = 1:15
   if mod(k,3)==0 && mod(k,5)~=0
     total = total + k;
   end
 end`],sol:"<p>3 + 6 + 9 + 12 = <b>30</b> (15 elenir).</p>"},
- {id:"F25M-6",n:"M6",tag:"fonksiyon",q:"<p>Write a function that takes a matrix and a row number and returns the mean of that row. <code>A = [1 5; 5 5]</code>, <code>myMean(A, 2)</code> → 5.</p>",
+ {id:"F25M-6",n:"M6",tag:"fonksiyon",en:"<p>Write a function that takes a matrix and a row number and returns the mean of that row. <code>A = [1 5; 5 5]</code>, <code>myMean(A, 2)</code> → 5.</p>",q:"<p>Bir matrix ve bir row numarası alıp o row'un mean'ini döndüren bir function yaz. <code>A = [1 5; 5 5]</code>, <code>myMean(A, 2)</code> → 5.</p>",
   sol:[C`
 function m = myMean(A, r)
   m = mean(A(r,:));
@@ -1015,7 +1040,7 @@ function m = myMeanLoop(A, r)
   end
   m = total / cols;
 end`,"<p>İkisi de doğrulandı: 5.</p>"]},
- {id:"F25M-7",n:"M7",tag:"dongu",q:"<p>Count how many numbers between 1 and <b>n</b> are divisible by 3 but not by 2. <code>MyCheck(20)</code> → 3 (3, 9, 15).</p>",
+ {id:"F25M-7",n:"M7",tag:"dongu",en:"<p>Count how many numbers between 1 and <b>n</b> are divisible by 3 but not by 2. <code>MyCheck(20)</code> → 3 (3, 9, 15).</p>",q:"<p>1 ile <b>n</b> arasında 3'e bölünen (divisible) ama 2'ye bölünmeyen kaç sayı olduğunu say. <code>MyCheck(20)</code> → 3 (3, 9, 15).</p>",
   sol:[C`
 function count = MyCheck(n)
   count = 0;
@@ -1028,7 +1053,7 @@ end`,"<p>Doğrulandı: 3. Soru \"script\" diyor ama <code>MyCheck(n)</code> diye
 ].map(x=>({...x,pts:1}));
 
 const EK=[
- {id:"E1",n:"E1",tag:"kosul",q:"<p>A phone battery works best between 20% and 80%. Write a function that takes the charge level and warns if it is too low or too high. Below 0 or above 100: invalid.</p>",
+ {id:"E1",n:"E1",tag:"kosul",q:"<p>Bir telefon bataryası %20 ile %80 arasında en iyi çalışır. Charge level'ı alıp çok düşük (too low) ya da çok yüksekse (too high) uyaran bir function yaz. 0'ın altı ya da 100'ün üstü: invalid.</p>",en:"<p>A phone battery works best between 20% and 80%. Write a function that takes the charge level and warns if it is too low or too high. Below 0 or above 100: invalid.</p>",
   sol:[C`
 function batteryCheck(level)
   if level < 0 || level > 100
@@ -1040,13 +1065,13 @@ function batteryCheck(level)
   else
     disp('Battery is OK')
   end
-end`,"<p>Geçersiz kontrolü en başta; yoksa 120 \"high\" dalına girer. Doğrulandı.</p>"]},
- {id:"E2",n:"E2",tag:"fonksiyon",q:"<p>N = N₀ · (1/2)^(t/T), T half-life. Write a function taking N₀, t, T (years). Modify it for t in days.</p>",
+end`,"<p>Invalid kontrolü en başta; yoksa 120 \"high\" dalına girer. Doğrulandı.</p>"]},
+ {id:"E2",n:"E2",tag:"fonksiyon",q:"<p>N = N₀ · (1/2)^(t/T), T half-life. N₀, t ve T'yi (yıl) alan bir function yaz. Sonra t gün olacak şekilde değiştir.</p>",en:"<p>N = N₀ · (1/2)^(t/T), T half-life. Write a function taking N₀, t, T (years). Modify it for t in days.</p>",
   sol:[C`
 function N = decay(N0, t, halfLife)
   N = N0 * (1/2)^(t/halfLife);
 end`,"<p><code>decay(800, 30, 10)</code> = 100. t gün ise: <code>N = N0 * (1/2)^((t/365)/halfLife);</code></p>"]},
- {id:"E3",n:"E3",tag:"dongu",q:"<p>Given student numbers and grades, show the best and worst student, count passes (≥ 60), and plot the grades.</p>",
+ {id:"E3",n:"E3",tag:"dongu",q:"<p>Öğrenci numaraları ve notlar (grades) verildiğinde en iyi ve en kötü öğrenciyi göster, geçenleri say (≥ 60) ve notların plot'unu çiz.</p>",en:"<p>Given student numbers and grades, show the best and worst student, count passes (≥ 60), and plot the grades.</p>",
   sol:[C`
 function [best, worst, nPass] = gradeStats(ids, grades)
   iMax = 1;  iMin = 1;  nPass = 0;
@@ -1069,88 +1094,88 @@ function [best, worst, nPass] = gradeStats(ids, grades)
   bar(ids, grades)
   xlabel('Student'); ylabel('Grade'); title('Grades')
 end`,"<p>Doğrulandı: <code>[101..105]</code>, <code>[55 90 72 40 61]</code> → 102, 104, 3.</p>"]},
- {id:"E4",n:"E4",tag:"etik",q:"<p>List the four steps of ethical decision making and explain the three perspectives in step 2.</p>",sol:"<p>1 Issues and stakeholders · 2 Three perspectives · 3 Correlate (uyuşmazsa üçte iki) · 4 Act (cesaret). <b>Consequences:</b> each stakeholder, each alternative, weight of each effect. <b>Intent:</b> only intentions; should everyone do it, should it be law, would I want to be the victim. <b>Character:</b> would a person of good character do it; does it enhance or degrade my character.</p>"},
- {id:"E5",n:"E5",tag:"tasarim",q:"<p>Why should the criteria be defined before the team starts generating solutions?</p>",sol:"<p>If solutions come first, members form a favourite and pick criteria that fit it. Criteria first → all ideas evaluated fairly, no hidden criteria (s. 59).</p>"},
- {id:"E6",n:"E6",tag:"sunum",q:"<p>How would a presentation about a new bridge change for (a) high school students, (b) civil engineering professors?</p>",sol:"<p>(a) Simple language, no equations, pictures, why it matters, short, strong hook. (b) Loads, materials, calculations, criteria, test results, alternatives, precise terms. İlk soru: \"Who is my audience?\"</p>"},
- {id:"E7",n:"E7",tag:"tahmin",q:"<p>Estimate how many A4 sheets are needed to cover a football pitch.</p>",sol:"<p>100 × 70 m = 7000 m²; A4 ≈ 0.063 m² → <b>~110,000</b> (100k–130k).</p>"},
- {id:"E8",n:"E8",tag:"tahmin",q:"<p>Estimate how many liters of fuel a taxi in Sarajevo uses in one year.</p>",sol:"<p>200 km/gün × 300 gün × 8 L/100 km = 4800 → <b>~5000 L</b> (3000–8000).</p>"},
- {id:"E9",n:"E9",tag:"tahmin",q:"<p>Estimate how many hours you will spend in lectures during your whole undergraduate education.</p>",sol:"<p>4 yıl × 2 dönem × 15 hafta × 20 saat = <b>2400 saat</b> (2000–3000).</p>"}
+ {id:"E4",n:"E4",tag:"etik",q:"<p>Ethical decision making'in dört adımını listele ve 2. adımdaki üç perspective'i açıkla.</p>",en:"<p>List the four steps of ethical decision making and explain the three perspectives in step 2.</p>",sol:"<p>1 Issues and stakeholders · 2 Three perspectives · 3 Correlate (uyuşmazsa üçte iki) · 4 Act (cesaret). <b>Consequences:</b> each stakeholder, each alternative, weight of each effect. <b>Intent:</b> only intentions; should everyone do it, should it be law, would I want to be the victim. <b>Character:</b> would a person of good character do it; does it enhance or degrade my character.</p>"},
+ {id:"E5",n:"E5",tag:"tasarim",q:"<p>Criteria neden team çözüm üretmeye (generating solutions) başlamadan önce tanımlanmalı?</p>",en:"<p>Why should the criteria be defined before the team starts generating solutions?</p>",sol:"<p>If solutions come first, members form a favourite and pick criteria that fit it. Criteria first → all ideas evaluated fairly, no hidden criteria (s. 59).</p>"},
+ {id:"E6",n:"E6",tag:"sunum",q:"<p>Yeni bir köprü hakkındaki presentation (a) lise öğrencileri, (b) civil engineering profesörleri için nasıl değişir?</p>",en:"<p>How would a presentation about a new bridge change for (a) high school students, (b) civil engineering professors?</p>",sol:"<p>(a) Simple language, no equations, pictures, why it matters, short, strong hook. (b) Loads, materials, calculations, criteria, test results, alternatives, precise terms. İlk soru: \"Who is my audience?\"</p>"},
+ {id:"E7",n:"E7",tag:"tahmin",q:"<p>Bir futbol sahasını kaplamak için kaç A4 kâğıdı gerektiğini tahmin et (estimate).</p>",en:"<p>Estimate how many A4 sheets are needed to cover a football pitch.</p>",sol:"<p>100 × 70 m = 7000 m²; A4 ≈ 0.063 m² → <b>~110,000</b> (100k–130k).</p>"},
+ {id:"E8",n:"E8",tag:"tahmin",q:"<p>Sarajevo'da bir taksinin bir yılda kaç litre yakıt kullandığını tahmin et (estimate).</p>",en:"<p>Estimate how many liters of fuel a taxi in Sarajevo uses in one year.</p>",sol:"<p>200 km/gün × 300 gün × 8 L/100 km = 4800 → <b>~5000 L</b> (3000–8000).</p>"},
+ {id:"E9",n:"E9",tag:"tahmin",q:"<p>Bütün lisans eğitimin boyunca derslerde kaç saat geçireceğini tahmin et (estimate).</p>",en:"<p>Estimate how many hours you will spend in lectures during your whole undergraduate education.</p>",sol:"<p>4 yıl × 2 dönem × 15 hafta × 20 saat = <b>2400 saat</b> (2000–3000).</p>"}
 ];
 
 /* ---------- hints: one line each, taken from the existing solution ---------- */
 const HINTS={
  "F24-1":"(a) Köşegeni cm'ye çevir, en × boy × kalınlık; 1 L = 1000 cm³. (b) Kalemlere böl: uçak, konaklama, yemek, ulaşım, müze.",
  "F24-2":"Ch 5'teki dört yöntem: analogy, aggregation, bounds, modeling.",
- "F24-3":"Üç kuralı olan fikir üretme yöntemi.",
- "F24-4":"Bir özellik seç, gerekçesini takımın işine bağla (CATME boyutları).",
+ "F24-3":"Üç kuralı olan idea generation yöntemi.",
+ "F24-4":"Bir özellik seç, gerekçesini team'in işine bağla (CATME dimensions).",
  "F24-5":"Sunum planlamasının ilk sorusu: Who is my audience?",
- "F24-6":"Kitaba göre plagiarism kendi başına yasa dışı değil.",
+ "F24-6":"Kitaba göre plagiarism kendi başına illegal değil.",
  "F24-7":"Üç bağımsız soru, üç ayrı <code>if</code> bloğu; tek/çift için <code>mod(x,2)</code>.",
  "F24-8":"t'yi önce dakikaya çevir: saat × 60, saniye ÷ 60.",
  "F24-9":"<code>if T &lt; 30</code> … <code>elseif T &gt; 80</code> … <code>else</code>.",
- "F24-10":"En büyük/en küçük kalıbı: ilk elemanla başla, indeksi de tut.",
- "F25T-1":"NSPE Canon 1.","F25T-2":"Yasal olmak etik olmak demek değil: kimin güvenliği?","F25T-3":"Sorunu içeride ve dışarıda bildirmenin adı.",
- "F25T-4":"Constraint bir sınırdır.","F25T-5":"Ağırlıklı kriterler.","F25T-6":"Biri için diğerinden vazgeçmek.",
- "F25T-7":"Roller ve iletişim beklentileri.","F25T-8":"Herkesin aynı şeyi bildiğini varsaymak.","F25T-9":"Herkes sırayla bir kez konuşur.",
- "F25T-10":"Kitap: bullet ve en az 18 pt.","F25T-11":"Raporun \"nasıl\" bölümü.","F25T-12":"Parçalara böl (aggregation).",
- "F25T-13":"Ayrıntılı hesabı kaba tahminle kontrol etmek.","F25T-14":"4 kişi × kişi başı günlük su × 7 gün.","F25T-15":"Mesafe ~12 km, adım ~0.75 m, hız ~5 km/sa.",
- "F25M-1":"4'ün ve 5'in katlarını ayrı say; 20 iki listede de var.","F25M-2":"x = 3'ü yerine koy.","F25M-3":"<code>A(:,3)</code> 3. sütun; <code>A(2,2)</code> ortadaki eleman.",
- "F25M-4":"İki satırı eleman eleman topla.","F25M-5":"3'ün katlarından 5'e de bölüneni çıkar.","F25M-6":"<code>A(r,:)</code> satırı verir; <code>mean</code> ya da toplam ÷ sütun sayısı.",
- "F25M-7":"Sayaç kalıbı: <code>mod(k,3)==0 &amp;&amp; mod(k,2)~=0</code>.",
- "E1":"Geçersiz değeri en başta kontrol et.","E2":"t gün ise önce yıla çevir: t/365.","E3":"Max/min kalıbı ve geçme sayacı aynı döngüde.",
- "E4":"Issues/stakeholders, üç bakış açısı, correlate, act.","E5":"Önce çözüm üretilirse kriter seçimi nasıl etkilenir?","E6":"Dinleyicinin ön bilgisi.",
+ "F24-10":"Max/min kalıbı: ilk element ile başla, index'i de tut.",
+ "F25T-1":"NSPE Canon 1.","F25T-2":"Legal olmak ethical olmak demek değil: kimin safety'si?","F25T-3":"Sorunu içeride ve dışarıda bildirmenin adı.",
+ "F25T-4":"Constraint bir limitation'dır.","F25T-5":"Weighted criteria.","F25T-6":"Biri için diğerinden vazgeçmek.",
+ "F25T-7":"Roles ve communication expectations.","F25T-8":"Herkesin aynı şeyi bildiğini varsaymak.","F25T-9":"Herkes sırayla bir kez konuşur.",
+ "F25T-10":"Kitap: bullet ve en az 18 pt.","F25T-11":"Report'un \"nasıl\" bölümü.","F25T-12":"Parçalara böl (aggregation).",
+ "F25T-13":"Ayrıntılı hesabı kaba bir estimate ile kontrol etmek.","F25T-14":"4 kişi × kişi başı günlük su × 7 gün.","F25T-15":"Mesafe ~12 km, adım ~0.75 m, hız ~5 km/sa.",
+ "F25M-1":"4'ün ve 5'in katlarını ayrı say; 20 iki listede de var.","F25M-2":"x = 3'ü yerine koy.","F25M-3":"<code>A(:,3)</code> 3. column; <code>A(2,2)</code> ortadaki element.",
+ "F25M-4":"İki row'u element-wise topla.","F25M-5":"3'ün katlarından 5'e de bölüneni çıkar.","F25M-6":"<code>A(r,:)</code> row'u verir; <code>mean</code> ya da toplam ÷ column sayısı.",
+ "F25M-7":"Counter kalıbı: <code>mod(k,3)==0 &amp;&amp; mod(k,2)~=0</code>.",
+ "E1":"Invalid değeri en başta kontrol et.","E2":"t gün ise önce yıla çevir: t/365.","E3":"Max/min kalıbı ve pass counter aynı loop'ta.",
+ "E4":"Issues/stakeholders, three perspectives, correlate, act.","E5":"Önce çözüm üretilirse criteria seçimi nasıl etkilenir?","E6":"Audience'ın ön bilgisi.",
  "E7":"Saha alanı ÷ A4 alanı.","E8":"Günlük km × gün × L/100 km.","E9":"Yıl × dönem × hafta × haftalık saat.",
- "A1":"NSPE Canon 1.","A2":"Sonuca bakmayan bakış açısı.","A3":"Karardan etkilenenler.","A4":"Brainstorming'de değerlendirme sonra.",
- "A5":"Kriterlerin ağırlığı.","A6":"Ağırlık × puan.","A7":"Ortak hedef.","A8":"Görevler × üyeler tablosu.","A9":"Kitaptaki font kuralı.",
+ "A1":"NSPE Canon 1.","A2":"Sonuca bakmayan perspective.","A3":"Karardan etkilenenler.","A4":"Brainstorming'de evaluation sonra.",
+ "A5":"Criteria'nın weight'i.","A6":"Weight × score.","A7":"Common goal.","A8":"Tasks × team members tablosu.","A9":"Kitaptaki font size kuralı.",
  "A10":"4-S'nin sonuncusu: samimiyet.","A11":"Table ve figure farklı yerde.","A12":"Parçaları sayıp çarpmak.","A13":"Birbirine yakın, gerçeğe uzak.",
- "A14":"Baştaki sıfırlar ve noktasız sondaki sıfırlar sayılmaz.","A15":"Engineering notation'da üs 3'ün katı.","A16":"Oda boyutlarından m³, sonra × 1000.",
+ "A14":"Leading zeros ve noktasız sayıdaki trailing zeros sayılmaz.","A15":"Engineering notation'da exponent 3'ün katı.","A16":"Oda boyutlarından m³, sonra × 1000.",
  "A17":"Dakikadaki atım × dakika × saat × gün.",
  "B1":"3'ün katları + 7'nin katları − ortak kat.","B2":"x = 4 koy.","B3":"<code>A(2,:)</code> toplamı, <code>A(3,1)</code>, <code>A(1,3)</code>.",
- "B4":"1. sütunun transpozu ile 3. satırı eleman eleman çarp.","B5":"Çiftlerin toplamından 6'nın katlarını çıkar.","B6":"Her adımı tabloya yaz; koşul k &gt; 3.",
- "B7":"k = 1, 3, 5, 7, 9; her birinin karesi.","B8":"Dış döngü satır, iç döngü 1'den k'ya.","B9":"En büyük kalıbı, ama <code>A(k,c)</code> üzerinde.",
+ "B4":"1. column'un transpose'u ile 3. row'u element-wise çarp.","B5":"Çiftlerin toplamından 6'nın katlarını çıkar.","B6":"Her adımı tabloya yaz; condition k &gt; 3.",
+ "B7":"k = 1, 3, 5, 7, 9; her birinin karesi.","B8":"Outer loop satırı, inner loop 1'den k'ya yazar.","B9":"Max kalıbı, ama <code>A(k,c)</code> üzerinde.",
  "B10":"<code>a = mod(k,5)==0</code>, <code>b = mod(k,7)==0</code>; <code>(a || b) &amp;&amp; ~(a &amp;&amp; b)</code>.",
- "L1":"<code>:</code> bütün satır ya da sütun demek.","L2":"Nokta eleman eleman demek.","L3":"Çift ama 4'e bölünmeyen sayılar.",
- "L4":"Birden fazla çıktı köşeli parantezde.","L5":"Biri sayı, biri çeşit, biri eleştiri.","L6":"Biri sonuca, biri niyete, biri kişiye bakar.",
+ "L1":"<code>:</code> bütün row ya da column demek.","L2":"Nokta element-wise demek.","L3":"Çift ama 4'e bölünmeyen sayılar.",
+ "L4":"Birden fazla output köşeli parantezde.","L5":"Biri sayı, biri çeşit, biri eleştiri.","L6":"Biri sonuca, biri niyete, biri kişiye bakar.",
  "L7":"Bilinenle karşılaştırma, parçaları toplama, sınırlar, model.","L8":"365 × 24 × 3600."
 };
 
 /* ---------- flashcards (from the summary) ---------- */
 const FLASH=[
- ["fc1","etik","Etik karar vermenin 4 adımı?","1 Issues and stakeholders · 2 Üç bakış açısı · 3 Correlate perspectives · 4 Act"],
- ["fc2","etik","2. adımdaki üç bakış açısı?","<b>Consequences</b> (paydaşlar nasıl etkilenir), <b>Intent</b> (sadece niyet), <b>Character</b> (iyi karakterli biri yapar mı)"],
- ["fc3","etik","Bakış açıları uyuşmazsa?","Yeniden düşün; yine uyuşmazsa üçte ikiye uy."],
+ ["fc1","etik","Ethical decision making (etik karar verme): 4 adım?","1 Issues and stakeholders · 2 Three perspectives (üç bakış açısı) · 3 Correlate perspectives · 4 Act"],
+ ["fc2","etik","2. adımdaki three perspectives?","<b>Consequences</b> (stakeholder'lar nasıl etkilenir), <b>Intent</b> (sadece niyet), <b>Character</b> (iyi karakterli biri yapar mı)"],
+ ["fc3","etik","Perspectives uyuşmazsa?","Yeniden düşün; yine uyuşmazsa üçte ikiye uy."],
  ["fc4","etik","NSPE Fundamental Canon 1?","Hold paramount the safety, health, and welfare of the public."],
- ["fc5","etik","Plagiarism yasa dışı mı?","Kitaba göre kendi başına değil, etik dışı; telif ihlali varsa yasa dışı."],
+ ["fc5","etik","Plagiarism illegal (yasa dışı) mı?","Kitaba göre kendi başına illegal değil, unethical (etik dışı); copyright infringement (telif ihlali) varsa illegal."],
  ["fc6","tasarim","Brainstorming'in 3 kuralı?","More is better · Variety is better · Do not criticize"],
- ["fc7","tasarim","Kriterler ne zaman tanımlanır?","Çözüm üretmeden önce; yoksa beğenilen çözüme uyan kriter seçilir."],
+ ["fc7","tasarim","Criteria (kriterler) ne zaman tanımlanır?","Çözüm üretmeden önce; yoksa beğenilen çözüme uyan criteria seçilir."],
  ["fc8","tasarim","Criteria ile requirements farkı?","Wants = criteria, needs = requirements. Requirement'ı karşılamayan çözüm elenir."],
- ["fc9","tasarim","Pairwise comparisons'ın dezavantajı?","Bütün kriterler eşit ağırlıkta."],
- ["fc10","tasarim","Weighted benefit analysis (decision matrix)?","Toplam = Σ(ağırlık × puan). Tablo 3-2'de seçenek 1: 4 + 80 + 70 + 10 = 164."],
+ ["fc9","tasarim","Pairwise comparisons'ın dezavantajı?","Bütün criteria eşit weight'te (ağırlık)."],
+ ["fc10","tasarim","Weighted benefit analysis (decision matrix)?","Toplam = Σ(weight × score). Table 3-2'de option 1: 4 + 80 + 70 + 10 = 164."],
  ["fc11","tasarim","Sustainability tanımı ve üç boyutu?","\"Meeting the needs of the present without compromising the ability of future generations to do the same.\" Environmental, social, economic."],
- ["fc12","takim","Group ile team farkı?","Group: aynı yerde, aynı zamanda. Team: ortak hedef için iş birliği yapan bireyler."],
- ["fc13","takim","CATME'nin 5 boyutu?","Contributing to the team's work · Interacting with teammates · Keeping the team on track · Expecting quality · Having relevant knowledge, skills, and abilities"],
- ["fc14","takim","Project timeline nasıl kurulur?","Teslim tarihinden geriye doğru; işleri alt işlere böl; haftada en az bir sabit toplantı."],
- ["fc15","takim","Responsibility matrix?","İşler solda, üyeler üstte; kim yapacak, kim kontrol edecek."],
+ ["fc12","takim","Group ile team farkı?","Group: aynı yerde, aynı zamanda. Team: common goal (ortak hedef) için iş birliği yapan bireyler."],
+ ["fc13","takim","CATME'nin 5 dimension'ı (boyut)?","Contributing to the team's work · Interacting with teammates · Keeping the team on track · Expecting quality · Having relevant knowledge, skills, and abilities"],
+ ["fc14","takim","Project timeline nasıl kurulur?","Deadline'dan (teslim tarihi) geriye doğru; task'leri subtask'lere böl; haftada en az bir sabit meeting."],
+ ["fc15","takim","Responsibility matrix?","Tasks solda, team members üstte; kim yapacak, kim kontrol edecek."],
  ["fc16","sunum","Preplanning: 5 W + 1 H?","Who (ilk sırada), What, Where, When, Why, How long."],
  ["fc17","sunum","4-S formula?","Short, Simple, Strong, Sincere."],
- ["fc18","sunum","Slayt kuralları?","Slayt başına bir kavram, en fazla 6 satır, ~60 sn; bullet; en az 18 pt (tercihen 24); açık zemin koyu yazı."],
- ["fc19","sunum","Table ve figure başlığı nereye?","Table: üstte. Figure: altta."],
- ["fc20","sunum","Kaynak değerlendirme ABC?","Authority, Bias, Currency."],
- ["fc21","tahmin","Dört tahmin yöntemi?","By analogy · by aggregation · by upper and lower bounds · using modeling"],
- ["fc22","tahmin","Köprü yükü ve kiriş yükü: hangi yöne tahmin?","Köprünün taşıyabileceği yük: düşük tahmin. Bir kirişin taşıması gereken yük: yüksek tahmin."],
- ["fc23","sigfig","0.0456 · 2000 · 2.790 · 306 kaç anlamlı basamak?","3 · 1 · 4 · 3"],
- ["fc24","sigfig","Çarpma/bölme ve toplama/çıkarmada basamak kuralı?","Çarpma/bölme: en az anlamlı basamak kadar. Toplama/çıkarma: en az ondalık kadar."],
- ["fc25","sigfig","Accuracy, repeatability, precision?","Accuracy: gerçeğe yakınlık. Repeatability: ölçümlerin birbirine yakınlığı. Precision: ikisi birden."],
- ["fc26","sigfig","43,480,000 scientific ve engineering notation?","4.348 × 10⁷ ve 43.48 × 10⁶ (üs 3'ün katı)."],
+ ["fc18","sunum","Presentation slides kuralları?","Slide başına bir concept, en fazla 6 satır, ~60 sn; bullet points; font size en az 18 pt (tercihen 24); light background, dark text (açık zemin, koyu yazı)."],
+ ["fc19","sunum","Table ve figure caption'ı (başlık) nereye?","Table: üstte. Figure: altta."],
+ ["fc20","sunum","Evaluating sources (kaynak değerlendirme): ABC?","Authority, Bias, Currency."],
+ ["fc21","tahmin","Dört estimation (tahmin) yöntemi?","By analogy · by aggregation · by upper and lower bounds · using modeling"],
+ ["fc22","tahmin","Köprü yükü ve kiriş yükü: estimate hangi yöne yapılır?","Köprünün taşıyabileceği yük: düşük estimate. Bir kirişin taşıması gereken yük: yüksek estimate."],
+ ["fc23","sigfig","0.0456 · 2000 · 2.790 · 306 kaç significant figures (anlamlı basamak)?","3 · 1 · 4 · 3"],
+ ["fc24","sigfig","Çarpma/bölme ve toplama/çıkarmada significant figures kuralı?","Çarpma/bölme: en az significant figures kadar. Toplama/çıkarma: en az decimal places (ondalık basamak) kadar."],
+ ["fc25","sigfig","Accuracy, repeatability, precision?","Accuracy (doğruluk): gerçek değere yakınlık. Repeatability: ölçümlerin birbirine yakınlığı. Precision: ikisi birden."],
+ ["fc26","sigfig","43,480,000 scientific ve engineering notation?","4.348 × 10⁷ ve 43.48 × 10⁶ (exponent 3'ün katı)."],
  ["fc27","terim","Requirement ile constraint farkı?","Requirement: yapması gereken işlev. Constraint: aşmaması gereken sınır."],
  ["fc28","terim","Trade-off, team charter, round-robin?","Trade-off: biri için diğerinden vazgeçmek. Team charter: roller ve iletişim beklentileri. Round-robin: herkes sırayla bir kez konuşur."],
- ["fc29","terim","Takımda yanlış anlaşmanın yaygın nedeni?","Assumed shared knowledge: herkesin aynı şeyi bildiğini varsaymak."],
- ["fc30","matris","<code>A(2,:)</code>, <code>A(:,2)</code>, <code>A(end,end)</code>?","2. satırın tamamı, 2. sütunun tamamı, son eleman. İndeks 1'den başlar."],
- ["fc31","matris","<code>a .* b</code> ile <code>a * b</code> farkı?","<code>.*</code> eleman eleman. <code>*</code> matris çarpımı; iki 1×3 vektörde hata verir."],
- ["fc32","fonksiyon","İki girdili, iki çıktılı fonksiyonun ilk satırı?","<code>function [a, b] = f(x, y)</code>. Dosya adı fonksiyon adıyla aynı."],
+ ["fc29","terim","Team'de miscommunication'ın (yanlış anlaşma) yaygın nedeni?","Assumed shared knowledge: herkesin aynı şeyi bildiğini varsaymak."],
+ ["fc30","matris","<code>A(2,:)</code>, <code>A(:,2)</code>, <code>A(end,end)</code>?","2. row'un (satır) tamamı, 2. column'un (sütun) tamamı, son element. Index 1'den başlar."],
+ ["fc31","matris","<code>a .* b</code> ile <code>a * b</code> farkı?","<code>.*</code> element-wise (eleman eleman). <code>*</code> matrix multiplication (matris çarpımı); iki 1×3 vector'de error verir."],
+ ["fc32","fonksiyon","İki input'lu, iki output'lu function'ın ilk satırı?","<code>function [a, b] = f(x, y)</code>. File name (dosya adı) function name ile aynı."],
  ["fc33","kosul","\"A'ya bölünür ama B'ye bölünmez\" koşulu?","<code>mod(k,A)==0 &amp;&amp; mod(k,B)~=0</code>"],
- ["fc34","dongu","<code>while</code> döngüsündeki sık hata?","Değişkeni güncellememek: sonsuz döngü."],
- ["fc35","dongu","C++'tan farklar: indeks, eşit değil, kalan?","İndeks 1'den; <code>~=</code>; <code>mod(a, b)</code>."]
+ ["fc34","dongu","<code>while</code> loop'undaki sık hata?","Değişkeni güncellememek: infinite loop (sonsuz döngü)."],
+ ["fc35","dongu","C++'tan farklar: index, not equal, remainder (kalan)?","Index 1'den; <code>~=</code>; <code>mod(a, b)</code>."]
 ].map(([id,tag,q,a])=>({id,tag,q,a}));
 
 /* ---------- state ---------- */
@@ -1194,6 +1219,7 @@ function card(x){
   return`<article class="q" id="q-${id}" data-id="${id}" tabindex="-1">
    <header><span class="qid">${esc(x.label)}</span>${chip(x.tag)}<span class="qsrc">${esc(x.src)}</span><span class="st ${st||""}" id="st-${id}">${stLabel(st)}</span></header>
    <div class="prompt">${H(x.q)}</div>
+   ${x.en?`<details class="en-orig"><summary>Sınavdaki yazılışı (EN)</summary><div lang="en">${H(x.en)}${x.enOpts?`<ol type="A">${x.enOpts.map(o=>`<li>${o}</li>`).join("")}</ol>`:""}</div></details>`:""}
    ${body}
    <div class="actions">
      ${hint?`<button class="btn ghost" type="button" data-hint="${id}" aria-expanded="${!!S.open["h"+id]}" aria-controls="h-${id}">💡 İpucu</button>`:""}
@@ -1374,9 +1400,9 @@ const strip=h=>{const d=document.createElement("div");d.innerHTML=h;return d.tex
 const low=s=>s.toLocaleLowerCase("tr");
 let IDX=null,lastFocus=null;
 function buildIndex(){const it=[];
-  Q.forEach(x=>it.push({kind:"Soru",title:`${x.label} · ${x.src}`,sub:TAGS[x.tag].l,text:low(x.label+" "+x.src+" "+TAGS[x.tag].l+" "+strip(H(x.q))+" "+strip(HINTS[x.id]||"")),act:()=>jumpTo(x.id)}));
+  Q.forEach(x=>it.push({kind:"Soru",title:`${x.label} · ${x.src}`,sub:TAGS[x.tag].l,text:low(x.label+" "+x.src+" "+TAGS[x.tag].l+" "+TAGS[x.tag].tr+" "+strip(H(x.q))+" "+strip(H(x.en))+" "+(x.enOpts||[]).join(" ")+" "+strip(HINTS[x.id]||"")),act:()=>jumpTo(x.id)}));
   $$("#tab-teori details,#tab-kod details").forEach(d=>it.push({kind:"Konu",title:d.querySelector("summary").textContent.trim(),sub:d.closest("[role=tabpanel]").id==="tab-teori"?"Teori":"Kod",text:low(d.textContent),act:()=>goSec(d.id)}));
-  FLASH.forEach(f=>it.push({kind:"Kart",title:strip(f.q),sub:TAGS[f.tag].l,text:low(strip(f.q+" "+f.a)+" "+TAGS[f.tag].l),act:()=>jumpCard(f.id)}));
+  FLASH.forEach(f=>it.push({kind:"Kart",title:strip(f.q),sub:TAGS[f.tag].l,text:low(strip(f.q+" "+f.a)+" "+TAGS[f.tag].l+" "+TAGS[f.tag].tr),act:()=>jumpCard(f.id)}));
   PLAN.filter(p=>!p.off).forEach(p=>it.push({kind:"Plan",title:`${p.day} · ${p.sub}`,sub:"Plan",text:low(p.day+" "+p.what),act:()=>{showTab("plan",null,true);const li=document.getElementById("pl-"+p.id).closest("li");scrollToEl(li);flash(li)}}));
   return it}
 let hits=[];

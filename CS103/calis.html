@@ -342,7 +342,7 @@ switch (grade) {          // int, char, bool, enum olabilir; string ve double OL
 
 **Fall-through kuralı:** eşleşen `case`'ten başla, `break` veya `}` görene kadar **alttaki tüm satırları** çalıştır (diğer `case` etiketlerini yok say). `default` en altta değilse de aynı kural geçerli.
 
-**Block scope (blok kapsamı):** `{}` içinde declare edilen variable sadece o block'ta yaşar. İç block'ta aynı isimle yeni variable declare edilirse dıştakini gizler.
+**Block scope (blok kapsamı):** `{}` içinde tanımlanan variable sadece o block'ta yaşar. İç block'ta aynı isimle yeni variable tanımlanırsa dıştakini gizler.
 
 **Tuzak:** `case "A":` compile error verir (string), `case 'A':` doğru. `default` sonrası `:` unutulmaz.
 
@@ -371,7 +371,7 @@ for (int i = 1; i <= 3; i++) {          // satır
 
 **Loop bitirme yöntemleri:** baştan sayı al (list headed by size), her iteration'da sor (ask before iterating, Y/N), sentinel value (ör. negatif sayı gelince dur; sentinel işlenmez), running out of input (file bitene kadar oku).
 
-**Sum ve product:** `sum = 0`, `product = 1` ile initialize et.
+**Sum ve product:** `sum = 0`, `product = 1` ile başlat.
 
 **Input validation loop (sınavda çıktı):**
 
@@ -385,19 +385,19 @@ while (n <= 0) {
 
 **Tuzak:**
 - `for (...);` veya `while (...);` → noktalı virgül loop body'yi boşaltır (empty statement). `for (i = 0; i < 3; i++); cout << i;` → bir kez `3` basar.
-- Counter update edilmezse infinite loop.
+- Counter güncellenmezse infinite loop.
 - `<` ile `<=` farkı: bir iteration eksik/fazla (off-by-one error).
-- `for (int i...)` içinde declare edilen `i` loop dışında yoktur (scope).
+- `for (int i...)` içinde tanımlanan `i` loop dışında yoktur (scope).
 
 ## 5. Predefined functions (Hafta 5)
 
 | Function | Library | Not |
 | --- | --- | --- |
-| `sqrt(x)`, `pow(x, y)` | `<cmath>` | `double` return eder. `pow(2,3)` = 8 |
+| `sqrt(x)`, `pow(x, y)` | `<cmath>` | `double` döndürür. `pow(2,3)` = 8 |
 | `fabs(x)` | `<cmath>` | `double` mutlak değer |
 | `abs(x)` | `<cstdlib>` | `int` mutlak değer. `7 / abs(-2)` = 3 (integer division) |
 | `ceil(5.8)` = 6, `floor(5.8)` = 5 | `<cmath>` | |
-| `rand()`, `srand(time(0))` | `<cstdlib>`, `<ctime>` | `srand` bir kez call edilir |
+| `rand()`, `srand(time(0))` | `<cstdlib>`, `<ctime>` | `srand` bir kez çağrılır |
 
 **Random number aralığı:** `rand() % N + a` → `a` ile `a + N - 1` arası. Zar: `rand() % 6 + 1`. `10 < x < 21` için: `rand() % 10 + 11`.
 
@@ -421,14 +421,14 @@ double totalCost(int number, double price) {    // TANIM: başlık + gövde
 
 - Function call'dan **önce** function declaration (prototype) veya function definition görünmeli. Definition `main`'den önceyse declaration gerekmez.
 - Declaration'da parameter adları yazılmayabilir: `double totalCost(int, double);`. Definition'da adlar şart.
-- Değer return eden function'ın her yolu bir `return` statement ile bitmeli.
-- Function içinde başka function **define edilemez**, ama call edilebilir.
+- Değer döndüren function'ın her yolu bir `return` statement ile bitmeli.
+- Function içinde başka function **tanımlanamaz**, ama çağrılabilir.
 - Argument sırası önemlidir; compiler type kontrolü yapar, mantıksal sıra kontrolü yapmaz.
-- `bool` return eden function `if (isEven(n))` şeklinde kullanılır.
+- `bool` döndüren function `if (isEven(n))` şeklinde kullanılır.
 
 **Call-by-value (değerle çağırma):** formal parameter, argument'ın **kopyasıdır**. Function içindeki değişiklik çağıranı etkilemez.
 
-**Scope (kapsam): local / global:** function'da declare edilen local variable sadece orada yaşar. Parameter'lar da local'dir; function body'de tekrar declare edilmez. Global variable tüm function'ların dışında declare edilir; aynı isimde local varsa local kazanır. Global constant (`const double PI = 3.14159;`) yaygın ve kabul görür.
+**Scope (kapsam): local / global:** function'da tanımlanan local variable sadece orada yaşar. Parameter'lar da local'dir; function body'de tekrar tanımlanmaz. Global variable tüm function'ların dışında tanımlanır; aynı isimde local varsa local kazanır. Global constant (`const double PI = 3.14159;`) yaygın ve kabul görür.
 
 **Function overloading (aşırı yükleme):** aynı isim, **farklı parameter list** (sayı, type veya sıra).
 
@@ -440,7 +440,7 @@ double add(int a, int b);            // GEÇERSİZ: sadece dönüş tipi farklı
 int    add(int x, int y);            // GEÇERSİZ: sadece parametre adları farklı
 ```
 
-**Hangisi call edilir?** Exact match kazanır. Exact match yoksa compiler en az type conversion gereken sürümü seçer. İki aday eşit derecede iyiyse **compile error (ambiguous call)**.
+**Hangisi çağrılır?** Exact match kazanır. Exact match yoksa compiler en az type conversion gereken sürümü seçer. İki aday eşit derecede iyiyse **compile error (ambiguous call)**.
 
 - `add(2, 3)` → `(int,int)`.
 - `add(2.5, 3.0)` → `(double,double)`.
@@ -449,7 +449,7 @@ int    add(int x, int y);            // GEÇERSİZ: sadece parametre adları far
 
 ## 7. void functions ve call-by-reference (Hafta 7)
 
-**void function:** değer return etmez. `return;` (değersiz) erken çıkış için kullanılabilir, zorunlu değil. Call'u tek başına bir statement'tır: `showResults(a, b);`. `cout << showResults(a, b);` **compile error**.
+**void function:** değer döndürmez. `return;` (değersiz) erken çıkış için kullanılabilir, zorunlu değil. Call'u tek başına bir statement'tır: `showResults(a, b);`. `cout << showResults(a, b);` **compile error**.
 
 ```cpp
 void shareBudget(int number, double total) {
@@ -520,7 +520,7 @@ File'ın ilk satırında kayıt sayısı varsa: önce `in >> total;`, sonra `for
 15. `cout << "x";` harfi, `cout << x;` değeri basar.
 16. Global ile aynı isimli local variable global'i değiştirmez.
 17. `cin >> fabs(3.5)` geçersiz; `fabs(3.5);` yasal.
-18. Counter ve toplamları initialize et: `sum = 0`, `product = 1`.
+18. Counter ve toplamları başlat: `sum = 0`, `product = 1`.
 
 </script>
 
@@ -581,7 +581,7 @@ int main() {
     cout << x << " " << y << endl;
 }`,ans:"1 13\n24 13",why:"1. call: a=11 (call-by-value kopya), b=y → y = 2+11 = 13. 2. call: a = 13+10 = 23, b=x → x = 1+23 = 24."},
  {id:"T4",set:"teshis",topic:"overload",type:"choice",prompt:"Bu iki function varken <code>cout &lt;&lt; add(2, 3.0);</code> ne yapar?",code:String.raw`double add(int a, int b)       { return a + b; }
-double add(double a, double b) { return a + b; }`,choices:["5 basar (int sürümü)","5 basar (double sürümü)","Compile error: ambiguous call","5.0 basar"],correct:2,why:"İki sürüm de birer type conversion ile uyuyor; compiler seçemez. MSVC: error C2666."},
+double add(double a, double b) { return a + b; }`,choices:["5 basar (int sürümü)","5 basar (double sürümü)","Compile error verir (ambiguous call)","5.0 basar (double sürümü)"],correct:2,why:"İki sürüm de birer type conversion ile uyuyor; compiler seçemez. MSVC: error C2666."},
  {id:"T5",set:"teshis",topic:"karar",code:String.raw`int fuel = 80;
 if (fuel < 75)
     if (fuel < 25)
@@ -643,7 +643,7 @@ int main() {
     cout << add(2.5, 3.0) << endl;
     cout << add(1, 2.0, 3) << endl;
 }`,ans:"1 5\n2 5.5\n3 6",why:"Exact match kazanır. 3 argument'lı tek sürüm var; int'ler double'a type conversion ile döner."},
- {id:"A13b",topic:"overload",type:"choice",prompt:"A13'teki programa <code>cout &lt;&lt; add(2, 3.0) &lt;&lt; endl;</code> eklenirse?",code:"",choices:["1 5 basar","2 5 basar","Compile error (ambiguous call)","3 5 basar"],correct:2,why:"(int,int) ve (double,double) eşit derecede uyar. week6.cpp'deki add(2,3.0) call'u da bu yüzden derlenmez."},
+ {id:"A13b",topic:"overload",type:"choice",prompt:"A13'teki programa <code>cout &lt;&lt; add(2, 3.0) &lt;&lt; endl;</code> eklenirse?",code:"",choices:["1 5 basar (int, int)","2 5 basar (double, double)","Compile error verir (ambiguous)","3 5 basar (3 parameter)"],correct:2,why:"(int,int) ve (double,double) eşit derecede uyar. week6.cpp'deki add(2,3.0) call'u da bu yüzden derlenmez."},
  {id:"A14",topic:"kapsam",code:String.raw`int x = 1;
 cout << x << " ";
 {
@@ -651,7 +651,7 @@ cout << x << " ";
     int x = 2;
     cout << x << " ";
 }
-cout << x << endl;`,ans:"1 1 2 1",why:"Block scope: iç x declare edilene kadar dıştaki görünür; block bitince iç x yok olur."},
+cout << x << endl;`,ans:"1 1 2 1",why:"Block scope: iç x tanımlanana kadar dıştaki görünür; block bitince iç x yok olur."},
  {id:"A15",topic:"kapsam",code:String.raw`int g = 5;
 void change()  { int g = 100; g++; }
 void change2() { g++; }
@@ -744,7 +744,7 @@ cout << x << " "<< y;`,type:"choice",choices:["5 4","5 5","4 5","infinite loop"]
  {id:"M-I.2",set:"sinav",topic:"tip",code:String.raw`cout << static_cast<float>(3/4) << endl;`,type:"choice",choices:["3","0.5","0.0","0.75"],correct:2,why:"3/4 önce integer division → 0. Ekranda 0 görünür; şıklarda karşılığı 0.0."},
  {id:"M-I.5",set:"sinav",topic:"overload",prompt:"<code>int doSomething(int first, float second);</code> için doğru overload hangisi?",code:"",type:"choice",choices:["float doSomething(int first, float second);","int doSomething(int next, float last);","int doSomething(int first, int second, float third);","int doSome(int first, float second);"],correct:2,why:"a: sadece return type farklı. b: sadece parameter adları farklı. d: farklı function adı."},
  {id:"M-I.6",set:"sinav",topic:"cmath",prompt:"fabs için hangileri geçerli function call?",code:"",type:"choice",choices:["a. fabs(3.5);","b. cout << fabs(3.5);","a ve b","a, b ve cin >> fabs(3.5);"],correct:2,why:"cin >> fabs(3.5) ve fabs(cin >> x) geçersiz."},
- {id:"M-I.8",set:"sinav",topic:"ref",prompt:"void function için hangisi doğru?",code:"",type:"choice",choices:["return statement olamaz","void değeri return edilmeli","0 return edilmeli","Hiçbir şey return edilmez"],correct:3,why:"return; yazılabilir, ama değer return edilmez."},
+ {id:"M-I.8",set:"sinav",topic:"ref",prompt:"void function için hangisi doğru?",code:"",type:"choice",choices:["return statement olamaz","void değeri döndürülmeli","0 değeri döndürülmeli","Hiçbir değer döndürülmez"],correct:3,why:"return; yazılabilir, ama değer döndürülmez."},
  {id:"M-II.1",set:"sinav",topic:"ref",code:String.raw`void func1(int &a, int &c)
 {
    int b = 5;
@@ -880,7 +880,7 @@ const BUG=[
 6  }
 7  int square(int n) {
 8      n * n;
-9  }`,sol:"main'den önce function declaration (prototype) yok → <code>int square(int n);</code> ekle (compile error).<br>Satır 8: değer return edilmiyor → <code>return n * n;</code>."},
+9  }`,sol:"main'den önce function declaration (prototype) yok → <code>int square(int n);</code> ekle (compile error).<br>Satır 8: değer döndürülmüyor → <code>return n * n;</code>."},
  {id:"B3",topic:"ref",prompt:"Amaç: iki variable'ı da 0 yap, output 00 olsun.",code:String.raw`1  void zeroBoth(int a, int b) {
 2      a = 0;
 3      b = 0;
@@ -916,7 +916,7 @@ const BUG=[
 3  }
 4  int main() {
 5      cout << printSum(2, 3);
-6  }`,sol:"Satır 2: void function değer return edemez. Satır 5: void function call cout içinde kullanılamaz.<br>Düzeltme: <code>int printSum</code> + <code>return a + b;</code>, ya da void kalıp içinde <code>cout &lt;&lt; a + b;</code> ve main'de <code>printSum(2, 3);</code>."},
+6  }`,sol:"Satır 2: void function değer döndüremez. Satır 5: void function call cout içinde kullanılamaz.<br>Düzeltme: <code>int printSum</code> + <code>return a + b;</code>, ya da void kalıp içinde <code>cout &lt;&lt; a + b;</code> ve main'de <code>printSum(2, 3);</code>."},
  {id:"B10",topic:"dosya",prompt:"Amaç: file'daki sayıları yazdır.",code:String.raw`1  #include <iostream>
 2  using namespace std;
 3  int main() {
@@ -953,12 +953,12 @@ const BUG=[
 ];
 
 const CODE=[
- {id:"T6",set:"teshis",topic:"ref",prompt:"Bir <code>int</code> ve bir <code>double</code> parameter alan, <code>double</code> parameter'ı <code>int</code> parameter'ın iki katı yapan, değer return etmeyen <code>scale</code> function'ının <b>function declaration</b> ve <b>function definition</b>'ı.",sol:String.raw`void scale(int factor, double& value);      // bildirim
+ {id:"T6",set:"teshis",topic:"ref",prompt:"Bir <code>int</code> ve bir <code>double</code> parameter alan, <code>double</code> parameter'ı <code>int</code> parameter'ın iki katı yapan, değer döndürmeyen <code>scale</code> function'ının <b>function declaration</b> ve <b>function definition</b>'ı.",sol:String.raw`void scale(int factor, double& value);      // bildirim
 
 void scale(int factor, double& value) {     // tanım
     value = factor * 2;
 }`,tip:"Puan getiren iki şey: return type void ve double& (reference parameter). Declaration ; ile biter, definition header'ında ; yok."},
- {id:"C1",topic:"fonk",prompt:"(Örnek midterm IV-1) <code>get_number()</code> function'ının declaration ve definition'ını yaz: kullanıcıdan bir integer okuyup return etsin. Sonra değiştir: sadece pozitif kabul etsin; 0 veya negatifse warning message verip tekrar sorsun (input validation loop).",en:"a) Write the function declaration and function definition (place each one in the appropriate box) for a function named get_number that reads an integer from the user and returns it. b) Modify the get_number function so that it only accepts a positive integer. If the user enters a non-positive value, display a warning message and continue prompting until a valid positive number is entered.",sol:String.raw`#include <iostream>
+ {id:"C1",topic:"fonk",prompt:"(Örnek midterm IV-1) <code>get_number()</code> function'ının declaration ve definition'ını yaz: kullanıcıdan bir integer okuyup döndürsün. Sonra değiştir: sadece pozitif kabul etsin; 0 veya negatifse warning message verip tekrar sorsun (input validation loop).",en:"a) Write the function declaration and function definition (place each one in the appropriate box) for a function named get_number that reads an integer from the user and returns it. b) Modify the get_number function so that it only accepts a positive integer. If the user enters a non-positive value, display a warning message and continue prompting until a valid positive number is entered.",sol:String.raw`#include <iostream>
 using namespace std;
 
 int get_number();                    // bildirim (üst kutu)
@@ -980,7 +980,7 @@ int get_number() {                   // tanım (alt kutu), (b) şıkkı
     }
     return n;
 }`,tip:"(a) şıkkı için while loop'unu çıkar: oku ve return n;"},
- {id:"C2",topic:"fonk",prompt:"(Örnek midterm IV-2, 30 puan) <code>factorial(int n)</code> loop ile (recursion yok), <code>permutation(int n, int r)</code> = factorial(n) / factorial(n - r). <code>main</code> n ve r okuyup function'ı call etsin ve sonucu yazsın.",en:"Write a C++ program that asks the user to enter values for n and r, calculates the permutation using the formula above, and displays the result. Your program is required to include: 1. A function named factorial that calculates and returns the factorial of a given integer using a loop (do not use recursion). 2. A function named permutation that calculates permutations using the formula P(n, r) = factorial(n) / factorial(n - r). 3. A main() function that reads the values of n and r, calls the required function, and prints the result.",sol:String.raw`#include <iostream>
+ {id:"C2",topic:"fonk",prompt:"(Örnek midterm IV-2, 30 puan) <code>factorial(int n)</code> loop ile (recursion yok), <code>permutation(int n, int r)</code> = factorial(n) / factorial(n - r). <code>main</code> n ve r okuyup function'ı çağırsın ve sonucu yazsın.",en:"Write a C++ program that asks the user to enter values for n and r, calculates the permutation using the formula above, and displays the result. Your program is required to include: 1. A function named factorial that calculates and returns the factorial of a given integer using a loop (do not use recursion). 2. A function named permutation that calculates permutations using the formula P(n, r) = factorial(n) / factorial(n - r). 3. A main() function that reads the values of n and r, calls the required function, and prints the result.",sol:String.raw`#include <iostream>
 using namespace std;
 
 int factorial(int n);
@@ -1004,8 +1004,8 @@ int factorial(int n) {
 
 int permutation(int n, int r) {
     return factorial(n) / factorial(n - r);
-}`,tip:"Test: n=5, r=2 → 20. result 1 ile initialize edilir, 0 ile değil."},
- {id:"C3",topic:"ref",prompt:"(Örnek midterm IV-3) <code>hello(string name)</code> selam yazsın. <code>shareBudget(int number, double totalAmount)</code> kişi başı payı hesaplayıp yazsın; kişi sayısı 0 ise <code>No people, no budget distribution!</code> yazıp <code>return</code> ile function'dan çıksın. Budget 900, main'de declare edilsin.",en:"Write a C++ program that distributes a budget among a group of people. Create two functions: hello(string name) prints a greeting message; shareBudget(int number, double totalAmount) calculates and prints the amount per person. If the number of people is 0, print \"No people, no budget distribution!\" and terminate the function shareBudget using return. The total budget is 900km (declare in the main function).",sol:String.raw`#include <iostream>
+}`,tip:"Test: n=5, r=2 → 20. result 1 ile başlatılır, 0 ile değil."},
+ {id:"C3",topic:"ref",prompt:"(Örnek midterm IV-3) <code>hello(string name)</code> selam yazsın. <code>shareBudget(int number, double totalAmount)</code> kişi başı payı hesaplayıp yazsın; kişi sayısı 0 ise <code>No people, no budget distribution!</code> yazıp <code>return</code> ile function'dan çıksın. Budget 900, main'de tanımlansın.",en:"Write a C++ program that distributes a budget among a group of people. Create two functions: hello(string name) prints a greeting message; shareBudget(int number, double totalAmount) calculates and prints the amount per person. If the number of people is 0, print \"No people, no budget distribution!\" and terminate the function shareBudget using return. The total budget is 900km (declare in the main function).",sol:String.raw`#include <iostream>
 #include <string>
 using namespace std;
 
@@ -1037,7 +1037,7 @@ void shareBudget(int number, double totalAmount) {
     double each = totalAmount / number;
     cout << "Each person will receive " << each << "km. Good luck!\n";
 }`,tip:"#include <string> unutma. Test: Ali, 3 → 300km."},
- {id:"C4",topic:"ref",prompt:"<code>swapValues(int&amp; a, int&amp; b)</code> ve onu call eden <code>order(int&amp; a, int&amp; b)</code>: call'dan sonra a &lt;= b olsun.",sol:String.raw`void swapValues(int& a, int& b);
+ {id:"C4",topic:"ref",prompt:"<code>swapValues(int&amp; a, int&amp; b)</code> ve onu çağıran <code>order(int&amp; a, int&amp; b)</code>: call'dan sonra a &lt;= b olsun.",sol:String.raw`void swapValues(int& a, int& b);
 void order(int& a, int& b);
 
 void swapValues(int& a, int& b) {
@@ -1049,7 +1049,7 @@ void swapValues(int& a, int& b) {
 void order(int& a, int& b) {
     if (a > b)
         swapValues(a, b);
-}`,tip:"Function başka function'ı call edebilir ama içinde define edemez."},
+}`,tip:"Function başka function'ı çağırabilir ama içinde tanımlayamaz."},
  {id:"C5",topic:"fonk",prompt:"<code>bool isPrime(int n)</code> function'ı. main 1'den 20'ye kadar asal sayıları yazsın.",sol:String.raw`bool isPrime(int n);
 
 int main() {
@@ -1152,7 +1152,7 @@ int sumDigits(int n) {
 /* ---------- İPUÇLARI (çözümlerden türetildi; cevabı vermez) ---------- */
 const HINTS={
  T1:"Postfix ++ eski değeri kullanır, prefix ++ önce artırır.",
- T2:"break görmeden alttaki case'lere fall-through olur; her i için ayrı trace et.",
+ T2:"break görmeden alttaki case'lere fall-through olur; her i için ayrı izle.",
  T3:"a call-by-value, b call-by-reference. İkinci call'da argument'ların yeri değişiyor.",
  T4:"İki aday da birer type conversion ile mi uyuyor?",
  T5:"else hangi if'e bağlı? Indentation'a bakma.",
@@ -1166,7 +1166,7 @@ const HINTS={
  A12:"Hangi function reference parameter alıyor?",
  A13:"Her call'da exact match olan sürümü bul; function önce kendi yazısını basar.",
  A13b:"(int, double) argument'ları için iki aday da birer type conversion ister.",
- A14:"İç block'ta yeni x hangi satırda declare ediliyor?",
+ A14:"İç block'ta yeni x hangi satırda tanımlanıyor?",
  A15:"change içindeki g global variable mı local variable mı?",
  A16:"i = 1, 3, 5, 7, 9; i+1 hep çift mi?",
  A17:"Comparison eski x ile yapılır, y'ye artmış x eklenir.",
@@ -1177,13 +1177,13 @@ const HINTS={
  A22:"fixed/precision sadece double'ları etkiler; 10/4 integer division.",
  A23:"&& solu false ise sağ taraf hesaplanır mı?",
  A24:"File'dan ilk okunan sayı, kaç sayı daha okunacağını söyler.",
- A25:"abs int return eder, 7/int ne olur? ceil yukarı, floor aşağı.",
+ A25:"abs int döndürür, 7/int ne olur? ceil yukarı, floor aşağı.",
  A26:"11/2 hangi data type'ta hesaplanır? static_cast<int> yuvarlar mı keser mi?",
  A27:"Değer verilmeyen enum constant'ı bir öncekinin bir fazlası.",
  "M-I.1":"Prefix ++x önce artırır; condition kaç kez true?",
  "M-I.2":"Önce parantezin içi: 3/4 integer division.",
  "M-I.5":"Overload için parameter list farklı olmalı; return type ya da parameter adı değişikliği yetmez.",
- "M-I.6":"fabs bir değer return eder; cin bir variable'a yazmalı.",
+ "M-I.6":"fabs bir değer döndürür; cin bir variable'a yazmalı.",
  "M-I.8":"void function'da return; yazılabilir mi?",
  "M-II.1":"a ve c reference parameter; function'daki b local variable.",
  "M-II.2":"Loop kaç iteration döner?",
@@ -1192,19 +1192,19 @@ const HINTS={
  "M-II.5":"İkinci call'da (int,double,int) mı (int,double,double) mı daha iyi uyar? İki output arasında boşluk yok.",
  "M-II.6":"x > 5 condition'ı x = 5 için true mu?",
  "M-III":"Her (i, j) için j - i farkını hesapla; break'siz case'ler fall-through olur.",
- "Q-1":"Ondalık sonuç int variable'a assign edilince ne olur?",
+ "Q-1":"Ondalık sonuç int variable'a atanınca ne olur?",
  "Q-2":"-3 % 2 kaçtır?",
- "Q-3":"j = i++ ve k = --i declaration'larını sırayla trace et.",
+ "Q-3":"j = i++ ve k = --i declaration'larını sırayla izle.",
  "Q-5":"x > y doğru mu?",
  B1:"Satır 5 ve 6'ya bak.",
- B2:"main'den önce ne eksik? Satır 8 bir değer return ediyor mu?",
+ B2:"main'den önce ne eksik? Satır 8 bir değer döndürüyor mu?",
  B3:"Parameter'lar call-by-value mı, call-by-reference mı?",
  B4:"Satır 2'nin sonuna bak.",
  B5:"Satır 4 ve 6; case'ler arasında break var mı?",
  B6:"Condition ve counter update'i.",
  B7:"int / int integer division.",
  B8:"Parameter list'leri karşılaştır.",
- B9:"void function ne return edebilir, nerede kullanılabilir?",
+ B9:"void function ne döndürebilir, nerede kullanılabilir?",
  B10:"include satırları ve file adı.",
  QB3:"Satır 5, 7, 9 ve 12.",
  QB4:"include, satır 6, 10, 11, 14, 15 ve kapanış."
@@ -1227,7 +1227,7 @@ const FLASHCARDS=[
  {id:"f13",cat:"Loops",q:"for (...); ne yapar?",a:"Noktalı virgül loop body'yi boşaltır; alttaki satır loop'tan sonra bir kez çalışır."},
  {id:"f14",cat:"Loops",q:"Nested loop'ta break?",a:"Sadece içinde bulunduğu loop'tan çıkar."},
  {id:"f15",cat:"Loops",q:"continue ne yapar?",a:"Iteration'ın geri kalanını atlar; for'da update yine yapılır."},
- {id:"f16",cat:"Loops",q:"sum ve product neyle initialize edilir?",a:"sum = 0, product = 1."},
+ {id:"f16",cat:"Loops",q:"sum ve product neyle başlatılır?",a:"sum = 0, product = 1."},
  {id:"f17",cat:"Functions",q:"Function declaration ile function definition farkı?",a:"Declaration (prototype) ; ile biter, function call'dan önce gelir. Definition = header + body, header'da ; yok."},
  {id:"f18",cat:"Functions",q:"Call-by-value nedir?",a:"Formal parameter, argument'ın kopyasıdır; function'daki değişiklik çağıranı etkilemez."},
  {id:"f19",cat:"Functions",q:"Global variable ile aynı isimde local variable olursa?",a:"Function içinde local kazanır (scope); global değişmez."},
@@ -1235,8 +1235,8 @@ const FLASHCARDS=[
  {id:"f21",cat:"Overloading",q:"add(2, 3.0) ne zaman compile error verir?",a:"add(int,int) ve add(double,double) ikisi de varsa: eşit derecede iyi iki aday, ambiguous call."},
  {id:"f22",cat:"Reference",q:"int& parameter ne demek?",a:"Reference parameter: argument'ın kendisi (aynı memory address). Değişiklik çağıranın variable'ını değiştirir. Argument variable olmalı, constant olamaz."},
  {id:"f23",cat:"Reference",q:"void function'da return?",a:"return; (değersiz) erken çıkış için yazılabilir. Function call cout << içinde kullanılamaz."},
- {id:"f24",cat:"Predefined functions",q:"1–6 arası zar (random number) nasıl atılır?",a:"rand() % 6 + 1. srand(time(0)) bir kez call edilir (<cstdlib>, <ctime>)."},
- {id:"f25",cat:"Predefined functions",q:"abs ile fabs farkı?",a:"abs int return eder (<cstdlib>), fabs double (<cmath>). 7 / abs(-2) = 3."},
+ {id:"f24",cat:"Predefined functions",q:"1–6 arası zar (random number) nasıl atılır?",a:"rand() % 6 + 1. srand(time(0)) bir kez çağrılır (<cstdlib>, <ctime>)."},
+ {id:"f25",cat:"Predefined functions",q:"abs ile fabs farkı?",a:"abs int döndürür (<cstdlib>), fabs double (<cmath>). 7 / abs(-2) = 3."},
  {id:"f26",cat:"File I/O",q:"File'daki tüm sayıları okuma kalıbı?",a:"ifstream in; in.open(\"f.txt\"); while (in >> x) { ... } in.close();  (#include <fstream>)"}
 ];
 
