@@ -240,7 +240,7 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 <!-- Ctrl+K Search Modal -->
 <div class="modal-backdrop" id="searchModal" hidden>
   <div class="modal-box" role="dialog" aria-label="Hızlı Soru ve Konu Arama">
-    <input type="text" id="searchModalInput" placeholder="Soru kodu (R1, Z1_6, D5a), konu (eşlenik, asimptot, teğet) veya formül yaz..." autocomplete="off">
+    <input type="text" id="searchModalInput" placeholder="Soru kodu (R1, Z1_6, D5a), konu (conjugate, asymptote, tangent; Türkçe de olur) veya formül yaz..." autocomplete="off">
     <div class="modal-results" id="searchModalResults"></div>
   </div>
 </div>
@@ -251,12 +251,12 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 /* ---------- TAGS & CATEGORIES ---------- */
 const TAGS = {
   cebir:{l:"0/0 Limitleri & Sandwich", blok:"Blok 1", sec:"Thomas 2.2 · Zbirka 1.1"},
-  tek:{l:"Tek Taraflı & |x| Limitleri", blok:"Blok 2", sec:"Thomas 2.4 · Zbirka 1.3"},
-  trig:{l:"Trigonometrik Limitler", blok:"Blok 2", sec:"Thomas 2.4 · Zbirka 1.4"},
-  sonsuz:{l:"Sonsuzluk & Asimptotlar", blok:"Blok 3", sec:"Thomas 2.6 · Zbirka 1.5"},
-  surek:{l:"Süreklilik & IVT", blok:"Blok 4", sec:"Thomas 2.5 · Zbirka 1.6"},
-  tanim:{l:"Tanımdan Türev & Teğet", blok:"Blok 5", sec:"Thomas 3.1–3.2 · Zbirka 2.1"},
-  kural:{l:"Türev Kuralları", blok:"Blok 6", sec:"Thomas 3.3 · Zbirka 2.2"}
+  tek:{l:"One-Sided Limits & |x|", blok:"Blok 2", sec:"Thomas 2.4 · Zbirka 1.3"},
+  trig:{l:"Trigonometric Limits", blok:"Blok 2", sec:"Thomas 2.4 · Zbirka 1.4"},
+  sonsuz:{l:"Limits Involving Infinity & Asymptotes", blok:"Blok 3", sec:"Thomas 2.6 · Zbirka 1.5"},
+  surek:{l:"Continuity & IVT", blok:"Blok 4", sec:"Thomas 2.5 · Zbirka 1.6"},
+  tanim:{l:"Definition of the Derivative & Tangent Line", blok:"Blok 5", sec:"Thomas 3.1–3.2 · Zbirka 2.1"},
+  kural:{l:"Differentiation Rules", blok:"Blok 6", sec:"Thomas 3.3 · Zbirka 2.2"}
 };
 const R = String.raw;
 function q(id,tag,p,a,s,h,src,preset){return {id,tag,p,a,s,h,src,preset}}
@@ -266,164 +266,164 @@ const SETS = {
 tani:{title:"Tanılama Testi (Hızlı Seviye Tespit)", intro:"15 dakika, kapalı defter. Sayısal ve cebirsel cevapları doğrudan kutuya yazıp 'Kontrol et'e bas. Eksik olduğun blokları hemen tespit eder.", qs:[
  q("T1","cebir",R`$\displaystyle\lim_{x\to 3}\frac{x^2-9}{x-3}$`,"6",R`<p>$x^2-9=(x-3)(x+3)$, sadeleşir: $x+3\to 6$.</p>`,"Çarpanlara ayır: a² - b² = (a-b)(a+b)","Tanılama"),
  q("T2","trig",R`$\displaystyle\lim_{x\to 0}\frac{\sin 4x}{3x}$`,"4/3",R`<p>$\dfrac{\sin 4x}{4x}\cdot\dfrac{4x}{3x}\to 1\cdot\dfrac43=\dfrac43$</p>`,"sin(ax)/(bx) → a/b","Tanılama"),
- q("T3","tek",R`$\displaystyle\lim_{x\to 2^-}\frac{|x-2|}{x-2}$`,"-1",R`<p>$x<2$ iken $|x-2|=-(x-2)$, oran $-1$.</p>`,"x < 2 için mutlak değerin içi negatiftir.","Tanılama"),
- q("T4","sonsuz",R`$\displaystyle\lim_{x\to \infty}\frac{2x^2-1}{5x^2+x}$`,"2/5",R`<p>Dereceler eşit: baş katsayılar oranı $\dfrac25$.</p>`,"Pay ve paydanın en yüksek dereceli terimlerine bak.","Tanılama"),
- q("T5","sonsuz",R`$\displaystyle\lim_{x\to 1^+}\frac{1}{1-x}$`,"-inf",R`<p>$x>1$ iken $1-x\to 0^-$. Pay 1. Sonuç $-\infty$.</p>`,"Sayı / 0⁻ biçimi.","Tanılama"),
- q("T6","surek",R`$f(x)=x+a\ (x\le 2),\quad f(x)=x^2\ (x>2)$. $f$ her yerde sürekli olsun. $a=?$`,"2",R`<p>$x=2$'de sol $=2+a$, sağ $=4$. $2+a=4\Rightarrow a=2$.</p>`,"x = 2 geçiş noktasında sol limit = sağ limit.","Tanılama"),
- q("T7","tanim",R`$f(x)=x^2$ için türevin limit tanımını yaz ve $f'(x)$'i hesapla.`,null,R`<p>$f'(x)=\displaystyle\lim_{h\to0}\frac{(x+h)^2-x^2}{h}=\lim_{h\to0}\frac{2xh+h^2}{h}=\lim_{h\to0}(2x+h)=2x$</p>`,"lim(h→0) [(x+h)² - x²]/h","Tanılama"),
- q("T8","kural",R`$y=\dfrac{x}{x+1}$ için $\dfrac{dy}{dx}$`,null,R`<p>Bölüm kuralı: $\dfrac{1\cdot(x+1)-x\cdot 1}{(x+1)^2}=\dfrac{1}{(x+1)^2}$</p>`,"(u'v - uv') / v²","Tanılama")
+ q("T3","tek",R`$\displaystyle\lim_{x\to 2^-}\frac{|x-2|}{x-2}$`,"-1",R`<p>$x<2$ iken $|x-2|=-(x-2)$, oran $-1$.</p>`,"x < 2 için absolute value'nun içi negatiftir.","Tanılama"),
+ q("T4","sonsuz",R`$\displaystyle\lim_{x\to \infty}\frac{2x^2-1}{5x^2+x}$`,"2/5",R`<p>Degree'ler eşit: leading coefficient'ların oranı $\dfrac25$.</p>`,"Numerator ve denominator'ın en yüksek degree'li terimlerine bak.","Tanılama"),
+ q("T5","sonsuz",R`$\displaystyle\lim_{x\to 1^+}\frac{1}{1-x}$`,"-inf",R`<p>$x>1$ iken $1-x\to 0^-$. Numerator 1. Sonuç $-\infty$.</p>`,"Sayı / 0⁻ biçimi.","Tanılama"),
+ q("T6","surek",R`$f(x)=x+a\ (x\le 2),\quad f(x)=x^2\ (x>2)$. $f$ her yerde continuous olsun. $a=?$`,"2",R`<p>$x=2$'de left-hand limit $=2+a$, right-hand limit $=4$. $2+a=4\Rightarrow a=2$.</p>`,"x = 2 geçiş noktasında left-hand limit = right-hand limit.","Tanılama"),
+ q("T7","tanim",R`$f(x)=x^2$ için definition of the derivative'i yaz ve $f'(x)$'i hesapla.`,null,R`<p>$f'(x)=\displaystyle\lim_{h\to0}\frac{(x+h)^2-x^2}{h}=\lim_{h\to0}\frac{2xh+h^2}{h}=\lim_{h\to0}(2x+h)=2x$</p>`,"lim(h→0) [(x+h)² - x²]/h","Tanılama"),
+ q("T8","kural",R`$y=\dfrac{x}{x+1}$ için $\dfrac{dy}{dx}$`,null,R`<p>Quotient rule: $\dfrac{1\cdot(x+1)-x\cdot 1}{(x+1)^2}=\dfrac{1}{(x+1)^2}$</p>`,"(u'v - uv') / v²","Tanılama")
 ]},
 
 review:{title:"Hocanın Review Kağıdı (MIDTERM REVIEW 101.docx)", intro:"materyal/onedrive/MIDTERM REVIEW 101.docx içindeki tüm sorular. Sınavın birebir şablonudur; buradaki her soruyu gözün kapalı çözebilmelisin.", qs:[
  q("R1","trig",R`$\displaystyle\lim_{x\to0}\frac{\sin 5x}{\tan 10x}$`,"1/2",R`<p>$\dfrac{\sin5x}{5x}\cdot\dfrac{10x}{\tan10x}\cdot\dfrac{5x}{10x}\to 1\cdot1\cdot\dfrac12=\dfrac12$</p>`,"Her sin ve tan'ın altına kendi açısını koy.","Review #1"),
  q("R2","trig",R`$\displaystyle\lim_{x\to0}\frac{1-\cos x}{x^2}$`,"1/2",R`<p>$(1+\cos x)$ ile çarp ve böl: $\dfrac{\sin^2x}{x^2(1+\cos x)}=\Big(\dfrac{\sin x}{x}\Big)^2\dfrac{1}{1+\cos x}\to\dfrac12$</p>`,"1 − cos x gördüğünde (1 + cos x) ile genişlet.","Review #2"),
- q("R3","cebir",R`$\displaystyle\lim_{x\to0}\frac{\sqrt{1+2x}-\sqrt{1-x}}{3x}$`,"1/2",R`<p>Eşlenik: pay $\cdot(\sqrt{1+2x}+\sqrt{1-x})=(1+2x)-(1-x)=3x$.</p><p>$\dfrac{3x}{3x(\sqrt{1+2x}+\sqrt{1-x})}=\dfrac{1}{\sqrt{1+2x}+\sqrt{1-x}}\to\dfrac12$</p>`,"İki kök farkı: eşlenikle çarp.","Review #3"),
+ q("R3","cebir",R`$\displaystyle\lim_{x\to0}\frac{\sqrt{1+2x}-\sqrt{1-x}}{3x}$`,"1/2",R`<p>Conjugate: numerator $\cdot(\sqrt{1+2x}+\sqrt{1-x})=(1+2x)-(1-x)=3x$.</p><p>$\dfrac{3x}{3x(\sqrt{1+2x}+\sqrt{1-x})}=\dfrac{1}{\sqrt{1+2x}+\sqrt{1-x}}\to\dfrac12$</p>`,"İki square root farkı: conjugate ile çarp.","Review #3"),
  q("R4a","tek",R`$\displaystyle\lim_{x\to2^+}\frac{|x-2|}{x^2-4}$`,"1/4",R`<p>$x>2$: $|x-2|=x-2$. $\dfrac{x-2}{(x-2)(x+2)}=\dfrac1{x+2}\to\dfrac14$</p>`,"x > 2 olduğu için |x-2| = +(x-2) diye çıkar.","Review #4a","r4"),
- q("R4b","tek",R`$\displaystyle\lim_{x\to2}\frac{|x-2|}{x^2-4}$ &nbsp;<span class="muted small">(yoksa <code>dne</code> yaz)</span>`,"dne",R`<p>Sağdan $\tfrac14$. Soldan $|x-2|=-(x-2)$, sonuç $-\tfrac14$. Sol ≠ sağ: <b>DNE</b>.</p>`,"İki tarafı ayrı hesapla.","Review #4b","r4"),
- q("R5","sonsuz",R`$\displaystyle\lim_{x\to0^+}\Big(\frac1{x^2}-\frac2x\Big)$ &nbsp;<span class="muted small">(<code>inf</code> / <code>-inf</code>)</span>`,"inf",R`<p>Payda eşitle: $\dfrac{1-2x}{x^2}$. Pay $\to1$, payda $\to0^+$. Sonuç $+\infty$.</p>`,"∞ − ∞: önce tek kesir yap.","Review #5"),
- q("R6","cebir",R`$\displaystyle\lim_{x\to3}\frac{\frac1{x+2}-\frac15}{x^2-5x+6}$`,"-1/25",R`<p>$\dfrac1{x+2}-\dfrac15=\dfrac{3-x}{5(x+2)}$, payda $(x-2)(x-3)$.</p><p>$\dfrac{-(x-3)}{5(x+2)(x-2)(x-3)}=\dfrac{-1}{5(x+2)(x-2)}\to\dfrac{-1}{25}$</p>`,"Payı tek kesir yap, paydayı çarpanlarına ayır. 3 − x = −(x − 3).","Review #6"),
- q("R7","sonsuz",R`$\displaystyle\lim_{x\to-\infty}\frac{x^3+6}{(1-x)^2}$`,"-inf",R`<p>Pay derecesi 3, payda 2. $x^2$'ye böl: $\dfrac{x+6/x^2}{1-2/x+1/x^2}$. Pay $\to-\infty$, payda $\to1$. Sonuç $-\infty$.</p>`,"(1-x)² = x² - 2x + 1. Payın derecesi daha büyük.","Review #7"),
- q("R8","surek",R`$f(x)=\begin{cases}-x & x<-1\\ 1 & -1\le x\le1\\ 4 & 1\lt x\lt 2\\ 3-x & x\ge2\end{cases}$ &nbsp; Süreksizlikleri bul ve açıkla.`,null,R`<p>Geçiş noktaları: $-1,1,2$.</p><p>$x=-1$: sol $1$, sağ $1$, $f(-1)=1$. Sürekli.</p><p>$x=1$: sol $1$, sağ $4$. Limit yok, <b>süreksiz (jump)</b>.</p><p>$x=2$: sol $4$, sağ $1$. Limit yok, <b>süreksiz (jump)</b>.</p><p class="small">Sınavda her nokta için sol limit, sağ limit ve $f(a)$'yı ayrı yaz.</p>`,"Sadece kırılma noktaları x = -1, 1, 2'yi incele.","Review #8","r8"),
- q("R9","surek",R`$f(x)=2-x\ (x\le1),\quad ax^2-3\ (x>1)$. Her $x$ için sürekli olsun. $a=?$`,"4",R`<p>$x=1$: sol $=f(1)=1$, sağ $=a-3$. $a-3=1\Rightarrow a=4$.</p>`,"x = 1'de sol limit = sağ limit.","Review #9"),
- q("R10","tanim",R`Tanımdan $f'(x)$: $f(x)=2x^2-x$. $x=-1$'de teğet doğrusu.`,null,R`<p>$f(x+h)-f(x)=4xh+2h^2-h$</p><p>$f'(x)=\displaystyle\lim_{h\to0}(4x+2h-1)=4x-1$</p><p>$f(-1)=3,\ f'(-1)=-5$: $y-3=-5(x+1)\Rightarrow$ <span class="ans">$y=-5x-2$</span></p>`,"f(x+h) = 2(x+h)² - (x+h) aç ve sadeleştir.","Review #10","r10"),
- q("R11","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac1{3x-1}$. $x=1$'de teğet doğrusu.`,null,R`<p>$\dfrac1{3x+3h-1}-\dfrac1{3x-1}=\dfrac{-3h}{(3x+3h-1)(3x-1)}$</p><p>$f'(x)=\displaystyle\lim_{h\to0}\frac{-3}{(3x+3h-1)(3x-1)}=\frac{-3}{(3x-1)^2}$</p><p>$f(1)=\tfrac12,\ f'(1)=-\tfrac34$: <span class="ans">$y=-\tfrac34x+\tfrac54$</span></p>`,"Ortak payda, sonra h sadeleşir.","Review #11","r11"),
- q("R12","tanim",R`Tanımdan $f'(x)$: $f(x)=\sqrt{1-x}$. $x=0$'da teğet doğrusu.`,null,R`<p>Eşlenik: $\dfrac{(1-x-h)-(1-x)}{h(\sqrt{1-x-h}+\sqrt{1-x})}=\dfrac{-1}{\sqrt{1-x-h}+\sqrt{1-x}}$</p><p>$f'(x)=\dfrac{-1}{2\sqrt{1-x}}$</p><p>$f(0)=1,\ f'(0)=-\tfrac12$: <span class="ans">$y=-\tfrac x2+1$</span></p>`,"Kökte eşlenik: √(1-x-h) + √(1-x) ile çarp.","Review #12","r12"),
- q("R13","kural",R`$y=2x^2-\dfrac5{x^2}+3\sqrt x$ &nbsp; $\dfrac{dy}{dx}=?$`,null,R`<p>$y=2x^2-5x^{-2}+3x^{1/2}$</p><p>$y'=4x+10x^{-3}+\tfrac32x^{-1/2}=$ <span class="ans">$4x+\dfrac{10}{x^3}+\dfrac{3}{2\sqrt x}$</span></p>`,"Önce kuvvet biçimine çevir. −5x⁻² türevinde işaret +.","Review #13"),
- q("R14","kural",R`$y=\dfrac{2x^3-x}{3x-1}$ &nbsp; $\dfrac{dy}{dx}=?$`,null,R`<p>$\dfrac{(6x^2-1)(3x-1)-3(2x^3-x)}{(3x-1)^2}=$ <span class="ans">$\dfrac{12x^3-6x^2+1}{(3x-1)^2}$</span></p>`,"Bölüm kuralı: (u'v - uv') / v².","Review #14")
+ q("R4b","tek",R`$\displaystyle\lim_{x\to2}\frac{|x-2|}{x^2-4}$ &nbsp;<span class="muted small">(yoksa <code>dne</code> yaz)</span>`,"dne",R`<p>Right-hand limit $\tfrac14$. Soldan $|x-2|=-(x-2)$, left-hand limit $-\tfrac14$. Left-hand ≠ right-hand: <b>DNE</b>.</p>`,"One-sided limit'leri ayrı hesapla.","Review #4b","r4"),
+ q("R5","sonsuz",R`$\displaystyle\lim_{x\to0^+}\Big(\frac1{x^2}-\frac2x\Big)$ &nbsp;<span class="muted small">(<code>inf</code> / <code>-inf</code>)</span>`,"inf",R`<p>Common denominator al: $\dfrac{1-2x}{x^2}$. Numerator $\to1$, denominator $\to0^+$. Sonuç $+\infty$.</p>`,"∞ − ∞: önce tek kesir yap.","Review #5"),
+ q("R6","cebir",R`$\displaystyle\lim_{x\to3}\frac{\frac1{x+2}-\frac15}{x^2-5x+6}$`,"-1/25",R`<p>$\dfrac1{x+2}-\dfrac15=\dfrac{3-x}{5(x+2)}$, denominator $(x-2)(x-3)$.</p><p>$\dfrac{-(x-3)}{5(x+2)(x-2)(x-3)}=\dfrac{-1}{5(x+2)(x-2)}\to\dfrac{-1}{25}$</p>`,"Numerator'ı tek kesir yap, denominator'ı çarpanlarına ayır. 3 − x = −(x − 3).","Review #6"),
+ q("R7","sonsuz",R`$\displaystyle\lim_{x\to-\infty}\frac{x^3+6}{(1-x)^2}$`,"-inf",R`<p>Numerator'ın degree'si 3, denominator'ınki 2. $x^2$'ye böl: $\dfrac{x+6/x^2}{1-2/x+1/x^2}$. Numerator $\to-\infty$, denominator $\to1$. Sonuç $-\infty$.</p>`,"(1-x)² = x² - 2x + 1. Numerator'ın degree'si daha büyük.","Review #7"),
+ q("R8","surek",R`$f(x)=\begin{cases}-x & x<-1\\ 1 & -1\le x\le1\\ 4 & 1\lt x\lt 2\\ 3-x & x\ge2\end{cases}$ &nbsp; Discontinuity'leri bul ve açıkla.`,null,R`<p>Geçiş noktaları: $-1,1,2$.</p><p>$x=-1$: left-hand limit $1$, right-hand limit $1$, $f(-1)=1$. Continuous.</p><p>$x=1$: left-hand limit $1$, right-hand limit $4$. Limit DNE, <b>jump discontinuity</b>.</p><p>$x=2$: left-hand limit $4$, right-hand limit $1$. Limit DNE, <b>jump discontinuity</b>.</p><p class="small">Sınavda her nokta için left-hand limit, right-hand limit ve $f(a)$'yı ayrı yaz.</p><p class="small"><b>Exam sentence:</b> <i>At $x=1$, $\lim_{x\to1^-}f(x)=1$ and $\lim_{x\to1^+}f(x)=4$. Since the left-hand and right-hand limits are not equal, $\lim_{x\to1}f(x)$ DNE, so $f$ has a jump discontinuity at $x=1$. Similarly, at $x=2$ the one-sided limits are $4$ and $1$, so $f$ has a jump discontinuity at $x=2$. At $x=-1$, $\lim_{x\to-1}f(x)=f(-1)=1$, so $f$ is continuous at $x=-1$.</i></p>`,"Sadece kırılma noktaları x = -1, 1, 2'yi incele.","Review #8","r8"),
+ q("R9","surek",R`$f(x)=2-x\ (x\le1),\quad ax^2-3\ (x>1)$. Her $x$ için continuous olsun. $a=?$`,"4",R`<p>$x=1$: left-hand limit $=f(1)=1$, right-hand limit $=a-3$. $a-3=1\Rightarrow a=4$.</p>`,"x = 1'de left-hand limit = right-hand limit.","Review #9"),
+ q("R10","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=2x^2-x$. $x=-1$'de tangent line.`,null,R`<p>$f(x+h)-f(x)=4xh+2h^2-h$</p><p>$f'(x)=\displaystyle\lim_{h\to0}(4x+2h-1)=4x-1$</p><p>$f(-1)=3,\ f'(-1)=-5$: $y-3=-5(x+1)\Rightarrow$ <span class="ans">$y=-5x-2$</span></p>`,"f(x+h) = 2(x+h)² - (x+h) aç ve sadeleştir.","Review #10","r10"),
+ q("R11","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=\dfrac1{3x-1}$. $x=1$'de tangent line.`,null,R`<p>$\dfrac1{3x+3h-1}-\dfrac1{3x-1}=\dfrac{-3h}{(3x+3h-1)(3x-1)}$</p><p>$f'(x)=\displaystyle\lim_{h\to0}\frac{-3}{(3x+3h-1)(3x-1)}=\frac{-3}{(3x-1)^2}$</p><p>$f(1)=\tfrac12,\ f'(1)=-\tfrac34$: <span class="ans">$y=-\tfrac34x+\tfrac54$</span></p>`,"Common denominator, sonra h sadeleşir.","Review #11","r11"),
+ q("R12","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=\sqrt{1-x}$. $x=0$'da tangent line.`,null,R`<p>Conjugate: $\dfrac{(1-x-h)-(1-x)}{h(\sqrt{1-x-h}+\sqrt{1-x})}=\dfrac{-1}{\sqrt{1-x-h}+\sqrt{1-x}}$</p><p>$f'(x)=\dfrac{-1}{2\sqrt{1-x}}$</p><p>$f(0)=1,\ f'(0)=-\tfrac12$: <span class="ans">$y=-\tfrac x2+1$</span></p>`,"Square root'ta conjugate: √(1-x-h) + √(1-x) ile çarp.","Review #12","r12"),
+ q("R13","kural",R`$y=2x^2-\dfrac5{x^2}+3\sqrt x$ &nbsp; $\dfrac{dy}{dx}=?$`,null,R`<p>$y=2x^2-5x^{-2}+3x^{1/2}$</p><p>$y'=4x+10x^{-3}+\tfrac32x^{-1/2}=$ <span class="ans">$4x+\dfrac{10}{x^3}+\dfrac{3}{2\sqrt x}$</span></p>`,"Önce power biçimine (x^n) çevir. −5x⁻²'nin derivative'inde işaret +.","Review #13"),
+ q("R14","kural",R`$y=\dfrac{2x^3-x}{3x-1}$ &nbsp; $\dfrac{dy}{dx}=?$`,null,R`<p>$\dfrac{(6x^2-1)(3x-1)-3(2x^3-x)}{(3x-1)^2}=$ <span class="ans">$\dfrac{12x^3-6x^2+1}{(3x-1)^2}$</span></p>`,"Quotient rule: (u'v - uv') / v².","Review #14")
 ]},
 
 zbirka:{title:"Kitap Soru Bankası (Leila Miller · Calculus Problem Book)", intro:"materyal/_text/zbirka.txt içindeki vize kapsamına giren tüm blokların (1.1, 1.3, 1.4, 1.5, 1.6, 2.1, 2.2) seçilmiş 75 kemik sorusu ve adım adım çözümleri. Kitapta çözümü olmayan soruların da tam çözümü eklendi.", qs:[
  // BLOK 1: 1.1 Limits, Basic Properties (12 questions)
- q("Z1_2","cebir",R`$\displaystyle\lim_{x\to 2}\frac{x-2}{x^2+7x+10}$`,"0",R`<p>Yerine koy: pay $2-2=0$, payda $4+14+10=28\ne 0$. Belirsizlik yok! $\dfrac{0}{28}=0$.</p>`,"Tuzak soru: Payda sıfır olmuyor, doğrudan yerine koy!","Zbirka 1.1 #2"),
- q("Z1_3","cebir",R`$\displaystyle\lim_{x\to 2}\frac{x-2}{x^2-7x+10}$`,"-1/3",R`<p>$0/0$ belirsizliği. Payda: $x^2-7x+10=(x-2)(x-5)$.</p><p>$\displaystyle\lim_{x\to 2}\frac{x-2}{(x-2)(x-5)}=\lim_{x\to 2}\frac{1}{x-5}=\frac{1}{2-5}=-\frac13$.</p>`,"x² - 7x + 10 = (x-2)(x-5)","Zbirka 1.1 #3"),
- q("Z1_4","cebir",R`$\displaystyle\lim_{x\to 0}\frac{x-2x^2}{x^2-5x}$`,"-1/5",R`<p>$x$ ortak parantezine al: $\displaystyle\lim_{x\to 0}\frac{x(1-2x)}{x(x-5)}=\lim_{x\to 0}\frac{1-2x}{x-5}=-\frac15$.</p>`,"Pay ve paydayı x parantezine al.","Zbirka 1.1 #4"),
- q("Z1_5","cebir",R`$\displaystyle\lim_{x\to 2}\frac{\frac{1}{x+2}-\frac{1}{4}}{x^2-7x+10}$`,"1/48",R`<p>Pay: $\dfrac{4-(x+2)}{4(x+2)}=\dfrac{2-x}{4(x+2)}=\dfrac{-(x-2)}{4(x+2)}$. Payda: $(x-2)(x-5)$.</p><p>Sadeleştir: $\dfrac{-1}{4(x+2)(x-5)}\to \dfrac{-1}{4\cdot 4\cdot(-3)}=\dfrac{1}{48}$.</p>`,"Payda eşitle; (2-x)/(x-2) = -1.","Zbirka 1.1 #5"),
+ q("Z1_2","cebir",R`$\displaystyle\lim_{x\to 2}\frac{x-2}{x^2+7x+10}$`,"0",R`<p>Yerine koy: numerator $2-2=0$, denominator $4+14+10=28\ne 0$. Indeterminate form yok! $\dfrac{0}{28}=0$.</p>`,"Tuzak soru: Denominator sıfır olmuyor, doğrudan yerine koy!","Zbirka 1.1 #2"),
+ q("Z1_3","cebir",R`$\displaystyle\lim_{x\to 2}\frac{x-2}{x^2-7x+10}$`,"-1/3",R`<p>$0/0$ indeterminate form. Denominator: $x^2-7x+10=(x-2)(x-5)$.</p><p>$\displaystyle\lim_{x\to 2}\frac{x-2}{(x-2)(x-5)}=\lim_{x\to 2}\frac{1}{x-5}=\frac{1}{2-5}=-\frac13$.</p>`,"x² - 7x + 10 = (x-2)(x-5)","Zbirka 1.1 #3"),
+ q("Z1_4","cebir",R`$\displaystyle\lim_{x\to 0}\frac{x-2x^2}{x^2-5x}$`,"-1/5",R`<p>$x$ ortak parantezine al: $\displaystyle\lim_{x\to 0}\frac{x(1-2x)}{x(x-5)}=\lim_{x\to 0}\frac{1-2x}{x-5}=-\frac15$.</p>`,"Numerator ve denominator'ı x parantezine al.","Zbirka 1.1 #4"),
+ q("Z1_5","cebir",R`$\displaystyle\lim_{x\to 2}\frac{\frac{1}{x+2}-\frac{1}{4}}{x^2-7x+10}$`,"1/48",R`<p>Numerator: $\dfrac{4-(x+2)}{4(x+2)}=\dfrac{2-x}{4(x+2)}=\dfrac{-(x-2)}{4(x+2)}$. Denominator: $(x-2)(x-5)$.</p><p>Sadeleştir: $\dfrac{-1}{4(x+2)(x-5)}\to \dfrac{-1}{4\cdot 4\cdot(-3)}=\dfrac{1}{48}$.</p>`,"Common denominator al; (2-x)/(x-2) = -1.","Zbirka 1.1 #5"),
  q("Z1_6","cebir",R`$\displaystyle\lim_{x\to 4}\frac{\frac{1}{x}-\frac{1}{4}}{x^2-16}$`,"-1/128",R`<p>$\dfrac{4-x}{4x(x-4)(x+4)}=\dfrac{-1}{4x(x+4)}\to \dfrac{-1}{4(4)(8)}=-\dfrac{1}{128}$.</p>`,"1/x - 1/4 = (4-x)/(4x).","Zbirka 1.1 #6"),
- q("Z1_7","cebir",R`$\displaystyle\lim_{x\to 3}\frac{9x-x^3}{x^2-5x+6}$`,"-18",R`<p>Pay: $x(9-x^2)=x(3-x)(3+x)$. Payda: $(x-2)(x-3)$.</p><p>$\dfrac{-x(x+3)}{x-2}\to \dfrac{-3(6)}{3-2}=-18$.</p>`,"9x - x³ = x(3-x)(3+x).","Zbirka 1.1 #7"),
- q("Z1_8","cebir",R`$\displaystyle\lim_{x\to 1}\frac{1-x^2}{\frac{1}{x+1}-\frac{1}{2}}$`,"8",R`<p>Payda: $\dfrac{2-(x+1)}{2(x+1)}=\dfrac{1-x}{2(x+1)}$. Pay: $(1-x)(1+x)$.</p><p>Ters çevirip çarp: $2(1+x)^2 \to 2(2)^2 = 8$.</p>`,"Alt kesri tek paydada toplayıp ters çevir.","Zbirka 1.1 #8"),
- q("Z1_9","cebir",R`$\displaystyle\lim_{x\to 1}\frac{\sqrt{x+3}-2}{1-x}$`,"-1/4",R`<p>Eşlenik $(\sqrt{x+3}+2)$ ile çarp: $\dfrac{(x+3)-4}{(1-x)(\sqrt{x+3}+2)}=\dfrac{x-1}{(1-x)(\sqrt{x+3}+2)}=\dfrac{-1}{\sqrt{x+3}+2}\to -\dfrac14$.</p>`,"(x-1)/(1-x) = -1 işaretine dikkat!","Zbirka 1.1 #9"),
- q("Z1_10","cebir",R`$\displaystyle\lim_{x\to 0}\frac{\sqrt{4+x}-\sqrt{4-x}}{3x}$`,"1/6",R`<p>Eşlenikle çarp: $\dfrac{(4+x)-(4-x)}{3x(\sqrt{4+x}+\sqrt{4-x})}=\dfrac{2x}{3x(\sqrt{4+x}+\sqrt{4-x})}\to \dfrac{2}{3(2+2)}=\dfrac16$.</p>`,"Pay eşleniği: √(4+x) + √(4-x).","Zbirka 1.1 #10"),
+ q("Z1_7","cebir",R`$\displaystyle\lim_{x\to 3}\frac{9x-x^3}{x^2-5x+6}$`,"-18",R`<p>Numerator: $x(9-x^2)=x(3-x)(3+x)$. Denominator: $(x-2)(x-3)$.</p><p>$\dfrac{-x(x+3)}{x-2}\to \dfrac{-3(6)}{3-2}=-18$.</p>`,"9x - x³ = x(3-x)(3+x).","Zbirka 1.1 #7"),
+ q("Z1_8","cebir",R`$\displaystyle\lim_{x\to 1}\frac{1-x^2}{\frac{1}{x+1}-\frac{1}{2}}$`,"8",R`<p>Denominator: $\dfrac{2-(x+1)}{2(x+1)}=\dfrac{1-x}{2(x+1)}$. Numerator: $(1-x)(1+x)$.</p><p>Ters çevirip çarp: $2(1+x)^2 \to 2(2)^2 = 8$.</p>`,"Alt kesri tek denominator'da toplayıp ters çevir.","Zbirka 1.1 #8"),
+ q("Z1_9","cebir",R`$\displaystyle\lim_{x\to 1}\frac{\sqrt{x+3}-2}{1-x}$`,"-1/4",R`<p>Conjugate $(\sqrt{x+3}+2)$ ile çarp: $\dfrac{(x+3)-4}{(1-x)(\sqrt{x+3}+2)}=\dfrac{x-1}{(1-x)(\sqrt{x+3}+2)}=\dfrac{-1}{\sqrt{x+3}+2}\to -\dfrac14$.</p>`,"(x-1)/(1-x) = -1 işaretine dikkat!","Zbirka 1.1 #9"),
+ q("Z1_10","cebir",R`$\displaystyle\lim_{x\to 0}\frac{\sqrt{4+x}-\sqrt{4-x}}{3x}$`,"1/6",R`<p>Conjugate ile çarp: $\dfrac{(4+x)-(4-x)}{3x(\sqrt{4+x}+\sqrt{4-x})}=\dfrac{2x}{3x(\sqrt{4+x}+\sqrt{4-x})}\to \dfrac{2}{3(2+2)}=\dfrac16$.</p>`,"Numerator'ın conjugate'i: √(4+x) + √(4-x).","Zbirka 1.1 #10"),
  q("Z1_12","cebir",R`$\displaystyle\lim_{x\to 1}\frac{1-\sqrt{x}}{2x^2-2}$`,"-1/8",R`<p>$2x^2-2=2(x-1)(x+1)=-2(1-\sqrt{x})(1+\sqrt{x})(x+1)$.</p><p>Sadeleştir: $\dfrac{-1}{2(1+\sqrt{x})(x+1)}\to \dfrac{-1}{2(2)(2)}=-\dfrac18$.</p>`,"x - 1 = (√x - 1)(√x + 1).","Zbirka 1.1 #12"),
- q("Z1_15","cebir",R`$\displaystyle\lim_{x\to 2}\frac{\sqrt{x-1}-1}{\sqrt{x+2}-2}$`,"2",R`<p>Hem payın hem paydanın eşleniğiyle çarp:</p><p>$\dfrac{(x-2)(\sqrt{x+2}+2)}{(x-2)(\sqrt{x-1}+1)}=\dfrac{\sqrt{x+2}+2}{\sqrt{x-1}+1}\to \dfrac{2+2}{1+1}=2$.</p>`,"İki kökü de kendi eşleniğiyle çarp.","Zbirka 1.1 #15"),
- q("Z1_17","cebir",R`$\displaystyle\lim_{x\to 0}x^2\sin\Big(\frac{1}{x}\Big)$`,"0",R`<p>$-1\le\sin(1/x)\le 1 \implies -x^2\le x^2\sin(1/x)\le x^2$. $\lim_{x\to 0}(\pm x^2)=0$ olduğundan <b>Sandwich (Squeeze) Teoremi</b> ile limit $0$'dır.</p>`,"sin(1/x) her zaman -1 ile 1 arasındadır.","Zbirka 1.1 #17","squeeze"),
+ q("Z1_15","cebir",R`$\displaystyle\lim_{x\to 2}\frac{\sqrt{x-1}-1}{\sqrt{x+2}-2}$`,"2",R`<p>Hem numerator'ın hem denominator'ın conjugate'iyle çarp:</p><p>$\dfrac{(x-2)(\sqrt{x+2}+2)}{(x-2)(\sqrt{x-1}+1)}=\dfrac{\sqrt{x+2}+2}{\sqrt{x-1}+1}\to \dfrac{2+2}{1+1}=2$.</p>`,"İki square root'u da kendi conjugate'iyle çarp.","Zbirka 1.1 #15"),
+ q("Z1_17","cebir",R`$\displaystyle\lim_{x\to 0}x^2\sin\Big(\frac{1}{x}\Big)$`,"0",R`<p>$-1\le\sin(1/x)\le 1 \implies -x^2\le x^2\sin(1/x)\le x^2$. $\lim_{x\to 0}(\pm x^2)=0$ olduğundan <b>Sandwich (Squeeze) Theorem</b> ile limit $0$'dır.</p><p class="small"><b>Exam sentence:</b> <i>Since $-x^2\le x^2\sin(1/x)\le x^2$ and $\lim_{x\to 0}(\pm x^2)=0$, the limit is $0$ by the Sandwich Theorem.</i></p>`,"sin(1/x) her zaman -1 ile 1 arasındadır.","Zbirka 1.1 #17","squeeze"),
 
  // BLOK 2: 1.3 One-Sided Limits & 1.4 Trig Limits (15 questions)
- q("Z3_1","tek",R`$f(x)=\begin{cases}2-x & x\le 1\\ x^2-3 & x>1\end{cases}$ için $\lim_{x\to 1^+}f(x),\ \lim_{x\to 1^-}f(x),\ \lim_{x\to 1}f(x)$`,null,R`<p>Sağdan ($x>1$): $1^2-3=-2$. Soldan ($x\le 1$): $2-1=1$. Sol $\ne$ sağ olduğu için iki taraflı limit <b>DNE</b>.</p>`,"x>1 için alt satırı, x<1 için üst satırı kullan.","Zbirka 1.3 #1"),
- q("Z3_2","tek",R`$f(x)=\begin{cases}2 & x\le 0\\ x^2+1 & 0\lt x\lt 1\\ 3 & x=1\\ 5-x & x>1\end{cases}$ için $\lim_{x\to 0^+}f(x)$ ve $\lim_{x\to 1^+}f(x)$`,null,R`<p>$x\to 0^+$ için $0^2+1=1$ (soldan $2$, limit DNE). $x\to 1^+$ için $5-1=4$ (soldan $1^2+1=2$, limit DNE).</p>`,"0⁺ için ortadaki, 1⁺ için en alttaki parçayı kullan.","Zbirka 1.3 #2"),
- q("Z3_5","tek",R`$f(x)=\begin{cases}ax+b & x<0\\ 2-x & 0\le x\le 1\\ ax^2-3 & x>1\end{cases}$ fonksiyonunun $x=0$ ve $x=1$'de limiti var olsun. $a,b=?$`,null,R`<p>$x=0$'da sol $=b$, sağ $=2 \implies b=2$.</p><p>$x=1$'de sol $=2-1=1$, sağ $=a(1)^2-3=a-3 \implies a=4$.</p>`,"Her iki kırılma noktasında sol limit = sağ limit.","Zbirka 1.3 #5"),
+ q("Z3_1","tek",R`$f(x)=\begin{cases}2-x & x\le 1\\ x^2-3 & x>1\end{cases}$ için $\lim_{x\to 1^+}f(x),\ \lim_{x\to 1^-}f(x),\ \lim_{x\to 1}f(x)$`,null,R`<p>Right-hand limit ($x>1$): $1^2-3=-2$. Left-hand limit ($x\le 1$): $2-1=1$. Left-hand $\ne$ right-hand olduğu için two-sided limit <b>DNE</b>.</p>`,"x>1 için alt satırı, x<1 için üst satırı kullan.","Zbirka 1.3 #1"),
+ q("Z3_2","tek",R`$f(x)=\begin{cases}2 & x\le 0\\ x^2+1 & 0\lt x\lt 1\\ 3 & x=1\\ 5-x & x>1\end{cases}$ için $\lim_{x\to 0^+}f(x)$ ve $\lim_{x\to 1^+}f(x)$`,null,R`<p>$x\to 0^+$ için $0^2+1=1$ (left-hand limit $2$, limit DNE). $x\to 1^+$ için $5-1=4$ (left-hand limit $1^2+1=2$, limit DNE).</p>`,"0⁺ için ortadaki, 1⁺ için en alttaki parçayı kullan.","Zbirka 1.3 #2"),
+ q("Z3_5","tek",R`$f(x)=\begin{cases}ax+b & x<0\\ 2-x & 0\le x\le 1\\ ax^2-3 & x>1\end{cases}$ fonksiyonunun $x=0$ ve $x=1$'de limiti var olsun. $a,b=?$`,null,R`<p>$x=0$'da left-hand limit $=b$, right-hand limit $=2 \implies b=2$.</p><p>$x=1$'de left-hand limit $=2-1=1$, right-hand limit $=a(1)^2-3=a-3 \implies a=4$.</p>`,"Her iki kırılma noktasında left-hand limit = right-hand limit.","Zbirka 1.3 #5"),
  q("Z3_6","tek",R`$\displaystyle\lim_{x\to 2^+}\frac{|x-2|}{x-2}$`,"1",R`<p>$x>2 \implies |x-2|=x-2 \implies \dfrac{x-2}{x-2}=1$.</p>`,"x > 2 iken |x-2| pozitif çıkar.","Zbirka 1.3 #6"),
  q("Z3_10","tek",R`$\displaystyle\lim_{x\to 4^+}\frac{|x-4|}{4-x}$`,"-1",R`<p>$x>4 \implies |x-4|=x-4$. Oran: $\dfrac{x-4}{4-x}=-1$.</p>`,"(x-4)/(4-x) = -1.","Zbirka 1.3 #10"),
- q("Z3_12","tek",R`$\displaystyle\lim_{x\to (1/2)^+}\frac{|2x-1|}{1-2x}$`,"-1",R`<p>$x>1/2 \implies 2x-1>0 \implies |2x-1|=2x-1$. Oran: $\dfrac{2x-1}{1-2x}=-1$.</p>`,"2x - 1 > 0 olduğundan mutlak değer aynen çıkar.","Zbirka 1.3 #12"),
+ q("Z3_12","tek",R`$\displaystyle\lim_{x\to (1/2)^+}\frac{|2x-1|}{1-2x}$`,"-1",R`<p>$x>1/2 \implies 2x-1>0 \implies |2x-1|=2x-1$. Oran: $\dfrac{2x-1}{1-2x}=-1$.</p>`,"2x - 1 > 0 olduğundan absolute value aynen çıkar.","Zbirka 1.3 #12"),
  q("Z3_14","tek",R`$\displaystyle\lim_{x\to 2^-}\frac{|x-2|}{x^2-4}$`,"-1/4",R`<p>$x<2 \implies |x-2|=-(x-2)$. $\dfrac{-(x-2)}{(x-2)(x+2)}=\dfrac{-1}{x+2}\to -\dfrac14$.</p>`,"x < 2 için |x-2| = -(x-2).","Zbirka 1.3 #14","r4"),
- q("Z3_16","tek",R`$\displaystyle\lim_{x\to -2}\frac{|x^2-4|}{3x+6}$ &nbsp;<span class="muted small">(yoksa <code>dne</code> yaz)</span>`,"dne",R`<p>Soldan ($x<-2$, ör. $x=-2.1$): $x^2-4>0 \implies |x^2-4|=(x-2)(x+2)$. $\dfrac{(x-2)(x+2)}{3(x+2)}=\dfrac{x-2}{3}\to -\dfrac43$.</p><p>Sağdan ($-2\lt x\lt 2$): $x^2-4<0 \implies |x^2-4|=-(x-2)(x+2)$. $-\dfrac{x-2}{3}\to +\dfrac43$.</p><p>Sol $\ne$ sağ olduğu için iki taraflı limit <b>DNE</b>.</p>`,"İki tarafı ayrı hesapla: x < -2 iken x² - 4 > 0, -2 < x < 2 iken x² - 4 < 0.","Zbirka 1.3 #16"),
- q("Z4_5","trig",R`$\displaystyle\lim_{x\to 0}\frac{\sin 4x}{x}$`,"4",R`<p>$4\cdot\dfrac{\sin 4x}{4x}\to 4\cdot 1 = 4$.</p>`,"Pay ve paydayı 4 ile çarp.","Zbirka 1.4 #5"),
+ q("Z3_16","tek",R`$\displaystyle\lim_{x\to -2}\frac{|x^2-4|}{3x+6}$ &nbsp;<span class="muted small">(yoksa <code>dne</code> yaz)</span>`,"dne",R`<p>Left-hand ($x<-2$, ör. $x=-2.1$): $x^2-4>0 \implies |x^2-4|=(x-2)(x+2)$. $\dfrac{(x-2)(x+2)}{3(x+2)}=\dfrac{x-2}{3}\to -\dfrac43$.</p><p>Right-hand ($-2\lt x\lt 2$): $x^2-4<0 \implies |x^2-4|=-(x-2)(x+2)$. $-\dfrac{x-2}{3}\to +\dfrac43$.</p><p>Left-hand $\ne$ right-hand olduğu için two-sided limit <b>DNE</b>.</p>`,"One-sided limit'leri ayrı hesapla: x < -2 iken x² - 4 > 0, -2 < x < 2 iken x² - 4 < 0.","Zbirka 1.3 #16"),
+ q("Z4_5","trig",R`$\displaystyle\lim_{x\to 0}\frac{\sin 4x}{x}$`,"4",R`<p>$4\cdot\dfrac{\sin 4x}{4x}\to 4\cdot 1 = 4$.</p>`,"Numerator ve denominator'ı 4 ile çarp.","Zbirka 1.4 #5"),
  q("Z4_7","trig",R`$\displaystyle\lim_{x\to 0}\frac{\tan 4x}{2x}$`,"2",R`<p>$\dfrac{\tan 4x}{4x}\cdot\dfrac{4x}{2x}\to 1\cdot 2 = 2$.</p>`,"tan(ax)/(bx) → a/b.","Zbirka 1.4 #7"),
- q("Z4_8","trig",R`$\displaystyle\lim_{x\to \pi}\frac{\sin 2x}{x}$`,"0",R`<p>Tuzak! $x\to \pi$ iken pay $\sin(2\pi)=0$, payda $\pi\ne 0$. $0/0$ değil! Cevap $\dfrac{0}{\pi}=0$.</p>`,"x → 0 değil, x → π! Önce yerine koy.","Zbirka 1.4 #8"),
+ q("Z4_8","trig",R`$\displaystyle\lim_{x\to \pi}\frac{\sin 2x}{x}$`,"0",R`<p>Tuzak! $x\to \pi$ iken numerator $\sin(2\pi)=0$, denominator $\pi\ne 0$. $0/0$ değil! Cevap $\dfrac{0}{\pi}=0$.</p>`,"x → 0 değil, x → π! Önce yerine koy.","Zbirka 1.4 #8"),
  q("Z4_9","trig",R`$\displaystyle\lim_{x\to 0}\frac{\sin^2 3x}{3x^2}$`,"3",R`<p>$\Big(\dfrac{\sin 3x}{3x}\Big)^2\cdot\dfrac{9x^2}{3x^2}\to 1^2\cdot 3 = 3$.</p>`,"sin²(3x) = (sin 3x)²; altına (3x)² = 9x² lazım.","Zbirka 1.4 #9"),
  q("Z4_10","trig",R`$\displaystyle\lim_{x\to 0}x^2\cot^2 3x$`,"1/9",R`<p>$x^2\dfrac{\cos^2 3x}{\sin^2 3x}=\cos^2 3x\cdot\Big(\dfrac{3x}{\sin 3x}\Big)^2\cdot\dfrac{1}{9}\to 1\cdot 1^2\cdot\dfrac19=\dfrac19$.</p>`,"cot(3x) = cos(3x)/sin(3x) olarak yaz.","Zbirka 1.4 #10"),
  q("Z4_13","trig",R`$\displaystyle\lim_{x\to 0}\frac{\sin 4x}{\sin 16x}$`,"1/4",R`<p>$\dfrac{\sin 4x}{4x}\cdot\dfrac{16x}{\sin 16x}\cdot\dfrac{4x}{16x}\to \dfrac14$.</p>`,"sin(ax)/sin(bx) → a/b.","Zbirka 1.4 #13"),
- q("Z4_16","trig",R`$\displaystyle\lim_{x\to 0}\frac{1-\cos 2x}{x^2}$`,"2",R`<p>$(1+\cos 2x)$ ile çarp: $\dfrac{\sin^2 2x}{x^2(1+\cos 2x)}=\Big(\dfrac{\sin 2x}{2x}\Big)^2\cdot\dfrac{4}{1+\cos 2x}\to 1\cdot\dfrac{4}{2}=2$.</p>`,"1 - cos(2x) = 2sin²(x) veya (1+cos 2x) eşleniği.","Zbirka 1.4 #16"),
+ q("Z4_16","trig",R`$\displaystyle\lim_{x\to 0}\frac{1-\cos 2x}{x^2}$`,"2",R`<p>$(1+\cos 2x)$ ile çarp: $\dfrac{\sin^2 2x}{x^2(1+\cos 2x)}=\Big(\dfrac{\sin 2x}{2x}\Big)^2\cdot\dfrac{4}{1+\cos 2x}\to 1\cdot\dfrac{4}{2}=2$.</p>`,"1 - cos(2x) = 2sin²(x) veya (1+cos 2x) conjugate'i.","Zbirka 1.4 #16"),
 
  // BLOK 3: 1.5 Limits Involving Infinity & Asymptotes (15 questions)
- q("Z5_2","sonsuz",R`$\displaystyle\lim_{x\to -2^+}\frac{x-1}{x+2}$`,"-inf",R`<p>Pay $\to -3$ (negatif), payda $\to 0^+$ (pozitif). $\dfrac{-3}{0^+}=-\infty$.</p>`,"x > -2 iken x+2 > 0 (0⁺).","Zbirka 1.5 #2"),
- q("Z5_5","sonsuz",R`$\displaystyle\lim_{x\to 3^+}\frac{2x}{x-3}$`,"inf",R`<p>Pay $\to 6>0$, payda $\to 0^+$. Sonuç $+\infty$.</p>`,"Sayı / 0⁺ = +∞.","Zbirka 1.5 #5"),
- q("Z5_8","sonsuz",R`$\displaystyle\lim_{x\to 1^+}\frac{1-2x}{x^2-1}$`,"-inf",R`<p>Pay $\to 1-2=-1<0$. $x>1$ iken $x^2-1\to 0^+$. Sonuç $-\infty$.</p>`,"Pay negatif (-1), payda 0⁺.","Zbirka 1.5 #8"),
+ q("Z5_2","sonsuz",R`$\displaystyle\lim_{x\to -2^+}\frac{x-1}{x+2}$`,"-inf",R`<p>Numerator $\to -3$ (negatif), denominator $\to 0^+$ (pozitif). $\dfrac{-3}{0^+}=-\infty$.</p>`,"x > -2 iken x+2 > 0 (0⁺).","Zbirka 1.5 #2"),
+ q("Z5_5","sonsuz",R`$\displaystyle\lim_{x\to 3^+}\frac{2x}{x-3}$`,"inf",R`<p>Numerator $\to 6>0$, denominator $\to 0^+$. Sonuç $+\infty$.</p>`,"Sayı / 0⁺ = +∞.","Zbirka 1.5 #5"),
+ q("Z5_8","sonsuz",R`$\displaystyle\lim_{x\to 1^+}\frac{1-2x}{x^2-1}$`,"-inf",R`<p>Numerator $\to 1-2=-1<0$. $x>1$ iken $x^2-1\to 0^+$. Sonuç $-\infty$.</p>`,"Numerator negatif (-1), denominator 0⁺.","Zbirka 1.5 #8"),
  q("Z5_11","sonsuz",R`$\displaystyle\lim_{x\to 1^+}\frac{1-x}{x^2-1}$`,"-1/2",R`<p>Tuzak! $0/0$ çıkıyor, önce sadeleştir: $\dfrac{-(x-1)}{(x-1)(x+1)}=\dfrac{-1}{x+1}\to -\dfrac12$.</p>`,"Ezbere ±∞ yazma; önce 0/0 mı diye kontrol et!","Zbirka 1.5 #11"),
- q("Z5_18","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{x+1}{2x-1}$`,"1/2",R`<p>$x$'e böl: $\dfrac{1+1/x}{2-1/x}\to \dfrac12$.</p>`,"Pay ve paydanın derecesi eşit (1).","Zbirka 1.5 #18"),
- q("Z5_20","sonsuz",R`$\displaystyle\lim_{x\to \infty}\frac{x^2-2}{x^2+1}$`,"1",R`<p>$x^2$'ye böl: $\dfrac{1-2/x^2}{1+1/x^2}\to 1$.</p>`,"Baş katsayılar oranı 1/1.","Zbirka 1.5 #20"),
- q("Z5_22","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{x^3-2}{x^2+1}$`,"-inf",R`<p>$x^2$'ye böl: $\dfrac{x-2/x^2}{1+1/x^2}\to \dfrac{-\infty}{1}=-\infty$.</p>`,"Payın derecesi (3) > paydanın derecesi (2).","Zbirka 1.5 #22"),
- q("Z5_24","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{2x^4+3}{1-x^4}$`,"-2",R`<p>$x^4$'e böl: $\dfrac{2+3/x^4}{1/x^4-1}\to \dfrac{2}{-1}=-2$.</p>`,"Paydada -x⁴ teriminin katsayısı -1'dir.","Zbirka 1.5 #24"),
+ q("Z5_18","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{x+1}{2x-1}$`,"1/2",R`<p>$x$'e böl: $\dfrac{1+1/x}{2-1/x}\to \dfrac12$.</p>`,"Numerator ve denominator'ın degree'si eşit (1).","Zbirka 1.5 #18"),
+ q("Z5_20","sonsuz",R`$\displaystyle\lim_{x\to \infty}\frac{x^2-2}{x^2+1}$`,"1",R`<p>$x^2$'ye böl: $\dfrac{1-2/x^2}{1+1/x^2}\to 1$.</p>`,"Leading coefficient'ların oranı 1/1.","Zbirka 1.5 #20"),
+ q("Z5_22","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{x^3-2}{x^2+1}$`,"-inf",R`<p>$x^2$'ye böl: $\dfrac{x-2/x^2}{1+1/x^2}\to \dfrac{-\infty}{1}=-\infty$.</p>`,"Numerator'ın degree'si (3) > denominator'ın degree'si (2).","Zbirka 1.5 #22"),
+ q("Z5_24","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{2x^4+3}{1-x^4}$`,"-2",R`<p>$x^4$'e böl: $\dfrac{2+3/x^4}{1/x^4-1}\to \dfrac{2}{-1}=-2$.</p>`,"Denominator'da -x⁴ teriminin coefficient'ı -1'dir.","Zbirka 1.5 #24"),
  q("Z5_25","sonsuz",R`$\displaystyle\lim_{x\to \infty}\frac{\sqrt{x^2+1}}{2x}$`,"1/2",R`<p>$x>0$ iken $\sqrt{x^2}=x$. $\dfrac{x\sqrt{1+1/x^2}}{2x}\to \dfrac12$.</p>`,"x → +∞ için √(x²) = +x.","Zbirka 1.5 #25"),
  q("Z5_26","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\frac{\sqrt{x^2+1}}{2x}$`,"-1/2",R`<p>$x<0$ iken $\sqrt{x^2}=|x|=-x$. $\dfrac{-x\sqrt{1+1/x^2}}{2x}\to -\dfrac12$.</p>`,"x → -∞ için √(x²) = |x| = -x!","Zbirka 1.5 #26","asym"),
- q("Z5_28","sonsuz",R`$\displaystyle\lim_{x\to \infty}\big(\sqrt{x+3}-\sqrt{x-3}\big)$`,"0",R`<p>Eşlenikle çarp: $\dfrac{(x+3)-(x-3)}{\sqrt{x+3}+\sqrt{x-3}}=\dfrac{6}{\sqrt{x+3}+\sqrt{x-3}}\to \dfrac{6}{\infty}=0$.</p>`,"Eşlenikle çarpınca pay 6 (sabit), payda → ∞ olur.","Zbirka 1.5 #28"),
- q("Z5_31","sonsuz",R`$\displaystyle\lim_{x\to \infty}\big(\sqrt{x^2+x+1}-x\big)$`,"1/2",R`<p>Eşlenik: $\dfrac{x+1}{\sqrt{x^2+x+1}+x}=\dfrac{1+1/x}{\sqrt{1+1/x+1/x^2}+1}\to \dfrac{1}{1+1}=\dfrac12$.</p>`,"√(x²+x+1) + x ile çarpıp böl.","Zbirka 1.5 #31"),
- q("Z5_32","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\big(\sqrt{x^2+1}-x\big)$`,"inf",R`<p>Tuzak! $x\to -\infty$ iken $-x\to +\infty$ ve $\sqrt{x^2+1}\to +\infty$. Yani $\infty+\infty=+\infty$ (belirsizlik yok!).</p>`,"x negatifken -x pozitiftir; ∞ - ∞ değil, ∞ + ∞!","Zbirka 1.5 #32"),
- q("Z5_34","sonsuz",R`$y=\dfrac{x+1}{2x-1}$ düşey ve yatay asimptotları`,null,R`<p>Payda $2x-1=0 \implies$ Düşey asimptot: $x=\dfrac12$. $\lim_{x\to\pm\infty}y=\dfrac12 \implies$ Yatay asimptot: $y=\dfrac12$.</p>`,"Paydayı sıfır yapan x düşey, sonsuzdaki limit yatay.","Zbirka 1.5 #34"),
- q("Z5_36","sonsuz",R`$y=\dfrac{2x^2}{x^2-1}$ düşey ve yatay asimptotları`,null,R`<p>Düşey: $x^2-1=0 \implies x=-1,\ x=1$. Yatay: $\lim_{x\to\pm\infty}y=2 \implies y=2$.</p>`,"x² - 1 = (x-1)(x+1) = 0.","Zbirka 1.5 #36"),
+ q("Z5_28","sonsuz",R`$\displaystyle\lim_{x\to \infty}\big(\sqrt{x+3}-\sqrt{x-3}\big)$`,"0",R`<p>Conjugate ile çarp: $\dfrac{(x+3)-(x-3)}{\sqrt{x+3}+\sqrt{x-3}}=\dfrac{6}{\sqrt{x+3}+\sqrt{x-3}}\to \dfrac{6}{\infty}=0$.</p>`,"Conjugate ile çarpınca numerator 6 (sabit), denominator → ∞ olur.","Zbirka 1.5 #28"),
+ q("Z5_31","sonsuz",R`$\displaystyle\lim_{x\to \infty}\big(\sqrt{x^2+x+1}-x\big)$`,"1/2",R`<p>Conjugate: $\dfrac{x+1}{\sqrt{x^2+x+1}+x}=\dfrac{1+1/x}{\sqrt{1+1/x+1/x^2}+1}\to \dfrac{1}{1+1}=\dfrac12$.</p>`,"√(x²+x+1) + x ile çarpıp böl.","Zbirka 1.5 #31"),
+ q("Z5_32","sonsuz",R`$\displaystyle\lim_{x\to -\infty}\big(\sqrt{x^2+1}-x\big)$`,"inf",R`<p>Tuzak! $x\to -\infty$ iken $-x\to +\infty$ ve $\sqrt{x^2+1}\to +\infty$. Yani $\infty+\infty=+\infty$ (indeterminate form yok!).</p>`,"x negatifken -x pozitiftir; ∞ - ∞ değil, ∞ + ∞!","Zbirka 1.5 #32"),
+ q("Z5_34","sonsuz",R`$y=\dfrac{x+1}{2x-1}$ vertical ve horizontal asymptote'ları`,null,R`<p>Denominator $2x-1=0 \implies$ Vertical asymptote: $x=\dfrac12$. $\lim_{x\to\pm\infty}y=\dfrac12 \implies$ Horizontal asymptote: $y=\dfrac12$.</p>`,"Denominator'ı sıfır yapan x vertical; limit at infinity horizontal asymptote'u verir.","Zbirka 1.5 #34"),
+ q("Z5_36","sonsuz",R`$y=\dfrac{2x^2}{x^2-1}$ vertical ve horizontal asymptote'ları`,null,R`<p>Vertical: $x^2-1=0 \implies x=-1,\ x=1$. Horizontal: $\lim_{x\to\pm\infty}y=2 \implies y=2$.</p>`,"x² - 1 = (x-1)(x+1) = 0.","Zbirka 1.5 #36"),
 
  // BLOK 4: 1.6 Continuity (9 questions)
- q("Z6_2","surek",R`$f(x)=\dfrac{x-1}{x+2}$ hangi $x$ değerinde süreksizdir?`,"-2",R`<p>Rasyonel fonksiyon yalnızca paydayı sıfır yapan $x=-2$ noktasında tanımsız ve süreksizdir (infinite discontinuity).</p>`,"Paydayı sıfır yapan x değeri.","Zbirka 1.6 #2"),
- q("Z6_3","surek",R`$f(x)=\dfrac{x}{x^2-1}$ süreksiz olduğu $x$ değerleri`,null,R`<p>$x^2-1=0 \implies x=-1$ ve $x=1$.</p>`,"x² - 1 = 0 kökleri.","Zbirka 1.6 #3"),
- q("Z6_4","surek",R`$f(x)=\dfrac{x-1}{x^2-1}$ süreksiz olduğu $x$'ler ve removable olan`,null,R`<p>$x=-1$ ve $x=1$'de tanımsız (süreksiz). $\dfrac{x-1}{(x-1)(x+1)}=\dfrac{1}{x+1}$ olduğundan $x=1$'de limit $\tfrac12$ vardır (<b>removable</b>), $x=-1$'de limit $\pm\infty$ (<b>infinite</b>).</p>`,"Sadeleşen çarpan (x=1) removable süreksizliktir.","Zbirka 1.6 #4"),
- q("Z6_7","surek",R`$f(x)=\begin{cases}2-x & x\le 1\\ x^2-3 & x>1\end{cases}$ süreksiz olduğu $x$ noktası`,"1",R`<p>$x=1$'de sol limit $=1$, sağ limit $=-2$. Sol $\ne$ sağ olduğu için $x=1$'de <b>jump discontinuity</b> vardır.</p>`,"Geçiş noktası x = 1.","Zbirka 1.6 #7"),
- q("Z6_8","surek",R`$f(x)=\begin{cases}2 & x\le 0\\ x^2+1 & 0\lt x\lt 1\\ 3 & x=1\\ 5-x & x>1\end{cases}$ süreksiz olduğu $x$ noktaları`,null,R`<p>$x=0$: sol $2 \ne$ sağ $1$ (jump). $x=1$: sol $2 \ne$ sağ $4$ (jump). İki noktada da süreksiz: $0, 1$.</p>`,"x = 0 ve x = 1 geçiş noktalarını kontrol et.","Zbirka 1.6 #8"),
- q("Z6_9","surek",R`$f(x)=\begin{cases}2 & x\le -2\\ x^2-3 & -2\lt x\lt 2\\ 7 & x=2\\ 3-x & x>2\end{cases}$ süreksiz olduğu $x$'ler ve removable olan`,null,R`<p>$x=-2$: sol $2$, sağ $(-2)^2-3=1$ (jump).</p><p>$x=2$: sol $2^2-3=1$, sağ $3-2=1$ (limit $1$), fakat $f(2)=7\ne 1$ olduğu için $x=2$ <b>removable discontinuity</b>'dir!</p>`,"Limit var ama f(a)'ya eşit değilse removable olur.","Zbirka 1.6 #9"),
- q("Z6_10","surek",R`$f(x)=\begin{cases}-x & x\le -1\\ x^2 & -1\lt x\lt 1\\ 0 & x=1\\ 2x+3 & x>1\end{cases}$ süreksiz olduğu $x$ noktası`,"1",R`<p>$x=-1$'de sol $=1$, sağ $=(-1)^2=1$, $f(-1)=1$ (<b>sürekli!</b>). Sadece $x=1$'de sol $=1$, sağ $=5$ olduğundan süreksizdir.</p>`,"x = -1'de sürekli olduğuna dikkat et!","Zbirka 1.6 #10"),
- q("Z6_12","surek",R`$f(x)=\begin{cases}ax+b & x<0\\ 2-x & 0\le x\le 1\\ ax^2-3 & x>1\end{cases}$ her yerde sürekli olsun. $a,b=?$`,null,R`<p>$x=0 \implies b=2$. $x=1 \implies 2-1=a-3 \implies a=4$.</p>`,"Önce x=0'dan b'yi, sonra x=1'den a'yı bul.","Zbirka 1.6 #12"),
- q("Z6_13","surek",R`$f(x)=\begin{cases}ax+b & x<-1\\ x+2 & -1\le x\le 1\\ ax^2+b & x>1\end{cases}$ her yerde sürekli olsun. $a,b=?$`,null,R`<p>$x=-1$: $-a+b=-1+2=1$.</p><p>$x=1$: $1+2=a+b \implies a+b=3$.</p><p>Taraf tarafa topla: $2b=4 \implies b=2,\ a=1$.</p>`,"İki denklem: -a + b = 1 ve a + b = 3.","Zbirka 1.6 #13"),
+ q("Z6_2","surek",R`$f(x)=\dfrac{x-1}{x+2}$ hangi $x$ değerinde discontinuous?`,"-2",R`<p>Rational function yalnızca denominator'ı sıfır yapan $x=-2$ noktasında undefined ve discontinuous (infinite discontinuity).</p>`,"Denominator'ı sıfır yapan x değeri.","Zbirka 1.6 #2"),
+ q("Z6_3","surek",R`$f(x)=\dfrac{x}{x^2-1}$ discontinuous olduğu $x$ değerleri`,null,R`<p>$x^2-1=0 \implies x=-1$ ve $x=1$.</p>`,"x² - 1 = 0 denkleminin root'ları.","Zbirka 1.6 #3"),
+ q("Z6_4","surek",R`$f(x)=\dfrac{x-1}{x^2-1}$ discontinuous olduğu $x$'ler ve removable olan`,null,R`<p>$x=-1$ ve $x=1$'de undefined (discontinuous). $\dfrac{x-1}{(x-1)(x+1)}=\dfrac{1}{x+1}$ olduğundan $x=1$'de limit $\tfrac12$ vardır (<b>removable</b>), $x=-1$'de limit $\pm\infty$ (<b>infinite</b>).</p>`,"Sadeleşen çarpan (x=1) removable discontinuity verir.","Zbirka 1.6 #4"),
+ q("Z6_7","surek",R`$f(x)=\begin{cases}2-x & x\le 1\\ x^2-3 & x>1\end{cases}$ discontinuous olduğu $x$ noktası`,"1",R`<p>$x=1$'de left-hand limit $=1$, right-hand limit $=-2$. Left-hand $\ne$ right-hand olduğu için $x=1$'de <b>jump discontinuity</b> vardır.</p>`,"Geçiş noktası x = 1.","Zbirka 1.6 #7"),
+ q("Z6_8","surek",R`$f(x)=\begin{cases}2 & x\le 0\\ x^2+1 & 0\lt x\lt 1\\ 3 & x=1\\ 5-x & x>1\end{cases}$ discontinuous olduğu $x$ noktaları`,null,R`<p>$x=0$: left-hand $2 \ne$ right-hand $1$ (jump). $x=1$: left-hand $2 \ne$ right-hand $4$ (jump). İki noktada da discontinuous: $0, 1$.</p>`,"x = 0 ve x = 1 geçiş noktalarını kontrol et.","Zbirka 1.6 #8"),
+ q("Z6_9","surek",R`$f(x)=\begin{cases}2 & x\le -2\\ x^2-3 & -2\lt x\lt 2\\ 7 & x=2\\ 3-x & x>2\end{cases}$ discontinuous olduğu $x$'ler ve removable olan`,null,R`<p>$x=-2$: left-hand limit $2$, right-hand limit $(-2)^2-3=1$ (jump).</p><p>$x=2$: left-hand limit $2^2-3=1$, right-hand limit $3-2=1$ (limit $1$), fakat $f(2)=7\ne 1$ olduğu için $x=2$ <b>removable discontinuity</b>'dir!</p><p class="small"><b>Exam sentence:</b> <i>At $x=2$, $\lim_{x\to2}f(x)=1$, but $f(2)=7\ne 1$. Therefore, $f$ has a removable discontinuity at $x=2$.</i></p>`,"Limit var ama f(a)'ya eşit değilse removable olur.","Zbirka 1.6 #9"),
+ q("Z6_10","surek",R`$f(x)=\begin{cases}-x & x\le -1\\ x^2 & -1\lt x\lt 1\\ 0 & x=1\\ 2x+3 & x>1\end{cases}$ discontinuous olduğu $x$ noktası`,"1",R`<p>$x=-1$'de left-hand limit $=1$, right-hand limit $=(-1)^2=1$, $f(-1)=1$ (<b>continuous!</b>). Sadece $x=1$'de left-hand limit $=1$, right-hand limit $=5$ olduğundan discontinuous.</p>`,"x = -1'de continuous olduğuna dikkat et!","Zbirka 1.6 #10"),
+ q("Z6_12","surek",R`$f(x)=\begin{cases}ax+b & x<0\\ 2-x & 0\le x\le 1\\ ax^2-3 & x>1\end{cases}$ her yerde continuous olsun. $a,b=?$`,null,R`<p>$x=0 \implies b=2$. $x=1 \implies 2-1=a-3 \implies a=4$.</p>`,"Önce x=0'dan b'yi, sonra x=1'den a'yı bul.","Zbirka 1.6 #12"),
+ q("Z6_13","surek",R`$f(x)=\begin{cases}ax+b & x<-1\\ x+2 & -1\le x\le 1\\ ax^2+b & x>1\end{cases}$ her yerde continuous olsun. $a,b=?$`,null,R`<p>$x=-1$: $-a+b=-1+2=1$.</p><p>$x=1$: $1+2=a+b \implies a+b=3$.</p><p>Taraf tarafa topla: $2b=4 \implies b=2,\ a=1$.</p>`,"İki denklem: -a + b = 1 ve a + b = 3.","Zbirka 1.6 #13"),
 
  // BLOK 5: 2.1 Definition of Derivative & Tangent Line (12 questions)
- q("Z21_2","tanim",R`Tanımdan $f'(x)$: $f(x)=x^2-x$`,null,R`<p>$f(x+h)-f(x)=(x+h)^2-(x+h)-(x^2-x)=2xh+h^2-h$.</p><p>$f'(x)=\displaystyle\lim_{h\to 0}(2x+h-1)=2x-1$.</p>`,"[f(x+h) - f(x)] / h","Zbirka 2.1 #2"),
- q("Z21_3","tanim",R`Tanımdan $f'(x)$: $f(x)=2x^2+x$`,null,R`<p>$f(x+h)-f(x)=4xh+2h^2+h \implies f'(x)=\displaystyle\lim_{h\to 0}(4x+2h+1)=4x+1$.</p>`,"2(x+h)² + (x+h) - (2x²+x)","Zbirka 2.1 #3"),
- q("Z21_5","tanim",R`Tanımdan $f'(x)$: $f(x)=x^3+1$`,null,R`<p>$(x+h)^3+1-(x^3+1)=3x^2h+3xh^2+h^3$.</p><p>$f'(x)=\displaystyle\lim_{h\to 0}(3x^2+3xh+h^2)=3x^2$.</p>`,"(x+h)³ = x³ + 3x²h + 3xh² + h³","Zbirka 2.1 #5"),
- q("Z21_7","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac{1}{x}$`,null,R`<p>$\dfrac{1}{x+h}-\dfrac{1}{x}=\dfrac{-h}{x(x+h)} \implies f'(x)=\displaystyle\lim_{h\to 0}\frac{-1}{x(x+h)}=-\frac{1}{x^2}$.</p>`,"Payda eşitle: x - (x+h) = -h.","Zbirka 2.1 #7"),
- q("Z21_9","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac{1}{1-x}$`,null,R`<p>$\dfrac{1}{1-x-h}-\dfrac{1}{1-x}=\dfrac{(1-x)-(1-x-h)}{(1-x-h)(1-x)}=\dfrac{+h}{(1-x-h)(1-x)}$.</p><p>$f'(x)=\dfrac{1}{(1-x)^2}$.</p>`,"İşarete dikkat: (1-x) - (1-x-h) = +h.","Zbirka 2.1 #9"),
- q("Z21_10","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac{1}{2x+1}$`,null,R`<p>$\dfrac{1}{2x+2h+1}-\dfrac{1}{2x+1}=\dfrac{-2h}{(2x+2h+1)(2x+1)} \implies f'(x)=\dfrac{-2}{(2x+1)^2}$.</p>`,"Pay: (2x+1) - (2x+2h+1) = -2h.","Zbirka 2.1 #10"),
- q("Z21_12","tanim",R`Tanımdan $f'(x)$: $f(x)=\sqrt{x+2}$`,null,R`<p>Eşlenik: $\dfrac{(x+h+2)-(x+2)}{h(\sqrt{x+h+2}+\sqrt{x+2})}=\dfrac{1}{\sqrt{x+h+2}+\sqrt{x+2}}\to \dfrac{1}{2\sqrt{x+2}}$.</p>`,"Eşlenik: √(x+h+2) + √(x+2).","Zbirka 2.1 #12"),
- q("Z21_14","tanim",R`Tanımdan $f'(x)$: $f(x)=\dfrac{1}{\sqrt{x+1}}$`,null,R`<p>$\dfrac{\sqrt{x+1}-\sqrt{x+h+1}}{h\sqrt{x+h+1}\sqrt{x+1}}\cdot\dfrac{\sqrt{x+1}+\sqrt{x+h+1}}{\sqrt{x+1}+\sqrt{x+h+1}}=\dfrac{-1}{\sqrt{x+h+1}\sqrt{x+1}(\sqrt{x+1}+\sqrt{x+h+1})}\to \dfrac{-1}{2(x+1)^{3/2}}$.</p>`,"Önce payda eşitle, sonra eşlenikle çarp.","Zbirka 2.1 #14"),
- q("Z21_15","tanim",R`Tanımdan $f'(x)$ ve $x=1$'de teğet: $f(x)=x^2+1$`,null,R`<p>$f'(x)=2x$. $f(1)=2,\ f'(1)=2 \implies y-2=2(x-1) \implies$ <span class="ans">$y=2x$</span>.</p>`,"f(1) = 2, eğim m = f'(1) = 2.","Zbirka 2.1 #15"),
- q("Z21_17","tanim",R`Tanımdan $f'(x)$ ve $x=-1$'de teğet: $f(x)=2x^2+x$`,null,R`<p>$f'(x)=4x+1$. $f(-1)=2-1=1,\ f'(-1)=-3 \implies y-1=-3(x+1) \implies$ <span class="ans">$y=-3x-2$</span>.</p>`,"f(-1) = 1, m = f'(-1) = -3.","Zbirka 2.1 #17"),
- q("Z21_20","tanim",R`Tanımdan $f'(x)$ ve $x=-1$'de teğet: $f(x)=\dfrac{1}{2x+1}$`,null,R`<p>$f'(x)=\dfrac{-2}{(2x+1)^2}$. $f(-1)=-1,\ f'(-1)=-2 \implies y+1=-2(x+1) \implies$ <span class="ans">$y=-2x-3$</span>.</p>`,"f(-1) = -1, m = f'(-1) = -2.","Zbirka 2.1 #20"),
- q("Z21_22","tanim",R`Tanımdan $f'(x)$ ve $x=-1$'de teğet: $f(x)=\sqrt{x+2}$`,null,R`<p>$f'(x)=\dfrac{1}{2\sqrt{x+2}}$. $f(-1)=1,\ f'(-1)=\dfrac12 \implies y-1=\dfrac12(x+1) \implies$ <span class="ans">$y=\dfrac{x}{2}+\dfrac{3}{2}$</span>.</p>`,"f(-1) = 1, m = 1/2.","Zbirka 2.1 #22"),
+ q("Z21_2","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=x^2-x$`,null,R`<p>$f(x+h)-f(x)=(x+h)^2-(x+h)-(x^2-x)=2xh+h^2-h$.</p><p>$f'(x)=\displaystyle\lim_{h\to 0}(2x+h-1)=2x-1$.</p>`,"[f(x+h) - f(x)] / h","Zbirka 2.1 #2"),
+ q("Z21_3","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=2x^2+x$`,null,R`<p>$f(x+h)-f(x)=4xh+2h^2+h \implies f'(x)=\displaystyle\lim_{h\to 0}(4x+2h+1)=4x+1$.</p>`,"2(x+h)² + (x+h) - (2x²+x)","Zbirka 2.1 #3"),
+ q("Z21_5","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=x^3+1$`,null,R`<p>$(x+h)^3+1-(x^3+1)=3x^2h+3xh^2+h^3$.</p><p>$f'(x)=\displaystyle\lim_{h\to 0}(3x^2+3xh+h^2)=3x^2$.</p>`,"(x+h)³ = x³ + 3x²h + 3xh² + h³","Zbirka 2.1 #5"),
+ q("Z21_7","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=\dfrac{1}{x}$`,null,R`<p>$\dfrac{1}{x+h}-\dfrac{1}{x}=\dfrac{-h}{x(x+h)} \implies f'(x)=\displaystyle\lim_{h\to 0}\frac{-1}{x(x+h)}=-\frac{1}{x^2}$.</p>`,"Common denominator al: x - (x+h) = -h.","Zbirka 2.1 #7"),
+ q("Z21_9","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=\dfrac{1}{1-x}$`,null,R`<p>$\dfrac{1}{1-x-h}-\dfrac{1}{1-x}=\dfrac{(1-x)-(1-x-h)}{(1-x-h)(1-x)}=\dfrac{+h}{(1-x-h)(1-x)}$.</p><p>$f'(x)=\dfrac{1}{(1-x)^2}$.</p>`,"İşarete dikkat: (1-x) - (1-x-h) = +h.","Zbirka 2.1 #9"),
+ q("Z21_10","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=\dfrac{1}{2x+1}$`,null,R`<p>$\dfrac{1}{2x+2h+1}-\dfrac{1}{2x+1}=\dfrac{-2h}{(2x+2h+1)(2x+1)} \implies f'(x)=\dfrac{-2}{(2x+1)^2}$.</p>`,"Numerator: (2x+1) - (2x+2h+1) = -2h.","Zbirka 2.1 #10"),
+ q("Z21_12","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=\sqrt{x+2}$`,null,R`<p>Conjugate: $\dfrac{(x+h+2)-(x+2)}{h(\sqrt{x+h+2}+\sqrt{x+2})}=\dfrac{1}{\sqrt{x+h+2}+\sqrt{x+2}}\to \dfrac{1}{2\sqrt{x+2}}$.</p>`,"Conjugate: √(x+h+2) + √(x+2).","Zbirka 2.1 #12"),
+ q("Z21_14","tanim",R`Definition of the derivative ile $f'(x)$: $f(x)=\dfrac{1}{\sqrt{x+1}}$`,null,R`<p>$\dfrac{\sqrt{x+1}-\sqrt{x+h+1}}{h\sqrt{x+h+1}\sqrt{x+1}}\cdot\dfrac{\sqrt{x+1}+\sqrt{x+h+1}}{\sqrt{x+1}+\sqrt{x+h+1}}=\dfrac{-1}{\sqrt{x+h+1}\sqrt{x+1}(\sqrt{x+1}+\sqrt{x+h+1})}\to \dfrac{-1}{2(x+1)^{3/2}}$.</p>`,"Önce common denominator al, sonra conjugate ile çarp.","Zbirka 2.1 #14"),
+ q("Z21_15","tanim",R`Definition of the derivative ile $f'(x)$ ve $x=1$'de tangent line: $f(x)=x^2+1$`,null,R`<p>$f'(x)=2x$. $f(1)=2,\ f'(1)=2 \implies y-2=2(x-1) \implies$ <span class="ans">$y=2x$</span>.</p>`,"f(1) = 2, slope m = f'(1) = 2.","Zbirka 2.1 #15"),
+ q("Z21_17","tanim",R`Definition of the derivative ile $f'(x)$ ve $x=-1$'de tangent line: $f(x)=2x^2+x$`,null,R`<p>$f'(x)=4x+1$. $f(-1)=2-1=1,\ f'(-1)=-3 \implies y-1=-3(x+1) \implies$ <span class="ans">$y=-3x-2$</span>.</p>`,"f(-1) = 1, m = f'(-1) = -3.","Zbirka 2.1 #17"),
+ q("Z21_20","tanim",R`Definition of the derivative ile $f'(x)$ ve $x=-1$'de tangent line: $f(x)=\dfrac{1}{2x+1}$`,null,R`<p>$f'(x)=\dfrac{-2}{(2x+1)^2}$. $f(-1)=-1,\ f'(-1)=-2 \implies y+1=-2(x+1) \implies$ <span class="ans">$y=-2x-3$</span>.</p>`,"f(-1) = -1, m = f'(-1) = -2.","Zbirka 2.1 #20"),
+ q("Z21_22","tanim",R`Definition of the derivative ile $f'(x)$ ve $x=-1$'de tangent line: $f(x)=\sqrt{x+2}$`,null,R`<p>$f'(x)=\dfrac{1}{2\sqrt{x+2}}$. $f(-1)=1,\ f'(-1)=\dfrac12 \implies y-1=\dfrac12(x+1) \implies$ <span class="ans">$y=\dfrac{x}{2}+\dfrac{3}{2}$</span>.</p>`,"f(-1) = 1, m = 1/2.","Zbirka 2.1 #22"),
 
  // BLOK 6: 2.2 Derivatives, Basic Properties Q1-18 (12 questions)
  q("Z22_1","kural",R`$y=x^3+x^2-3x$ için $y'=?$`,null,R`<p>$y'=3x^2+2x-3$.</p>`,"(x^n)' = n·x^(n-1)","Zbirka 2.2 #1"),
  q("Z22_4","kural",R`$y=x^{-3}+2x^{-2}-3x$ için $y'=?$`,null,R`<p>$y'=-3x^{-4}-4x^{-3}-3 = -\dfrac{3}{x^4}-\dfrac{4}{x^3}-3$.</p>`,"Negatif üslerde üs 1 azalır: -3 -> -4.","Zbirka 2.2 #4"),
- q("Z22_5","kural",R`$y=\dfrac{1}{x^5}+\dfrac{3}{x^4}-x^{-2}-x$ için $y'=?$`,null,R`<p>$y=x^{-5}+3x^{-4}-x^{-2}-x \implies y'=-\dfrac{5}{x^6}-\dfrac{12}{x^5}+\dfrac{2}{x^3}-1$.</p>`,"-x⁻² türevi +2x⁻³ olur.","Zbirka 2.2 #5"),
+ q("Z22_5","kural",R`$y=\dfrac{1}{x^5}+\dfrac{3}{x^4}-x^{-2}-x$ için $y'=?$`,null,R`<p>$y=x^{-5}+3x^{-4}-x^{-2}-x \implies y'=-\dfrac{5}{x^6}-\dfrac{12}{x^5}+\dfrac{2}{x^3}-1$.</p>`,"-x⁻²'nin derivative'i +2x⁻³ olur.","Zbirka 2.2 #5"),
  q("Z22_6","kural",R`$y=\sqrt{x}+\dfrac{2}{\sqrt{x}}$ için $y'=?$`,null,R`<p>$y=x^{1/2}+2x^{-1/2} \implies y'=\dfrac12 x^{-1/2}-x^{-3/2}=\dfrac{1}{2\sqrt{x}}-\dfrac{1}{x\sqrt{x}}$.</p>`,"2/√x = 2·x^(-1/2).","Zbirka 2.2 #6"),
  q("Z22_8","kural",R`$y=2\sqrt[3]{x^2}-\dfrac{1}{\sqrt[3]{x^4}}$ için $y'=?$`,null,R`<p>$y=2x^{2/3}-x^{-4/3} \implies y'=\dfrac43 x^{-1/3}+\dfrac43 x^{-7/3}$.</p>`,"∛(x²) = x^(2/3), 1/∛(x⁴) = x^(-4/3).","Zbirka 2.2 #8"),
- q("Z22_10","kural",R`$y=(x^3+1)(x^2-2x)$ için $y'=?$`,null,R`<p>Çarpım kuralı: $3x^2(x^2-2x)+(x^3+1)(2x-2)=5x^4-8x^3+2x-2$.</p>`,"İster çarpım kuralı uygula, ister dağıtarak türev al.","Zbirka 2.2 #10"),
+ q("Z22_10","kural",R`$y=(x^3+1)(x^2-2x)$ için $y'=?$`,null,R`<p>Product rule: $3x^2(x^2-2x)+(x^3+1)(2x-2)=5x^4-8x^3+2x-2$.</p>`,"İster product rule uygula, ister dağıtıp derivative al.","Zbirka 2.2 #10"),
  q("Z22_11","kural",R`$y=(x^{-2}+1)(x^2-4)$ için $y'=?$`,null,R`<p>Dağıt: $y=1-4x^{-2}+x^2-4 \implies y'=8x^{-3}+2x=\dfrac{8}{x^3}+2x$.</p>`,"Önce dağıtırsan çok daha hızlı çıkar!","Zbirka 2.2 #11"),
- q("Z22_13","kural",R`$y=\dfrac{x^2+1}{x^2-1}$ için $y'=?$`,null,R`<p>$\dfrac{2x(x^2-1)-2x(x^2+1)}{(x^2-1)^2}=\dfrac{-4x}{(x^2-1)^2}$.</p>`,"Bölüm kuralı: (u'v - uv') / v².","Zbirka 2.2 #13"),
+ q("Z22_13","kural",R`$y=\dfrac{x^2+1}{x^2-1}$ için $y'=?$`,null,R`<p>$\dfrac{2x(x^2-1)-2x(x^2+1)}{(x^2-1)^2}=\dfrac{-4x}{(x^2-1)^2}$.</p>`,"Quotient rule: (u'v - uv') / v².","Zbirka 2.2 #13"),
  q("Z22_14","kural",R`$y=\dfrac{3x+2}{1-x^2}$ için $y'=?$`,null,R`<p>$\dfrac{3(1-x^2)-(-2x)(3x+2)}{(1-x^2)^2}=\dfrac{3x^2+4x+3}{(1-x^2)^2}$.</p>`,"(1-x²)' = -2x eksisine dikkat!","Zbirka 2.2 #14"),
  q("Z22_15","kural",R`$y=\dfrac{(x+1)(3x+2)}{1-x^2}$ için $y'=?$`,null,R`<p>$1-x^2=(1-x)(1+x)$ olduğundan ($x\ne -1$) $y=\dfrac{3x+2}{1-x}$.</p><p>$y'=\dfrac{3(1-x)-(-1)(3x+2)}{(1-x)^2}=\dfrac{5}{(1-x)^2}$.</p>`,"Önce (x+1) çarpanını sadeleştir!","Zbirka 2.2 #15"),
  q("Z22_17","kural",R`$y=\dfrac{\sqrt{x}+1}{5x-1}$ için $y'=?$`,null,R`<p>$\dfrac{\frac{1}{2\sqrt{x}}(5x-1)-5(\sqrt{x}+1)}{(5x-1)^2}=\dfrac{-5x-10\sqrt{x}-1}{2\sqrt{x}(5x-1)^2}$.</p>`,"u' = 1/(2√x), v' = 5.","Zbirka 2.2 #17"),
- q("Z22_18","kural",R`$y=\dfrac{\sqrt{x}+1}{\sqrt{x}-1}$ için $y'=?$`,null,R`<p>$\dfrac{\frac{1}{2\sqrt{x}}(\sqrt{x}-1)-\frac{1}{2\sqrt{x}}(\sqrt{x}+1)}{(\sqrt{x}-1)^2}=\dfrac{-1}{\sqrt{x}(\sqrt{x}-1)^2}$.</p>`,"Payı 1/(2√x) parantezine al: (√x - 1) - (√x + 1) = -2 kalır.","Zbirka 2.2 #18")
+ q("Z22_18","kural",R`$y=\dfrac{\sqrt{x}+1}{\sqrt{x}-1}$ için $y'=?$`,null,R`<p>$\dfrac{\frac{1}{2\sqrt{x}}(\sqrt{x}-1)-\frac{1}{2\sqrt{x}}(\sqrt{x}+1)}{(\sqrt{x}-1)^2}=\dfrac{-1}{\sqrt{x}(\sqrt{x}-1)^2}$.</p>`,"Numerator'ı 1/(2√x) parantezine al: (√x - 1) - (√x + 1) = -2 kalır.","Zbirka 2.2 #18")
 ]},
 
 d1:{title:"Deneme Sınavı 1 (Review Formatında · 75 dk)", time:75, intro:"Hocanın review kağıdıyla birebir aynı dağılımda 100 puanlık sınav provası. Süreyi başlat, kağıtta çöz, sonra cevaplarını kutulara girip kontrol et.", qs:[
  q("D1a","trig",R`$\displaystyle\lim_{x\to0}\frac{\sin6x}{\tan4x}$`,"3/2",R`<p>$\dfrac{\sin6x}{6x}\cdot\dfrac{4x}{\tan4x}\cdot\dfrac{6x}{4x}\to\dfrac32$</p>`),
  q("D1b","trig",R`$\displaystyle\lim_{x\to0}\frac{1-\cos3x}{x^2}$`,"9/2",R`<p>$\dfrac{\sin^23x}{x^2(1+\cos3x)}=\Big(\dfrac{\sin3x}{3x}\Big)^2\dfrac{9}{1+\cos3x}\to\dfrac92$</p>`),
- q("D1c","cebir",R`$\displaystyle\lim_{x\to0}\frac{\sqrt{9+x}-\sqrt{9-2x}}{6x}$`,"1/12",R`<p>Eşlenik: pay $\to 3x$. $\dfrac{1}{2(\sqrt{9+x}+\sqrt{9-2x})}\to\dfrac1{12}$</p>`),
+ q("D1c","cebir",R`$\displaystyle\lim_{x\to0}\frac{\sqrt{9+x}-\sqrt{9-2x}}{6x}$`,"1/12",R`<p>Conjugate: numerator $\to 3x$. $\dfrac{1}{2(\sqrt{9+x}+\sqrt{9-2x})}\to\dfrac1{12}$</p>`),
  q("D1d1","tek",R`$\displaystyle\lim_{x\to3^-}\frac{|x-3|}{x^2-9}$`,"-1/6",R`<p>$x<3$: $\dfrac{-(x-3)}{(x-3)(x+3)}=\dfrac{-1}{x+3}\to-\dfrac16$</p>`),
- q("D1d2","tek",R`$\displaystyle\lim_{x\to3}\frac{|x-3|}{x^2-9}$`,"dne",R`<p>Sağdan $\tfrac16$, soldan $-\tfrac16$. DNE.</p>`),
- q("D1e","sonsuz",R`$\displaystyle\lim_{x\to1^+}\Big[\frac2{x-1}-\frac1{(x-1)^2}\Big]$`,"-inf",R`<p>$\dfrac{2x-3}{(x-1)^2}$: pay $\to-1$, payda $\to0^+$. $-\infty$.</p>`),
+ q("D1d2","tek",R`$\displaystyle\lim_{x\to3}\frac{|x-3|}{x^2-9}$`,"dne",R`<p>Right-hand limit $\tfrac16$, left-hand limit $-\tfrac16$. DNE.</p>`),
+ q("D1e","sonsuz",R`$\displaystyle\lim_{x\to1^+}\Big[\frac2{x-1}-\frac1{(x-1)^2}\Big]$`,"-inf",R`<p>$\dfrac{2x-3}{(x-1)^2}$: numerator $\to-1$, denominator $\to0^+$. $-\infty$.</p>`),
  q("D1f","cebir",R`$\displaystyle\lim_{x\to2}\frac{\frac1{x+3}-\frac15}{x^2-x-2}$`,"-1/75",R`<p>$\dfrac{2-x}{5(x+3)}\cdot\dfrac1{(x-2)(x+1)}=\dfrac{-1}{5(x+3)(x+1)}\to\dfrac{-1}{75}$</p>`),
- q("D1g","sonsuz",R`$\displaystyle\lim_{x\to\infty}\frac{3x^2-x+1}{5-2x^2}$`,"-3/2",R`<p>Dereceler eşit: $\dfrac{3}{-2}$.</p>`),
+ q("D1g","sonsuz",R`$\displaystyle\lim_{x\to\infty}\frac{3x^2-x+1}{5-2x^2}$`,"-3/2",R`<p>Degree'ler eşit: $\dfrac{3}{-2}$.</p>`),
  q("D1h","sonsuz",R`$\displaystyle\lim_{x\to-\infty}\frac{\sqrt{4x^2+1}}{3x-2}$`,"-2/3",R`<p>$x\to-\infty$: $\sqrt{4x^2+1}=-x\sqrt{4+1/x^2}$. $\dfrac{-\sqrt{4+1/x^2}}{3-2/x}\to-\dfrac23$</p>`,"√(x²) = |x| = −x, çünkü x negatif."),
- q("D2","surek",R`$f(x)=\begin{cases}x+3 & x<-2\\ 1 & -2\le x<0\\ x^2+2 & 0\le x<1\\ 5 & x=1\\ 4-x & x>1\end{cases}$ &nbsp; Süreksizlikler?`,null,R`<p>$x=-2$: sol $1$, sağ $1$, $f=1$. Sürekli.</p><p>$x=0$: sol $1$, sağ $2$. <b>Jump.</b></p><p>$x=1$: sol $3$, sağ $3$ ama $f(1)=5$. <b>Removable.</b> Limit var ama $f(1)$'e eşit değil.</p>`),
+ q("D2","surek",R`$f(x)=\begin{cases}x+3 & x<-2\\ 1 & -2\le x<0\\ x^2+2 & 0\le x<1\\ 5 & x=1\\ 4-x & x>1\end{cases}$ &nbsp; Discontinuity'ler?`,null,R`<p>$x=-2$: left-hand limit $1$, right-hand limit $1$, $f=1$. Continuous.</p><p>$x=0$: left-hand limit $1$, right-hand limit $2$. <b>Jump.</b></p><p>$x=1$: left-hand limit $3$, right-hand limit $3$ ama $f(1)=5$. <b>Removable.</b> Limit var ama $f(1)$'e eşit değil.</p><p class="small"><b>Exam sentence:</b> <i>At $x=0$, $\lim_{x\to0^-}f(x)=1$ and $\lim_{x\to0^+}f(x)=2$; the one-sided limits are not equal, so $f$ has a jump discontinuity at $x=0$. At $x=1$, $\lim_{x\to1^-}f(x)=3=\lim_{x\to1^+}f(x)$, so $\lim_{x\to1}f(x)=3$. However, $f(1)=5\ne 3$, so $f$ has a removable discontinuity at $x=1$.</i></p>`),
  q("D3","surek",R`$f(x)=ax+b\ (x<-1),\ 3-x\ (-1\le x\le1),\ ax^2+b\ (x>1)$. $a,b=?$`,null,R`<p>$x=-1$: $-a+b=4$. $x=1$: $a+b=2$.</p><p>Topla: $b=3$, $a=-1$.</p>`),
- q("D4","sonsuz",R`$y=\dfrac{2x^2+1}{x^2-4}$ asimptotları`,null,R`<p>Düşey: $x=-2,\ x=2$. Yatay: $y=2$.</p>`),
- q("D5a","tanim",R`Tanımdan: $f(x)=3x^2+2x$, $x=1$'de teğet`,null,R`<p>$f'(x)=\lim(6x+3h+2)=6x+2$. $f(1)=5,\ f'(1)=8$: <span class="ans">$y=8x-3$</span></p>`),
- q("D5b","tanim",R`Tanımdan: $f(x)=\dfrac1{2x+3}$, $x=-1$'de teğet`,null,R`<p>$f'(x)=\dfrac{-2}{(2x+3)^2}$. $f(-1)=1,\ f'(-1)=-2$: <span class="ans">$y=-2x-1$</span></p>`),
- q("D5c","tanim",R`Tanımdan: $f(x)=\sqrt{2x+1}$, $x=4$'te teğet`,null,R`<p>Eşlenik: $\dfrac{2}{\sqrt{2x+2h+1}+\sqrt{2x+1}}\to\dfrac1{\sqrt{2x+1}}$. $f(4)=3,\ f'(4)=\tfrac13$: <span class="ans">$y=\tfrac x3+\tfrac53$</span></p>`),
+ q("D4","sonsuz",R`$y=\dfrac{2x^2+1}{x^2-4}$ asymptote'ları`,null,R`<p>Vertical: $x=-2,\ x=2$. Horizontal: $y=2$.</p>`),
+ q("D5a","tanim",R`Definition of the derivative ile: $f(x)=3x^2+2x$, $x=1$'de tangent line`,null,R`<p>$f'(x)=\lim(6x+3h+2)=6x+2$. $f(1)=5,\ f'(1)=8$: <span class="ans">$y=8x-3$</span></p>`),
+ q("D5b","tanim",R`Definition of the derivative ile: $f(x)=\dfrac1{2x+3}$, $x=-1$'de tangent line`,null,R`<p>$f'(x)=\dfrac{-2}{(2x+3)^2}$. $f(-1)=1,\ f'(-1)=-2$: <span class="ans">$y=-2x-1$</span></p>`),
+ q("D5c","tanim",R`Definition of the derivative ile: $f(x)=\sqrt{2x+1}$, $x=4$'te tangent line`,null,R`<p>Conjugate: $\dfrac{2}{\sqrt{2x+2h+1}+\sqrt{2x+1}}\to\dfrac1{\sqrt{2x+1}}$. $f(4)=3,\ f'(4)=\tfrac13$: <span class="ans">$y=\tfrac x3+\tfrac53$</span></p>`),
  q("D6a","kural",R`$y=3x^4-\dfrac2{x^3}+4\sqrt x-7$`,null,R`<p>$12x^3+\dfrac6{x^4}+\dfrac2{\sqrt x}$</p>`),
  q("D6b","kural",R`$y=(x^2+1)(x^3-2x)$`,null,R`<p>$2x(x^3-2x)+(x^2+1)(3x^2-2)=5x^4-3x^2-2$</p>`),
  q("D6c","kural",R`$y=\dfrac{x^2-3x}{2x+1}$`,null,R`<p>$\dfrac{(2x-3)(2x+1)-2(x^2-3x)}{(2x+1)^2}=\dfrac{2x^2+2x-3}{(2x+1)^2}$</p>`),
  q("D6d","kural",R`$y=x^4-3x^2+\dfrac1x$ için $y''$`,null,R`<p>$y'=4x^3-6x-x^{-2}$, $y''=12x^2-6+\dfrac2{x^3}$</p>`)
 ]},
 
-d2:{title:"Deneme Sınavı 2 (Sürpriz Tipler Dahil · 60 dk)", time:60, intro:"Review kağıdında olmayan ama müfredatta yer alan Sandwich, IVT, removable süreksizlik, yatay teğet ve çift yatay asimptot sorularını içerir.", qs:[
+d2:{title:"Deneme Sınavı 2 (Sürpriz Tipler Dahil · 60 dk)", time:60, intro:"Review kağıdında olmayan ama müfredatta yer alan Sandwich Theorem, IVT, removable discontinuity, horizontal tangent ve iki horizontal asymptote sorularını içerir.", qs:[
  q("E1a","cebir",R`$\displaystyle\lim_{x\to4}\frac{\sqrt x-2}{x-4}$`,"1/4",R`<p>$x-4=(\sqrt x-2)(\sqrt x+2)$. $\dfrac1{\sqrt x+2}\to\dfrac14$</p>`),
  q("E1b","cebir",R`$\displaystyle\lim_{x\to1}\frac{x^2+x-2}{x^2-1}$`,"3/2",R`<p>$\dfrac{(x+2)(x-1)}{(x-1)(x+1)}\to\dfrac32$</p>`),
- q("E1c","trig",R`$\displaystyle\lim_{x\to0}\frac{x\sin2x}{1-\cos x}$`,"4",R`<p>Pay ve paydayı $x^2$'ye böl: $\dfrac{\sin2x/x}{(1-\cos x)/x^2}\to\dfrac{2}{1/2}=4$</p>`),
+ q("E1c","trig",R`$\displaystyle\lim_{x\to0}\frac{x\sin2x}{1-\cos x}$`,"4",R`<p>Numerator ve denominator'ı $x^2$'ye böl: $\dfrac{\sin2x/x}{(1-\cos x)/x^2}\to\dfrac{2}{1/2}=4$</p>`),
  q("E1d","trig",R`$\displaystyle\lim_{x\to0}\frac{\sin^22x}{x\tan3x}$`,"4/3",R`<p>$\Big(\dfrac{\sin2x}{2x}\Big)^2\cdot\dfrac{3x}{\tan3x}\cdot\dfrac{4x^2}{3x^2}\to\dfrac43$</p>`),
- q("E1e","sonsuz",R`$\displaystyle\lim_{x\to-1^+}\frac{x-2}{x+1}$`,"-inf",R`<p>Pay $\to-3$, payda $\to0^+$. $-\infty$.</p>`),
- q("E1f","sonsuz",R`$\displaystyle\lim_{x\to\infty}\big(\sqrt{x^2+4x}-x\big)$`,"2",R`<p>Eşlenik: $\dfrac{4x}{\sqrt{x^2+4x}+x}=\dfrac{4}{\sqrt{1+4/x}+1}\to2$</p>`),
- q("E1g","sonsuz",R`$\displaystyle\lim_{x\to-\infty}\frac{5x^3-2x}{1-2x^3}$`,"-5/2",R`<p>Dereceler eşit: $\dfrac5{-2}$.</p>`),
- q("E1h","tek",R`$\displaystyle\lim_{x\to5}\frac{|x-5|}{x^2-25}$`,"dne",R`<p>Sağdan $\tfrac1{10}$, soldan $-\tfrac1{10}$. DNE.</p>`),
- q("E1i","cebir",R`$\displaystyle\lim_{x\to0}x^2\cos\frac1x$`,"0",R`<p>$-x^2\le x^2\cos(1/x)\le x^2$, iki uç $\to0$. Sandwich: $0$.</p>`,"cos(1/x) sınırlı: −1 ile 1 arasında.","Deneme 2","squeeze"),
- q("E2a","surek",R`$f(x)=\dfrac{x^2-9}{x-3}\ (x\ne3),\ f(3)=a$. Sürekli olsun. $a=?$`,"6",R`<p>$\lim(x+3)=6$, $a=6$.</p>`),
+ q("E1e","sonsuz",R`$\displaystyle\lim_{x\to-1^+}\frac{x-2}{x+1}$`,"-inf",R`<p>Numerator $\to-3$, denominator $\to0^+$. $-\infty$.</p>`),
+ q("E1f","sonsuz",R`$\displaystyle\lim_{x\to\infty}\big(\sqrt{x^2+4x}-x\big)$`,"2",R`<p>Conjugate: $\dfrac{4x}{\sqrt{x^2+4x}+x}=\dfrac{4}{\sqrt{1+4/x}+1}\to2$</p>`),
+ q("E1g","sonsuz",R`$\displaystyle\lim_{x\to-\infty}\frac{5x^3-2x}{1-2x^3}$`,"-5/2",R`<p>Degree'ler eşit: $\dfrac5{-2}$.</p>`),
+ q("E1h","tek",R`$\displaystyle\lim_{x\to5}\frac{|x-5|}{x^2-25}$`,"dne",R`<p>Right-hand limit $\tfrac1{10}$, left-hand limit $-\tfrac1{10}$. DNE.</p>`),
+ q("E1i","cebir",R`$\displaystyle\lim_{x\to0}x^2\cos\frac1x$`,"0",R`<p>$-x^2\le x^2\cos(1/x)\le x^2$, iki uç $\to0$. Sandwich Theorem: $0$.</p><p class="small"><b>Exam sentence:</b> <i>Since $-x^2\le x^2\cos(1/x)\le x^2$ and both bounds approach $0$ as $x\to0$, the limit is $0$ by the Sandwich Theorem.</i></p>`,"cos(1/x) bounded: −1 ile 1 arasında.","Deneme 2","squeeze"),
+ q("E2a","surek",R`$f(x)=\dfrac{x^2-9}{x-3}\ (x\ne3),\ f(3)=a$. Continuous olsun. $a=?$`,"6",R`<p>$\lim(x+3)=6$, $a=6$.</p>`),
  q("E2b","surek",R`$f(x)=x^2-a\ (x<2),\ ax+1\ (x\ge2)$. $a=?$`,"1",R`<p>$4-a=2a+1\Rightarrow a=1$</p>`),
- q("E2c","surek",R`$f(x)=\dfrac{x-1}{x^2-1}$ süreksizlikleri ve türleri`,null,R`<p>$x=1$: limit $\tfrac12$, $f$ tanımsız. <b>Removable.</b></p><p>$x=-1$: limit $\pm\infty$. <b>Infinite.</b></p>`),
- q("E2d","surek",R`$x^3+x-1=0$ denkleminin $(0,1)$'de kökü olduğunu göster.`,null,R`<p>$f(x)=x^3+x-1$ polinom, $[0,1]$'de sürekli. $f(0)=-1<0$, $f(1)=1>0$. Intermediate Value Theorem: $f(c)=0$ olan $c\in(0,1)$ vardır.</p>`),
- q("E3a","tanim",R`Tanımdan: $f(x)=\dfrac{x}{x+1}$, $x=1$'de teğet`,null,R`<p>$\dfrac{(x+h)(x+1)-x(x+h+1)}{(x+h+1)(x+1)}=\dfrac{h}{(x+h+1)(x+1)}$, $f'(x)=\dfrac1{(x+1)^2}$</p><p>$f(1)=\tfrac12,\ f'(1)=\tfrac14$: <span class="ans">$y=\tfrac x4+\tfrac14$</span></p>`),
- q("E3b","tanim",R`Tanımdan: $f(x)=x^3-2x$, $x=1$'de teğet`,null,R`<p>$f'(x)=\lim(3x^2+3xh+h^2-2)=3x^2-2$. $f(1)=-1,\ f'(1)=1$: <span class="ans">$y=x-2$</span></p>`),
+ q("E2c","surek",R`$f(x)=\dfrac{x-1}{x^2-1}$ discontinuity'leri ve türleri`,null,R`<p>$x=1$: limit $\tfrac12$, $f$ undefined. <b>Removable.</b></p><p>$x=-1$: limit $\pm\infty$. <b>Infinite.</b></p>`),
+ q("E2d","surek",R`$x^3+x-1=0$ denkleminin $(0,1)$'de root'u olduğunu göster.`,null,R`<p>$f(x)=x^3+x-1$ polynomial, $[0,1]$'de continuous. $f(0)=-1<0$, $f(1)=1>0$. Intermediate Value Theorem: $f(c)=0$ olan $c\in(0,1)$ vardır.</p><p class="small"><b>Exam sentence:</b> <i>$f$ is a polynomial, so it is continuous on $[0,1]$. Since $f(0)=-1\lt 0$ and $f(1)=1>0$, by the Intermediate Value Theorem there exists $c\in(0,1)$ such that $f(c)=0$.</i></p>`),
+ q("E3a","tanim",R`Definition of the derivative ile: $f(x)=\dfrac{x}{x+1}$, $x=1$'de tangent line`,null,R`<p>$\dfrac{(x+h)(x+1)-x(x+h+1)}{(x+h+1)(x+1)}=\dfrac{h}{(x+h+1)(x+1)}$, $f'(x)=\dfrac1{(x+1)^2}$</p><p>$f(1)=\tfrac12,\ f'(1)=\tfrac14$: <span class="ans">$y=\tfrac x4+\tfrac14$</span></p>`),
+ q("E3b","tanim",R`Definition of the derivative ile: $f(x)=x^3-2x$, $x=1$'de tangent line`,null,R`<p>$f'(x)=\lim(3x^2+3xh+h^2-2)=3x^2-2$. $f(1)=-1,\ f'(1)=1$: <span class="ans">$y=x-2$</span></p>`),
  q("E4a","kural",R`$y=(\sqrt x+2)(\sqrt x-1)$`,null,R`<p>Aç: $x+\sqrt x-2$. $y'=1+\dfrac1{2\sqrt x}$</p>`),
  q("E4b","kural",R`$y=\dfrac{3x+1}{5x-1}$`,null,R`<p>$\dfrac{3(5x-1)-5(3x+1)}{(5x-1)^2}=\dfrac{-8}{(5x-1)^2}$</p>`),
  q("E4c","kural",R`$y=\sqrt[3]x+\dfrac5{\sqrt[3]x}$`,null,R`<p>$y=x^{1/3}+5x^{-1/3}$, $y'=\tfrac13x^{-2/3}-\tfrac53x^{-4/3}$</p>`),
- q("E5a","kural",R`$y=x^3-3x$ eğrisinde teğetin yatay olduğu noktalar`,null,R`<p>$y'=3x^2-3=0\Rightarrow x=\pm1$. Noktalar $(1,-2)$ ve $(-1,2)$.</p>`),
- q("E5b","sonsuz",R`$y=\dfrac{\sqrt{x^2+1}}{x}$ asimptotları`,null,R`<p>Düşey $x=0$. Yatay: $x\to\infty$'da $y=1$, $x\to-\infty$'da $y=-1$.</p>`,null,"Deneme 2","asym")
+ q("E5a","kural",R`$y=x^3-3x$ curve'ünde horizontal tangent olan noktalar`,null,R`<p>$y'=3x^2-3=0\Rightarrow x=\pm1$. Noktalar $(1,-2)$ ve $(-1,2)$.</p>`),
+ q("E5b","sonsuz",R`$y=\dfrac{\sqrt{x^2+1}}{x}$ asymptote'ları`,null,R`<p>Vertical $x=0$. Horizontal: $x\to\infty$'da $y=1$, $x\to-\infty$'da $y=-1$.</p>`,null,"Deneme 2","asym")
 ]}
 };
 
@@ -431,13 +431,13 @@ const PLAN = [
  {gun:"Cuma 13 Kasım (Bugün)", items:[
   ["Adım 1","Tanılama testi (8 soru). Eksik blokları hemen gör","tani"],
   ["Blok 1","0/0 Limitleri & Sandwich (Thomas 2.2 · Zbirka 1.1: 12 Soru)","zbirka:cebir"],
-  ["Blok 2","Tek Taraflı, |x| ve Trig Limitler (Thomas 2.4 · Zbirka 1.3 & 1.4: 15 Soru)","zbirka:tek"],
-  ["Blok 3","Sonsuzluk İçeren Limitler & Asimptotlar (Thomas 2.6 · Zbirka 1.5: 15 Soru)","zbirka:sonsuz"],
-  ["Blok 4","Süreklilik, a-b Bulma & IVT (Thomas 2.5 · Zbirka 1.6: 9 Soru)","zbirka:surek"],
-  ["Blok 5","Tanımdan Türev & Teğet Doğrusu (Thomas 3.1–3.2 · Zbirka 2.1: 12 Soru)","zbirka:tanim"],
-  ["Blok 6","Türev Kuralları: Kuvvet, Çarpım, Bölüm (Thomas 3.3 · Zbirka 2.2: 12 Soru)","zbirka:kural"],
+  ["Blok 2","One-Sided, |x| ve Trigonometric Limits (Thomas 2.4 · Zbirka 1.3 & 1.4: 15 Soru)","zbirka:tek"],
+  ["Blok 3","Limits Involving Infinity & Asymptotes (Thomas 2.6 · Zbirka 1.5: 15 Soru)","zbirka:sonsuz"],
+  ["Blok 4","Continuity, a-b Bulma & IVT (Thomas 2.5 · Zbirka 1.6: 9 Soru)","zbirka:surek"],
+  ["Blok 5","Definition of the Derivative & Tangent Line (Thomas 3.1–3.2 · Zbirka 2.1: 12 Soru)","zbirka:tanim"],
+  ["Blok 6","Differentiation Rules: Power, Product, Quotient Rule (Thomas 3.3 · Zbirka 2.2: 12 Soru)","zbirka:kural"],
   ["Akşam 20:00","Hocanın Review Kağıdı (MIDTERM REVIEW 101.docx - 15 Soru), kapalı defter","review"],
-  ["Akşam 21:00","Görsel Simülatör & Tanımdan Türev Antrenörü ile yanlışları pekiştir","atolye"]
+  ["Akşam 21:00","Görsel Simülatör & Definition of the Derivative Antrenörü ile yanlışları pekiştir","atolye"]
  ]},
  {gun:"Cumartesi 14 Kasım (Sınav Günü)", items:[
   ["08:00–09:15","Deneme 1, sınav koşulunda (75 dk)","d1"],
@@ -452,18 +452,18 @@ const FLASHCARDS = [
  {id:"fc1",cat:"Trig Limit",q:R`$\displaystyle\lim_{x\to 0}\frac{\sin(ax)}{bx}$ ve $\displaystyle\lim_{x\to 0}\frac{\tan(ax)}{bx}$`,a:R`$\dfrac{a}{b}$ (Sınavda $\dfrac{\sin ax}{ax}\cdot\dfrac{a}{b}$ ara adımını mutlaka yaz!)`},
  {id:"fc2",cat:"Trig Limit",q:R`$\displaystyle\lim_{x\to 0}\frac{1-\cos x}{x}$ ve $\displaystyle\lim_{x\to 0}\frac{1-\cos x}{x^2}$`,a:R`Birincisi $0$, ikincisi $\dfrac{1}{2}$. Genel: $\displaystyle\lim_{x\to 0}\frac{1-\cos(ax)}{x^2}=\frac{a^2}{2}$.`},
  {id:"fc3",cat:"Cebir Tuzağı",q:R`$\dfrac{x-a}{a-x}$ sadeleşince ne kalır?`,a:R`$-1$ kalır! (Örn: $\dfrac{3-x}{x-3}=-1$, işareti unutma!)`},
- {id:"fc4",cat:"Kök Eşleniği",q:R`$\sqrt{A}-\sqrt{B}$ ifadesinin eşleniği ve çarpımı nedir?`,a:R`Eşleniği $\sqrt{A}+\sqrt{B}$, çarpımı $A-B$'dir.`},
- {id:"fc5",cat:"Mutlak Değer",q:R`$x\to a^-$ (soldan) yaklaşırken $|x-a|$ nasıl açılır?`,a:R`$x < a$ olduğu için içi negatiftir: $|x-a| = -(x-a) = a-x$.`},
- {id:"fc6",cat:"Sonsuzda Kök Tuzağı",q:R`$x\to -\infty$ iken $\sqrt{x^2+1}$ dışarı nasıl çıkar?`,a:R`$\sqrt{x^2}=|x|=-x$ olduğu için $-x\sqrt{1+1/x^2}$ olarak çıkar!`},
- {id:"fc7",cat:"Süreklilik Şartları",q:R`$f$ fonksiyonunun $x=a$'da sürekli olmasının 3 şartı nedir?`,a:R`1) $f(a)$ tanımlı, 2) $\lim_{x\to a}f(x)$ var (sol = sağ), 3) $\lim_{x\to a}f(x)=f(a)$.`},
- {id:"fc8",cat:"Süreksizlik Türleri",q:R`Jump, Removable ve Infinite Discontinuity farkı nedir?`,a:R`Sol $\ne$ sağ sonlu ise <b>Jump</b>; limit var ama $f(a)$'ya eşit değilse <b>Removable</b>; limit $\pm\infty$ ise <b>Infinite</b>.`},
- {id:"fc9",cat:"Tanımdan Türev",q:R`Türevin limit tanımı formülü nedir?`,a:R`$f'(x)=\displaystyle\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}$ (Her satırda $\lim_{h\to 0}$ yazılır!)`},
- {id:"fc10",cat:"Teğet Doğrusu",q:R`$x=a$ noktasındaki teğet doğrusunun denklemi nedir?`,a:R`$y - f(a) = f'(a)(x - a)$. (Eğim $m = f'(a)$ sabit sayıdır, $x$'li bırakılmaz!)`},
- {id:"fc11",cat:"Türev Kuralları",q:R`$\Big(\dfrac{1}{x}\Big)'$, $\Big(\dfrac{1}{x^n}\Big)'$ ve $(\sqrt{x})'$ nedir?`,a:R`$(1/x)'=-\dfrac{1}{x^2}$, $(1/x^n)'=-\dfrac{n}{x^{n+1}}$, $(\sqrt{x})'=\dfrac{1}{2\sqrt{x}}$.`},
- {id:"fc12",cat:"Çarpım & Bölüm",q:R`$(f\cdot g)'$ ve $\Big(\dfrac{f}{g}\Big)'$ kuralları nedir?`,a:R`$(fg)'=f'g+fg'$ ve $\Big(\dfrac{f}{g}\Big)'=\dfrac{f'g-fg'}{g^2}$ (Sıraya dikkat: önce payın türevi!).`},
- {id:"fc13",cat:"Teorem",q:R`Sandwich (Squeeze) Teoremi sınavda nasıl yazılır?`,a:R`"Since $-x^2 \le x^2\sin(1/x) \le x^2$ and $\lim_{x\to 0}(\pm x^2)=0$, the limit is $0$ by the Sandwich Theorem."`},
- {id:"fc14",cat:"Teorem",q:R`Ara Değer Teoremi (IVT) ile $(a,b)$'de kök varlığı nasıl gösterilir?`,a:R`"$f$ is continuous on $[a,b]$, $f(a)<0$ and $f(b)>0$. By IVT, there is $c\in(a,b)$ such that $f(c)=0$."`},
- {id:"fc15",cat:"Asimptot",q:R`Düşey ve Yatay Asimptot nasıl bulunur?`,a:R`Sadeleştirme sonrası paydayı $0$ yapan $x=a$ <b>düşey</b>; $\lim_{x\to\pm\infty}f(x)=L$ ise $y=L$ <b>yatay</b> asimptottur.`}
+ {id:"fc4",cat:"Conjugate",q:R`$\sqrt{A}-\sqrt{B}$ ifadesinin conjugate'i nedir, ikisinin çarpımı ne olur?`,a:R`Conjugate'i $\sqrt{A}+\sqrt{B}$, çarpımı $A-B$'dir.`},
+ {id:"fc5",cat:"Absolute Value",q:R`$x\to a^-$ (from the left) yaklaşırken $|x-a|$ nasıl açılır?`,a:R`$x < a$ olduğu için içi negatiftir: $|x-a| = -(x-a) = a-x$.`},
+ {id:"fc6",cat:"Limit at −∞: √x² Tuzağı",q:R`$x\to -\infty$ iken $\sqrt{x^2+1}$ dışarı nasıl çıkar?`,a:R`$\sqrt{x^2}=|x|=-x$ olduğu için $-x\sqrt{1+1/x^2}$ olarak çıkar!`},
+ {id:"fc7",cat:"Continuity Şartları",q:R`$f$ fonksiyonunun $x=a$'da continuous olmasının 3 şartı nedir?`,a:R`1) $f(a)$ defined, 2) $\lim_{x\to a}f(x)$ var (left-hand = right-hand), 3) $\lim_{x\to a}f(x)=f(a)$.`},
+ {id:"fc8",cat:"Discontinuity Türleri",q:R`Jump, Removable ve Infinite Discontinuity farkı nedir?`,a:R`Left-hand ve right-hand limit finite ama farklı ise <b>Jump</b>; limit var ama $f(a)$'ya eşit değilse <b>Removable</b>; limit $\pm\infty$ ise <b>Infinite</b>.`},
+ {id:"fc9",cat:"Definition of the Derivative",q:R`Definition of the derivative formülü nedir?`,a:R`$f'(x)=\displaystyle\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}$ (Her satırda $\lim_{h\to 0}$ yazılır!)`},
+ {id:"fc10",cat:"Tangent Line",q:R`$x=a$ noktasındaki tangent line'ın denklemi nedir?`,a:R`$y - f(a) = f'(a)(x - a)$. (Slope $m = f'(a)$ sabit sayıdır, $x$'li bırakılmaz!)`},
+ {id:"fc11",cat:"Differentiation Rules",q:R`$\Big(\dfrac{1}{x}\Big)'$, $\Big(\dfrac{1}{x^n}\Big)'$ ve $(\sqrt{x})'$ nedir?`,a:R`$(1/x)'=-\dfrac{1}{x^2}$, $(1/x^n)'=-\dfrac{n}{x^{n+1}}$, $(\sqrt{x})'=\dfrac{1}{2\sqrt{x}}$.`},
+ {id:"fc12",cat:"Product & Quotient Rule",q:R`$(f\cdot g)'$ ve $\Big(\dfrac{f}{g}\Big)'$ için product rule ve quotient rule nedir?`,a:R`$(fg)'=f'g+fg'$ ve $\Big(\dfrac{f}{g}\Big)'=\dfrac{f'g-fg'}{g^2}$ (Sıraya dikkat: önce numerator'ın derivative'i!).`},
+ {id:"fc13",cat:"Theorem",q:R`Sandwich (Squeeze) Theorem sınavda nasıl yazılır?`,a:R`"Since $-x^2 \le x^2\sin(1/x) \le x^2$ and $\lim_{x\to 0}(\pm x^2)=0$, the limit is $0$ by the Sandwich Theorem."`},
+ {id:"fc14",cat:"Theorem",q:R`Intermediate Value Theorem (IVT) ile $(a,b)$'de root varlığı nasıl gösterilir?`,a:R`"$f$ is continuous on $[a,b]$, $f(a)<0$ and $f(b)>0$. By IVT, there is $c\in(a,b)$ such that $f(c)=0$."`},
+ {id:"fc15",cat:"Asymptote",q:R`Vertical ve Horizontal Asymptote nasıl bulunur?`,a:R`Sadeleştirme sonrası denominator'ı $0$ yapan $x=a$ <b>vertical</b>; $\lim_{x\to\pm\infty}f(x)=L$ ise $y=L$ <b>horizontal</b> asymptote'tur.`}
 ];
 
 /* ---------- STATE ---------- */
@@ -472,28 +472,28 @@ let S={status:{},inputs:{},plan:{},open:{},scratch:{},fc:{},zFilter:"all",tab:"p
 try{const raw=localStorage.getItem(KEY); if(raw) S=Object.assign(S,JSON.parse(raw));}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 
-const D="f'(x) =", TG="Teğet: y =", DY="dy/dx =";
+const D="f'(x) =", TG="Tangent line: y =", DY="dy/dx =";
 const FIELDS={
  T7:[[D,"expr","2x"]], T8:[[DY,"expr","1/(x+1)^2"]],
- R8:[["Süreksiz olduğu x'ler","set","1,2"]],
+ R8:[["Discontinuous olduğu x'ler","set","1,2"]],
  R10:[[D,"expr","4x-1"],[TG,"expr","-5x-2"]],
  R11:[[D,"expr","-3/(3x-1)^2"],[TG,"expr","-3x/4+5/4"]],
  R12:[[D,"expr","-1/(2sqrt(1-x))"],[TG,"expr","-x/2+1"]],
  R13:[[DY,"expr","4x+10/x^3+3/(2sqrt(x))"]],
  R14:[[DY,"expr","(12x^3-6x^2+1)/(3x-1)^2"]],
  // Zbirka special multi-field or expr questions
- Z3_1:[["Sağ limit (x→1⁺)","val","-2"],["Sol limit (x→1⁻)","val","1"],["İki taraflı limit","val","dne"]],
+ Z3_1:[["Right-hand limit (x→1⁺)","val","-2"],["Left-hand limit (x→1⁻)","val","1"],["Two-sided limit","val","dne"]],
  Z3_2:[["lim(x→0⁺) f(x)","val","1"],["lim(x→1⁺) f(x)","val","4"]],
  Z3_5:[["a =","val","4"],["b =","val","2"]],
- Z5_34:[["Düşey asimptot: x =","set","0.5"],["Yatay asimptot: y =","set","0.5"]],
- Z5_36:[["Düşey asimptot: x =","set","-1,1"],["Yatay asimptot: y =","set","2"]],
- Z6_2:[["Süreksiz olduğu x","set","-2"]],
- Z6_3:[["Süreksiz olduğu x'ler","set","-1,1"]],
- Z6_4:[["Süreksiz olduğu x'ler","set","-1,1"],["Removable olan x","set","1"]],
- Z6_8:[["Süreksiz olduğu x'ler","set","0,1"]],
- Z6_7:[["Süreksiz olduğu x","set","1"]],
- Z6_9:[["Süreksiz olduğu x'ler","set","-2,2"],["Removable olan x","set","2"]],
- Z6_10:[["Süreksiz olduğu x'ler","set","1"]],
+ Z5_34:[["Vertical asymptote: x =","set","0.5"],["Horizontal asymptote: y =","set","0.5"]],
+ Z5_36:[["Vertical asymptote: x =","set","-1,1"],["Horizontal asymptote: y =","set","2"]],
+ Z6_2:[["Discontinuous olduğu x","set","-2"]],
+ Z6_3:[["Discontinuous olduğu x'ler","set","-1,1"]],
+ Z6_4:[["Discontinuous olduğu x'ler","set","-1,1"],["Removable olan x","set","1"]],
+ Z6_8:[["Discontinuous olduğu x'ler","set","0,1"]],
+ Z6_7:[["Discontinuous olduğu x","set","1"]],
+ Z6_9:[["Discontinuous olduğu x'ler","set","-2,2"],["Removable olan x","set","2"]],
+ Z6_10:[["Discontinuous olduğu x'ler","set","1"]],
  Z6_12:[["a =","val","4"],["b =","val","2"]],
  Z6_13:[["a =","val","1"],["b =","val","2"]],
  Z21_2:[[D,"expr","2x-1"]],
@@ -521,9 +521,9 @@ const FIELDS={
  Z22_17:[[DY,"expr","(-5x-10sqrt(x)-1)/(2sqrt(x)*(5x-1)^2)"]],
  Z22_18:[[DY,"expr","-1/(sqrt(x)*(sqrt(x)-1)^2)"]],
  // Deneme 1 & 2
- D2:[["Süreksiz olduğu x'ler","set","0,1"],["Bunlardan removable olan","set","1"]],
+ D2:[["Discontinuous olduğu x'ler","set","0,1"],["Bunlardan removable olan","set","1"]],
  D3:[["a =","val","-1"],["b =","val","3"]],
- D4:[["Düşey asimptot: x =","set","-2,2"],["Yatay asimptot: y =","set","2"]],
+ D4:[["Vertical asymptote: x =","set","-2,2"],["Horizontal asymptote: y =","set","2"]],
  D5a:[[D,"expr","6x+2"],[TG,"expr","8x-3"]],
  D5b:[[D,"expr","-2/(2x+3)^2"],[TG,"expr","-2x-1"]],
  D5c:[[D,"expr","1/sqrt(2x+1)"],[TG,"expr","x/3+5/3"]],
@@ -531,15 +531,15 @@ const FIELDS={
  D6b:[[DY,"expr","5x^4-3x^2-2"]],
  D6c:[[DY,"expr","(2x^2+2x-3)/(2x+1)^2"]],
  D6d:[["y'' =","expr","12x^2-6+2/x^3"]],
- E2c:[["Süreksiz olduğu x'ler","set","-1,1"],["Bunlardan removable olan","set","1"]],
+ E2c:[["Discontinuous olduğu x'ler","set","-1,1"],["Bunlardan removable olan","set","1"]],
  E2d:[["f(0) =","val","-1"],["f(1) =","val","1"]],
  E3a:[[D,"expr","1/(x+1)^2"],[TG,"expr","x/4+1/4"]],
  E3b:[[D,"expr","3x^2-2"],[TG,"expr","x-2"]],
  E4a:[[DY,"expr","1+1/(2sqrt(x))"]],
  E4b:[[DY,"expr","-8/(5x-1)^2"]],
  E4c:[[DY,"expr","(1/3)x^(-2/3)-(5/3)x^(-4/3)"]],
- E5a:[["Yatay teğet olan x'ler","set","-1,1"]],
- E5b:[["Düşey asimptot: x =","set","0"],["Yatay asimptot: y =","set","1,-1"]]
+ E5a:[["Horizontal tangent olan x'ler","set","-1,1"]],
+ E5b:[["Vertical asymptote: x =","set","0"],["Horizontal asymptote: y =","set","1,-1"]]
 };
 
 const ALLQ={};
@@ -731,7 +731,7 @@ function setView(k){
   let qs=set.qs;
   const ok=qs.filter(x=>S.status[x.id]==="ok").length, bad=qs.filter(x=>S.status[x.id]==="bad").length;
   let h=`<section class="sheet"><h2>${set.title}</h2><p class="muted">${set.intro}</p>
-   <div class="syntax"><b>Nasıl yazılır?</b> Sayı: <code>1/2</code>, <code>-1/25</code>, <code>inf</code>, <code>-inf</code>, <code>dne</code> · İfade: <code>4x-1</code>, <code>-3/(3x-1)^2</code>, <code>1/(2sqrt(x))</code>, <code>x^(1/3)</code> · Teğet: <code>y=-5x-2</code> veya <code>y-3=-5(x+1)</code> · Küme: <code>-1, 1</code>. Enter tuşu anında kontrol eder.</div>
+   <div class="syntax"><b>Nasıl yazılır?</b> Sayı: <code>1/2</code>, <code>-1/25</code>, <code>inf</code>, <code>-inf</code>, <code>dne</code> · İfade: <code>4x-1</code>, <code>-3/(3x-1)^2</code>, <code>1/(2sqrt(x))</code>, <code>x^(1/3)</code> · Tangent line: <code>y=-5x-2</code> veya <code>y-3=-5(x+1)</code> · Küme: <code>-1, 1</code>. Enter tuşu anında kontrol eder.</div>
    <p class="small" style="margin-top:10px">Bu setteki durumun: <b style="color:var(--green)">${ok} doğru</b> · <b style="color:var(--red)">${bad} yanlış</b> · <b>${qs.length-ok-bad} çözülmemiş</b></p>`;
 
   if(k==="zbirka"){
@@ -740,12 +740,12 @@ function setView(k){
     const filters=[
       ["all",`Tümü (${counts.all})`],
       ["cebir",`Blok 1: 1.1 0/0 Limit (${counts.cebir})`],
-      ["tek",`Blok 2a: 1.3 Tek Taraflı (${counts.tek})`],
+      ["tek",`Blok 2a: 1.3 One-Sided (${counts.tek})`],
       ["trig",`Blok 2b: 1.4 Trig (${counts.trig})`],
-      ["sonsuz",`Blok 3: 1.5 Sonsuz & Asimptot (${counts.sonsuz})`],
-      ["surek",`Blok 4: 1.6 Süreklilik (${counts.surek})`],
-      ["tanim",`Blok 5: 2.1 Tanımdan Türev (${counts.tanim})`],
-      ["kural",`Blok 6: 2.2 Kurallar (${counts.kural})`],
+      ["sonsuz",`Blok 3: 1.5 Infinity & Asymptote (${counts.sonsuz})`],
+      ["surek",`Blok 4: 1.6 Continuity (${counts.surek})`],
+      ["tanim",`Blok 5: 2.1 Definition of Derivative (${counts.tanim})`],
+      ["kural",`Blok 6: 2.2 Differentiation Rules (${counts.kural})`],
       ["bad",`✗ Yanlışlarım (${counts.bad})`],
       ["todo",`⏳ Çözülmemiş (${counts.todo})`]
     ];
@@ -796,22 +796,22 @@ function planView(){
     <p class="muted"><b>Sınav:</b> 14 Kasım 2026 Cumartesi 12:30 (%30 ağırlık) · <b>Kaynaklar:</b> <code>MIDTERM REVIEW 101.docx</code>, Leila Miller <i>A Calculus Problem Book</i> (<code>zbirka.txt</code>) ve Thomas' Calculus 12th Ed.</p>
     <div class="chips">
       <span class="chip">137 Etkileşimli Soru</span>
-      <span class="chip purple">Canlı Limit & Teğet Grafiği</span>
-      <span class="chip green">Otomatik Türev/Cebir Kontrolü</span>
+      <span class="chip purple">Canlı Limit & Tangent Line Grafiği</span>
+      <span class="chip green">Otomatik Derivative/Cebir Kontrolü</span>
       <span class="chip amber">75 Çözümlü Kitap Sorusu</span>
     </div>
     <div class="tblwrap" style="margin-top:12px">
       <table>
         <tr><th>Thomas Bölümü</th><th>Konu</th><th>Kitaptaki Karşılığı (Zbirka)</th><th>Review Dağılımı</th><th>İşlem</th></tr>
-        <tr><td><b>2.2</b></td><td>Limit, 0/0 Giderme (Çarpan, Eşlenik, Ortak Payda), Sandwich</td><td>1.1 Limits, Basic Properties</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:cebir" type="button" style="padding:3px 9px;font-size:.78rem">Blok 1 Aç</button></td></tr>
-        <tr><td><b>2.4</b></td><td>Tek Taraflı Limitler, Mutlak Değer $|x-a|$, Trig Limitler ($\sin x/x$)</td><td>1.3 One-Sided & 1.4 Trig Limits</td><td>4 Soru</td><td><button class="btn soft" data-go="zbirka:tek" type="button" style="padding:3px 9px;font-size:.78rem">Blok 2 Aç</button></td></tr>
-        <tr><td><b>2.6</b></td><td>Sonsuzda Limit ($x\to\pm\infty$), Sonsuz Limit, Yatay/Düşey Asimptot</td><td>1.5 Limits Involving Infinity</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:sonsuz" type="button" style="padding:3px 9px;font-size:.78rem">Blok 3 Aç</button></td></tr>
-        <tr><td><b>2.5</b></td><td>Süreklilik, Jump/Removable Süreksizlik, $a,b$ Bulma, IVT</td><td>1.6 Continuity</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:surek" type="button" style="padding:3px 9px;font-size:.78rem">Blok 4 Aç</button></td></tr>
-        <tr><td><b>3.1 – 3.2</b></td><td>Tanımdan Türev $\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}$ ve Teğet Doğrusu</td><td>2.1 Definition of Derivative</td><td>3 Soru (~25p)</td><td><button class="btn soft" data-go="zbirka:tanim" type="button" style="padding:3px 9px;font-size:.78rem">Blok 5 Aç</button></td></tr>
-        <tr><td><b>3.3</b></td><td>Türev Kuralları: Kuvvet, Çarpım, Bölüm, İkinci Türev</td><td>2.2 Basic Properties (Soru 1–18)</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:kural" type="button" style="padding:3px 9px;font-size:.78rem">Blok 6 Aç</button></td></tr>
+        <tr><td><b>2.2</b></td><td>Limit, 0/0 Giderme (Factoring, Conjugate, Common Denominator), Sandwich Theorem</td><td>1.1 Limits, Basic Properties</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:cebir" type="button" style="padding:3px 9px;font-size:.78rem">Blok 1 Aç</button></td></tr>
+        <tr><td><b>2.4</b></td><td>One-Sided Limits, Absolute Value $|x-a|$, Trigonometric Limits ($\\sin x/x$)</td><td>1.3 One-Sided & 1.4 Trig Limits</td><td>4 Soru</td><td><button class="btn soft" data-go="zbirka:tek" type="button" style="padding:3px 9px;font-size:.78rem">Blok 2 Aç</button></td></tr>
+        <tr><td><b>2.6</b></td><td>Limits at Infinity ($x\\to\\pm\\infty$), Infinite Limits, Horizontal/Vertical Asymptotes</td><td>1.5 Limits Involving Infinity</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:sonsuz" type="button" style="padding:3px 9px;font-size:.78rem">Blok 3 Aç</button></td></tr>
+        <tr><td><b>2.5</b></td><td>Continuity, Jump/Removable Discontinuity, $a,b$ Bulma, IVT</td><td>1.6 Continuity</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:surek" type="button" style="padding:3px 9px;font-size:.78rem">Blok 4 Aç</button></td></tr>
+        <tr><td><b>3.1 – 3.2</b></td><td>Definition of the Derivative $\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}$ ve Tangent Line</td><td>2.1 Definition of Derivative</td><td>3 Soru (~25p)</td><td><button class="btn soft" data-go="zbirka:tanim" type="button" style="padding:3px 9px;font-size:.78rem">Blok 5 Aç</button></td></tr>
+        <tr><td><b>3.3</b></td><td>Differentiation Rules: Power, Product, Quotient Rule, Second Derivative</td><td>2.2 Basic Properties (Soru 1–18)</td><td>2 Soru</td><td><button class="btn soft" data-go="zbirka:kural" type="button" style="padding:3px 9px;font-size:.78rem">Blok 6 Aç</button></td></tr>
       </table>
     </div>
-    <p class="small muted" style="margin-top:10px"><b>🚫 Kapsam Dışı (Çalışma!):</b> $\varepsilon$–$\delta$ ispatı (Thomas 2.3 / Kitap 1.2), Trigonometrik Türevler (Thomas 3.5 / Kitap 2.2 Soru 19–26), Zincir Kuralı (Kitap 2.3), Kapalı Türev (Kitap 2.4), Ekstremum ve Grafik Çizimi (Kitap Bölüm 3).</p>
+    <p class="small muted" style="margin-top:10px"><b>🚫 Kapsam Dışı (Çalışma!):</b> $\\varepsilon$–$\\delta$ proof (Thomas 2.3 / Kitap 1.2), Derivatives of Trigonometric Functions (Thomas 3.5 / Kitap 2.2 Soru 19–26), Chain Rule (Kitap 2.3), Implicit Differentiation (Kitap 2.4), Extreme Values ve Curve Sketching (Kitap Bölüm 3).</p>
   </section>`;
 
   PLAN.forEach((g,gi)=>{
@@ -822,47 +822,47 @@ function planView(){
   });
 
   h+=`<section class="sheet"><h3 style="margin-top:0">🏆 Sınav Anı Taktikleri</h3><ul>
-   <li><b>Sıra:</b> Kağıdı alınca önce Türev Kuralları (Soru 13–14) ve Süreklilik (Soru 8–9) sorularını çöz; 10 dakikada ~30 puanı cebine koy.</li>
-   <li><b>Tanımdan Türev:</b> Her satırda <code>lim (h→0)</code> yazmayı unutma! $h$ sadeleşmeden önce $h=0$ koyma. Sonucu bulunca türev kuralıyla kafandan doğrula!</li>
-   <li><b>Süreklilik "Explain" Sorusu:</b> Sadece "discontinuous" yazarsan puan kırılır. Her kritik nokta için $\lim_{x\to a^-}f(x)$, $\lim_{x\to a^+}f(x)$ ve $f(a)$ değerlerini ayrı ayrı yaz.</li>
-   <li><b>Limit Kontrolü:</b> İlk iş $x=a$ koymak! Kitap 1.1 #2 ve 1.4 #8 gibi sorularda payda $0$ olmuyor, cevap doğrudan $0$ çıkıyor.</li></ul></section>`;
+   <li><b>Sıra:</b> Kağıdı alınca önce Differentiation Rules (Soru 13–14) ve Continuity (Soru 8–9) sorularını çöz; 10 dakikada ~30 puanı cebine koy.</li>
+   <li><b>Definition of the Derivative:</b> Her satırda <code>lim (h→0)</code> yazmayı unutma! $h$ sadeleşmeden önce $h=0$ koyma. Sonucu bulunca differentiation rules ile kafandan doğrula!</li>
+   <li><b>Continuity "Explain" Sorusu:</b> Sadece "discontinuous" yazarsan puan kırılır. Her kritik nokta için $\\lim_{x\\to a^-}f(x)$, $\\lim_{x\\to a^+}f(x)$ ve $f(a)$ değerlerini ayrı ayrı yaz.</li>
+   <li><b>Limit Kontrolü:</b> İlk iş $x=a$ koymak! Kitap 1.1 #2 ve 1.4 #8 gibi sorularda denominator $0$ olmuyor, cevap doğrudan $0$ çıkıyor.</li></ul></section>`;
   return h;
 }
 
 /* ---------- VISUAL CALCULUS LAB (ATÖLYE) ---------- */
 const LAB_PRESETS = {
   r10: {
-    name: "Review #10: f(x) = 2x² - x (x = -1'de Teğet & Kiriş)",
+    name: "Review #10: f(x) = 2x² - x (x = -1'de Tangent & Secant Line)",
     expr: "2x^2-x", a: -1, mode: "tangent", xrange: [-3, 2], yrange: [-2, 8],
-    note: "f(-1) = 3, f'(-1) = -5. h → 0 sürgüsünü oynatarak kesen doğrunun (kesikli mor) y = -5x - 2 teğet doğrusuna (yeşil) nasıl çakıştığını izle."
+    note: "f(-1) = 3, f'(-1) = -5. h → 0 sürgüsünü oynatarak secant line'ın (kesikli mor) y = -5x - 2 tangent line'a (yeşil) nasıl çakıştığını izle."
   },
   r11: {
-    name: "Review #11: f(x) = 1/(3x - 1) (x = 1'de Teğet & Asimptot)",
+    name: "Review #11: f(x) = 1/(3x - 1) (x = 1'de Tangent Line & Asymptote)",
     expr: "1/(3x-1)", a: 1, mode: "tangent", xrange: [-1, 2.5], yrange: [-3, 3],
-    note: "x = 1/3 düşey asimptottur. x = 1 noktasında f(1) = 1/2 ve f'(1) = -3/4 olup teğet doğrusu y = -3x/4 + 5/4'tür."
+    note: "x = 1/3 vertical asymptote'tur. x = 1 noktasında f(1) = 1/2 ve f'(1) = -3/4 olup tangent line y = -3x/4 + 5/4'tür."
   },
   r12: {
-    name: "Review #12: f(x) = √(1 - x) (x = 0'da Teğet)",
+    name: "Review #12: f(x) = √(1 - x) (x = 0'da Tangent Line)",
     expr: "sqrt(1-x)", a: 0, mode: "tangent", xrange: [-3, 1.5], yrange: [-0.5, 2.8],
-    note: "Tanım kümesi x ≤ 1. x = 0'da f(0) = 1 ve eğim f'(0) = -1/2 olup teğet doğrusu y = -x/2 + 1'dir."
+    note: "Domain x ≤ 1. x = 0'da f(0) = 1 ve slope f'(0) = -1/2 olup tangent line y = -x/2 + 1'dir."
   },
   r4: {
-    name: "Review #4: f(x) = |x - 2| / (x² - 4) (x = 2'de Sıçrama / Jump)",
+    name: "Review #4: f(x) = |x - 2| / (x² - 4) (x = 2'de Jump)",
     expr: "abs(x-2)/(x^2-4)", a: 2, mode: "limit", xrange: [-1, 5], yrange: [-0.6, 0.6],
-    note: "Sağdan (x → 2⁺) yaklaşırken grafik +1/4 = 0.25'e, soldan (x → 2⁻) yaklaşırken -1/4 = -0.25'e gider. Sol ≠ Sağ olduğu için limit DNE (Jump Discontinuity)."
+    note: "From the right (x → 2⁺) yaklaşırken grafik +1/4 = 0.25'e, from the left (x → 2⁻) yaklaşırken -1/4 = -0.25'e gider. Left-hand ≠ right-hand limit olduğu için limit DNE (Jump Discontinuity)."
   },
   r8: {
-    name: "Review #8: Parçalı Fonksiyon Süreksizlik Analizi (x = -1, 1, 2)",
+    name: "Review #8: Piecewise Function Discontinuity Analizi (x = -1, 1, 2)",
     expr: "piecewise_r8", a: 1, mode: "limit", xrange: [-3, 4], yrange: [-1, 5],
-    note: "x = -1'de sol ve sağ parçalar y = 1'de birleşir (Sürekli). x = 1'de 1'den 4'e sıçrar (Jump). x = 2'de 4'ten 1'e sıçrar (Jump)."
+    note: "x = -1'de sol ve sağ parçalar y = 1'de birleşir (Continuous). x = 1'de 1'den 4'e sıçrar (Jump). x = 2'de 4'ten 1'e sıçrar (Jump)."
   },
   squeeze: {
-    name: "Zbirka 1.1 #17: f(x) = x² sin(1/x) (Sandwich / Squeeze Teoremi)",
+    name: "Zbirka 1.1 #17: f(x) = x² sin(1/x) (Sandwich / Squeeze Theorem)",
     expr: "x^2*sin(1/x)", a: 0, mode: "squeeze", xrange: [-0.6, 0.6], yrange: [-0.35, 0.35],
     note: "Fonksiyon x = 0 yakınında sonsuz kez salınır ama -x² ve +x² parabolleri (kesikli zarflar) arasında sıkıştığı için x → 0 limiti 0'dır."
   },
   asym: {
-    name: "Zbirka 1.5 #38: f(x) = √(x² + 1) / x (Çift Yatay Asimptot y = ±1)",
+    name: "Zbirka 1.5 #38: f(x) = √(x² + 1) / x (İki Horizontal Asymptote y = ±1)",
     expr: "sqrt(x^2+1)/x", a: 0, mode: "limit", xrange: [-6, 6], yrange: [-3, 3],
     note: "x → +∞ iken √(x²)=+x olduğundan grafik y = +1'e; x → -∞ iken √(x²)=-x olduğundan grafik y = -1'e yaklaşır!"
   }
@@ -870,33 +870,33 @@ const LAB_PRESETS = {
 
 const DERIV_DRILLS = [
   {
-    title: "Kalıp 1 (Polinom): f(x) = 2x² - x, x = -1'de teğet (Review #10)",
+    title: "Kalıp 1 (Polynomial): f(x) = 2x² - x, x = -1'de tangent line (Review #10)",
     steps: [
-      ["Adım 1: Tanım formülünü ve f(x+h) ifadesini yaz", R`$$f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}=\lim_{h\to 0}\frac{[2(x+h)^2-(x+h)]-(2x^2-x)}{h}$$`],
+      ["Adım 1: Definition of the derivative formülünü ve f(x+h)'yi yaz", R`$$f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}=\lim_{h\to 0}\frac{[2(x+h)^2-(x+h)]-(2x^2-x)}{h}$$`],
       ["Adım 2: Parantezleri aç ve f(x) terimlerini götür", R`$$=\lim_{h\to 0}\frac{2(x^2+2xh+h^2)-x-h-2x^2+x}{h}=\lim_{h\to 0}\frac{4xh+2h^2-h}{h}$$`],
-      ["Adım 3: Payı h parantezine alıp h'yi sadeleştir", R`$$=\lim_{h\to 0}\frac{h(4x+2h-1)}{h}=\lim_{h\to 0}(4x+2h-1)$$`],
-      ["Adım 4: h = 0 koyarak türev fonksiyonunu bul", R`$$f'(x)=4x-1$$`],
-      ["Adım 5: Noktayı ve eğimi hesaplayıp teğet denklemini yaz", R`$$f(-1)=2(-1)^2-(-1)=3,\quad m=f'(-1)=4(-1)-1=-5$$ $$y-3=-5(x+1)\implies \mathbf{y=-5x-2}$$`]
+      ["Adım 3: Numerator'ı h parantezine alıp h'yi sadeleştir", R`$$=\lim_{h\to 0}\frac{h(4x+2h-1)}{h}=\lim_{h\to 0}(4x+2h-1)$$`],
+      ["Adım 4: h = 0 koyarak derivative'i bul", R`$$f'(x)=4x-1$$`],
+      ["Adım 5: Noktayı ve slope'u hesaplayıp tangent line denklemini yaz", R`$$f(-1)=2(-1)^2-(-1)=3,\quad m=f'(-1)=4(-1)-1=-5$$ $$y-3=-5(x+1)\implies \mathbf{y=-5x-2}$$`]
     ]
   },
   {
-    title: "Kalıp 2 (Kesir): f(x) = 1/(3x - 1), x = 1'de teğet (Review #11)",
+    title: "Kalıp 2 (Kesir): f(x) = 1/(3x - 1), x = 1'de tangent line (Review #11)",
     steps: [
-      ["Adım 1: Tanım formülünde f(x+h) = 1/(3(x+h)-1) yaz", R`$$f'(x)=\lim_{h\to 0}\frac{\frac{1}{3x+3h-1}-\frac{1}{3x-1}}{h}$$`],
-      ["Adım 2: Payda eşitle (işaret hatasına dikkat!)", R`$$=\lim_{h\to 0}\frac{(3x-1)-(3x+3h-1)}{h(3x+3h-1)(3x-1)}=\lim_{h\to 0}\frac{-3h}{h(3x+3h-1)(3x-1)}$$`],
+      ["Adım 1: Definition of the derivative formülünde f(x+h) = 1/(3(x+h)-1) yaz", R`$$f'(x)=\lim_{h\to 0}\frac{\frac{1}{3x+3h-1}-\frac{1}{3x-1}}{h}$$`],
+      ["Adım 2: Common denominator al (işaret hatasına dikkat!)", R`$$=\lim_{h\to 0}\frac{(3x-1)-(3x+3h-1)}{h(3x+3h-1)(3x-1)}=\lim_{h\to 0}\frac{-3h}{h(3x+3h-1)(3x-1)}$$`],
       ["Adım 3: h çarpanlarını sadeleştir", R`$$=\lim_{h\to 0}\frac{-3}{(3x+3h-1)(3x-1)}$$`],
       ["Adım 4: h = 0 koyarak f'(x)'i bul", R`$$f'(x)=\frac{-3}{(3x-1)^2}$$`],
-      ["Adım 5: x = 1 için f(1) ve f'(1) ile teğet denklemini kur", R`$$f(1)=\frac{1}{2},\quad m=f'(1)=\frac{-3}{2^2}=-\frac{3}{4}$$ $$y-\frac{1}{2}=-\frac{3}{4}(x-1)\implies \mathbf{y=-\frac{3}{4}x+\frac{5}{4}}$$`]
+      ["Adım 5: x = 1 için f(1) ve f'(1) ile tangent line denklemini kur", R`$$f(1)=\frac{1}{2},\quad m=f'(1)=\frac{-3}{2^2}=-\frac{3}{4}$$ $$y-\frac{1}{2}=-\frac{3}{4}(x-1)\implies \mathbf{y=-\frac{3}{4}x+\frac{5}{4}}$$`]
     ]
   },
   {
-    title: "Kalıp 3 (Kök): f(x) = √(1 - x), x = 0'da teğet (Review #12)",
+    title: "Kalıp 3 (Square Root): f(x) = √(1 - x), x = 0'da tangent line (Review #12)",
     steps: [
-      ["Adım 1: Tanım formülünü yaz", R`$$f'(x)=\lim_{h\to 0}\frac{\sqrt{1-(x+h)}-\sqrt{1-x}}{h}=\lim_{h\to 0}\frac{\sqrt{1-x-h}-\sqrt{1-x}}{h}$$`],
-      ["Adım 2: Pay ve paydayı eşlenik ile çarp", R`$$=\lim_{h\to 0}\frac{(\sqrt{1-x-h}-\sqrt{1-x})(\sqrt{1-x-h}+\sqrt{1-x})}{h(\sqrt{1-x-h}+\sqrt{1-x})}=\lim_{h\to 0}\frac{(1-x-h)-(1-x)}{h(\sqrt{1-x-h}+\sqrt{1-x})}$$`],
-      ["Adım 3: Paydaki -h ile paydadaki h'yi sadeleştir", R`$$=\lim_{h\to 0}\frac{-h}{h(\sqrt{1-x-h}+\sqrt{1-x})}=\lim_{h\to 0}\frac{-1}{\sqrt{1-x-h}+\sqrt{1-x}}$$`],
+      ["Adım 1: Definition of the derivative formülünü yaz", R`$$f'(x)=\lim_{h\to 0}\frac{\sqrt{1-(x+h)}-\sqrt{1-x}}{h}=\lim_{h\to 0}\frac{\sqrt{1-x-h}-\sqrt{1-x}}{h}$$`],
+      ["Adım 2: Numerator ve denominator'ı conjugate ile çarp", R`$$=\lim_{h\to 0}\frac{(\sqrt{1-x-h}-\sqrt{1-x})(\sqrt{1-x-h}+\sqrt{1-x})}{h(\sqrt{1-x-h}+\sqrt{1-x})}=\lim_{h\to 0}\frac{(1-x-h)-(1-x)}{h(\sqrt{1-x-h}+\sqrt{1-x})}$$`],
+      ["Adım 3: Numerator'daki -h ile denominator'daki h'yi sadeleştir", R`$$=\lim_{h\to 0}\frac{-h}{h(\sqrt{1-x-h}+\sqrt{1-x})}=\lim_{h\to 0}\frac{-1}{\sqrt{1-x-h}+\sqrt{1-x}}$$`],
       ["Adım 4: h = 0 koyarak f'(x)'i bul", R`$$f'(x)=\frac{-1}{2\sqrt{1-x}}$$`],
-      ["Adım 5: x = 0 için f(0) ve f'(0) ile teğet denklemini yaz", R`$$f(0)=1,\quad m=f'(0)=-\frac{1}{2}$$ $$y-1=-\frac{1}{2}(x-0)\implies \mathbf{y=-\frac{1}{2}x+1}$$`]
+      ["Adım 5: x = 0 için f(0) ve f'(0) ile tangent line denklemini yaz", R`$$f(0)=1,\quad m=f'(0)=-\frac{1}{2}$$ $$y-1=-\frac{1}{2}(x-0)\implies \mathbf{y=-\frac{1}{2}x+1}$$`]
     ]
   }
 ];
@@ -904,8 +904,8 @@ const DERIV_DRILLS = [
 function atolyeView(){
   const p = LAB_PRESETS[S.labPreset] || LAB_PRESETS.r10;
   let h=`<section class="sheet">
-    <h2>📐 Görsel Calculus Simülatörü (Limit, Süreklilik, Teğet & Kiriş)</h2>
-    <p class="muted">Fonksiyonların kritik noktalardaki sağ/sol limit davranışını, sıçrama süreksizliklerini, Sandwich zarfını ve $h\to 0$ iken kesen (kiriş) doğrusunun teğet doğrusuna dönüşümünü canlı incele.</p>
+    <h2>📐 Görsel Calculus Simülatörü (Limit, Continuity, Tangent & Secant Line)</h2>
+    <p class="muted">Function'ların kritik noktalardaki right-hand/left-hand limit davranışını, jump discontinuity'leri, Sandwich Theorem zarfını ve $h\to 0$ iken secant line'ın tangent line'a dönüşümünü canlı incele.</p>
     <div class="lab-grid">
       <div class="canvas-card">
         <canvas id="calcCanvas" width="640" height="380"></canvas>
@@ -927,12 +927,12 @@ function atolyeView(){
           </div>
         </div>
         <div class="ctrl-box">
-          <label for="labHRange">Kiriş / Yaklaşım Adımı $h = $ <b id="labHVal">${S.labH}</b> ($x+h$ noktası):</label>
+          <label for="labHRange">Secant Line / Yaklaşım Adımı $h = $ <b id="labHVal">${S.labH}</b> ($x+h$ noktası):</label>
           <input type="range" id="labHRange" min="-1.5" max="1.5" step="0.05" value="${S.labH}" style="width:100%;accent-color:var(--blue)">
           <div class="small muted" id="labSlopeInfo" style="margin-top:4px"></div>
         </div>
         <div class="ctrl-box">
-          <label>Sayısal Sağ / Sol Limit Tablosu ($x \to a^-$ ve $x \to a^+$):</label>
+          <label>Sayısal Right-hand / Left-hand Limit Tablosu ($x \to a^-$ ve $x \to a^+$):</label>
           <table class="num-table" id="labNumTable"></table>
         </div>
       </div>
@@ -942,8 +942,8 @@ function atolyeView(){
   // Step-by-step Definition of Derivative Trainer
   const d = DERIV_DRILLS[S.drvTpl] || DERIV_DRILLS[0];
   h+=`<section class="sheet">
-    <h2>🎯 Adım Adım "Tanımdan Türev" (Definition of Derivative) Antrenörü</h2>
-    <p class="muted">Sınavın 24 puanlık kısmında kural kullanmak 0 puan getirir. Üç ana kalıbın her adımını sırayla açıp kağıttaki çözümünle karşılaştır.</p>
+    <h2>🎯 Adım Adım "Definition of the Derivative" Antrenörü</h2>
+    <p class="muted">Sınavın 24 puanlık kısmında differentiation rules kullanmak 0 puan getirir. Üç ana kalıbın her adımını sırayla açıp kağıttaki çözümünle karşılaştır.</p>
     <div class="filter-bar">
       ${DERIV_DRILLS.map((dr,i)=>`<button type="button" class="filter-btn ${S.drvTpl===i?"active":""}" data-drvtpl="${i}">${esc(dr.title.split(":")[0])}</button>`).join("")}
       <button type="button" class="btn soft" data-drvstep="next" style="margin-left:auto">Sonraki Adımı Aç (${S.drvStep}/${d.steps.length})</button>
@@ -962,7 +962,7 @@ function atolyeView(){
   // English Exam Sentence Templates
   h+=`<section class="sheet">
     <h2>🇬🇧 Sınav İngilizcesi: "Explain" Soruları İçin Tam Puanlık Cümle Şablonları</h2>
-    <p class="muted">Hocanın "explain" dediği süreklilik ve teorem sorularında kopyalayıp kağıda yazacağın standart İngilizce cümleler:</p>
+    <p class="muted">Hocanın "explain" dediği continuity ve theorem sorularında kopyalayıp kağıda yazacağın standart İngilizce cümleler:</p>
     <div class="tblwrap">
       <table>
         <tr><th>Durum</th><th>Kağıda Yazılacak İngilizce Şablon</th><th>İşlem</th></tr>
@@ -999,19 +999,19 @@ function konuView(){
   </section>`;
 
   const T=[
-  ["§1 0/0 Limitleri & Sandwich (Thomas 2.2 · Zbirka 1.1)","cebir",R`<p>Önce yerine koy. Sayı çıkarsa bitti. $0/0$ çıkarsa cebir yap.</p>
+  ["§1 0/0 Limitleri & Sandwich Theorem (Thomas 2.2 · Zbirka 1.1)","cebir",R`<p>Önce yerine koy. Sayı çıkarsa bitti. $0/0$ (indeterminate form, belirsizlik) çıkarsa cebir yap.</p>
    <table><tr><th>Görünüm</th><th>Yöntem</th></tr>
-   <tr><td>Polinom / polinom</td><td>Çarpanlara ayır, sadeleştir</td></tr>
-   <tr><td>Kök farkı</td><td>Eşlenikle çarp: $(\sqrt A-\sqrt B)(\sqrt A+\sqrt B)=A-B$</td></tr>
-   <tr><td>Kesir içinde kesir</td><td>Payı tek kesir yap</td></tr>
-   <tr><td>$x^2\sin(1/x)$ gibi</td><td>Sandwich: $-x^2\le\cdot\le x^2$</td></tr></table>
+   <tr><td>Polynomial (polinom) / polynomial</td><td>Çarpanlara ayır, sadeleştir</td></tr>
+   <tr><td>Square root (kök) farkı</td><td>Conjugate (eşlenik) ile çarp: $(\sqrt A-\sqrt B)(\sqrt A+\sqrt B)=A-B$</td></tr>
+   <tr><td>Kesir içinde kesir</td><td>Numerator'ı (pay) tek kesir yap</td></tr>
+   <tr><td>$x^2\sin(1/x)$ gibi</td><td>Sandwich Theorem: $-x^2\le\cdot\le x^2$</td></tr></table>
    <p><b>Örnek.</b> $\displaystyle\lim_{x\to1}\frac{\sqrt{x+3}-2}{1-x}=\lim\frac{x-1}{(1-x)(\sqrt{x+3}+2)}=\lim\frac{-1}{\sqrt{x+3}+2}=-\frac14$</p>
    <p class="small">Tuzak: $\dfrac{x-1}{1-x}=-1$.</p>`],
-  ["§2 Tek Taraflı Limit ve |x| (Thomas 2.4 · Zbirka 1.3)","tek",R`<p>$\lim_{x\to a}f=L \iff$ sol $=$ sağ $=L$. Farklıysa <b>DNE</b>.</p>
+  ["§2 One-Sided Limit (tek taraflı limit) ve |x| (Thomas 2.4 · Zbirka 1.3)","tek",R`<p>$\lim_{x\to a}f=L \iff$ left-hand limit (sol limit) $=$ right-hand limit (sağ limit) $=L$. Farklıysa <b>DNE</b>.</p>
    <p>$|x-a|=x-a$ ($x>a$), $|x-a|=-(x-a)$ ($x\lt a$). Yaklaştığın tarafa göre aç.</p>
-   <p>Parçalı fonksiyonda sol limit için soldaki formül, sağ limit için sağdaki formül. $f(a)$ için eşitliğin olduğu parça.</p>
-   <p><b>Örnek.</b> $\displaystyle\lim_{x\to4^+}\frac{|x-4|}{4-x}=\frac{x-4}{4-x}=-1$, soldan $+1$, iki taraflı DNE.</p>`],
-  ["§2b Trigonometrik Limitler (Thomas 2.4 · Zbirka 1.4)","trig",R`<p>Temel: $\displaystyle\lim_{\theta\to0}\frac{\sin\theta}{\theta}=1$.</p>
+   <p>Piecewise function'da (parçalı fonksiyon) left-hand limit için soldaki formül, right-hand limit için sağdaki formül. $f(a)$ için eşitliğin olduğu parça.</p>
+   <p><b>Örnek.</b> $\displaystyle\lim_{x\to4^+}\frac{|x-4|}{4-x}=\frac{x-4}{4-x}=-1$, left-hand limit $+1$, two-sided limit DNE.</p>`],
+  ["§2b Trigonometric Limits (Thomas 2.4 · Zbirka 1.4)","trig",R`<p>Temel: $\displaystyle\lim_{\theta\to0}\frac{\sin\theta}{\theta}=1$.</p>
    <table><tr><th>$x\to0$</th><th>Sonuç</th></tr>
    <tr><td>$\sin ax/(bx)$, $\tan ax/(bx)$, $\sin ax/\sin bx$</td><td>$a/b$</td></tr>
    <tr><td>$(1-\cos x)/x$</td><td>$0$</td></tr>
@@ -1019,38 +1019,38 @@ function konuView(){
    <p>$1-\cos$ görünce $(1+\cos)$ ile genişlet, $\sin^2$ çıkar. Adım göster: $\sin ax$'in altına $ax$ koy.</p>
    <p><b>Örnek.</b> $\displaystyle\lim_{x\to0}x^2\cot^23x=\cos^23x\Big(\frac{3x}{\sin3x}\Big)^2\frac19=\frac19$</p>
    <p class="small">$0/0$ değilse $\sin\theta/\theta$ kullanma: $\lim_{x\to\pi}\sin2x/x=0$.</p>`],
-  ["§3 Süreklilik & IVT (Thomas 2.5 · Zbirka 1.6)","surek",R`<p>$f$, $a$'da sürekli: (1) $f(a)$ tanımlı, (2) limit var, (3) limit $=f(a)$.</p>
+  ["§3 Continuity (süreklilik) & IVT (Thomas 2.5 · Zbirka 1.6)","surek",R`<p>$f$, $a$'da continuous (sürekli): (1) $f(a)$ defined (tanımlı), (2) limit var, (3) limit $=f(a)$.</p>
    <table><tr><th>Tür</th><th>Durum</th></tr>
-   <tr><td>Removable</td><td>Limit var, $f(a)$ farklı ya da tanımsız</td></tr>
-   <tr><td>Jump</td><td>Sol ve sağ limit farklı sayılar</td></tr>
+   <tr><td>Removable</td><td>Limit var, $f(a)$ farklı ya da undefined</td></tr>
+   <tr><td>Jump</td><td>Left-hand ve right-hand limit farklı sayılar</td></tr>
    <tr><td>Infinite</td><td>Limit $\pm\infty$</td></tr></table>
-   <p><b>a, b bul:</b> her geçiş noktasında sol $=$ sağ denklemi yaz, sistemi çöz.</p>
-   <p><b>IVT:</b> $f$ $[a,b]$'de sürekli, $N$ $f(a)$ ile $f(b)$ arasında ise $f(c)=N$ olan $c\in(a,b)$ var. Kök göstermek için işaret değişimi.</p>`],
-  ["§4 Sonsuzluk ve Asimptotlar (Thomas 2.6 · Zbirka 1.5)","sonsuz",R`<p>$x\to\pm\infty$ rasyonel: paydanın en büyük kuvvetine böl.</p>
-   <table><tr><th>Derece</th><th>Limit</th></tr><tr><td>pay &lt; payda</td><td>$0$</td></tr><tr><td>pay $=$ payda</td><td>baş katsayılar oranı</td></tr><tr><td>pay &gt; payda</td><td>$\pm\infty$</td></tr></table>
+   <p><b>a, b bul:</b> her geçiş noktasında left-hand $=$ right-hand denklemi yaz, sistemi çöz.</p>
+   <p><b>IVT:</b> $f$ $[a,b]$'de continuous, $N$ $f(a)$ ile $f(b)$ arasında ise $f(c)=N$ olan $c\in(a,b)$ var. Root (kök) göstermek için işaret değişimi.</p>`],
+  ["§4 Limits Involving Infinity ve Asymptotes (asimptot) (Thomas 2.6 · Zbirka 1.5)","sonsuz",R`<p>$x\to\pm\infty$ rational function: denominator'ın (payda) en büyük power'ına böl.</p>
+   <table><tr><th>Degree (derece)</th><th>Limit</th></tr><tr><td>numerator (pay) &lt; denominator</td><td>$0$</td></tr><tr><td>numerator $=$ denominator</td><td>leading coefficient'ların (baş katsayı) oranı</td></tr><tr><td>numerator &gt; denominator</td><td>$\pm\infty$</td></tr></table>
    <p>$\sqrt{x^2}=|x|$. $x\to-\infty$ iken $-x$.</p>
-   <p>$\infty-\infty$ (kök $-$ x): eşlenik. $\displaystyle\lim_{x\to\infty}(\sqrt{x^2+x+1}-x)=\frac12$</p>
-   <p>sayı/0: işarete bak. $\displaystyle\lim_{x\to-2^+}\frac{x-1}{x+2}=-\infty$ (pay $-3$, payda $0^+$).</p>
-   <p>Yatay asimptot: $\lim_{x\to\pm\infty}f$. Düşey: sadeleştirdikten sonra paydayı sıfır yapan $x$.</p>`],
-  ["§5 Tanımdan Türev ve Teğet (Thomas 3.1–3.2 · Zbirka 2.1)","tanim",R`<p>$$f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}\qquad y-f(a)=f'(a)(x-a)$$</p>
+   <p>$\infty-\infty$ (square root $-$ x): conjugate. $\displaystyle\lim_{x\to\infty}(\sqrt{x^2+x+1}-x)=\frac12$</p>
+   <p>sayı/0: işarete bak. $\displaystyle\lim_{x\to-2^+}\frac{x-1}{x+2}=-\infty$ (numerator $-3$, denominator $0^+$).</p>
+   <p>Horizontal asymptote (yatay): $\lim_{x\to\pm\infty}f$. Vertical (düşey): sadeleştirdikten sonra denominator'ı sıfır yapan $x$.</p>`],
+  ["§5 Definition of the Derivative (tanımdan türev) ve Tangent Line (teğet) (Thomas 3.1–3.2 · Zbirka 2.1)","tanim",R`<p>$$f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}\qquad y-f(a)=f'(a)(x-a)$$</p>
    <p>Adımlar: $f(x+h)$ yaz, $f(x+h)-f(x)$ sadeleştir, $h$'yi sadeleştir, $h\to0$.</p>
    <table><tr><th>Kalıp</th><th>Teknik</th><th>Sonuç</th></tr>
    <tr><td>$x^3+1$</td><td>Aç</td><td>$3x^2$</td></tr>
-   <tr><td>$1/x$, $x/(x+1)$</td><td>Ortak payda</td><td>$-1/x^2$, $1/(x+1)^2$</td></tr>
-   <tr><td>$\sqrt{x+2}$</td><td>Eşlenik</td><td>$1/(2\sqrt{x+2})$</td></tr></table>
-   <p>Türevlenebilir $\Rightarrow$ sürekli. Tersi değil: $|x|$, $x=0$'da köşe.</p>`],
-  ["§6 Türev Kuralları (Thomas 3.3 · Zbirka 2.2)","kural",R`<p>$(x^n)'=nx^{n-1}$, $(fg)'=f'g+fg'$, $\Big(\dfrac fg\Big)'=\dfrac{f'g-fg'}{g^2}$</p>
-   <p>Önce kuvvete çevir: $\dfrac1{x^n}=x^{-n}$, $\sqrt x=x^{1/2}$, $\sqrt[3]x=x^{1/3}$.</p>
+   <tr><td>$1/x$, $x/(x+1)$</td><td>Common denominator (ortak payda)</td><td>$-1/x^2$, $1/(x+1)^2$</td></tr>
+   <tr><td>$\sqrt{x+2}$</td><td>Conjugate</td><td>$1/(2\sqrt{x+2})$</td></tr></table>
+   <p>Differentiable (türevlenebilir) $\Rightarrow$ continuous. Tersi değil: $|x|$, $x=0$'da corner (köşe).</p>`],
+  ["§6 Differentiation Rules (türev kuralları) (Thomas 3.3 · Zbirka 2.2)","kural",R`<p>Power rule $(x^n)'=nx^{n-1}$, product rule $(fg)'=f'g+fg'$, quotient rule $\Big(\dfrac fg\Big)'=\dfrac{f'g-fg'}{g^2}$</p>
+   <p>Önce power (kuvvet) biçimine çevir: $\dfrac1{x^n}=x^{-n}$, $\sqrt x=x^{1/2}$, $\sqrt[3]x=x^{1/3}$.</p>
    <p>$(1/x)'=-1/x^2$, $(\sqrt x)'=1/(2\sqrt x)$, $(-5x^{-2})'=+10x^{-3}$.</p>
-   <p>Yatay teğet: $f'(x)=0$ çöz.</p>`]
+   <p>Horizontal tangent (yatay teğet): $f'(x)=0$ çöz.</p>`]
   ];
   h+=`<section class="sheet"><h2>📖 Konu Özeti Kartları</h2><p class="muted">Her kart bir plan bloğuna karşılık gelir.</p>`;
   T.forEach(([t,tag,body],i)=>{h+=`<details ${S.open["k"+i]!==false?"open":""} data-k="${i}"><summary>${t} <span class="chip">${TAGS[tag].blok}</span></summary>${body}</details>`;});
   h+=R`</section><section class="sheet"><h2>⚠️ Sınavda En Sık Yapılan 11 Ölümcül Hata</h2><ol class="small">
-   <li>$0/0$'ı cevap sanmak ($0/0$ belirsizliktir, sadeleştirme yap!).</li><li>Sayı/0'a hemen DNE yazmak; tek taraflıysa $+\infty$ veya $-\infty$ çıkar.</li><li>$|x-a|$'yı hangi taraftan yaklaştığına bakmadan açmak.</li>
-   <li>$x\to-\infty$'da $\sqrt{x^2}=x$ almak (Doğrusu $\sqrt{x^2}=|x|=-x$).</li><li>$(x-1)/(1-x)=1$ sanmak (Doğrusu $-1$).</li><li>Tanımdan türevde satır başlarında $\lim_{h\to 0}$ yazmayı bırakmak.</li>
-   <li>Çarpım türevinde $(fg)'=f'g'$ yazmak.</li><li>Bölüm kuralında paydaki çıkarma sırasını karıştırmak.</li><li>Teğet denkleminde eğimi $x$'li bırakmak (Eğim $m=f'(a)$ sayıdır!).</li>
-   <li>Süreklilikte sadece "not continuous" yazıp sol/sağ limitleri göstermemek.</li><li>$-5/x^2 = -5x^{-2}$ türevinde eksiyi unutmak (Türevi $+10/x^3$).</li></ol></section>`;
+   <li>$0/0$'ı cevap sanmak ($0/0$ indeterminate form'dur, sadeleştirme yap!).</li><li>Sayı/0'a hemen DNE yazmak; one-sided limit ise $+\infty$ veya $-\infty$ çıkar.</li><li>$|x-a|$'yı hangi taraftan yaklaştığına bakmadan açmak.</li>
+   <li>$x\to-\infty$'da $\sqrt{x^2}=x$ almak (Doğrusu $\sqrt{x^2}=|x|=-x$).</li><li>$(x-1)/(1-x)=1$ sanmak (Doğrusu $-1$).</li><li>Definition of the derivative'de satır başlarında $\lim_{h\to 0}$ yazmayı bırakmak.</li>
+   <li>Product rule'da $(fg)'=f'g'$ yazmak.</li><li>Quotient rule'da numerator'daki çıkarma sırasını karıştırmak.</li><li>Tangent line denkleminde slope'u $x$'li bırakmak (Slope $m=f'(a)$ sayıdır!).</li>
+   <li>Continuity sorusunda sadece "not continuous" yazıp left-hand/right-hand limit'leri göstermemek.</li><li>$-5/x^2 = -5x^{-2}$ derivative'inde eksiyi unutmak (Derivative'i $+10/x^3$).</li></ol></section>`;
   return h;
 }
 
@@ -1205,11 +1205,11 @@ function drawLab(){
       ctx.fillStyle = isDark ? "#c084fc" : "#7c3aed";
       ctx.beginPath(); ctx.arc(toX(aVal + hVal), toY(fah), 5.5, 0, Math.PI * 2); ctx.fill();
       if(slopeInfo){
-        slopeInfo.innerHTML = `Kiriş eğimi $\\frac{f(a+h)-f(a)}{h} =$ <b>${secSlope.toFixed(4)}</b> &nbsp;·&nbsp; Gerçek türev $f'(a) \\approx$ <b style="color:var(--green)">${isFinite(deriv)?deriv.toFixed(4):"DNE"}</b>`;
+        slopeInfo.innerHTML = `Secant slope $\\frac{f(a+h)-f(a)}{h} =$ <b>${secSlope.toFixed(4)}</b> &nbsp;·&nbsp; Gerçek derivative $f'(a) \\approx$ <b style="color:var(--green)">${isFinite(deriv)?deriv.toFixed(4):"DNE"}</b>`;
         math(slopeInfo);
       }
     } else if(slopeInfo){
-      slopeInfo.innerHTML = `$h = 0$: Kiriş doğrusu tam teğet doğrusuna çakıştı! Eğim $f'(a) \\approx$ <b style="color:var(--green)">${isFinite(deriv)?deriv.toFixed(4):"DNE"}</b>`;
+      slopeInfo.innerHTML = `$h = 0$: Secant line tam tangent line'a çakıştı! Slope $f'(a) \\approx$ <b style="color:var(--green)">${isFinite(deriv)?deriv.toFixed(4):"DNE"}</b>`;
       math(slopeInfo);
     }
 
@@ -1225,8 +1225,8 @@ function drawLab(){
     let rows = `<tr><th>Yaklaşım</th><th>x</th><th>f(x)</th></tr>`;
     for(const d of deltas){
       const xv = aVal + d, yv = evalLabFn(exprStr, xv);
-      const side = d < 0 ? "Sol (a⁻)" : "Sağ (a⁺)";
-      rows += `<tr><td>${side}</td><td>${xv.toFixed(3)}</td><td><b>${isFinite(yv)?yv.toFixed(5):"Tanımsız"}</b></td></tr>`;
+      const side = d < 0 ? "Left (a⁻)" : "Right (a⁺)";
+      rows += `<tr><td>${side}</td><td>${xv.toFixed(3)}</td><td><b>${isFinite(yv)?yv.toFixed(5):"Undefined"}</b></td></tr>`;
     }
     tbl.innerHTML = rows;
   }
@@ -1423,12 +1423,20 @@ function openSearchModal(){
   const m=$("#searchModal"), inp=$("#searchModalInput");
   m.hidden=false; inp.value=""; renderSearchResults(""); inp.focus();
 }
+/* Search accepts the English term and the old Turkish word. */
+const SYN={"eşlenik":"conjugate","süreklilik":"continu","sürekli":"continu","süreksiz":"discontinu","türev":"derivative","teğet":"tangent","eğim":"slope","asimptot":"asymptote","düşey":"vertical","yatay":"horizontal","payda":"denominator","pay":"numerator","tek taraflı":"one-sided","sağ limit":"right-hand","sol limit":"left-hand","mutlak değer":"absolute value","sıkıştırma":"sandwich","ara değer":"intermediate value","kök":"root","bölüm kuralı":"quotient rule","çarpım kuralı":"product rule","kuvvet":"power","belirsiz":"indeterminate","parçalı":"piecewise","sonsuz":"infinity","kiriş":"secant","tanımsız":"undefined","derece":"degree"};
+function searchTerms(q){
+  const t=[q];
+  for(const k in SYN){ if(q.length>=3&&(k.startsWith(q)||q.startsWith(k))) t.push(SYN[k]); }
+  return t;
+}
 function renderSearchResults(qStr){
   const box=$("#searchModalResults");
   const q=qStr.trim().toLowerCase();
   const list=Object.values(ALLQ).filter(x=>{
     if(!q) return true;
-    return x.id.toLowerCase().includes(q) || x.p.toLowerCase().includes(q) || TAGS[x.tag].l.toLowerCase().includes(q) || (x.src||"").toLowerCase().includes(q) || (x.h||"").toLowerCase().includes(q);
+    const hay=[x.id,x.p,TAGS[x.tag].l,x.src||"",x.h||"",x.s||""].join(" ").toLowerCase();
+    return searchTerms(q).some(t=>hay.includes(t));
   }).slice(0,20);
   box.innerHTML=list.map(x=>`<div class="modal-item" data-jumpq="${x.id}" data-jumpset="${x.set}">
     <div><b>${x.id}</b> · <span class="small muted">${esc(x.src||SETS[x.set].title)}</span><div class="small">${esc(TAGS[x.tag].l)}</div></div>

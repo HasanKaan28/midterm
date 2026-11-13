@@ -293,7 +293,7 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 
 <div class="modal-backdrop" id="searchModal" hidden>
   <div class="modal-box" role="dialog" aria-modal="true" aria-label="Soru ve konu arama">
-    <input type="text" id="searchModalInput" placeholder="Soru kodu (H3, Ö7, A13, B4), konu (sürtünme, eğik atış, yay) veya formül yaz..." autocomplete="off" aria-controls="searchModalResults">
+    <input type="text" id="searchModalInput" placeholder="Soru kodu (H3, Ö7, A13, B4), konu (friction, projectile, sürtünme) veya formül yaz..." autocomplete="off" aria-controls="searchModalResults">
     <div class="modal-results" id="searchModalResults" role="listbox"></div>
   </div>
 </div>
@@ -303,169 +303,169 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 <!-- Content carried over verbatim from the previous version of this page -->
 <template id="tpl-weights"><div class="tblwrap"><table>
       <tr><th>Bölüm</th><th>Konu</th><th>Ağırlık (tahmin)</th></tr>
-      <tr><td>1</td><td>Birimler, vektörler, skaler ve vektörel çarpım</td><td>Orta</td></tr>
-      <tr><td>2</td><td>Doğru boyunca hareket, serbest düşme</td><td>Yüksek</td></tr>
-      <tr><td>3</td><td>İki boyutta hareket, eğik atış, çembersel hareket, bağıl hız</td><td>Yüksek</td></tr>
-      <tr><td>4</td><td>Newton yasaları, serbest cisim diyagramı</td><td>Yüksek</td></tr>
-      <tr><td>5</td><td>Newton yasalarının uygulamaları, sürtünme, çembersel dinamik</td><td>Çok yüksek</td></tr>
-      <tr><td>6</td><td>İş, kinetik enerji, güç</td><td>Yüksek</td></tr>
-      <tr><td>7</td><td>Potansiyel enerji, enerji korunumu</td><td>Çok yüksek</td></tr>
+      <tr><td>1</td><td>Units, vectors, scalar product ve vector product</td><td>Orta</td></tr>
+      <tr><td>2</td><td>Motion along a straight line, free fall</td><td>Yüksek</td></tr>
+      <tr><td>3</td><td>Motion in two dimensions, projectile motion, circular motion, relative velocity</td><td>Yüksek</td></tr>
+      <tr><td>4</td><td>Newton's laws, free-body diagram</td><td>Yüksek</td></tr>
+      <tr><td>5</td><td>Applying Newton's laws, friction, dynamics of circular motion</td><td>Çok yüksek</td></tr>
+      <tr><td>6</td><td>Work, kinetic energy, power</td><td>Yüksek</td></tr>
+      <tr><td>7</td><td>Potential energy, conservation of energy</td><td>Çok yüksek</td></tr>
     </table></div></template>
 <template id="tpl-ozet"><details id="oz-b1">
-      <summary>Bölüm 1: Birimler, fiziksel büyüklükler, vektörler</summary>
+      <summary>Bölüm 1: Units, physical quantities, vectors</summary>
       <p class="sub">Ana fikirler</p>
       <ul>
-        <li>SI temel birimleri: metre, saniye, kilogram. Bir denklemin iki tarafının birimi aynı olmalı.</li>
-        <li>Anlamlı rakam: çarpma ve bölmede sonuç, en az anlamlı rakamı olan çarpan kadar rakam taşır. Toplama ve çıkarmada ondalık basamak sayısı belirler.</li>
-        <li>Skaler tek sayıdır (kütle, süre, enerji). Vektörün büyüklüğü ve yönü vardır (yer değiştirme, hız, kuvvet).</li>
-        <li>Vektörleri bileşenleriyle topla: önce her vektörün $x$ ve $y$ bileşenini bul, bileşenleri topla, sonra büyüklük ve açıya dön.</li>
-        <li>Skaler çarpım bir sayı verir. Vektörler dikse sıfırdır, zıt yönlüyse negatiftir.</li>
-        <li>Vektörel çarpım, iki vektöre de dik bir vektör verir. Vektörler paralelse sıfırdır.</li>
+        <li>SI base units (SI temel birimleri): metre, saniye, kilogram. Bir denklemin iki tarafının birimi aynı olmalı.</li>
+        <li>Significant figures (anlamlı rakam): çarpma ve bölmede sonuç, en az significant figure'ı olan çarpan kadar rakam taşır. Toplama ve çıkarmada ondalık basamak sayısı belirler.</li>
+        <li>Scalar (skaler) tek sayıdır (mass, time, energy). Vector'ün (vektör) magnitude'u (büyüklük) ve direction'ı (yön) vardır (displacement, velocity, force).</li>
+        <li>Vector'leri component'leriyle (bileşen) topla: önce her vector'ün $x$ ve $y$ component'ini bul, component'leri topla, sonra magnitude ve açıya dön.</li>
+        <li>Scalar product (dot product, skaler çarpım) bir sayı verir. Vector'ler dikse sıfırdır, zıt yönlüyse negatiftir.</li>
+        <li>Vector product (cross product, vektörel çarpım), iki vector'e de dik bir vector verir. Vector'ler paralelse sıfırdır.</li>
       </ul>
       <p class="sub">Sık yapılan hatalar</p>
       <ul>
-        <li>Hesap makinesinin verdiği arctan sonucu yanlış çeyrekte olabilir. $A_x$ negatifse sonuca $180°$ ekle.</li>
-        <li>Açı $+x$ ekseninden ölçülmüyorsa (örneğin "kuzeyin 30° doğusu") sin ve cos yer değiştirir. Şekil çiz.</li>
+        <li>Hesap makinesinin verdiği arctan sonucu yanlış quadrant'ta (çeyrek) olabilir. $A_x$ negatifse sonuca $180°$ ekle.</li>
+        <li>Açı $+x$ axis'ten (eksen) ölçülmüyorsa (örneğin "kuzeyin 30° doğusu") sin ve cos yer değiştirir. Şekil çiz.</li>
         <li>$\vec A\times\vec B$ ile $\vec B\times\vec A$ aynı değildir, işaretleri terstir.</li>
       </ul>
     </details>
 
     <details id="oz-b2">
-      <summary>Bölüm 2: Doğru boyunca hareket</summary>
+      <summary>Bölüm 2: Motion along a straight line</summary>
       <p class="sub">Ana fikirler</p>
       <ul>
-        <li>Yer değiştirme $\Delta x=x_2-x_1$ işaretlidir. Alınan yol işaretsizdir.</li>
-        <li>Ortalama sürat, ortalama hızın büyüklüğü değildir. Gidip geri dönen cismin ortalama hızı sıfır, ortalama sürati sıfırdan farklıdır.</li>
-        <li>Hızın işareti hareket yönünü gösterir. İvme ile hız aynı işaretliyse cisim hızlanır, zıt işaretliyse yavaşlar.</li>
-        <li>Sabit ivme denklemleri yalnız ivme sabitken geçerlidir. İvme zamana bağlıysa türev ve integral kullan.</li>
-        <li>Serbest düşmede ivme her an $g$ büyüklüğünde ve aşağı yönlüdür: çıkarken de, tepede de, inerken de.</li>
+        <li>Displacement (yer değiştirme) $\Delta x=x_2-x_1$ işaretlidir. Distance (alınan yol) işaretsizdir.</li>
+        <li>Average speed (ortalama sürat), average velocity'nin (ortalama hız) magnitude'u değildir. Gidip geri dönen cismin average velocity'si sıfır, average speed'i sıfırdan farklıdır.</li>
+        <li>Velocity'nin işareti hareket yönünü gösterir. Acceleration (ivme) ile velocity aynı işaretliyse cisim hızlanır, zıt işaretliyse yavaşlar.</li>
+        <li>Constant acceleration (sabit ivme) denklemleri yalnız acceleration sabitken geçerlidir. Acceleration zamana bağlıysa türev ve integral kullan.</li>
+        <li>Free fall'da (serbest düşme) acceleration'ın magnitude'u her an $g$, yönü aşağıdır: çıkarken de, tepede de, inerken de.</li>
       </ul>
       <p class="sub">Sık yapılan hatalar</p>
       <ul>
-        <li>Tepe noktasında hız sıfırdır ama ivme sıfır değildir.</li>
-        <li>"Negatif ivme yavaşlama demektir" yanlıştır. $-x$ yönünde giden cisim negatif ivmeyle hızlanır.</li>
+        <li>Tepe noktasında velocity sıfırdır ama acceleration sıfır değildir.</li>
+        <li>"Negatif acceleration yavaşlama demektir" yanlıştır. $-x$ yönünde giden cisim negatif acceleration'la hızlanır.</li>
         <li>Yukarı atılıp aşağı düşen cisimde hareketi ikiye bölmeye gerek yok. Tek denklem, işaretlere dikkat ederek, yeter.</li>
       </ul>
     </details>
 
     <details id="oz-b3">
-      <summary>Bölüm 3: İki ve üç boyutta hareket</summary>
+      <summary>Bölüm 3: Motion in two or three dimensions</summary>
       <p class="sub">Ana fikirler</p>
       <ul>
-        <li>Hız vektörü her zaman yörüngeye teğettir. İvme vektörü yörüngenin içbükey tarafına bakar.</li>
-        <li>İvmenin hıza paralel bileşeni sürati değiştirir. Dik bileşeni yönü değiştirir.</li>
-        <li>Eğik atışta yatay ve düşey hareket bağımsızdır. Yatayda hız sabittir, düşeyde ivme $-g$'dir. İki hareketi birbirine zaman bağlar.</li>
+        <li>Velocity vector'ü her zaman trajectory'ye (yörünge) tangent'tir (teğet). Acceleration vector'ü trajectory'nin içbükey tarafına bakar.</li>
+        <li>Acceleration'ın velocity'ye paralel component'i speed'i (sürat) değiştirir. Dik component'i yönü değiştirir.</li>
+        <li>Projectile motion'da (eğik atış) yatay ve düşey hareket bağımsızdır. Yatayda velocity sabittir, düşeyde acceleration $-g$'dir. İki hareketi birbirine zaman bağlar.</li>
         <li>Aynı yükseklikten bırakılan ve yatay fırlatılan cisimler yere aynı anda düşer.</li>
-        <li>Tepe noktasında $v_y=0$ olur, ama sürat sıfır değildir: $v=v_0\cos\alpha_0$.</li>
-        <li>Düzgün çembersel harekette sürat sabittir, hız sabit değildir. İvme merkeze doğrudur ve büyüklüğü $v^2/R$'dir.</li>
-        <li>Sürat değişiyorsa teğetsel ivme de vardır.</li>
-        <li>Bağıl hız: alt indisleri zincir gibi bağla. $\vec v_{P/A}=\vec v_{P/B}+\vec v_{B/A}$.</li>
+        <li>Tepe noktasında $v_y=0$ olur, ama speed sıfır değildir: $v=v_0\cos\alpha_0$.</li>
+        <li>Uniform circular motion'da (düzgün çembersel hareket) speed sabittir, velocity sabit değildir. Centripetal acceleration (merkezcil ivme) merkeze doğrudur, magnitude'u $v^2/R$'dir.</li>
+        <li>Speed değişiyorsa tangential acceleration (teğetsel ivme) da vardır.</li>
+        <li>Relative velocity (bağıl hız): alt indisleri zincir gibi bağla. $\vec v_{P/A}=\vec v_{P/B}+\vec v_{B/A}$.</li>
       </ul>
       <p class="sub">Sık yapılan hatalar</p>
       <ul>
-        <li>Menzil formülü $R=v_0^2\sin 2\alpha_0/g$ yalnız atış ve iniş aynı yükseklikteyse geçerlidir. Uçurumdan atışta kullanma.</li>
-        <li>Eğik atışta ivme tepe noktasında da $g$'dir, sıfır değildir.</li>
+        <li>Range (menzil) formülü $R=v_0^2\sin 2\alpha_0/g$ yalnız atış ve iniş aynı yükseklikteyse geçerlidir. Uçurumdan atışta kullanma.</li>
+        <li>Projectile motion'da acceleration tepe noktasında da $g$'dir, sıfır değildir.</li>
         <li>Nehir sorularında tekneyi karşıya dik geçirmek için burnu akıntıya karşı çevirmek gerekir.</li>
       </ul>
     </details>
 
     <details id="oz-b4">
-      <summary>Bölüm 4: Newton'un hareket yasaları</summary>
+      <summary>Bölüm 4: Newton's laws of motion</summary>
       <p class="sub">Ana fikirler</p>
       <ul>
-        <li>Kuvvet vektördür. Cisme etkiyen kuvvetlerin vektör toplamı net kuvvettir.</li>
-        <li>Dört yaygın kuvvet: normal kuvvet (yüzeye dik), sürtünme (yüzeye paralel), ip gerilmesi (ip boyunca, çeker), ağırlık (aşağı).</li>
-        <li>1. yasa: net kuvvet sıfırsa hız değişmez. Hareket için kuvvet gerekmez, hızı değiştirmek için gerekir.</li>
-        <li>1. yasa yalnız eylemsiz (ivmelenmeyen) referans sistemlerinde geçerlidir.</li>
-        <li>2. yasa: ivme net kuvvetle doğru, kütleyle ters orantılıdır.</li>
-        <li>Kütle cismin özelliğidir, her yerde aynıdır. Ağırlık bir kuvvettir, $g$'ye bağlıdır.</li>
-        <li>3. yasa: etki ve tepki eşit büyüklükte, zıt yönlüdür ve farklı cisimlere etkir. Bu yüzden birbirlerini götürmezler.</li>
+        <li>Force (kuvvet) vector'dür. Cisme etki eden force'ların vector toplamı net force'tur (net kuvvet).</li>
+        <li>Dört yaygın force: normal force (yüzeye dik), friction (sürtünme, yüzeye paralel), tension (ip gerilmesi, ip boyunca, çeker), weight (ağırlık, aşağı).</li>
+        <li>Newton's first law: net force sıfırsa velocity değişmez. Hareket için force gerekmez, velocity'yi değiştirmek için gerekir.</li>
+        <li>First law yalnız inertial frame of reference'ta (eylemsiz referans sistemi, ivmelenmeyen) geçerlidir.</li>
+        <li>Newton's second law: acceleration net force'la doğru, mass'le (kütle) ters orantılıdır.</li>
+        <li>Mass cismin özelliğidir, her yerde aynıdır. Weight bir force'tur, $g$'ye bağlıdır.</li>
+        <li>Newton's third law: action ve reaction (etki–tepki) eşit magnitude'da, zıt yönlüdür ve farklı cisimlere etki eder. Bu yüzden birbirlerini götürmezler.</li>
       </ul>
-      <p class="sub">Serbest cisim diyagramı kuralları</p>
+      <p class="sub">Free-body diagram (serbest cisim diyagramı) kuralları</p>
       <ul>
-        <li>Yalnız o cisme etkiyen kuvvetleri çiz. Cismin başkasına uyguladığı kuvvetleri çizme.</li>
-        <li>Her kuvvet için "bunu hangi cisim uyguluyor?" diye sor. Cevap yoksa o kuvvet yoktur.</li>
-        <li>$m\vec a$ bir kuvvet değildir, diyagrama çizilmez.</li>
+        <li>Yalnız o cisme etki eden force'ları çiz. Cismin başkasına uyguladığı force'ları çizme.</li>
+        <li>Her force için "bunu hangi cisim uyguluyor?" diye sor. Cevap yoksa o force yoktur.</li>
+        <li>$m\vec a$ bir force değildir, diyagrama çizilmez.</li>
       </ul>
       <p class="sub">Sık yapılan hatalar</p>
       <ul>
-        <li>Masadaki kitapta normal kuvvet ağırlığın tepkisi değildir. Ağırlığın tepkisi, kitabın Dünya'yı çekmesidir.</li>
-        <li>Kamyon ile küçük araba çarpışınca kuvvetler eşittir. İvmeler farklıdır, çünkü kütleler farklıdır.</li>
+        <li>Masadaki kitapta normal force, weight'in reaction'ı değildir. Weight'in reaction'ı, kitabın Dünya'yı çekmesidir.</li>
+        <li>Kamyon ile küçük araba çarpışınca force'lar eşittir. Acceleration'lar farklıdır, çünkü mass'ler farklıdır.</li>
       </ul>
     </details>
 
     <details id="oz-b5">
-      <summary>Bölüm 5: Newton yasalarının uygulamaları</summary>
+      <summary>Bölüm 5: Applying Newton's laws</summary>
       <p class="sub">Çözüm yöntemi</p>
       <ol>
-        <li>Şekil çiz. Her cisim için ayrı serbest cisim diyagramı çiz.</li>
-        <li>Eksen seç. Eğik düzlemde eksenleri düzleme paralel ve dik al.</li>
-        <li>Kuvvetleri bileşenlerine ayır.</li>
-        <li>Her cisim ve her eksen için $\sum F=ma$ yaz (dengedeyse sıfır).</li>
-        <li>İple bağlı cisimlerin ivme büyüklükleri aynıdır. İp ve makara hafifse gerilme ip boyunca aynıdır.</li>
+        <li>Şekil çiz. Her cisim için ayrı free-body diagram çiz.</li>
+        <li>Axis seç. Inclined plane'de (eğik düzlem) axis'leri düzleme paralel ve dik al.</li>
+        <li>Force'ları component'lerine ayır.</li>
+        <li>Her cisim ve her axis için $\sum F=ma$ yaz (equilibrium'daysa sıfır).</li>
+        <li>İple bağlı cisimlerin acceleration magnitude'ları aynıdır. İp ve pulley (makara) hafifse tension ip boyunca aynıdır.</li>
         <li>Bilinmeyen sayısı kadar denklem olduğunu kontrol et, çöz.</li>
       </ol>
       <p class="sub">Ana fikirler</p>
       <ul>
-        <li>Normal kuvvet her zaman $mg$ değildir. Eğik düzlemde $mg\cos\theta$, yukarı çekilen kutuda $mg-F\sin\theta$, asansörde $m(g+a)$.</li>
-        <li>Statik sürtünme sıfır ile $\mu_s n$ arasında, gereken değeri alır. Kinetik sürtünme $\mu_k n$'dir. Genelde $\mu_s\gt\mu_k$.</li>
-        <li>Çembersel harekette "merkezcil kuvvet" ayrı bir kuvvet değildir. Gerçek kuvvetlerin (gerilme, sürtünme, normal, ağırlık) merkeze doğru net bileşenidir.</li>
-        <li>Eylemsiz sistemde merkezkaç kuvveti yoktur, diyagrama çizilmez.</li>
-        <li>İp koparsa cisim teğet yönünde düz çizgide gider.</li>
-        <li>Akışkan direnci sürate bağlıdır. Direnç ağırlığa eşit olunca limit sürate ulaşılır.</li>
+        <li>Normal force her zaman $mg$ değildir. Inclined plane'de $mg\cos\theta$, yukarı çekilen kutuda $mg-F\sin\theta$, asansörde $m(g+a)$.</li>
+        <li>Static friction (statik sürtünme) sıfır ile $\mu_s n$ arasında, gereken değeri alır. Kinetic friction (kinetik sürtünme) $\mu_k n$'dir. Genelde $\mu_s\gt\mu_k$.</li>
+        <li>Circular motion'da "centripetal force" (merkezcil kuvvet) ayrı bir force değildir. Gerçek force'ların (tension, friction, normal force, weight) merkeze doğru net component'idir.</li>
+        <li>Inertial frame'de centrifugal force (merkezkaç kuvveti) yoktur, diyagrama çizilmez.</li>
+        <li>İp koparsa cisim tangent yönünde düz çizgide gider.</li>
+        <li>Fluid resistance (akışkan direnci) speed'e bağlıdır. Fluid resistance weight'e eşit olunca terminal speed'e (limit sürat) ulaşılır.</li>
       </ul>
       <p class="sub">Sık yapılan hatalar</p>
       <ul>
-        <li>Kaymayan cisimde sürtünmeyi doğrudan $\mu_s n$ almak.</li>
-        <li>Düşey çemberde tepe ve dipte işaretleri karıştırmak. Dipte: $T-mg=mv^2/R$. Tepede: $T+mg=mv^2/R$.</li>
-        <li>Asılı kütlenin gerilmesini $mg$ almak. Sistem ivmeleniyorsa $T\ne mg$.</li>
+        <li>Kaymayan cisimde friction'ı doğrudan $\mu_s n$ almak.</li>
+        <li>Vertical circle'da (düşey çember) tepe ve dipte işaretleri karıştırmak. Dipte: $T-mg=mv^2/R$. Tepede: $T+mg=mv^2/R$.</li>
+        <li>Asılı mass'in tension'ını $mg$ almak. Sistemin acceleration'ı varsa $T\ne mg$.</li>
       </ul>
     </details>
 
     <details id="oz-b6">
-      <summary>Bölüm 6: İş ve kinetik enerji</summary>
+      <summary>Bölüm 6: Work and kinetic energy</summary>
       <p class="sub">Ana fikirler</p>
       <ul>
-        <li>İş skalerdir: $W=Fs\cos\varphi$. Kuvvet yer değiştirmeyle aynı yönlüyse pozitif, zıtsa negatif, dikse sıfırdır.</li>
-        <li>Normal kuvvet ve düzgün çembersel harekette merkezcil kuvvet iş yapmaz, çünkü harekete diktirler.</li>
-        <li>Cismi hareketsiz tutmak iş değildir (yer değiştirme yok).</li>
-        <li>Kinetik enerji yöne bağlı değildir, asla negatif olmaz. Sürat iki katına çıkarsa dört katına çıkar.</li>
-        <li>İş–enerji teoremi: toplam iş kinetik enerjideki değişime eşittir. Toplam iş pozitifse cisim hızlanır.</li>
-        <li>Değişken kuvvetin işi integralle ya da $F$–$x$ grafiğinin altındaki alanla bulunur.</li>
-        <li>Güç işin yapılma hızıdır. Aynı işi daha kısa sürede yapan daha güçlüdür.</li>
+        <li>Work (iş) scalar'dır: $W=Fs\cos\varphi$. Force displacement'la aynı yönlüyse pozitif, zıtsa negatif, dikse sıfırdır.</li>
+        <li>Normal force ve uniform circular motion'da centripetal force work yapmaz, çünkü harekete diktirler.</li>
+        <li>Cismi hareketsiz tutmak work değildir (displacement yok).</li>
+        <li>Kinetic energy (kinetik enerji) yöne bağlı değildir, asla negatif olmaz. Speed iki katına çıkarsa dört katına çıkar.</li>
+        <li>Work–energy theorem (iş–enerji teoremi): total work, kinetic energy'deki değişime eşittir. Total work pozitifse cisim hızlanır.</li>
+        <li>Değişken force'un work'ü integralle ya da $F$–$x$ grafiğinin altındaki alanla bulunur.</li>
+        <li>Power (güç) work'ün yapılma hızıdır. Aynı work'ü daha kısa sürede yapanın power'ı daha büyüktür.</li>
       </ul>
       <p class="sub">Sık yapılan hatalar</p>
       <ul>
-        <li>İş–enerji teoreminde yalnız bir kuvvetin işini almak. Bütün kuvvetlerin işini topla.</li>
-        <li>Sürtünme işinde normal kuvveti yanlış almak (çekme açılıysa $n\ne mg$).</li>
+        <li>Work–energy theorem'de yalnız bir force'un work'ünü almak. Bütün force'ların work'ünü topla.</li>
+        <li>Friction work'ünde normal force'u yanlış almak (çekme açılıysa $n\ne mg$).</li>
       </ul>
     </details>
 
     <details id="oz-b7">
-      <summary>Bölüm 7: Potansiyel enerji ve enerji korunumu</summary>
+      <summary>Bölüm 7: Potential energy and energy conservation</summary>
       <p class="sub">Ana fikirler</p>
       <ul>
-        <li>Yerçekimi işi yalnız yükseklik farkına bağlıdır, yola bağlı değildir. Cisim yükselirse $U_{grav}$ artar, yerçekimi negatif iş yapar.</li>
+        <li>Gravity'nin (yerçekimi) work'ü yalnız yükseklik farkına bağlıdır, yola bağlı değildir. Cisim yükselirse gravitational potential energy $U_{grav}$ artar, gravity negatif work yapar.</li>
         <li>$y=0$ seviyesini istediğin yere koyabilirsin. Önemli olan farktır.</li>
-        <li>Yay potansiyel enerjisi $\tfrac12kx^2$'dir, $x$ yayın doğal boyundan sapmasıdır. Asla negatif olmaz.</li>
-        <li>Korunumlu kuvvet (yerçekimi, yay): işi yoldan bağımsızdır, kapalı yolda sıfırdır, potansiyel enerji fonksiyonu vardır.</li>
-        <li>Korunumsuz kuvvet (sürtünme, hava direnci): mekanik enerjiyi iç enerjiye çevirir.</li>
-        <li>Yalnız korunumlu kuvvetler iş yapıyorsa $K+U$ sabittir.</li>
-        <li>Sürtünme varsa: $K_1+U_1+W_{other}=K_2+U_2$ ve $W_{other}$ negatiftir.</li>
-        <li>Kuvvet, potansiyel enerji eğrisinin eğiminin eksi işaretlisidir. Kuvvet sistemi her zaman düşük potansiyel enerjiye iter.</li>
-        <li>$U$'nun minimumu kararlı denge, maksimumu kararsız dengedir.</li>
+        <li>Elastic potential energy (yay potansiyel enerjisi) $\tfrac12kx^2$'dir, $x$ spring'in (yay) doğal boyundan sapmasıdır. Asla negatif olmaz.</li>
+        <li>Conservative force (korunumlu kuvvet; gravity, spring force): work'ü yoldan bağımsızdır, kapalı yolda sıfırdır, potential energy function'ı vardır.</li>
+        <li>Nonconservative force (korunumsuz kuvvet; friction, air resistance): mechanical energy'yi (mekanik enerji) internal energy'ye (iç enerji) çevirir.</li>
+        <li>Yalnız conservative force'lar work yapıyorsa $K+U$ sabittir.</li>
+        <li>Friction varsa: $K_1+U_1+W_{other}=K_2+U_2$ ve $W_{other}$ negatiftir.</li>
+        <li>Force, potential energy eğrisinin eğiminin eksi işaretlisidir. Force sistemi her zaman düşük potential energy'ye iter.</li>
+        <li>$U$'nun minimumu stable equilibrium (kararlı denge), maksimumu unstable equilibrium'dur (kararsız denge).</li>
       </ul>
-      <p class="sub">Enerji sorusu çözüm yöntemi</p>
+      <p class="sub">Energy sorusu çözüm yöntemi</p>
       <ol>
         <li>Başlangıç ve bitiş noktalarını seç. $y=0$ seviyesini belirle.</li>
         <li>Her noktada $K$, $U_{grav}$ ve $U_{el}$ değerlerini yaz.</li>
-        <li>Sürtünme ya da dış kuvvet varsa $W_{other}$'ı hesapla.</li>
+        <li>Friction ya da dış force varsa $W_{other}$'ı hesapla.</li>
         <li>$K_1+U_1+W_{other}=K_2+U_2$ denkleminden bilinmeyeni çöz.</li>
       </ol>
       <p class="sub">Sık yapılan hatalar</p>
       <ul>
-        <li>Aynı yükseklikten aynı süratle farklı açılarla atılan cisimlerin yere çarpma süratleri aynıdır. Yön farklıdır.</li>
-        <li>Yerçekimini hem $U_{grav}$ içinde hem $W_{other}$ içinde saymak. Bir kuvvet ya potansiyel enerji olarak ya iş olarak yazılır.</li>
+        <li>Aynı yükseklikten aynı speed'le farklı açılarla atılan cisimlerin yere çarpma speed'leri aynıdır. Yön farklıdır.</li>
+        <li>Gravity'yi hem $U_{grav}$ içinde hem $W_{other}$ içinde saymak. Bir force ya potential energy olarak ya work olarak yazılır.</li>
       </ul>
     </details>
 
@@ -474,118 +474,118 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
       <p class="muted small">Slaytlarda bir iki sayfa tutuyor. Hesap sorusu beklenmez, kavram sorusu gelebilir.</p>
       <ul>
         <li>Problem çözmenin dört adımı: Identify, Set Up, Execute, Evaluate.</li>
-        <li>Birim önekleri (nano, mikro, mili, kilo) ve birim sistemleri tablosu (SI, cgs, İngiliz).</li>
-        <li>Doğanın dört temel kuvveti: kütle çekim, elektromanyetik, güçlü, zayıf.</li>
-        <li>Eğri boyunca iş için çizgi integrali ve üç boyutta gradyan.</li>
+        <li>Unit prefixes (birim önekleri: nano, micro, milli, kilo) ve unit systems tablosu (SI, cgs, British).</li>
+        <li>Four fundamental forces (dört temel kuvvet): gravitational, electromagnetic, strong, weak.</li>
+        <li>Eğri boyunca work için line integral (çizgi integrali) ve üç boyutta gradient (gradyan).</li>
       </ul>
     </details></template>
-<template id="tpl-form"><h3 id="fo-b1">Bölüm 1: Birimler ve vektörler</h3>
+<template id="tpl-form"><h3 id="fo-b1">Bölüm 1: Units and vectors</h3>
     <div class="flist">
-      <div class="f"><span class="k">Birim çevirme</span> $1\ \text{km/h}=\dfrac{1}{3{,}6}\ \text{m/s}$</div>
-      <div class="f"><span class="k">Bileşenler ($\theta$, $+x$ ekseninden saat yönünün tersine)</span> $$A_x=A\cos\theta,\qquad A_y=A\sin\theta$$</div>
-      <div class="f"><span class="k">Büyüklük ve yön (çeyreği işaretlerden kontrol et)</span> $$A=\sqrt{A_x^2+A_y^2},\qquad \tan\theta=\frac{A_y}{A_x}$$</div>
-      <div class="f"><span class="k">Toplama</span> $R_x=A_x+B_x,\quad R_y=A_y+B_y$</div>
-      <div class="f"><span class="k">Skaler çarpım</span> $$\vec A\cdot\vec B=AB\cos\varphi=A_xB_x+A_yB_y+A_zB_z,\qquad \cos\varphi=\frac{\vec A\cdot\vec B}{AB}$$</div>
-      <div class="f"><span class="k">Vektörel çarpım (yön: sağ el kuralı)</span> $$|\vec A\times\vec B|=AB\sin\varphi$$ $$\vec A\times\vec B=(A_yB_z-A_zB_y)\,\hat\imath+(A_zB_x-A_xB_z)\,\hat\jmath+(A_xB_y-A_yB_x)\,\hat k$$</div>
-      <div class="f"><span class="k">Birim vektörler</span> $\hat\imath\times\hat\jmath=\hat k,\ \ \hat\jmath\times\hat k=\hat\imath,\ \ \hat k\times\hat\imath=\hat\jmath,\ \ \vec A\times\vec B=-\vec B\times\vec A$</div>
+      <div class="f"><span class="k">Unit conversion (birim çevirme)</span> $1\ \text{km/h}=\dfrac{1}{3{,}6}\ \text{m/s}$</div>
+      <div class="f"><span class="k">Components (bileşenler; $\theta$, $+x$ axis'ten counterclockwise)</span> $$A_x=A\cos\theta,\qquad A_y=A\sin\theta$$</div>
+      <div class="f"><span class="k">Magnitude ve direction (quadrant'ı işaretlerden kontrol et)</span> $$A=\sqrt{A_x^2+A_y^2},\qquad \tan\theta=\frac{A_y}{A_x}$$</div>
+      <div class="f"><span class="k">Vector addition (toplama)</span> $R_x=A_x+B_x,\quad R_y=A_y+B_y$</div>
+      <div class="f"><span class="k">Scalar product (skaler çarpım)</span> $$\vec A\cdot\vec B=AB\cos\varphi=A_xB_x+A_yB_y+A_zB_z,\qquad \cos\varphi=\frac{\vec A\cdot\vec B}{AB}$$</div>
+      <div class="f"><span class="k">Vector product (vektörel çarpım; direction: right-hand rule)</span> $$|\vec A\times\vec B|=AB\sin\varphi$$ $$\vec A\times\vec B=(A_yB_z-A_zB_y)\,\hat\imath+(A_zB_x-A_xB_z)\,\hat\jmath+(A_xB_y-A_yB_x)\,\hat k$$</div>
+      <div class="f"><span class="k">Unit vectors (birim vektörler)</span> $\hat\imath\times\hat\jmath=\hat k,\ \ \hat\jmath\times\hat k=\hat\imath,\ \ \hat k\times\hat\imath=\hat\jmath,\ \ \vec A\times\vec B=-\vec B\times\vec A$</div>
     </div>
 
-    <h3 id="fo-b2">Bölüm 2: Doğru boyunca hareket</h3>
+    <h3 id="fo-b2">Bölüm 2: Motion along a straight line</h3>
     <div class="flist">
-      <div class="f"><span class="k">Ortalama ve anlık</span> $$v_{ort}=\frac{\Delta x}{\Delta t},\quad a_{ort}=\frac{\Delta v}{\Delta t},\quad v=\frac{dx}{dt},\quad a=\frac{dv}{dt}$$</div>
-      <div class="f"><span class="k">Sabit ivme</span> $$v=v_0+at\qquad x=x_0+v_0t+\tfrac12at^2$$ $$v^2=v_0^2+2a(x-x_0)\qquad x-x_0=\tfrac12(v_0+v)\,t$$</div>
-      <div class="f"><span class="k">Serbest düşme (yukarı pozitif)</span> $a=-g$</div>
-      <div class="f"><span class="k">İvme sabit değilse</span> $v=v_0+\int a\,dt,\quad x=x_0+\int v\,dt$</div>
-      <div class="f"><span class="k">Grafikler</span> $x$–$t$ eğimi hız. $v$–$t$ eğimi ivme. $v$–$t$ altındaki alan yer değiştirme.</div>
+      <div class="f"><span class="k">Average ve instantaneous (ortalama ve anlık)</span> $$v_{ort}=\frac{\Delta x}{\Delta t},\quad a_{ort}=\frac{\Delta v}{\Delta t},\quad v=\frac{dx}{dt},\quad a=\frac{dv}{dt}$$</div>
+      <div class="f"><span class="k">Constant acceleration (sabit ivme)</span> $$v=v_0+at\qquad x=x_0+v_0t+\tfrac12at^2$$ $$v^2=v_0^2+2a(x-x_0)\qquad x-x_0=\tfrac12(v_0+v)\,t$$</div>
+      <div class="f"><span class="k">Free fall (serbest düşme; yukarı pozitif)</span> $a=-g$</div>
+      <div class="f"><span class="k">Acceleration sabit değilse</span> $v=v_0+\int a\,dt,\quad x=x_0+\int v\,dt$</div>
+      <div class="f"><span class="k">Graphs (grafikler)</span> $x$–$t$ slope'u velocity. $v$–$t$ slope'u acceleration. $v$–$t$ altındaki alan displacement.</div>
     </div>
 
-    <h3 id="fo-b3">Bölüm 3: İki ve üç boyutta hareket</h3>
+    <h3 id="fo-b3">Bölüm 3: Motion in two or three dimensions</h3>
     <div class="flist">
-      <div class="f"><span class="k">Eğik atış, başlangıç</span> $v_{0x}=v_0\cos\alpha_0,\quad v_{0y}=v_0\sin\alpha_0$</div>
-      <div class="f"><span class="k">Eğik atış, $x_0=y_0=0$</span> $$x=v_{0x}t,\qquad y=v_{0y}t-\tfrac12gt^2,\qquad v_x=v_{0x},\qquad v_y=v_{0y}-gt$$</div>
-      <div class="f"><span class="k">Yatay zeminde (atış ve iniş aynı yükseklik)</span> $$h=\frac{v_{0y}^2}{2g},\qquad t_{u}=\frac{2v_{0y}}{g},\qquad R=\frac{v_0^2\sin 2\alpha_0}{g}$$</div>
-      <div class="f"><span class="k">Düzgün çembersel hareket (ivme merkeze)</span> $$a_{rad}=\frac{v^2}{R}=\frac{4\pi^2R}{T^2},\qquad v=\frac{2\pi R}{T}$$</div>
-      <div class="f"><span class="k">Düzgün olmayan çembersel</span> $a_{tan}=\dfrac{d|\vec v|}{dt},\quad a=\sqrt{a_{rad}^2+a_{tan}^2}$</div>
-      <div class="f"><span class="k">Bağıl hız</span> $\vec v_{P/A}=\vec v_{P/B}+\vec v_{B/A}$</div>
+      <div class="f"><span class="k">Projectile motion (eğik atış), başlangıç</span> $v_{0x}=v_0\cos\alpha_0,\quad v_{0y}=v_0\sin\alpha_0$</div>
+      <div class="f"><span class="k">Projectile motion, $x_0=y_0=0$</span> $$x=v_{0x}t,\qquad y=v_{0y}t-\tfrac12gt^2,\qquad v_x=v_{0x},\qquad v_y=v_{0y}-gt$$</div>
+      <div class="f"><span class="k">Yatay zeminde (atış ve iniş aynı yükseklik): maximum height, time of flight, range</span> $$h=\frac{v_{0y}^2}{2g},\qquad t_{u}=\frac{2v_{0y}}{g},\qquad R=\frac{v_0^2\sin 2\alpha_0}{g}$$</div>
+      <div class="f"><span class="k">Uniform circular motion (düzgün çembersel hareket; acceleration merkeze)</span> $$a_{rad}=\frac{v^2}{R}=\frac{4\pi^2R}{T^2},\qquad v=\frac{2\pi R}{T}$$</div>
+      <div class="f"><span class="k">Nonuniform circular motion: tangential acceleration</span> $a_{tan}=\dfrac{d|\vec v|}{dt},\quad a=\sqrt{a_{rad}^2+a_{tan}^2}$</div>
+      <div class="f"><span class="k">Relative velocity (bağıl hız)</span> $\vec v_{P/A}=\vec v_{P/B}+\vec v_{B/A}$</div>
     </div>
 
-    <h3 id="fo-b4">Bölüm 4: Newton yasaları</h3>
+    <h3 id="fo-b4">Bölüm 4: Newton's laws</h3>
     <div class="flist">
-      <div class="f"><span class="k">1. yasa</span> $\sum\vec F=0\ \Rightarrow$ hız sabit</div>
-      <div class="f"><span class="k">2. yasa</span> $\sum\vec F=m\vec a,\quad \sum F_x=ma_x,\quad \sum F_y=ma_y$</div>
-      <div class="f"><span class="k">Ağırlık</span> $w=mg$</div>
-      <div class="f"><span class="k">3. yasa (farklı cisimlere etkir)</span> $\vec F_{A\to B}=-\vec F_{B\to A}$</div>
+      <div class="f"><span class="k">First law</span> $\sum\vec F=0\ \Rightarrow$ velocity sabit</div>
+      <div class="f"><span class="k">Second law</span> $\sum\vec F=m\vec a,\quad \sum F_x=ma_x,\quad \sum F_y=ma_y$</div>
+      <div class="f"><span class="k">Weight (ağırlık)</span> $w=mg$</div>
+      <div class="f"><span class="k">Third law (farklı cisimlere etki eder)</span> $\vec F_{A\to B}=-\vec F_{B\to A}$</div>
     </div>
 
-    <h3 id="fo-b5">Bölüm 5: Newton yasalarının uygulamaları</h3>
+    <h3 id="fo-b5">Bölüm 5: Applying Newton's laws</h3>
     <div class="flist">
-      <div class="f"><span class="k">Denge</span> $\sum F_x=0,\quad \sum F_y=0$</div>
-      <div class="f"><span class="k">Eğik düzlem (açı $\theta$)</span> paralel bileşen $mg\sin\theta$, dik bileşen $mg\cos\theta$</div>
-      <div class="f"><span class="k">Görünür ağırlık (asansör)</span> $n=m(g+a_y)$</div>
-      <div class="f"><span class="k">Sürtünme</span> $f_k=\mu_k n,\qquad f_s\le\mu_s n$ (kaymıyorsa $f_s$ dengeyi sağlayan değer)</div>
-      <div class="f"><span class="k">Sürtünmeli eğik düzlemde aşağı kayma</span> $a=g(\sin\theta-\mu_k\cos\theta)$</div>
+      <div class="f"><span class="k">Equilibrium (denge)</span> $\sum F_x=0,\quad \sum F_y=0$</div>
+      <div class="f"><span class="k">Inclined plane (eğik düzlem; açı $\theta$)</span> paralel component $mg\sin\theta$, dik component $mg\cos\theta$</div>
+      <div class="f"><span class="k">Apparent weight (görünür ağırlık; asansör)</span> $n=m(g+a_y)$</div>
+      <div class="f"><span class="k">Friction (sürtünme)</span> $f_k=\mu_k n,\qquad f_s\le\mu_s n$ (kaymıyorsa $f_s$ equilibrium'u sağlayan değer)</div>
+      <div class="f"><span class="k">Friction'lı inclined plane'de aşağı kayma</span> $a=g(\sin\theta-\mu_k\cos\theta)$</div>
       <div class="f"><span class="k">Kaymanın başladığı açı</span> $\tan\theta=\mu_s$</div>
-      <div class="f"><span class="k">Çembersel dinamik</span> $\sum F_{merkez}=\dfrac{mv^2}{R}$</div>
-      <div class="f"><span class="k">Sürtünmesiz eğimli viraj</span> $\tan\beta=\dfrac{v^2}{gR}$</div>
-      <div class="f"><span class="k">Düz viraj, kaymadan en büyük sürat</span> $v=\sqrt{\mu_s gR}$</div>
-      <div class="f"><span class="k">Düşey çemberin tepesinde en küçük sürat</span> $v=\sqrt{gR}$</div>
-      <div class="f"><span class="k">Konik sarkaç</span> $\tan\beta=\dfrac{v^2}{gR},\qquad T=2\pi\sqrt{\dfrac{L\cos\beta}{g}}$</div>
+      <div class="f"><span class="k">Dynamics of circular motion (çembersel dinamik)</span> $\sum F_{merkez}=\dfrac{mv^2}{R}$</div>
+      <div class="f"><span class="k">Frictionless banked curve (sürtünmesiz eğimli viraj)</span> $\tan\beta=\dfrac{v^2}{gR}$</div>
+      <div class="f"><span class="k">Flat curve (düz viraj), kaymadan en büyük speed</span> $v=\sqrt{\mu_s gR}$</div>
+      <div class="f"><span class="k">Vertical circle'ın tepesinde en küçük speed</span> $v=\sqrt{gR}$</div>
+      <div class="f"><span class="k">Conical pendulum (konik sarkaç)</span> $\tan\beta=\dfrac{v^2}{gR},\qquad T=2\pi\sqrt{\dfrac{L\cos\beta}{g}}$</div>
     </div>
 
-    <h3 id="fo-b6">Bölüm 6: İş ve kinetik enerji</h3>
+    <h3 id="fo-b6">Bölüm 6: Work and kinetic energy</h3>
     <div class="flist">
-      <div class="f"><span class="k">Sabit kuvvetin işi</span> $W=Fs\cos\varphi=\vec F\cdot\vec s$</div>
-      <div class="f"><span class="k">Kinetik enerji ve iş–enerji teoremi</span> $K=\tfrac12mv^2,\qquad W_{top}=K_2-K_1$</div>
-      <div class="f"><span class="k">Değişken kuvvet (grafiğin altındaki alan)</span> $W=\displaystyle\int_{x_1}^{x_2}F_x\,dx$</div>
-      <div class="f"><span class="k">Yay (germek için gereken kuvvet ve iş)</span> $F_x=kx,\qquad W=\tfrac12kx^2$</div>
-      <div class="f"><span class="k">Güç</span> $P_{ort}=\dfrac{\Delta W}{\Delta t},\qquad P=\dfrac{dW}{dt}=\vec F\cdot\vec v,\qquad 1\ \text{W}=1\ \text{J/s}$</div>
+      <div class="f"><span class="k">Constant force'un work'ü (iş)</span> $W=Fs\cos\varphi=\vec F\cdot\vec s$</div>
+      <div class="f"><span class="k">Kinetic energy ve work–energy theorem (iş–enerji teoremi)</span> $K=\tfrac12mv^2,\qquad W_{top}=K_2-K_1$</div>
+      <div class="f"><span class="k">Varying force (değişken kuvvet; grafiğin altındaki alan)</span> $W=\displaystyle\int_{x_1}^{x_2}F_x\,dx$</div>
+      <div class="f"><span class="k">Spring (yay; germek için gereken force ve work)</span> $F_x=kx,\qquad W=\tfrac12kx^2$</div>
+      <div class="f"><span class="k">Power (güç)</span> $P_{ort}=\dfrac{\Delta W}{\Delta t},\qquad P=\dfrac{dW}{dt}=\vec F\cdot\vec v,\qquad 1\ \text{W}=1\ \text{J/s}$</div>
     </div>
 
-    <h3 id="fo-b7">Bölüm 7: Potansiyel enerji ve enerji korunumu</h3>
+    <h3 id="fo-b7">Bölüm 7: Potential energy and energy conservation</h3>
     <div class="flist">
-      <div class="f"><span class="k">Yerçekimi</span> $U_{grav}=mgy,\qquad W_{grav}=mgy_1-mgy_2=-\Delta U_{grav}$</div>
-      <div class="f"><span class="k">Yay</span> $U_{el}=\tfrac12kx^2,\qquad W_{el}=\tfrac12kx_1^2-\tfrac12kx_2^2$</div>
-      <div class="f"><span class="k">Yalnız korunumlu kuvvetler</span> $K_1+U_1=K_2+U_2$</div>
-      <div class="f"><span class="k">Başka kuvvetler de iş yapıyorsa</span> $K_1+U_1+W_{other}=K_2+U_2,\qquad W_f=-f_k s$</div>
-      <div class="f"><span class="k">Genel enerji korunumu</span> $\Delta K+\Delta U+\Delta U_{int}=0$</div>
-      <div class="f"><span class="k">Potansiyelden kuvvet</span> $$F_x=-\frac{dU}{dx},\qquad \vec F=-\left(\frac{\partial U}{\partial x}\hat\imath+\frac{\partial U}{\partial y}\hat\jmath+\frac{\partial U}{\partial z}\hat k\right)$$</div>
-      <div class="f"><span class="k">Denge</span> $dU/dx=0$. $U$ minimum: kararlı. $U$ maksimum: kararsız.</div>
-      <div class="f"><span class="k">Enerji diyagramı</span> $K=E-U\ge0$. Cisim $U\gt E$ bölgesine giremez, $U=E$ olan yerde döner.</div>
+      <div class="f"><span class="k">Gravitational potential energy (yerçekimi)</span> $U_{grav}=mgy,\qquad W_{grav}=mgy_1-mgy_2=-\Delta U_{grav}$</div>
+      <div class="f"><span class="k">Elastic potential energy (yay)</span> $U_{el}=\tfrac12kx^2,\qquad W_{el}=\tfrac12kx_1^2-\tfrac12kx_2^2$</div>
+      <div class="f"><span class="k">Yalnız conservative force'lar (korunumlu kuvvetler)</span> $K_1+U_1=K_2+U_2$</div>
+      <div class="f"><span class="k">Başka force'lar da work yapıyorsa</span> $K_1+U_1+W_{other}=K_2+U_2,\qquad W_f=-f_k s$</div>
+      <div class="f"><span class="k">Conservation of energy, genel (enerji korunumu)</span> $\Delta K+\Delta U+\Delta U_{int}=0$</div>
+      <div class="f"><span class="k">Potential energy'den force</span> $$F_x=-\frac{dU}{dx},\qquad \vec F=-\left(\frac{\partial U}{\partial x}\hat\imath+\frac{\partial U}{\partial y}\hat\jmath+\frac{\partial U}{\partial z}\hat k\right)$$</div>
+      <div class="f"><span class="k">Equilibrium</span> $dU/dx=0$. $U$ minimum: stable (kararlı). $U$ maksimum: unstable (kararsız).</div>
+      <div class="f"><span class="k">Energy diagram (enerji diyagramı)</span> $K=E-U\ge0$. Cisim $U\gt E$ bölgesine giremez, $U=E$ olan turning point'te (dönüş noktası) döner.</div>
     </div></template>
 <template id="tpl-ex"><div class="q ex" data-ex="1" data-ch="b1">
         <header><span class="qid">Örnek 1</span><span class="chip">Bölüm 1</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Bileşenlerle vektör toplama.</b> $\vec A$ vektörü $5{,}0$ m büyüklüğünde ve $+x$ ekseniyle $37°$ yapıyor. $\vec B$ vektörü $8{,}0$ m büyüklüğünde ve $+x$ ekseniyle $150°$ yapıyor. $\vec R=\vec A+\vec B$ vektörünün büyüklüğünü ve yönünü bul.</p></div>
+        <div class="prompt"><p><b>Component'lerle vector addition.</b> $\vec A$ vector'ünün magnitude'u $5{,}0$ m ve $+x$ axis'le $37°$ yapıyor. $\vec B$ vector'ünün magnitude'u $8{,}0$ m ve $+x$ axis'le $150°$ yapıyor. $\vec R=\vec A+\vec B$ vector'ünün magnitude ve direction'ını bul.</p></div>
         <div class="sol" hidden><ul>
           <li>$A_x=5{,}0\cos37°=3{,}99$ m, $A_y=5{,}0\sin37°=3{,}01$ m</li>
           <li>$B_x=8{,}0\cos150°=-6{,}93$ m, $B_y=8{,}0\sin150°=4{,}00$ m</li>
           <li>$R_x=-2{,}94$ m, $R_y=7{,}01$ m, $R=\sqrt{2{,}94^2+7{,}01^2}=7{,}60$ m</li>
-          <li>$\arctan(7{,}01/-2{,}94)=-67{,}3°$. $R_x\lt0$, $R_y\gt0$: 2. çeyrek, $\theta=-67{,}3°+180°=112{,}7°$</li>
-        </ul><p class="ans">Sonuç: $R=7{,}60$ m, $+x$ ekseninden $112{,}7°$.</p></div>
+          <li>$\arctan(7{,}01/-2{,}94)=-67{,}3°$. $R_x\lt0$, $R_y\gt0$: 2. quadrant, $\theta=-67{,}3°+180°=112{,}7°$</li>
+        </ul><p class="ans">Sonuç: $R=7{,}60$ m, $+x$ axis'ten $112{,}7°$.</p></div>
       </div>
 
       <div class="q ex" data-ex="2" data-ch="b1">
         <header><span class="qid">Örnek 2</span><span class="chip">Bölüm 1</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Skaler ve vektörel çarpım.</b> $\vec A=2\hat\imath+3\hat\jmath-\hat k$ ve $\vec B=-\hat\imath+4\hat\jmath+2\hat k$. (a) $\vec A\cdot\vec B$, (b) aralarındaki açı, (c) $\vec A\times\vec B$ nedir?</p></div>
+        <div class="prompt"><p><b>Scalar product ve vector product.</b> $\vec A=2\hat\imath+3\hat\jmath-\hat k$ ve $\vec B=-\hat\imath+4\hat\jmath+2\hat k$. (a) $\vec A\cdot\vec B$, (b) aralarındaki açı, (c) $\vec A\times\vec B$ nedir?</p></div>
         <div class="sol" hidden><ul>
           <li>(a) $\vec A\cdot\vec B=(2)(-1)+(3)(4)+(-1)(2)=8$</li>
           <li>(b) $A=\sqrt{14}=3{,}74$, $B=\sqrt{21}=4{,}58$. $\cos\varphi=8/(3{,}74\cdot4{,}58)=0{,}467$, $\varphi=62{,}2°$</li>
           <li>(c) $C_x=(3)(2)-(-1)(4)=10$, $C_y=(-1)(-1)-(2)(2)=-3$, $C_z=(2)(4)-(3)(-1)=11$</li>
         </ul><p class="ans">Sonuç: $\vec A\times\vec B=10\hat\imath-3\hat\jmath+11\hat k$.</p>
-        <p>Kontrol: sonuç iki vektöre de dik olmalı. $\vec A\cdot(\vec A\times\vec B)=20-9-11=0$.</p></div>
+        <p>Kontrol: sonuç iki vector'e de dik olmalı. $\vec A\cdot(\vec A\times\vec B)=20-9-11=0$.</p></div>
       </div>
 
       <div class="q ex" data-ex="3" data-ch="b2">
         <header><span class="qid">Örnek 3</span><span class="chip">Bölüm 2</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Sabit ivmeli hareket, iki aşama.</b> Bir araba durgun halden $2{,}5\ \text{m/s}^2$ ivmeyle $8{,}0$ s hızlanıyor, sonra $4{,}0\ \text{m/s}^2$ ivmeyle fren yapıp duruyor. Toplam yol kaç metre?</p></div>
+        <div class="prompt"><p><b>Constant acceleration, iki aşama.</b> Bir araba durgun halden $2{,}5\ \text{m/s}^2$ acceleration'la $8{,}0$ s hızlanıyor, sonra $4{,}0\ \text{m/s}^2$ acceleration'la fren yapıp duruyor. Toplam distance kaç metre?</p></div>
         <div class="sol" hidden><ul>
           <li>1. aşama: $v=(2{,}5)(8{,}0)=20$ m/s, $x_1=\tfrac12(2{,}5)(8{,}0)^2=80$ m</li>
           <li>2. aşama: $0=20^2+2(-4{,}0)x_2$, $x_2=50$ m</li>
-        </ul><p class="ans">Sonuç: toplam yol $130$ m.</p></div>
+        </ul><p class="ans">Sonuç: toplam distance $130$ m.</p></div>
       </div>
 
       <div class="q ex" data-ex="4" data-ch="b2">
         <header><span class="qid">Örnek 4</span><span class="chip">Bölüm 2</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Yukarı atış, çatıdan.</b> $20$ m yüksekliğindeki bir çatının kenarından bir top $15$ m/s süratle düşey yukarı atılıyor. (a) Çatıdan en fazla ne kadar yükselir? (b) Yere ne zaman çarpar? (c) Yere çarpma sürati nedir?</p></div>
+        <div class="prompt"><p><b>Free fall, çatıdan yukarı atış.</b> $20$ m yüksekliğindeki bir çatının kenarından bir top $15$ m/s speed'le düşey yukarı atılıyor. (a) Çatıdan en fazla ne kadar yükselir? (b) Yere ne zaman çarpar? (c) Yere çarpma speed'i nedir?</p></div>
         <div class="sol" hidden><p>Yukarı pozitif, çatı $y=0$.</p><ul>
           <li>(a) $0=15^2-2(9{,}80)h$, $h=11{,}5$ m</li>
           <li>(b) Yer $y=-20$ m: $-20=15t-4{,}90t^2$, yani $4{,}90t^2-15t-20=0$. $t=\dfrac{15+\sqrt{225+392}}{9{,}80}=4{,}07$ s (negatif kök atılır)</li>
@@ -596,38 +596,38 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 
       <div class="q ex" data-ex="5" data-ch="b3">
         <header><span class="qid">Örnek 5</span><span class="chip">Bölüm 3</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Eğik atış, düz zemin.</b> Bir top yerden $20$ m/s süratle, yatayla $53°$ açıyla atılıyor. (a) Uçuş süresi, (b) menzil, (c) en büyük yükseklik, (d) tepe noktasındaki sürat nedir?</p></div>
+        <div class="prompt"><p><b>Projectile motion, düz zemin.</b> Bir top yerden $20$ m/s speed'le, yatayla $53°$ açıyla atılıyor. (a) Time of flight, (b) range, (c) maximum height, (d) tepe noktasındaki speed nedir?</p></div>
         <div class="sol" hidden><ul>
           <li>$v_{0x}=20\cos53°=12{,}0$ m/s, $v_{0y}=20\sin53°=16{,}0$ m/s</li>
           <li>(a) $t=2v_{0y}/g=3{,}26$ s</li>
           <li>(b) $R=v_{0x}t=(12{,}0)(3{,}26)=39{,}2$ m</li>
           <li>(c) $h=v_{0y}^2/(2g)=16{,}0^2/19{,}6=13{,}0$ m</li>
-          <li>(d) Tepede $v_y=0$, sürat $=v_{0x}=12{,}0$ m/s</li>
+          <li>(d) Tepede $v_y=0$, speed $=v_{0x}=12{,}0$ m/s</li>
         </ul></div>
       </div>
 
       <div class="q ex" data-ex="6" data-ch="b3">
         <header><span class="qid">Örnek 6</span><span class="chip">Bölüm 3</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Düz viraj.</b> Bir araba $50$ m yarıçaplı düz bir virajı $15$ m/s süratle dönüyor. (a) Merkezcil ivmesi nedir? (b) Kaymaması için gereken en küçük statik sürtünme katsayısı nedir?</p></div>
+        <div class="prompt"><p><b>Flat curve.</b> Bir araba $50$ m radius'lu flat bir curve'ü $15$ m/s speed'le dönüyor. (a) Centripetal acceleration'ı nedir? (b) Kaymaması için gereken en küçük coefficient of static friction nedir?</p></div>
         <div class="sol" hidden><ul>
           <li>(a) $a_{rad}=v^2/R=15^2/50=4{,}5\ \text{m/s}^2$</li>
-          <li>(b) Merkeze doğru tek kuvvet statik sürtünme: $\mu_s mg\ge mv^2/R$, $\mu_s\ge v^2/(gR)=225/490=0{,}46$</li>
-        </ul><p>Kütle sadeleşir. Sonuç arabanın kütlesine bağlı değildir.</p></div>
+          <li>(b) Merkeze doğru tek force static friction: $\mu_s mg\ge mv^2/R$, $\mu_s\ge v^2/(gR)=225/490=0{,}46$</li>
+        </ul><p>Mass sadeleşir. Sonuç arabanın mass'ine bağlı değildir.</p></div>
       </div>
 
       <div class="q ex" data-ex="14" data-ch="b3">
         <header><span class="qid">Örnek 14</span><span class="chip">Bölüm 3</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Bağıl hız, nehir.</b> Bir teknenin suya göre sürati $4{,}0$ m/s. Nehir doğuya $3{,}0$ m/s akıyor. (a) Tekne burnunu tam kuzeye çevirirse yere göre hızı nedir? (b) Tam kuzeye gitmek için burnunu nereye çevirmeli, yere göre sürati ne olur?</p></div>
+        <div class="prompt"><p><b>Relative velocity, nehir.</b> Teknenin suya göre speed'i $4{,}0$ m/s. Nehir doğuya $3{,}0$ m/s akıyor. (a) Tekne burnunu tam kuzeye çevirirse yere göre velocity'si nedir? (b) Tam kuzeye gitmek için burnunu nereye çevirmeli, yere göre speed'i ne olur?</p></div>
         <div class="sol" hidden><ul>
-          <li>(a) Yere göre hız = suya göre hız + suyun hızı: $3{,}0$ m/s doğu, $4{,}0$ m/s kuzey. Sürat $\sqrt{3^2+4^2}=5{,}0$ m/s. Yön: $\arctan(3/4)=36{,}9°$, kuzeyin doğusu.</li>
-          <li>(b) Suya göre hızın batı bileşeni akıntıyı götürmeli: $4{,}0\sin\theta=3{,}0$, $\theta=48{,}6°$, kuzeyin batısı. Yere göre sürat $\sqrt{16-9}=2{,}65$ m/s.</li>
+          <li>(a) Yere göre velocity = suya göre velocity + suyun velocity'si: $3{,}0$ m/s doğu, $4{,}0$ m/s kuzey. Speed $\sqrt{3^2+4^2}=5{,}0$ m/s. Direction: $\arctan(3/4)=36{,}9°$, kuzeyin doğusu.</li>
+          <li>(b) Suya göre velocity'nin batı component'i akıntıyı götürmeli: $4{,}0\sin\theta=3{,}0$, $\theta=48{,}6°$, kuzeyin batısı. Yere göre speed $\sqrt{16-9}=2{,}65$ m/s.</li>
         </ul></div>
       </div>
 
       <div class="q ex" data-ex="7" data-ch="b5">
         <header><span class="qid">Örnek 7</span><span class="chip">Bölüm 5</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Sürtünmeli eğik düzlem.</b> $5{,}0$ kg'lık bir blok $30°$ eğimli düzlemden aşağı kayıyor. $\mu_k=0{,}20$. (a) İvmesi nedir? (b) Durgun halden başlayıp $2{,}0$ m kayınca sürati ne olur?</p></div>
-        <div class="sol" hidden><p>$x$ ekseni düzlem boyunca aşağı, $y$ ekseni düzleme dik.</p><ul>
+        <div class="prompt"><p><b>Friction'lı inclined plane.</b> $5{,}0$ kg'lık bir blok $30°$ eğimli düzlemden aşağı kayıyor. $\mu_k=0{,}20$. (a) Acceleration'ı nedir? (b) Durgun halden başlayıp $2{,}0$ m kayınca speed'i ne olur?</p></div>
+        <div class="sol" hidden><p>$x$ axis düzlem boyunca aşağı, $y$ axis düzleme dik.</p><ul>
           <li>$y$: $n=mg\cos30°=42{,}4$ N, $f_k=\mu_kn=8{,}49$ N</li>
           <li>$x$: $mg\sin30°-f_k=ma$, $24{,}5-8{,}49=5{,}0a$, $a=3{,}20\ \text{m/s}^2$</li>
           <li>$v^2=2(3{,}20)(2{,}0)$, $v=3{,}58$ m/s</li>
@@ -636,27 +636,27 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 
       <div class="q ex" data-ex="8" data-ch="b5">
         <header><span class="qid">Örnek 8</span><span class="chip">Bölüm 5</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Masa ve asılı kütle.</b> $4{,}0$ kg'lık blok sürtünmesiz yatay masada. Hafif bir iple, masanın kenarındaki makaradan geçerek $2{,}0$ kg'lık asılı bloğa bağlı. İvmeyi ve ip gerilmesini bul.</p></div>
+        <div class="prompt"><p><b>Masa ve asılı mass.</b> $4{,}0$ kg'lık blok frictionless yatay masada. Hafif bir iple, masanın kenarındaki pulley'den geçerek $2{,}0$ kg'lık asılı bloğa bağlı. Acceleration'ı ve tension'ı bul.</p></div>
         <div class="sol" hidden><ul>
           <li>Masadaki blok: $T=m_1a$</li>
           <li>Asılı blok (aşağı pozitif): $m_2g-T=m_2a$</li>
           <li>Topla: $a=\dfrac{m_2g}{m_1+m_2}=\dfrac{(2{,}0)(9{,}80)}{6{,}0}=3{,}27\ \text{m/s}^2$, $T=(4{,}0)(3{,}27)=13{,}1$ N</li>
-        </ul><p>Kontrol: $T$, asılı bloğun ağırlığından ($19{,}6$ N) küçük. Olması gereken bu, yoksa blok aşağı ivmelenemezdi.</p></div>
+        </ul><p>Kontrol: $T$, asılı bloğun weight'inden ($19{,}6$ N) küçük. Olması gereken bu, yoksa blok aşağı doğru acceleration kazanamazdı.</p></div>
       </div>
 
       <div class="q ex" data-ex="9" data-ch="b5">
         <header><span class="qid">Örnek 9</span><span class="chip">Bölüm 5</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Asansörde görünür ağırlık.</b> $70$ kg'lık bir kişi asansörde tartının üzerinde duruyor. Tartı (a) asansör $2{,}0\ \text{m/s}^2$ ile yukarı ivmelenirken, (b) $2{,}0\ \text{m/s}^2$ ile aşağı ivmelenirken, (c) sabit hızla giderken ne gösterir?</p></div>
+        <div class="prompt"><p><b>Asansörde apparent weight.</b> $70$ kg'lık bir kişi asansörde tartının üzerinde duruyor. Tartı (a) asansörün acceleration'ı $2{,}0\ \text{m/s}^2$ yukarı iken, (b) $2{,}0\ \text{m/s}^2$ aşağı iken, (c) asansör constant velocity'yle giderken ne gösterir?</p></div>
         <div class="sol" hidden><p>Yukarı pozitif: $n-mg=ma$, $n=m(g+a)$.</p><ul>
           <li>(a) $n=70(9{,}80+2{,}0)=826$ N</li>
           <li>(b) $n=70(9{,}80-2{,}0)=546$ N</li>
           <li>(c) $n=70(9{,}80)=686$ N</li>
-        </ul><p>Belirleyici olan ivmenin yönüdür, hareketin yönü değil. Yukarı giderken yavaşlayan asansörde ivme aşağıdır, tartı $546$ N gösterir.</p></div>
+        </ul><p>Belirleyici olan acceleration'ın yönüdür, hareketin yönü değil. Yukarı giderken yavaşlayan asansörde acceleration aşağıdır, tartı $546$ N gösterir.</p></div>
       </div>
 
       <div class="q ex" data-ex="15" data-ch="b5">
         <header><span class="qid">Örnek 15</span><span class="chip">Bölüm 5</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Eğimli viraj.</b> $100$ m yarıçaplı bir viraj, $20$ m/s süratle giden arabalar sürtünme olmadan dönebilsin diye eğimlendirilecek. Eğim açısı kaç derece olmalı?</p></div>
+        <div class="prompt"><p><b>Banked curve.</b> $100$ m radius'lu bir curve, $20$ m/s speed'le giden arabalar friction olmadan dönebilsin diye eğimlendirilecek. Banking angle kaç derece olmalı?</p></div>
         <div class="sol" hidden><ul>
           <li>Düşey: $n\cos\beta=mg$</li>
           <li>Yatay (merkeze doğru): $n\sin\beta=mv^2/R$</li>
@@ -666,30 +666,30 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 
       <div class="q ex" data-ex="10" data-ch="b6">
         <header><span class="qid">Örnek 10</span><span class="chip">Bölüm 6</span><span class="st"></span></header>
-        <div class="prompt"><p><b>İş–enerji teoremi, açılı çekme.</b> $10$ kg'lık bir sandık, yatayla $37°$ yukarı açı yapan $50$ N'luk kuvvetle yatay zeminde $5{,}0$ m çekiliyor. $\mu_k=0{,}20$. Sandık durgun halden başlıyor. Son sürati nedir?</p></div>
+        <div class="prompt"><p><b>Work–energy theorem, açılı çekme.</b> $10$ kg'lık bir sandık, yatayla $37°$ yukarı açı yapan $50$ N'luk force'la yatay zeminde $5{,}0$ m çekiliyor. $\mu_k=0{,}20$. Sandık durgun halden başlıyor. Son speed'i nedir?</p></div>
         <div class="sol" hidden><ul>
-          <li>Normal kuvvet: $n+F\sin37°=mg$, $n=98{,}0-30{,}1=67{,}9$ N</li>
+          <li>Normal force: $n+F\sin37°=mg$, $n=98{,}0-30{,}1=67{,}9$ N</li>
           <li>$f_k=(0{,}20)(67{,}9)=13{,}6$ N</li>
           <li>$W_F=Fs\cos37°=(50)(5{,}0)(0{,}799)=199{,}7$ J</li>
-          <li>$W_f=-f_ks=-67{,}9$ J. Normal kuvvet ve ağırlık harekete dik, işleri sıfır.</li>
+          <li>$W_f=-f_ks=-67{,}9$ J. Normal force ve weight harekete dik, work'leri sıfır.</li>
           <li>$W_{top}=131{,}8\ \text{J}=\tfrac12mv^2$, $v=5{,}13$ m/s</li>
-        </ul><p>Dikkat: $n=mg$ almak en sık yapılan hatadır. Kuvvetin yukarı bileşeni normal kuvveti azaltır.</p></div>
+        </ul><p>Dikkat: $n=mg$ almak en sık yapılan hatadır. Force'un yukarı component'i normal force'u azaltır.</p></div>
       </div>
 
       <div class="q ex" data-ex="12" data-ch="b6">
         <header><span class="qid">Örnek 12</span><span class="chip">Bölüm 6</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Güç.</b> $800$ kg'lık bir asansör sabit $3{,}0$ m/s süratle yukarı çekiliyor. Motorun gücü kaç kW olmalı?</p></div>
+        <div class="prompt"><p><b>Power.</b> $800$ kg'lık bir asansör sabit $3{,}0$ m/s speed'le yukarı çekiliyor. Motorun power'ı kaç kW olmalı?</p></div>
         <div class="sol" hidden><ul>
-          <li>Sabit hız: çekme kuvveti $=mg=7840$ N</li>
+          <li>Constant velocity: çekme force'u $=mg=7840$ N</li>
           <li>$P=Fv=(7840)(3{,}0)=23\,520\ \text{W}=23{,}5$ kW</li>
         </ul></div>
       </div>
 
       <div class="q ex" data-ex="11" data-ch="b7">
         <header><span class="qid">Örnek 11</span><span class="chip">Bölüm 7</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Yay, sürtünme ve rampa.</b> $2{,}0$ kg'lık bir blok, yay sabiti $400$ N/m olan yayı $0{,}25$ m sıkıştırıp bırakılıyor. Zemin sürtünmesiz. (a) Yaydan ayrıldığındaki sürati nedir? (b) Sürtünmesiz bir rampada ne kadar yükselir? (c) Rampadan önce $1{,}0$ m uzunluğunda, $\mu_k=0{,}30$ olan pürüzlü bir bölge olsaydı ne kadar yükselirdi?</p></div>
+        <div class="prompt"><p><b>Spring, friction ve ramp.</b> $2{,}0$ kg'lık bir blok, spring constant'ı $400$ N/m olan spring'i $0{,}25$ m sıkıştırıp bırakılıyor. Zemin frictionless. (a) Spring'den ayrıldığındaki speed'i nedir? (b) Frictionless bir ramp'ta ne kadar yükselir? (c) Ramp'tan önce $1{,}0$ m uzunluğunda, $\mu_k=0{,}30$ olan pürüzlü bir bölge olsaydı ne kadar yükselirdi?</p></div>
         <div class="sol" hidden><ul>
-          <li>Yaydaki enerji: $U_{el}=\tfrac12(400)(0{,}25)^2=12{,}5$ J</li>
+          <li>Spring'deki energy: $U_{el}=\tfrac12(400)(0{,}25)^2=12{,}5$ J</li>
           <li>(a) $\tfrac12mv^2=12{,}5$, $v=3{,}54$ m/s</li>
           <li>(b) $mgh=12{,}5$, $h=0{,}638$ m</li>
           <li>(c) $W_f=-\mu_kmgd=-5{,}88$ J. Kalan $6{,}62$ J, $h=6{,}62/19{,}6=0{,}338$ m</li>
@@ -698,17 +698,17 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 
       <div class="q ex" data-ex="13" data-ch="b7">
         <header><span class="qid">Örnek 13</span><span class="chip">Bölüm 7</span><span class="st"></span></header>
-        <div class="prompt"><p><b>Potansiyel enerji fonksiyonundan kuvvet.</b> Bir parçacığın potansiyel enerjisi $U(x)=3x^2-x^3$ ($U$ joule, $x$ metre). (a) Kuvvet fonksiyonu nedir? (b) Denge noktaları nerede, hangisi kararlı?</p></div>
+        <div class="prompt"><p><b>Potential energy function'dan force.</b> Bir parçacığın potential energy'si $U(x)=3x^2-x^3$ ($U$ joule, $x$ metre). (a) Force fonksiyonu nedir? (b) Equilibrium noktaları nerede, hangisi stable?</p></div>
         <div class="sol" hidden><ul>
           <li>(a) $F_x=-dU/dx=-6x+3x^2$</li>
           <li>(b) $F_x=0$: $3x(x-2)=0$, $x=0$ ve $x=2$ m</li>
-          <li>$d^2U/dx^2=6-6x$. $x=0$'da $+6$: $U$ minimum, kararlı. $x=2$ m'de $-6$: $U$ maksimum, kararsız.</li>
+          <li>$d^2U/dx^2=6-6x$. $x=0$'da $+6$: $U$ minimum, stable. $x=2$ m'de $-6$: $U$ maksimum, unstable.</li>
         </ul></div>
       </div></template>
 
 <script>
 const R = String.raw;
-const CH = {b1:"Bölüm 1: Vektörler", b2:"Bölüm 2: Doğrusal hareket", b3:"Bölüm 3: 2B hareket", b4:"Bölüm 4: Newton yasaları", b5:"Bölüm 5: Newton uygulamaları", b6:"Bölüm 6: İş ve enerji", b7:"Bölüm 7: Enerji korunumu"};
+const CH = {b1:"Bölüm 1: Vectors", b2:"Bölüm 2: Straight-line motion", b3:"Bölüm 3: 2D motion", b4:"Bölüm 4: Newton's laws", b5:"Bölüm 5: Applying Newton's laws", b6:"Bölüm 6: Work & energy", b7:"Bölüm 7: Energy conservation"};
 const CHS = {b1:"Bölüm 1",b2:"Bölüm 2",b3:"Bölüm 3",b4:"Bölüm 4",b5:"Bölüm 5",b6:"Bölüm 6",b7:"Bölüm 7"};
 const L = "ABCDE";
 
@@ -723,7 +723,7 @@ const PLAN = [
     {id:"p5", w:"Clicker: CH01 ve CH02'den 10'ar soru (materyal klasörü)."}]},
   {d:"2026-11-14", t:"Cumartesi 14 Kasım", n:"MATH101 sonrası, yaklaşık 4 saat", items:[
     {id:"p6", w:"Özet: Bölüm 3, 4 ve 5 (1 saat).", go:"ozet"},
-    {id:"p7", w:"Örnek 5–9, 14 ve 15 (1,5 saat). Her soruda serbest cisim diyagramını kâğıda çiz.", go:"ornek"},
+    {id:"p7", w:"Örnek 5–9, 14 ve 15 (1,5 saat). Her soruda free-body diagram'ı kâğıda çiz.", go:"ornek"},
     {id:"p8", w:"Clicker: CH03, CH04 ve CH05 (1 saat)."},
     {id:"p9", w:"Yanlış yaptığın soruların konusunu not al (15 dk).", go:"zayif"}]},
   {d:"2026-11-15", t:"Pazar 15 Kasım", n:"ana gün, yaklaşık 7 saat", items:[
@@ -739,57 +739,57 @@ const PLAN = [
 
 /* ---------- hızlı test ---------- */
 const QT = [
-  {id:1,ch:"b1",q:R`Bir vektörün bileşenleri $A_x=-3$, $A_y=+3$. $+x$ ekseninden saat yönünün tersine ölçülen açısı kaç derecedir?`,o:["$135°$","$45°$","$225°$","$315°$"],a:0,e:R`$\arctan(3/{-3})=-45°$ çıkar, ama $A_x\lt0$, $A_y\gt0$: vektör 2. çeyrekte. $-45°+180°=135°$.`},
-  {id:2,ch:"b1",q:R`İki vektörün büyüklükleri sabit. Vektörel çarpımlarının büyüklüğü, aralarındaki açı kaç derece olduğunda en büyüktür?`,o:["$0°$","$45°$","$90°$","$180°$"],a:2,e:R`$|\vec A\times\vec B|=AB\sin\varphi$, $\sin\varphi$ en büyük $90°$'de.`},
-  {id:3,ch:"b2",q:R`$+x$ yönünde giden bir araba fren yapıyor. Hızının ve ivmesinin işaretleri sırasıyla nedir?`,o:["$+,\ +$","$+,\ -$","$-,\ +$","$-,\ -$"],a:1,e:R`Hız hareket yönünde ($+$). Yavaşlıyorsa ivme hızla zıt işaretli ($-$).`},
-  {id:4,ch:"b2",q:R`Durgun halden bırakılan bir taş $t$ sürede $h$ kadar düşüyor. $2t$ sürede toplam ne kadar düşer?`,o:["$2h$","$3h$","$h\sqrt2$","$4h$"],a:3,e:R`$h=\tfrac12gt^2$, süre iki katı olunca yol $2^2=4$ katı.`},
-  {id:5,ch:"b3",q:R`$v_0$ süratle, yatayla $\alpha$ açısıyla atılan bir cismin tepe noktasındaki sürati nedir?`,o:["$0$","$v_0$",R`$v_0\cos\alpha$`,R`$v_0\sin\alpha$`],a:2,e:R`Tepede $v_y=0$, yatay bileşen $v_0\cos\alpha$ hiç değişmez.`},
-  {id:6,ch:"b3",q:R`Düzgün çembersel hareket yapan cismin ivmesi ne yöndedir?`,o:["Teğet yönünde","Merkeze doğru","Merkezden dışarı","İvmesi sıfırdır"],a:1,e:R`Sürat sabit ama yön değişiyor: $a_{rad}=v^2/R$, merkeze doğru.`},
-  {id:7,ch:"b4",q:R`Bir kamyon küçük bir arabayla çarpışıyor. Çarpışma anında kuvvetler için hangisi doğrudur?`,o:["Kamyonun arabaya uyguladığı kuvvet daha büyüktür.","Arabanın kamyona uyguladığı kuvvet daha büyüktür.","İki kuvvetin büyüklüğü eşittir.","Hangisinin hızlı gittiğine bağlıdır."],a:2,e:R`3. yasa: etki ve tepki eşit büyüklükte. İvmeler farklı, çünkü kütleler farklı.`},
-  {id:8,ch:"b4",q:R`Bir cisim düz çizgide sabit $5$ m/s süratle gidiyor. Üzerindeki net kuvvet:`,o:["Sıfırdır.","Hareket yönündedir.","Harekete zıttır.","$mg$'ye eşittir."],a:0,e:R`Hız sabit, ivme sıfır, 1. yasa: net kuvvet sıfır.`},
-  {id:9,ch:"b5",q:R`$m$ kütleli bir blok, $\theta$ açılı sürtünmeli eğik düzlemde kaymadan duruyor. Sürtünme kuvvetinin büyüklüğü nedir?`,o:[R`$\mu_s mg\cos\theta$`,R`$mg\cos\theta$`,R`$\mu_k mg\cos\theta$`,R`$mg\sin\theta$`],a:3,e:R`Kaymıyor, statik sürtünme dengeyi sağlayan değeri alır: $f_s=mg\sin\theta$. $\mu_s n$ yalnız sınır değer.`},
-  {id:10,ch:"b5",q:R`İpe bağlı bir top düşey çemberde dönüyor. En alt noktada ip gerilmesi $T$ ile ağırlık $mg$ arasındaki ilişki nedir?`,o:["$T=mg$","$T\lt mg$","$T\gt mg$","$T=0$"],a:2,e:R`Altta merkez yukarıda: $T-mg=mv^2/R\gt0$, yani $T\gt mg$.`},
-  {id:11,ch:"b6",q:R`$10$ N'luk bir kuvvet, yer değiştirmeyle $60°$ açı yapıyor. Cisim $4$ m yer değiştiriyor. Kuvvetin yaptığı iş kaç J'dur?`,o:["$40$","$34{,}6$","$20$","$0$"],a:2,e:R`$W=Fs\cos\varphi=10\cdot4\cdot0{,}5=20$ J.`},
-  {id:12,ch:"b6",q:R`Bir cisme yapılan toplam iş negatif. Cisim:`,o:["Hızlanır.","Yavaşlar.","Aynı süratle gider.","Geriye doğru hareket eder."],a:1,e:R`İş–enerji teoremi: $W_{top}=\Delta K\lt0$, kinetik enerji azalır.`},
-  {id:13,ch:"b7",q:R`Aynı yükseklikte, eğimleri farklı iki sürtünmesiz rampadan özdeş bloklar durgun halden bırakılıyor. Dipteki süratleri için hangisi doğrudur?`,o:["Dik rampadaki daha hızlıdır.","Yatık rampadaki daha hızlıdır.","Bloğun kütlesine bağlıdır.","İkisi aynıdır."],a:3,e:R`$mgh=\tfrac12mv^2$, $v=\sqrt{2gh}$. Eğim ve kütle fark etmez.`},
-  {id:14,ch:"b7",q:R`Potansiyel enerji fonksiyonu $U(x)$'in maksimum olduğu noktada:`,o:["Kuvvet sıfırdır, denge kararlıdır.","Kuvvet sıfırdır, denge kararsızdır.","Kuvvet en büyük değerindedir.","Kinetik enerji en büyük değerindedir."],a:1,e:R`$F=-dU/dx=0$. Maksimumdan biraz kayınca kuvvet daha da uzağa iter: kararsız.`}
+  {id:1,ch:"b1",q:R`Bir vector'ün component'leri $A_x=-3$, $A_y=+3$. $+x$ axis'ten counterclockwise ölçülen açısı kaç derecedir?`,o:["$135°$","$45°$","$225°$","$315°$"],a:0,e:R`$\arctan(3/{-3})=-45°$ çıkar, ama $A_x\lt0$, $A_y\gt0$: vector 2. quadrant'ta. $-45°+180°=135°$.`},
+  {id:2,ch:"b1",q:R`İki vector'ün magnitude'ları sabit. Vector product'larının magnitude'u, aralarındaki açı kaç derece olduğunda en büyüktür?`,o:["$0°$","$45°$","$90°$","$180°$"],a:2,e:R`$|\vec A\times\vec B|=AB\sin\varphi$, $\sin\varphi$ en büyük $90°$'de.`},
+  {id:3,ch:"b2",q:R`$+x$ yönünde giden bir araba fren yapıyor. Velocity'sinin ve acceleration'ının işaretleri sırasıyla nedir?`,o:["$+,\ +$","$+,\ -$","$-,\ +$","$-,\ -$"],a:1,e:R`Velocity hareket yönünde ($+$). Yavaşlıyorsa acceleration velocity'yle zıt işaretli ($-$).`},
+  {id:4,ch:"b2",q:R`Durgun halden bırakılan bir taş free fall'da $t$ sürede $h$ kadar düşüyor. $2t$ sürede toplam ne kadar düşer?`,o:["$2h$","$3h$","$h\sqrt2$","$4h$"],a:3,e:R`$h=\tfrac12gt^2$, süre iki katı olunca distance $2^2=4$ katı.`},
+  {id:5,ch:"b3",q:R`$v_0$ speed'le, yatayla $\alpha$ açısıyla atılan bir projectile'ın tepe noktasındaki speed'i nedir?`,o:["$0$","$v_0$",R`$v_0\cos\alpha$`,R`$v_0\sin\alpha$`],a:2,e:R`Tepede $v_y=0$, yatay component $v_0\cos\alpha$ hiç değişmez.`},
+  {id:6,ch:"b3",q:R`Uniform circular motion yapan cismin acceleration'ı ne yöndedir?`,o:["Tangent yönünde","Merkeze doğru","Merkezden dışarı","Acceleration sıfırdır"],a:1,e:R`Speed sabit ama yön değişiyor: centripetal acceleration $a_{rad}=v^2/R$, merkeze doğru.`},
+  {id:7,ch:"b4",q:R`Bir kamyon küçük bir arabayla çarpışıyor. Çarpışma anında force'lar için hangisi doğrudur?`,o:["Kamyonun arabaya uyguladığı force daha büyüktür.","Arabanın kamyona uyguladığı force daha büyüktür.","İki force'un magnitude'u eşittir.","Hangisinin hızlı gittiğine bağlıdır."],a:2,e:R`Newton's third law: action ve reaction eşit magnitude'da. Acceleration'lar farklı, çünkü mass'ler farklı.`},
+  {id:8,ch:"b4",q:R`Bir cisim düz çizgide sabit $5$ m/s speed'le gidiyor. Üzerindeki net force:`,o:["Sıfırdır.","Hareket yönündedir.","Harekete zıttır.","$mg$'ye eşittir."],a:0,e:R`Velocity sabit, acceleration sıfır, Newton's first law: net force sıfır.`},
+  {id:9,ch:"b5",q:R`$m$ mass'li bir blok, $\theta$ açılı, friction'lı inclined plane'de kaymadan duruyor. Friction force'un magnitude'u nedir?`,o:[R`$\mu_s mg\cos\theta$`,R`$mg\cos\theta$`,R`$\mu_k mg\cos\theta$`,R`$mg\sin\theta$`],a:3,e:R`Kaymıyor, static friction equilibrium'u sağlayan değeri alır: $f_s=mg\sin\theta$. $\mu_s n$ yalnız sınır değer.`},
+  {id:10,ch:"b5",q:R`İpe bağlı bir top vertical circle'da dönüyor. En alt noktada tension $T$ ile weight $mg$ arasındaki ilişki nedir?`,o:["$T=mg$","$T\lt mg$","$T\gt mg$","$T=0$"],a:2,e:R`Altta merkez yukarıda: $T-mg=mv^2/R\gt0$, yani $T\gt mg$.`},
+  {id:11,ch:"b6",q:R`$10$ N'luk bir force, displacement'la $60°$ açı yapıyor. Displacement $4$ m. Force'un yaptığı work kaç J'dur?`,o:["$40$","$34{,}6$","$20$","$0$"],a:2,e:R`$W=Fs\cos\varphi=10\cdot4\cdot0{,}5=20$ J.`},
+  {id:12,ch:"b6",q:R`Bir cisme yapılan total work negatif. Cisim:`,o:["Hızlanır.","Yavaşlar.","Aynı speed'le gider.","Geriye doğru hareket eder."],a:1,e:R`Work–energy theorem: $W_{top}=\Delta K\lt0$, kinetic energy azalır.`},
+  {id:13,ch:"b7",q:R`Aynı yükseklikte, eğimleri farklı iki frictionless ramp'tan özdeş bloklar durgun halden bırakılıyor. Dipteki speed'leri için hangisi doğrudur?`,o:["Dik ramp'taki daha hızlıdır.","Yatık ramp'taki daha hızlıdır.","Bloğun mass'ine bağlıdır.","İkisi aynıdır."],a:3,e:R`Conservation of energy: $mgh=\tfrac12mv^2$, $v=\sqrt{2gh}$. Eğim ve mass fark etmez.`},
+  {id:14,ch:"b7",q:R`Potential energy function $U(x)$'in maksimum olduğu noktada:`,o:["Force sıfırdır, equilibrium stable'dır.","Force sıfırdır, equilibrium unstable'dır.","Force en büyük değerindedir.","Kinetic energy en büyük değerindedir."],a:1,e:R`$F=-dU/dx=0$. Maksimumdan biraz kayınca force cismi daha da uzağa iter: unstable.`}
 ];
 
 /* ---------- deneme A ---------- */
 const DA = [
-  {id:1,ch:"b1",q:R`$\vec A=3\hat\imath-4\hat\jmath$ vektörünün büyüklüğü nedir?`,o:["$1$","$5$","$7$","$-1$","$25$"],a:1,e:R`$\sqrt{3^2+4^2}=5$`},
+  {id:1,ch:"b1",q:R`$\vec A=3\hat\imath-4\hat\jmath$ vector'ünün magnitude'u nedir?`,o:["$1$","$5$","$7$","$-1$","$25$"],a:1,e:R`$\sqrt{3^2+4^2}=5$`},
   {id:2,ch:"b1",q:R`$\hat\jmath\times\hat\imath$ nedir?`,o:[R`$\hat k$`,R`$-\hat k$`,"$0$",R`$\hat\imath$`,"$1$"],a:1,e:R`$\hat\imath\times\hat\jmath=\hat k$, sıra değişince işaret değişir.`},
-  {id:3,ch:"b2",q:R`Bir parçacığın konumu $x(t)=2t^2-3t$ ($x$ metre, $t$ saniye). $t=3$ s anındaki anlık hızı kaç m/s'dir?`,o:["$3$","$6$","$9$","$12$","$15$"],a:2,e:R`$v=dx/dt=4t-3=9$ m/s`},
-  {id:4,ch:"b2",q:R`Düşey yukarı atılan bir top en yüksek noktadayken (hava direnci yok):`,o:["Hızı ve ivmesi sıfırdır.",R`Hızı sıfırdır, ivmesi $9{,}8\ \text{m/s}^2$ aşağı yönlüdür.`,R`Hızı sıfırdır, ivmesi $9{,}8\ \text{m/s}^2$ yukarı yönlüdür.`,"Hızı sıfır değildir, ivmesi sıfırdır.","Hızı da ivmesi de yön değiştirir."],a:1,e:R`Tepede hız sıfır, ivme hep $g$ aşağı.`},
-  {id:5,ch:"b2",q:R`Bir cisim $-x$ yönünde gidiyor ve yavaşlıyor. $v_x$ ve $a_x$ işaretleri sırasıyla nedir?`,o:["$-,\ -$","$-,\ +$","$+,\ -$","$+,\ +$","$-,\ 0$"],a:1,e:R`Hız negatif, yavaşladığı için ivme zıt işaretli.`},
-  {id:6,ch:"b3",q:R`Eğik atılan bir cismin tepe noktasında hız vektörü ile ivme vektörü arasındaki açı kaç derecedir?`,o:["$0°$","$90°$","$45°$","$180°$","İvme sıfırdır, açı tanımsızdır."],a:1,e:R`Tepede hız yatay, ivme düşey.`},
-  {id:7,ch:"b3",q:R`Aynı yükseklikten aynı anda bir top bırakılıyor, bir başka top yatay fırlatılıyor. Hava direnci yok. Hangisi yere önce çarpar?`,o:["İkisi aynı anda çarpar.","Bırakılan top.","Fırlatılan top.","Kütlesi büyük olan.","Fırlatma süratine bağlıdır."],a:0,e:R`Düşey hareket yatay hızdan bağımsız.`},
-  {id:8,ch:"b3",q:R`Düzgün çembersel hareket yapan bir cismin sürati iki katına çıkıyor, yarıçap aynı kalıyor. Merkezcil ivmesi:`,o:["4 katına çıkar.","2 katına çıkar.","Değişmez.","Yarıya iner.","Dörtte birine iner."],a:0,e:R`$a=v^2/R$, sürat karesiyle artar.`},
-  {id:9,ch:"b4",q:R`Masada duran bir kitaba Dünya çekim kuvveti (ağırlık) uyguluyor. Newton'un 3. yasasına göre bu kuvvetin tepkisi hangisidir?`,o:["Masanın kitaba uyguladığı normal kuvvet.","Kitabın masaya uyguladığı kuvvet.","Kitabın Dünya'ya uyguladığı çekim kuvveti.","Masa ile kitap arasındaki sürtünme.","Tepki kuvveti yoktur."],a:2,e:R`Etki–tepki aynı türden kuvvettir ve farklı cisimler üzerindedir.`},
-  {id:10,ch:"b4",q:R`Bir cisme etkiyen net kuvvet sıfırsa cisim:`,o:["Kesinlikle durur.","Kesinlikle hareket eder.","Yavaşlayarak durur.","Ya durur ya da düz çizgide sabit süratle gider.","Sabit süratle çember çizer."],a:3,e:R`Net kuvvet sıfır: hız sabit.`},
-  {id:11,ch:"b4",q:R`Bir astronot, yerçekimi ivmesi Dünya'dakinden küçük olan Ay'a gidiyor. Astronotun:`,o:["Kütlesi ve ağırlığı azalır.","Kütlesi aynı kalır, ağırlığı azalır.","Kütlesi azalır, ağırlığı aynı kalır.","Kütlesi ve ağırlığı aynı kalır.","Kütlesi artar, ağırlığı azalır."],a:1,e:R`Kütle değişmez, $w=mg$ azalır.`},
-  {id:12,ch:"b5",q:R`Bir asansör aşağı yönde hızlanıyor. İçindeki tartının gösterdiği değer:`,o:["$mg$'den büyüktür.","$mg$'ye eşittir.","$mg$'den küçüktür, sıfır olabilir de olmayabilir de.","Kesinlikle sıfırdır.","Asansörün süratine bağlıdır."],a:2,e:R`$n=m(g-a)$. Yalnız $a=g$ ise sıfır olur.`},
-  {id:13,ch:"b5",q:R`$10$ kg'lık bir kutu yatay zeminde duruyor. $\mu_s=0{,}50$, $\mu_k=0{,}30$. Kutu yatay $20$ N'luk kuvvetle itiliyor. Kutuya etkiyen sürtünme kuvveti kaç N'dur?`,o:["$0$","$20$","$29{,}4$","$49$","$98$"],a:1,e:R`$f_{s,max}=0{,}50\cdot98=49$ N $\gt20$ N. Kutu kaymaz, $f_s=20$ N.`},
-  {id:14,ch:"b5",q:R`Eğimsiz bir virajı kaymadan dönen arabaya merkezcil ivmeyi veren kuvvet hangisidir?`,o:["Normal kuvvet","Ağırlık","Kinetik sürtünme","Statik sürtünme","Merkezkaç kuvveti"],a:3,e:R`Lastik yola göre kaymıyor, sürtünme statik.`},
-  {id:15,ch:"b6",q:R`Bir cismin sürati iki katına çıkarsa kinetik enerjisi kaç katına çıkar?`,o:["$2$","$4$",R`$\sqrt2$`,"Değişmez","$8$"],a:1,e:R`$K=\tfrac12mv^2$`},
-  {id:16,ch:"b6",q:R`Bir blok sabit bir eğik düzlemden aşağı kayıyor. Normal kuvvetin blok üzerinde yaptığı iş:`,o:["Pozitiftir.","Negatiftir.","$mgh$'dir.","Sıfırdır.","Eğim açısına bağlıdır."],a:3,e:R`Normal kuvvet yer değiştirmeye dik.`},
-  {id:17,ch:"b6",q:R`İki motor aynı işi yapıyor. Birinci motor işi ikincinin yarısı kadar sürede bitiriyor. Birinci motorun gücü ikincinin:`,o:["Yarısıdır.","Aynısıdır.","4 katıdır.","Dörtte biridir.","2 katıdır."],a:4,e:R`$P=W/t$`},
-  {id:18,ch:"b7",q:R`Aynı yükseklikten, aynı süratle iki top atılıyor: biri yukarı doğru açıyla, diğeri aşağı doğru açıyla. Hava direnci yok. Yere çarpma süratleri için ne söylenir?`,o:["Yukarı atılanınki büyüktür.","Aşağı atılanınki büyüktür.","İkisi eşittir.","Kütlelere bağlıdır.","Bilgi yetersizdir."],a:2,e:R`Enerji korunumu: aynı $v_0$, aynı $h$, aynı son sürat.`},
-  {id:19,ch:"b7",q:R`Bir yayın sıkışma miktarı iki katına çıkarılırsa depoladığı potansiyel enerji kaç katına çıkar?`,o:["$2$","$4$",R`$\tfrac12$`,"Değişmez",R`$\sqrt2$`],a:1,e:R`$U=\tfrac12kx^2$`},
-  {id:20,ch:"b7",q:R`Aşağıdakilerden hangisi korunumlu kuvvet <b>değildir</b>?`,o:["Yerçekimi kuvveti","İdeal yay kuvveti","Hepsi korunumludur.","Kinetik sürtünme","A ve B"],a:3,e:R`Sürtünmenin işi yola bağlıdır.`}
+  {id:3,ch:"b2",q:R`Bir parçacığın position'ı $x(t)=2t^2-3t$ ($x$ metre, $t$ saniye). $t=3$ s anındaki instantaneous velocity kaç m/s'dir?`,o:["$3$","$6$","$9$","$12$","$15$"],a:2,e:R`$v=dx/dt=4t-3=9$ m/s`},
+  {id:4,ch:"b2",q:R`Düşey yukarı atılan bir top en yüksek noktadayken (air resistance yok):`,o:["Velocity'si ve acceleration'ı sıfırdır.",R`Velocity'si sıfırdır, acceleration'ı $9{,}8\ \text{m/s}^2$ aşağı yönlüdür.`,R`Velocity'si sıfırdır, acceleration'ı $9{,}8\ \text{m/s}^2$ yukarı yönlüdür.`,"Velocity'si sıfır değildir, acceleration'ı sıfırdır.","Velocity de acceleration da yön değiştirir."],a:1,e:R`Tepede velocity sıfır, acceleration hep $g$ aşağı.`},
+  {id:5,ch:"b2",q:R`Bir cisim $-x$ yönünde gidiyor ve yavaşlıyor. $v_x$ ve $a_x$ işaretleri sırasıyla nedir?`,o:["$-,\ -$","$-,\ +$","$+,\ -$","$+,\ +$","$-,\ 0$"],a:1,e:R`Velocity negatif, yavaşladığı için acceleration zıt işaretli.`},
+  {id:6,ch:"b3",q:R`Projectile motion yapan bir cismin tepe noktasında velocity vector'ü ile acceleration vector'ü arasındaki açı kaç derecedir?`,o:["$0°$","$90°$","$45°$","$180°$","Acceleration sıfırdır, açı tanımsızdır."],a:1,e:R`Tepede velocity yatay, acceleration düşey.`},
+  {id:7,ch:"b3",q:R`Aynı yükseklikten aynı anda bir top bırakılıyor, bir başka top yatay fırlatılıyor. Air resistance yok. Hangisi yere önce çarpar?`,o:["İkisi aynı anda çarpar.","Bırakılan top.","Fırlatılan top.","Mass'i büyük olan.","Fırlatma speed'ine bağlıdır."],a:0,e:R`Düşey hareket yatay velocity'den bağımsız.`},
+  {id:8,ch:"b3",q:R`Uniform circular motion yapan bir cismin speed'i iki katına çıkıyor, radius aynı kalıyor. Centripetal acceleration'ı:`,o:["4 katına çıkar.","2 katına çıkar.","Değişmez.","Yarıya iner.","Dörtte birine iner."],a:0,e:R`$a=v^2/R$, speed'in karesiyle artar.`},
+  {id:9,ch:"b4",q:R`Masada duran bir kitaba Dünya gravitational force (weight) uyguluyor. Newton's third law'a göre bu force'un reaction'ı hangisidir?`,o:["Masanın kitaba uyguladığı normal force.","Kitabın masaya uyguladığı force.","Kitabın Dünya'ya uyguladığı gravitational force.","Masa ile kitap arasındaki friction.","Reaction force yoktur."],a:2,e:R`Action–reaction pair aynı türden force'tur ve farklı cisimler üzerindedir.`},
+  {id:10,ch:"b4",q:R`Bir cisme etki eden net force sıfırsa cisim:`,o:["Kesinlikle durur.","Kesinlikle hareket eder.","Yavaşlayarak durur.","Ya durur ya da düz çizgide sabit speed'le gider.","Sabit speed'le circle çizer."],a:3,e:R`Net force sıfır: velocity sabit.`},
+  {id:11,ch:"b4",q:R`Bir astronot, acceleration due to gravity'si Dünya'dakinden küçük olan Ay'a gidiyor. Astronotun:`,o:["Mass'i ve weight'i azalır.","Mass'i aynı kalır, weight'i azalır.","Mass'i azalır, weight'i aynı kalır.","Mass'i ve weight'i aynı kalır.","Mass'i artar, weight'i azalır."],a:1,e:R`Mass değişmez, $w=mg$ azalır.`},
+  {id:12,ch:"b5",q:R`Bir asansör aşağı yönde hızlanıyor. İçindeki tartının gösterdiği değer (apparent weight):`,o:["$mg$'den büyüktür.","$mg$'ye eşittir.","$mg$'den küçüktür, sıfır olabilir de olmayabilir de.","Kesinlikle sıfırdır.","Asansörün speed'ine bağlıdır."],a:2,e:R`$n=m(g-a)$. Yalnız $a=g$ ise sıfır olur.`},
+  {id:13,ch:"b5",q:R`$10$ kg'lık bir kutu yatay zeminde duruyor. $\mu_s=0{,}50$, $\mu_k=0{,}30$. Kutu yatay $20$ N'luk force'la itiliyor. Kutuya etki eden friction force kaç N'dur?`,o:["$0$","$20$","$29{,}4$","$49$","$98$"],a:1,e:R`$f_{s,max}=0{,}50\cdot98=49$ N $\gt20$ N. Kutu kaymaz, static friction $f_s=20$ N.`},
+  {id:14,ch:"b5",q:R`Flat bir curve'ü kaymadan dönen arabaya centripetal acceleration'ı veren force hangisidir?`,o:["Normal force","Weight","Kinetic friction","Static friction","Centrifugal force"],a:3,e:R`Lastik yola göre kaymıyor, friction static.`},
+  {id:15,ch:"b6",q:R`Bir cismin speed'i iki katına çıkarsa kinetic energy'si kaç katına çıkar?`,o:["$2$","$4$",R`$\sqrt2$`,"Değişmez","$8$"],a:1,e:R`$K=\tfrac12mv^2$`},
+  {id:16,ch:"b6",q:R`Bir blok sabit bir inclined plane'den aşağı kayıyor. Normal force'un blok üzerinde yaptığı work:`,o:["Pozitiftir.","Negatiftir.","$mgh$'dir.","Sıfırdır.","Eğim açısına bağlıdır."],a:3,e:R`Normal force displacement'a dik.`},
+  {id:17,ch:"b6",q:R`İki motor aynı work'ü yapıyor. Birinci motor work'ü ikincinin yarısı kadar sürede bitiriyor. Birinci motorun power'ı ikincinin:`,o:["Yarısıdır.","Aynısıdır.","4 katıdır.","Dörtte biridir.","2 katıdır."],a:4,e:R`$P=W/t$`},
+  {id:18,ch:"b7",q:R`Aynı yükseklikten, aynı speed'le iki top atılıyor: biri yukarı doğru açıyla, diğeri aşağı doğru açıyla. Air resistance yok. Yere çarpma speed'leri için ne söylenir?`,o:["Yukarı atılanınki büyüktür.","Aşağı atılanınki büyüktür.","İkisi eşittir.","Mass'lere bağlıdır.","Bilgi yetersizdir."],a:2,e:R`Conservation of energy: aynı $v_0$, aynı $h$, aynı son speed.`},
+  {id:19,ch:"b7",q:R`Bir spring'in sıkışma miktarı iki katına çıkarılırsa depoladığı elastic potential energy kaç katına çıkar?`,o:["$2$","$4$",R`$\tfrac12$`,"Değişmez",R`$\sqrt2$`],a:1,e:R`$U=\tfrac12kx^2$`},
+  {id:20,ch:"b7",q:R`Aşağıdakilerden hangisi conservative force <b>değildir</b>?`,o:["Gravitational force","Ideal spring force","Hepsi conservative'dir.","Kinetic friction","A ve B"],a:3,e:R`Friction'ın work'ü yola bağlıdır.`}
 ];
 
 /* ---------- deneme B ---------- */
 const DB = [
-  {id:"B1",ch:"b3",q:R`<b>(Bölüm 3)</b> $45$ m yüksekliğindeki bir uçurumun kenarından bir taş $12$ m/s süratle yatay fırlatılıyor. (a) Taş yere kaç saniyede ulaşır? (b) Uçurumun dibinden kaç metre uzağa düşer? (c) Yere çarpma sürati ve yatayın altındaki açısı nedir?`,
+  {id:"B1",ch:"b3",q:R`<b>(Bölüm 3)</b> $45$ m yüksekliğindeki bir uçurumun kenarından bir taş $12$ m/s speed'le yatay fırlatılıyor. (a) Taş yere kaç saniyede ulaşır? (b) Uçurumun dibinden kaç metre uzağa düşer? (c) Yere çarpma speed'i ve yatayın altındaki açısı nedir?`,
    s:R`<ul><li>(a) $45=\tfrac12(9{,}80)t^2$, $t=\sqrt{90/9{,}80}=3{,}03$ s</li><li>(b) $x=(12)(3{,}03)=36{,}4$ m</li><li>(c) $v_x=12$ m/s, $v_y=(9{,}80)(3{,}03)=29{,}7$ m/s. $v=\sqrt{12^2+29{,}7^2}=32{,}0$ m/s. Açı $\arctan(29{,}7/12)=68{,}0°$, yatayın altında.</li></ul>`},
-  {id:"B2",ch:"b5",q:R`<b>(Bölüm 5)</b> $3{,}0$ kg'lık $m_1$ bloğu $30°$ eğimli düzlemin üzerinde, düzlemle arasında $\mu_k=0{,}25$. Hafif bir ip, düzlemin tepesindeki sürtünmesiz makaradan geçip $5{,}0$ kg'lık asılı $m_2$ bloğuna bağlanıyor. Sistem serbest bırakılıyor ve $m_2$ aşağı iniyor. (a) Her iki blok için serbest cisim diyagramı çiz. (b) Sistemin ivmesini bul. (c) İpteki gerilmeyi bul.`,
-   s:R`<ul><li>(a) $m_1$: ağırlık (aşağı), normal kuvvet (düzleme dik), gerilme (düzlem boyunca yukarı), kinetik sürtünme (düzlem boyunca aşağı, çünkü blok yukarı kayıyor). $m_2$: ağırlık (aşağı), gerilme (yukarı).</li><li>(b) $m_1$: $T-m_1g\sin30°-\mu_km_1g\cos30°=m_1a$. $m_2$: $m_2g-T=m_2a$. Topla: $a=\dfrac{49{,}0-14{,}7-6{,}37}{8{,}0}=3{,}49\ \text{m/s}^2$</li><li>(c) $T=m_2(g-a)=5{,}0(9{,}80-3{,}49)=31{,}5$ N</li></ul>`},
-  {id:"B3",ch:"b5",q:R`<b>(Bölüm 5)</b> $0{,}50$ kg'lık bir top $1{,}2$ m uzunluğunda bir ipin ucunda yatay bir çemberde dönüyor (konik sarkaç). İp düşeyle $25°$ yapıyor. (a) İpteki gerilme kaç N'dur? (b) Topun sürati nedir? (c) Bir turun süresi nedir?`,
-   s:R`<ul><li>(a) Düşey denge: $T\cos25°=mg$, $T=\dfrac{(0{,}50)(9{,}80)}{\cos25°}=5{,}41$ N</li><li>(b) $R=L\sin25°=0{,}507$ m. Yatay: $T\sin25°=mv^2/R$, yani $v^2=gR\tan25°$, $v=1{,}52$ m/s</li><li>(c) Periyot $=2\pi R/v=2{,}09$ s</li></ul>`},
-  {id:"B4",ch:"b7",q:R`<b>(Bölüm 7)</b> $2{,}0$ kg'lık bir blok, $3{,}0$ m yükseklikten sürtünmesiz eğri bir rampadan durgun halden bırakılıyor. Rampanın dibinde $2{,}5$ m uzunluğunda, $\mu_k=0{,}40$ olan pürüzlü yatay bir bölge var. Bölgenin sonunda yay sabiti $800$ N/m olan bir yay duruyor (yayın altı sürtünmesiz). (a) Bloğun rampanın dibindeki sürati nedir? (b) Pürüzlü bölgeyi geçtikten sonraki sürati nedir? (c) Yay en fazla ne kadar sıkışır?`,
-   s:R`<ul><li>(a) $mgh=\tfrac12mv^2$, $v=\sqrt{2(9{,}80)(3{,}0)}=7{,}67$ m/s. Enerji $58{,}8$ J</li><li>(b) $W_f=-\mu_kmgd=-(0{,}40)(2{,}0)(9{,}80)(2{,}5)=-19{,}6$ J. Kalan $39{,}2$ J, $v=6{,}26$ m/s</li><li>(c) $\tfrac12kx^2=39{,}2$, $x=\sqrt{2(39{,}2)/800}=0{,}313$ m</li></ul>`},
-  {id:"B5",ch:"b6",q:R`<b>(Bölüm 6)</b> $3{,}0$ kg'lık bir parçacık $x$ ekseni boyunca hareket ediyor. Üzerine etkiyen net kuvvet $F_x=6x-2$ ($F$ newton, $x$ metre). Parçacık $x=0$'da $+x$ yönünde $2{,}0$ m/s süratle gidiyor. (a) $x=0$'dan $x=4{,}0$ m'ye kadar kuvvetin yaptığı iş nedir? (b) $x=4{,}0$ m'deki sürati nedir? (c) $x=4{,}0$ m'de kuvvetin anlık gücü nedir?`,
+  {id:"B2",ch:"b5",q:R`<b>(Bölüm 5)</b> $3{,}0$ kg'lık $m_1$ bloğu $30°$ eğimli inclined plane'in üzerinde, düzlemle arasında $\mu_k=0{,}25$. Hafif bir ip, düzlemin tepesindeki frictionless pulley'den geçip $5{,}0$ kg'lık asılı $m_2$ bloğuna bağlanıyor. Sistem serbest bırakılıyor ve $m_2$ aşağı iniyor. (a) Her iki blok için free-body diagram çiz. (b) Sistemin acceleration'ını bul. (c) İpteki tension'ı bul.`,
+   s:R`<ul><li>(a) $m_1$: weight (aşağı), normal force (düzleme dik), tension (düzlem boyunca yukarı), kinetic friction (düzlem boyunca aşağı, çünkü blok yukarı kayıyor). $m_2$: weight (aşağı), tension (yukarı).</li><li>(b) $m_1$: $T-m_1g\sin30°-\mu_km_1g\cos30°=m_1a$. $m_2$: $m_2g-T=m_2a$. Topla: $a=\dfrac{49{,}0-14{,}7-6{,}37}{8{,}0}=3{,}49\ \text{m/s}^2$</li><li>(c) $T=m_2(g-a)=5{,}0(9{,}80-3{,}49)=31{,}5$ N</li></ul>`},
+  {id:"B3",ch:"b5",q:R`<b>(Bölüm 5)</b> $0{,}50$ kg'lık bir top $1{,}2$ m uzunluğunda bir ipin ucunda horizontal circle'da dönüyor (conical pendulum). İp düşeyle $25°$ yapıyor. (a) İpteki tension kaç N'dur? (b) Topun speed'i nedir? (c) Bir turun süresi (period) nedir?`,
+   s:R`<ul><li>(a) Düşey equilibrium: $T\cos25°=mg$, $T=\dfrac{(0{,}50)(9{,}80)}{\cos25°}=5{,}41$ N</li><li>(b) $R=L\sin25°=0{,}507$ m. Yatay: $T\sin25°=mv^2/R$, yani $v^2=gR\tan25°$, $v=1{,}52$ m/s</li><li>(c) Period $=2\pi R/v=2{,}09$ s</li></ul>`},
+  {id:"B4",ch:"b7",q:R`<b>(Bölüm 7)</b> $2{,}0$ kg'lık bir blok, $3{,}0$ m yükseklikten frictionless eğri bir ramp'tan durgun halden bırakılıyor. Ramp'ın dibinde $2{,}5$ m uzunluğunda, $\mu_k=0{,}40$ olan pürüzlü yatay bir bölge var. Bölgenin sonunda spring constant'ı $800$ N/m olan bir spring duruyor (spring'in altı frictionless). (a) Bloğun ramp'ın dibindeki speed'i nedir? (b) Pürüzlü bölgeyi geçtikten sonraki speed'i nedir? (c) Spring en fazla ne kadar sıkışır?`,
+   s:R`<ul><li>(a) $mgh=\tfrac12mv^2$, $v=\sqrt{2(9{,}80)(3{,}0)}=7{,}67$ m/s. Energy $58{,}8$ J</li><li>(b) $W_f=-\mu_kmgd=-(0{,}40)(2{,}0)(9{,}80)(2{,}5)=-19{,}6$ J. Kalan $39{,}2$ J, $v=6{,}26$ m/s</li><li>(c) $\tfrac12kx^2=39{,}2$, $x=\sqrt{2(39{,}2)/800}=0{,}313$ m</li></ul>`},
+  {id:"B5",ch:"b6",q:R`<b>(Bölüm 6)</b> $3{,}0$ kg'lık bir parçacık $x$ axis boyunca hareket ediyor. Üzerine etki eden net force $F_x=6x-2$ ($F$ newton, $x$ metre). Parçacık $x=0$'da $+x$ yönünde $2{,}0$ m/s speed'le gidiyor. (a) $x=0$'dan $x=4{,}0$ m'ye kadar force'un yaptığı work nedir? (b) $x=4{,}0$ m'deki speed'i nedir? (c) $x=4{,}0$ m'de force'un instantaneous power'ı nedir?`,
    s:R`<ul><li>(a) $W=\int_0^4(6x-2)\,dx=\left[3x^2-2x\right]_0^4=48-8=40$ J</li><li>(b) $K_1=\tfrac12(3{,}0)(2{,}0)^2=6{,}0$ J, $K_2=46$ J, $v=\sqrt{2(46)/3{,}0}=5{,}54$ m/s</li><li>(c) $F(4)=22$ N, $P=Fv=(22)(5{,}54)=122$ W</li></ul>`}
 ];
 
@@ -798,55 +798,55 @@ const SRC = {qt:"Hızlı test", da:"Deneme A", db:"Deneme B", ex:"Çözümlü ö
 const PFX = {qt:"H", da:"A", db:"", ex:"Ö"};
 /* Hints are one-line restatements of the first step of each existing solution. */
 const HINT_EX = {
-  1:R`Her vektörü bileşenlerine ayır, bileşenleri topla; açının çeyreğini $R_x$, $R_y$ işaretlerinden kontrol et.`,
-  2:R`Skaler çarpımda aynı bileşenleri çarpıp topla; vektörel çarpımda $C_x=A_yB_z-A_zB_y$ kalıbını kullan.`,
-  3:R`İki aşamaya böl: önce hızlanma sonundaki hızı bul, sonra frende $v^2=v_0^2+2a\Delta x$ kullan.`,
+  1:R`Her vector'ü component'lerine ayır, component'leri topla; açının quadrant'ını $R_x$, $R_y$ işaretlerinden kontrol et.`,
+  2:R`Scalar product'ta aynı component'leri çarpıp topla; vector product'ta $C_x=A_yB_z-A_zB_y$ kalıbını kullan.`,
+  3:R`İki aşamaya böl: önce hızlanma sonundaki velocity'yi bul, sonra frende $v^2=v_0^2+2a\Delta x$ kullan.`,
   4:R`Yukarıyı pozitif al, çatıyı $y=0$ say; yer $y=-20$ m olur ve tek denklem yeter.`,
-  5:R`Hızı $v_{0x}=v_0\cos53°$ ve $v_{0y}=v_0\sin53°$ olarak ayır; tepede $v_y=0$.`,
-  6:R`Merkeze doğru tek kuvvet statik sürtünme: $\mu_s mg\ge mv^2/R$.`,
-  14:R`Yere göre hız = suya göre hız + suyun hızı; (b)'de suya göre hızın batı bileşeni akıntıyı götürmeli.`,
-  7:R`Eksenleri düzleme paralel ve dik al; $n=mg\cos30°$, sonra $f_k=\mu_k n$.`,
+  5:R`Velocity'yi $v_{0x}=v_0\cos53°$ ve $v_{0y}=v_0\sin53°$ olarak ayır; tepede $v_y=0$.`,
+  6:R`Merkeze doğru tek force static friction: $\mu_s mg\ge mv^2/R$.`,
+  14:R`Yere göre velocity = suya göre velocity + suyun velocity'si; (b)'de suya göre velocity'nin batı component'i akıntıyı götürmeli.`,
+  7:R`Axis'leri düzleme paralel ve dik al; $n=mg\cos30°$, sonra $f_k=\mu_k n$.`,
   8:R`Her blok için ayrı $\sum F=ma$ yaz ve iki denklemi topla; $T$ sadeleşir.`,
-  9:R`Yukarı pozitif: $n-mg=ma$. Belirleyici olan ivmenin yönü.`,
+  9:R`Yukarı pozitif: $n-mg=ma$. Belirleyici olan acceleration'ın yönü.`,
   15:R`Düşeyde $n\cos\beta=mg$, yatayda $n\sin\beta=mv^2/R$; iki denklemi birbirine böl.`,
-  10:R`Kuvvetin yukarı bileşeni normal kuvveti azaltır: $n=mg-F\sin37°$.`,
-  12:R`Sabit hızda çekme kuvveti $mg$'ye eşit; $P=Fv$.`,
-  11:R`Önce yaydaki enerjiyi bul ($\tfrac12kx^2$), sonra kinetik ve potansiyel enerjiye çevir; (c)'de sürtünme işini çıkar.`,
-  13:R`$F_x=-dU/dx$; dengede $F_x=0$, kararlılık için $d^2U/dx^2$ işaretine bak.`
+  10:R`Force'un yukarı component'i normal force'u azaltır: $n=mg-F\sin37°$.`,
+  12:R`Constant velocity'de çekme force'u $mg$'ye eşit; $P=Fv$.`,
+  11:R`Önce spring'deki energy'yi bul ($\tfrac12kx^2$), sonra kinetic ve potential energy'ye çevir; (c)'de friction'ın work'ünü çıkar.`,
+  13:R`$F_x=-dU/dx$; equilibrium'da $F_x=0$, stable olup olmadığı için $d^2U/dx^2$ işaretine bak.`
 };
 const HINT_DB = {
-  B1:R`Düşey hareket serbest düşme gibi: $45=\tfrac12gt^2$; yatayda hız sabit.`,
-  B2:R`Her blok için ayrı denklem yaz; $m_1$ yukarı kaydığı için sürtünme düzlem boyunca aşağı.`,
+  B1:R`Düşey hareket free fall gibi: $45=\tfrac12gt^2$; yatayda velocity sabit.`,
+  B2:R`Her blok için ayrı denklem yaz; $m_1$ yukarı kaydığı için friction düzlem boyunca aşağı.`,
   B3:R`Düşeyde $T\cos25°=mg$, yatayda $T\sin25°=mv^2/R$ ve $R=L\sin25°$.`,
-  B4:R`Enerjiyi aşama aşama izle: rampada $mgh$, pürüzlü bölgede $-\mu_kmgd$, yayda $\tfrac12kx^2$.`,
-  B5:R`İş $=\int F_x\,dx$; sonra iş–enerji teoremi; güç $P=Fv$.`
+  B4:R`Energy'yi aşama aşama izle: ramp'ta $mgh$, pürüzlü bölgede $-\mu_kmgd$, spring'de $\tfrac12kx^2$.`,
+  B5:R`Work $=\int F_x\,dx$; sonra work–energy theorem; power $P=Fv$.`
 };
 const FC = [
-  {id:"f1",ch:"b1",q:R`İki vektör arasındaki açı skaler çarpımla nasıl bulunur?`,a:R`$\cos\varphi=\dfrac{\vec A\cdot\vec B}{AB}$`},
+  {id:"f1",ch:"b1",q:R`İki vector arasındaki açı scalar product (skaler çarpım) ile nasıl bulunur?`,a:R`$\cos\varphi=\dfrac{\vec A\cdot\vec B}{AB}$`},
   {id:"f2",ch:"b1",q:R`$\hat\jmath\times\hat\imath=\ ?$`,a:R`$-\hat k$. Sıra değişince işaret değişir: $\vec A\times\vec B=-\vec B\times\vec A$.`},
-  {id:"f3",ch:"b1",q:R`Hesap makinesindeki arctan yanlış çeyrek verirse ne yapılır?`,a:R`$A_x\lt0$ ise sonuca $180°$ ekle.`},
-  {id:"f4",ch:"b2",q:R`Zamanın olmadığı sabit ivme denklemi?`,a:R`$v^2=v_0^2+2a(x-x_0)$`},
-  {id:"f5",ch:"b2",q:R`Yukarı atılan cisim tepe noktasında: hız ve ivme?`,a:R`Hız sıfır, ivme $g$ aşağı yönlü.`},
-  {id:"f6",ch:"b2",q:R`$v$–$t$ grafiğinin eğimi ve altındaki alan neyi verir?`,a:R`Eğim ivmeyi, alan yer değiştirmeyi verir.`},
-  {id:"f7",ch:"b3",q:R`Menzil formülü ve geçerlilik şartı?`,a:R`$R=\dfrac{v_0^2\sin2\alpha_0}{g}$, yalnız atış ve iniş aynı yükseklikteyse.`},
-  {id:"f8",ch:"b3",q:R`Düzgün çembersel harekette merkezcil ivme (iki biçim)?`,a:R`$a_{rad}=\dfrac{v^2}{R}=\dfrac{4\pi^2R}{T^2}$, merkeze doğru.`},
-  {id:"f9",ch:"b3",q:R`Bağıl hız zinciri?`,a:R`$\vec v_{P/A}=\vec v_{P/B}+\vec v_{B/A}$`},
-  {id:"f10",ch:"b4",q:R`Net kuvvet sıfırsa cisim ne yapar?`,a:R`Hızı sabit kalır: ya durur ya da düz çizgide sabit süratle gider.`},
-  {id:"f11",ch:"b4",q:R`Masadaki kitabın ağırlığının 3. yasa tepkisi hangisi?`,a:R`Kitabın Dünya'yı çekmesi. Normal kuvvet değil.`},
-  {id:"f12",ch:"b4",q:R`Kütle ile ağırlığın farkı?`,a:R`Kütle her yerde aynı; ağırlık $w=mg$, $g$'ye bağlı bir kuvvet.`},
-  {id:"f13",ch:"b5",q:R`Asansörde görünür ağırlık?`,a:R`$n=m(g+a_y)$, yukarı pozitif.`},
-  {id:"f14",ch:"b5",q:R`Kaymayan cisimde statik sürtünme kaç?`,a:R`Dengeyi sağlayan değer, $f_s\le\mu_s n$. Doğrudan $\mu_s n$ alınmaz.`},
-  {id:"f15",ch:"b5",q:R`Sürtünmesiz eğimli virajın açısı?`,a:R`$\tan\beta=\dfrac{v^2}{gR}$`},
-  {id:"f16",ch:"b5",q:R`Düşey çemberde dipte ve tepede ip denklemi?`,a:R`Dipte $T-mg=\dfrac{mv^2}{R}$, tepede $T+mg=\dfrac{mv^2}{R}$.`},
-  {id:"f17",ch:"b5",q:R`Sürtünmeli eğik düzlemde aşağı kayma ivmesi?`,a:R`$a=g(\sin\theta-\mu_k\cos\theta)$`},
-  {id:"f18",ch:"b6",q:R`Sabit kuvvetin işi?`,a:R`$W=Fs\cos\varphi=\vec F\cdot\vec s$`},
-  {id:"f19",ch:"b6",q:R`İş–enerji teoremi?`,a:R`$W_{top}=K_2-K_1$, bütün kuvvetlerin işi toplanır.`},
-  {id:"f20",ch:"b6",q:R`Güç, kuvvet ve hız cinsinden?`,a:R`$P=\vec F\cdot\vec v$, birimi watt ($1\ \text{W}=1\ \text{J/s}$).`},
-  {id:"f21",ch:"b6",q:R`Yayı 0'dan $x$'e germek için yapılan iş?`,a:R`$W=\tfrac12kx^2$`},
-  {id:"f22",ch:"b7",q:R`Sürtünme varken enerji denklemi?`,a:R`$K_1+U_1+W_{other}=K_2+U_2$, sürtünme için $W_{other}=-f_ks$.`},
-  {id:"f23",ch:"b7",q:R`Potansiyel enerjiden kuvvet?`,a:R`$F_x=-\dfrac{dU}{dx}$`},
-  {id:"f24",ch:"b7",q:R`$U(x)$ minimum ve maksimumunda denge türü?`,a:R`Minimum kararlı, maksimum kararsız denge.`},
-  {id:"f25",ch:"b7",q:R`Korunumlu kuvvetin üç özelliği?`,a:R`İşi yoldan bağımsız, kapalı yolda sıfır, potansiyel enerji fonksiyonu var.`}
+  {id:"f3",ch:"b1",q:R`Hesap makinesindeki arctan yanlış quadrant (çeyrek) verirse ne yapılır?`,a:R`$A_x\lt0$ ise sonuca $180°$ ekle.`},
+  {id:"f4",ch:"b2",q:R`Zamanın olmadığı constant acceleration (sabit ivme) denklemi?`,a:R`$v^2=v_0^2+2a(x-x_0)$`},
+  {id:"f5",ch:"b2",q:R`Yukarı atılan cisim tepe noktasında: velocity ve acceleration?`,a:R`Velocity sıfır, acceleration $g$ aşağı yönlü.`},
+  {id:"f6",ch:"b2",q:R`$v$–$t$ grafiğinin slope'u (eğim) ve altındaki alan neyi verir?`,a:R`Slope acceleration'ı, alan displacement'ı (yer değiştirme) verir.`},
+  {id:"f7",ch:"b3",q:R`Range (menzil) formülü ve geçerlilik şartı?`,a:R`$R=\dfrac{v_0^2\sin2\alpha_0}{g}$, yalnız atış ve iniş aynı yükseklikteyse.`},
+  {id:"f8",ch:"b3",q:R`Uniform circular motion'da centripetal acceleration (merkezcil ivme), iki biçim?`,a:R`$a_{rad}=\dfrac{v^2}{R}=\dfrac{4\pi^2R}{T^2}$, merkeze doğru.`},
+  {id:"f9",ch:"b3",q:R`Relative velocity (bağıl hız) zinciri?`,a:R`$\vec v_{P/A}=\vec v_{P/B}+\vec v_{B/A}$`},
+  {id:"f10",ch:"b4",q:R`Net force sıfırsa cisim ne yapar?`,a:R`Velocity'si sabit kalır: ya durur ya da düz çizgide sabit speed'le gider.`},
+  {id:"f11",ch:"b4",q:R`Masadaki kitabın weight'inin Newton's third law reaction'ı hangisi?`,a:R`Kitabın Dünya'yı çekmesi. Normal force değil.`},
+  {id:"f12",ch:"b4",q:R`Mass (kütle) ile weight'in (ağırlık) farkı?`,a:R`Mass her yerde aynı; weight $w=mg$, $g$'ye bağlı bir force.`},
+  {id:"f13",ch:"b5",q:R`Asansörde apparent weight (görünür ağırlık)?`,a:R`$n=m(g+a_y)$, yukarı pozitif.`},
+  {id:"f14",ch:"b5",q:R`Kaymayan cisimde static friction kaç?`,a:R`Equilibrium'u sağlayan değer, $f_s\le\mu_s n$. Doğrudan $\mu_s n$ alınmaz.`},
+  {id:"f15",ch:"b5",q:R`Frictionless banked curve'ün (eğimli viraj) açısı?`,a:R`$\tan\beta=\dfrac{v^2}{gR}$`},
+  {id:"f16",ch:"b5",q:R`Vertical circle'da (düşey çember) dipte ve tepede tension denklemi?`,a:R`Dipte $T-mg=\dfrac{mv^2}{R}$, tepede $T+mg=\dfrac{mv^2}{R}$.`},
+  {id:"f17",ch:"b5",q:R`Friction'lı inclined plane'de aşağı kayma acceleration'ı?`,a:R`$a=g(\sin\theta-\mu_k\cos\theta)$`},
+  {id:"f18",ch:"b6",q:R`Constant force'un work'ü?`,a:R`$W=Fs\cos\varphi=\vec F\cdot\vec s$`},
+  {id:"f19",ch:"b6",q:R`Work–energy theorem?`,a:R`$W_{top}=K_2-K_1$, bütün force'ların work'ü toplanır.`},
+  {id:"f20",ch:"b6",q:R`Power, force ve velocity cinsinden?`,a:R`$P=\vec F\cdot\vec v$, birimi watt ($1\ \text{W}=1\ \text{J/s}$).`},
+  {id:"f21",ch:"b6",q:R`Spring'i 0'dan $x$'e germek için yapılan work?`,a:R`$W=\tfrac12kx^2$`},
+  {id:"f22",ch:"b7",q:R`Friction varken energy denklemi?`,a:R`$K_1+U_1+W_{other}=K_2+U_2$, friction için $W_{other}=-f_ks$.`},
+  {id:"f23",ch:"b7",q:R`Potential energy'den force?`,a:R`$F_x=-\dfrac{dU}{dx}$`},
+  {id:"f24",ch:"b7",q:R`$U(x)$ minimum ve maksimumunda equilibrium türü?`,a:R`Minimum stable equilibrium (kararlı denge), maksimum unstable equilibrium (kararsız denge).`},
+  {id:"f25",ch:"b7",q:R`Conservative force'un (korunumlu kuvvet) üç özelliği?`,a:R`Work'ü yoldan bağımsız, kapalı yolda sıfır, potential energy function'ı var.`}
 ];
 const OZ_TITLES = {b1:"oz-b1",b2:"oz-b2",b3:"oz-b3",b4:"oz-b4",b5:"oz-b5",b6:"oz-b6",b7:"oz-b7"};
 
@@ -877,6 +877,9 @@ function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"
 function todayISO(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
 function tpl(id){ return document.getElementById(id).innerHTML; }
 function plain(s){ return String(s).replace(/<[^>]+>/g," ").replace(/\\[a-zA-Z]+/g," ").replace(/[\\${}^_]/g," ").replace(/\s+/g," ").toLocaleLowerCase("tr"); }
+/* Search aliases: the page uses English terms; old Turkish words still find them. */
+const TR_ALIAS = [["free-body diagram","serbest cisim diyagramı"],["free fall","serbest düşme"],["projectile","eğik atış"],["range","menzil"],["time of flight","uçuş süresi"],["circular motion","çembersel hareket"],["centripetal","merkezcil"],["centrifugal","merkezkaç"],["tangential","teğetsel"],["relative velocity","bağıl hız"],["displacement","yer değiştirme"],["velocity","hız"],["speed","sürat"],["acceleration","ivme"],["vector product","vektörel çarpım"],["scalar product","skaler çarpım"],["vector","vektör"],["scalar","skaler"],["component","bileşen"],["magnitude","büyüklük"],["quadrant","çeyrek"],["net force","net kuvvet"],["normal force","normal kuvvet"],["force","kuvvet"],["static friction","statik sürtünme"],["kinetic friction","kinetik sürtünme"],["friction","sürtünme"],["tension","gerilme"],["weight","ağırlık"],["mass","kütle"],["inclined plane","eğik düzlem"],["ramp","rampa"],["pulley","makara"],["equilibrium","denge"],["stable","kararlı"],["unstable","kararsız"],["banked curve","eğimli viraj"],["flat curve","düz viraj"],["conical pendulum","konik sarkaç"],["vertical circle","düşey çember"],["radius","yarıçap"],["period","periyot"],["work","iş"],["kinetic energy","kinetik enerji"],["potential energy","potansiyel enerji"],["power","güç"],["spring","yay"],["conservative","korunumlu"],["conservation","korunum"],["energy","enerji"],["mechanical energy","mekanik enerji"],["air resistance","hava direnci"],["fluid resistance","akışkan direnci"],["terminal speed","limit sürat"],["inertial frame","eylemsiz referans"],["third law","etki tepki"],["reaction","tepki"],["gravity","yerçekimi"],["gravitational","kütle çekim"],["position","konum"],["instantaneous","anlık"],["average","ortalama"],["slope","eğim"],["axis","eksen"],["counterclockwise","saat yönünün tersine"],["trajectory","yörünge"]];
+function tr(t){ let x=t; for(const [en,trw] of TR_ALIAS) if(t.includes(en)) x+=" "+plain(trw); return x; }
 
 /* ---------- all gradable items ---------- */
 const QT_BY = Object.fromEntries(QT.map(q=>[String(q.id),q]));
@@ -935,7 +938,7 @@ function scratchHTML(it){
   return `<div class="scratch-box" id="sc-${it.set}-${it.id}" ${open?"":"hidden"}>
     <div class="small muted"><b>Karalama alanı:</b> soldaki kutuya adımlarını yaz (kaydedilir), sağa fare ya da kalemle çiz.</div>
     <div class="scratch-grid">
-      <textarea class="scratch-Area" data-scinput="${k}" aria-label="${label(it)} karalama metni" placeholder="Verilenler, serbest cisim diyagramı, denklemler...">${esc(S.scratch[k]||"")}</textarea>
+      <textarea class="scratch-Area" data-scinput="${k}" aria-label="${label(it)} karalama metni" placeholder="Verilenler, free-body diagram, denklemler...">${esc(S.scratch[k]||"")}</textarea>
       <div class="scratch-canvas-wrap">
         <canvas class="scratch-canvas" id="canv-${it.set}-${it.id}" width="420" height="130" aria-label="${label(it)} çizim alanı"></canvas>
         <button type="button" class="btn ghost" data-clearcanv="${it.set}-${it.id}" style="position:absolute;top:5px;right:5px;padding:2px 7px;font-size:.73rem">Temizle</button>
@@ -1092,7 +1095,7 @@ function denemeView(){
     ${a.map(mcCard).join("")}
     <div class="actions">${S.daDone?"":`<button class="btn" id="daCheck" type="button">A bölümünü kontrol et</button>`}<button class="btn ghost" id="daReset" type="button">A bölümünü sıfırla</button></div>
     <h3>B Bölümü: Klasik sorular</h3>
-    <p class="muted small">Kâğıtta adım adım çöz, gereken yerde serbest cisim diyagramı çiz. Sonra çözümü aç ve kendine puan ver: tam 12, yarım 6, yanlış 0.</p>
+    <p class="muted small">Kâğıtta adım adım çöz, gereken yerde free-body diagram çiz. Sonra çözümü aç ve kendine puan ver: tam 12, yarım 6, yanlış 0.</p>
     ${DB.map(dbCard).join("")}
     ${scoreHTML()}
   </section>`;
@@ -1218,12 +1221,12 @@ let INDEX=null;
 function buildIndex(){
   const tmp=document.createElement("div");
   const out=[];
-  ITEMS.forEach(it=>out.push({kind:"q", title:label(it), sub:`${SRC[it.set]} · ${CH[it.ch]}`, text:plain(label(it)+" "+it.text+" "+CH[it.ch]+" "+SRC[it.set]+" "+(it.set==="ex"?HINT_EX[it.id]||"":it.set==="db"?HINT_DB[it.id]||"":"")), run:()=>jumpItem(it.set,it.id)}));
-  FC.forEach(f=>out.push({kind:"k", title:"Kart", sub:CHS[f.ch], snippet:plain(f.q).slice(0,70), text:plain("kart ezber "+f.q+" "+f.a+" "+CH[f.ch]), run:()=>jumpTo("konu","fc-"+f.id)}));
+  ITEMS.forEach(it=>out.push({kind:"q", title:label(it), sub:`${SRC[it.set]} · ${CH[it.ch]}`, text:tr(plain(label(it)+" "+it.text+" "+CH[it.ch]+" "+SRC[it.set]+" "+(it.set==="ex"?HINT_EX[it.id]||"":it.set==="db"?HINT_DB[it.id]||"":""))), run:()=>jumpItem(it.set,it.id)}));
+  FC.forEach(f=>out.push({kind:"k", title:"Kart", sub:CHS[f.ch], snippet:plain(f.q).slice(0,70), text:tr(plain("kart ezber "+f.q+" "+f.a+" "+CH[f.ch])), run:()=>jumpTo("konu","fc-"+f.id)}));
   tmp.innerHTML=tpl("tpl-ozet");
-  tmp.querySelectorAll("details").forEach(d=>out.push({kind:"o", title:"Özet", sub:d.querySelector("summary").textContent, text:plain("özet "+d.textContent), run:()=>jumpTo("konu",d.id)}));
+  tmp.querySelectorAll("details").forEach(d=>out.push({kind:"o", title:"Özet", sub:d.querySelector("summary").textContent, text:tr(plain("özet "+d.textContent)), run:()=>jumpTo("konu",d.id)}));
   tmp.innerHTML=tpl("tpl-form");
-  tmp.querySelectorAll("h3").forEach(h=>{ let t=h.textContent, n=h.nextElementSibling; if(n) t+=" "+n.textContent; out.push({kind:"f", title:"Formül", sub:h.textContent, text:plain("formül "+t), run:()=>jumpTo("form",h.id)}); });
+  tmp.querySelectorAll("h3").forEach(h=>{ let t=h.textContent, n=h.nextElementSibling; if(n) t+=" "+n.textContent; out.push({kind:"f", title:"Formül", sub:h.textContent, text:tr(plain("formül "+t)), run:()=>jumpTo("form",h.id)}); });
   return out;
 }
 function openSearch(){ const m=$("#searchModal"), inp=$("#searchModalInput"); m.hidden=false; inp.value=""; renderSearch(""); inp.focus(); }

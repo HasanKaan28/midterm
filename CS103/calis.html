@@ -108,6 +108,7 @@ code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.88em}
 .st.ok{background:var(--green-soft);color:var(--green)}
 .st.bad{background:var(--red-soft);color:var(--red)}
 .prompt{font-size:1rem;padding:2px 0 8px;overflow-wrap:anywhere}
+.prompt-en{font-size:.86rem;color:var(--muted);border-left:3px solid var(--line);padding:4px 10px;margin:0 0 10px;overflow-wrap:anywhere}
 .prompt pre{margin:6px 0}
 pre{margin:0 0 10px;background:var(--paper-3);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:.86rem;line-height:1.5;max-width:100%}
 pre code.hljs{background:transparent;padding:0}
@@ -237,9 +238,9 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 
 Her bölümün sonunda **Tuzak** satırı var. Sınavdan önce en alttaki tuzak listesini oku.
 
-## 1. Temeller (Hafta 1–2)
+## 1. Basics (Hafta 1–2)
 
-**Bilgisayar (Hafta 1, sadece Part I için):** CPU, RAM (geçici, elektrik gidince silinir), ikincil depolama (kalıcı: HDD, SSD, USB). Makine dili = 0 ve 1. Assembly → assembler ile makine diline. Yüksek seviyeli dil (C++) → **compiler** ile makine diline. 1 byte = 8 bit, 1 KB = 1024 byte. ASCII: 128 karakter. Algoritma = sonlu sürede biten adım adım çözüm. Yapısal programlama = problemi alt problemlere böl (top-down). OOP = nesneler (veri + işlemler).
+**Computer (Hafta 1, sadece Part I için):** CPU, main memory / RAM (geçici, elektrik gidince silinir), secondary memory (kalıcı: HDD, SSD, USB). Machine language = 0 ve 1. Assembly language → assembler ile machine language'e. High-level language (C++) → **compiler** ile machine language'e. 1 byte = 8 bit, 1 KB = 1024 byte. ASCII: 128 karakter. Algorithm (algoritma) = sonlu sürede biten adım adım çözüm. Structured programming = problemi alt problemlere böl (top-down design). OOP = object'ler (data + işlemler).
 
 **Program iskeleti:**
 
@@ -252,15 +253,15 @@ int main() {
 }
 ```
 
-**Identifier kuralı:** harf veya `_` ile başlar, sonra harf/rakam/`_`. Rakamla başlayamaz. Keyword (`int`, `return`, `while`…) olamaz. Büyük-küçük harf farklı. Fonksiyon adları da aynı kurala uyar.
+**Identifier kuralı:** harf veya `_` ile başlar, sonra harf/rakam/`_`. Rakamla başlayamaz. Keyword (`int`, `return`, `while`…) olamaz. C++ case-sensitive'dir (büyük-küçük harf farklı). Function adları da aynı kurala uyar.
 
-**Bildirim:** `int a, b = 5;` tek satırda birden çok değişken yasal. Başlatılmamış değişkenin değeri belirsiz (çöp).
+**Declaration (bildirim):** `int a, b = 5;` tek satırda birden çok variable (değişken) yasal. Uninitialized variable'ın değeri belirsiz (garbage). Initialization (ilk değer verme) declaration ile birlikte yapılabilir.
 
-**Çıktı:** `cout << x << " " << y;` Kaçış dizileri: `\n` yeni satır, `\t` tab, `\\` ters bölü, `\"` tırnak.
+**Output:** `cout << x << " " << y;` Escape sequence'ler: `\n` new line, `\t` tab, `\\` backslash, `\"` tırnak.
 
-**Girdi:** `cin >> a >> b;` boşluk ve satır sonlarını atlar. `char` okurken de boşluk atlanır (`J D` ve `JD` aynı sonuç).
+**Input:** `cin >> a >> b;` boşluk ve satır sonlarını atlar. `char` okurken de boşluk atlanır (`J D` ve `JD` aynı sonuç).
 
-**Ondalık biçim:**
+**Decimal output format:**
 
 ```cpp
 cout.setf(ios::fixed);
@@ -268,11 +269,11 @@ cout.setf(ios::showpoint);
 cout.precision(2);      // 7.5 → 7.50
 ```
 
-**Tuzak:** `"a"` string, `'a'` char. `cout << "number";` değişkeni değil `number` yazısını basar.
+**Tuzak:** `"a"` string, `'a'` char. `cout << "number";` variable'ı değil `number` yazısını basar.
 
-## 2. Tipler ve aritmetik (Hafta 2)
+## 2. Data types ve arithmetic (Hafta 2)
 
-| Tip | Örnek |
+| Data type | Örnek |
 | --- | --- |
 | `int` | `3`, `-45` |
 | `double` | `3.0`, `1.5e3` |
@@ -280,11 +281,11 @@ cout.precision(2);      // 7.5 → 7.50
 | `bool` | `true` (1), `false` (0); sıfır olmayan her sayı `true` |
 | `string` | `"Ali"` (`#include <string>`) |
 
-**Bölme:** iki taraf da `int` ise sonuç `int`, kesir **atılır** (yuvarlanmaz). `7/2 = 3`, `7/2.0 = 3.5`, `3/4 = 0`.
-**Kalan:** `%` sadece tam sayılarda. `17 % 5 = 2`. Negatifte işaret soldakinden: `-3 % 2 = -1`.
-**Atama dönüşümü:** `int a = 4.75;` → `4` (kesilir). `double d = 11/2;` → `5` (önce int bölme yapılır).
+**Integer division (tam sayı bölmesi):** iki operand da `int` ise sonuç `int`, kesir **atılır** (yuvarlanmaz). `7/2 = 3`, `7/2.0 = 3.5`, `3/4 = 0`.
+**Remainder (`%`, kalan):** sadece integer'larda. `17 % 5 = 2`. Negatifte işaret soldakinden: `-3 % 2 = -1`.
+**Assignment'ta type conversion:** `int a = 4.75;` → `4` (kesilir). `double d = 11/2;` → `5` (önce integer division yapılır).
 
-**Casting:**
+**Type casting (tip dönüştürme):**
 
 ```cpp
 static_cast<double>(a) / b    // doğru: 3.5
@@ -294,11 +295,11 @@ double(a), (double)a          // eski stil, çalışır
 static_cast<int>(2.9)         // 2
 ```
 
-**Öncelik:** `* / %` → `+ -` → karşılaştırma → `&&` → `||`. Aynı seviyede soldan sağa. `3 + 10 * 3 = 33`.
+**Operator precedence (öncelik):** `* / %` → `+ -` → comparison operator'leri → `&&` → `||`. Aynı seviyede soldan sağa. `3 + 10 * 3 = 33`.
 
-**Kısaltmalar:** `a += 2` → `a = a + 2`. `b *= a - 14` → `b = b * (a - 14)` (sağ taraf önce hesaplanır).
+**Compound assignment (kısaltmalı atama):** `a += 2` → `a = a + 2`. `b *= a - 14` → `b = b * (a - 14)` (sağ taraf önce hesaplanır).
 
-**`++` ve `--`:**
+**Increment / decrement (`++` ve `--`):** postfix `n++` önce kullanır, prefix `++n` önce artırır.
 
 ```cpp
 int n = 2;
@@ -306,20 +307,20 @@ int v = 2 * (n++);   // v = 4, n = 3  (önce kullan, sonra artır)
 int w = 2 * (++n);   // n = 4, w = 8  (önce artır, sonra kullan)
 ```
 
-**Tuzak:** `static_cast<float>(3/4)` → `0`. `x++ < 5` karşılaştırmayı eski değerle yapar ama `x` yine de artar.
+**Tuzak:** `static_cast<float>(3/4)` → `0`. `x++ < 5` comparison'ı eski değerle yapar ama `x` yine de artar.
 
-## 3. Karar yapıları (Hafta 3–4)
+## 3. Branching: if / else, switch (Hafta 3–4)
 
-**Karşılaştırma:** `==  !=  <  <=  >  >=`. Mantık: `&&` (ve), `||` (veya), `!` (değil).
+**Comparison operator'leri:** `==  !=  <  <=  >  >=`. Logical operator'ler: `&&` (and), `||` (or), `!` (not). Bunlarla kurulan condition (koşul) bir Boolean expression'dır.
 
 - `2 <= x <= 15` C++'ta yanlış yazım. Doğrusu: `(x >= 2 && x <= 15)`.
-- `if (x = 5)` derlenir ama `x`'e 5 atar ve her zaman doğrudur. Karşılaştırma `==`.
+- `if (x = 5)` derlenir ama `x`'e 5 atar (assignment) ve her zaman `true` olur. Comparison `==`.
 - `!time > limit` → `(!time) > limit` olarak okunur. Niyet `!(time > limit)` ise parantez şart.
-- **Short-circuit:** `&&`'de sol taraf `false` ise sağ taraf hiç hesaplanmaz; `||`'de sol taraf `true` ise sağ taraf hesaplanmaz. `(kids != 0) && (pieces / kids >= 2)` sıfıra bölmeyi önler.
+- **Short-circuit evaluation:** `&&`'de sol taraf `false` ise sağ taraf hiç hesaplanmaz; `||`'de sol taraf `true` ise sağ taraf hesaplanmaz. `(kids != 0) && (pieces / kids >= 2)` division by zero'yu önler.
 
-**if / else:** `{}` yoksa sadece ilk satır koşula bağlıdır.
+**if / else:** `{}` (block) yoksa sadece ilk statement condition'a bağlıdır.
 
-**Dangling else:** `else` her zaman **en yakın, eşleşmemiş `if`**'e bağlanır, girintiye bakılmaz.
+**Dangling else:** `else` her zaman **en yakın, eşleşmemiş `if`**'e bağlanır, indentation'a (girinti) bakılmaz.
 
 ```cpp
 if (fuel < 75)
@@ -341,24 +342,24 @@ switch (grade) {          // int, char, bool, enum olabilir; string ve double OL
 
 **Fall-through kuralı:** eşleşen `case`'ten başla, `break` veya `}` görene kadar **alttaki tüm satırları** çalıştır (diğer `case` etiketlerini yok say). `default` en altta değilse de aynı kural geçerli.
 
-**Blok kapsamı:** `{}` içinde tanımlanan değişken sadece o blokta yaşar. İç blokta aynı isimle yeni değişken tanımlanırsa dıştakini gölgeler.
+**Block scope (blok kapsamı):** `{}` içinde declare edilen variable sadece o block'ta yaşar. İç block'ta aynı isimle yeni variable declare edilirse dıştakini gizler.
 
-**Tuzak:** `case "A":` hatalıdır (string), `case 'A':` doğru. `default` sonrası `:` unutulmaz.
+**Tuzak:** `case "A":` compile error verir (string), `case 'A':` doğru. `default` sonrası `:` unutulmaz.
 
-## 4. Döngüler (Hafta 3–5)
+## 4. Loops (Hafta 3–5)
 
-| Döngü | Ne zaman | Koşul |
+| Loop | Ne zaman | Condition |
 | --- | --- | --- |
 | `while (k) {...}` | Hiç çalışmayabilir | Başta kontrol |
 | `do {...} while (k);` | **En az bir kez** çalışır | Sonda kontrol, sonunda `;` var |
-| `for (init; k; update) {...}` | Sayısı belli tekrar | Başta kontrol |
+| `for (init; k; update) {...}` | Sayısı belli tekrar (iteration) | Başta kontrol |
 
-**İzleme yöntemi:** her turda tablo tut: değişkenler, koşul, çıktı. Koşulu kontrol et → gövde → güncelleme → koşul…
+**Tracing (elde izleme) yöntemi:** her iteration'da tablo tut: variable'lar, condition, output. Condition'ı kontrol et → loop body → update → condition…
 
-**break:** içinde bulunduğu **tek** döngüden (veya switch'ten) çıkar. İç içe döngüde sadece içtekinden.
-**continue:** turun geri kalanını atla, sonraki tura geç (`for`'da güncelleme yine yapılır).
+**break:** içinde bulunduğu **tek** loop'tan (veya switch'ten) çıkar. Nested loop'ta sadece içtekinden.
+**continue:** iteration'ın geri kalanını atla, sonrakine geç (`for`'da update yine yapılır).
 
-**İç içe döngü:** dış döngünün her turunda iç döngü baştan sona çalışır. Toplam iç tur = dış × iç.
+**Nested loop (iç içe döngü):** outer loop'un her iteration'ında inner loop baştan sona çalışır. Toplam iç tur = dış × iç.
 
 ```cpp
 for (int i = 1; i <= 3; i++) {          // satır
@@ -368,11 +369,11 @@ for (int i = 1; i <= 3; i++) {          // satır
 }
 ```
 
-**Döngü bitirme yöntemleri:** baştan sayı al (list headed by size), her turda sor (Y/N), sentinel değer (ör. negatif sayı gelince dur; sentinel işlenmez), dosya bitene kadar oku.
+**Loop bitirme yöntemleri:** baştan sayı al (list headed by size), her iteration'da sor (ask before iterating, Y/N), sentinel value (ör. negatif sayı gelince dur; sentinel işlenmez), running out of input (file bitene kadar oku).
 
-**Toplam ve çarpım:** `sum = 0`, `product = 1` ile başla.
+**Sum ve product:** `sum = 0`, `product = 1` ile initialize et.
 
-**Girdi doğrulama (sınavda çıktı):**
+**Input validation loop (sınavda çıktı):**
 
 ```cpp
 cin >> n;
@@ -383,26 +384,26 @@ while (n <= 0) {
 ```
 
 **Tuzak:**
-- `for (...);` veya `while (...);` → noktalı virgül gövdeyi boşaltır. `for (i = 0; i < 3; i++); cout << i;` → bir kez `3` basar.
-- Sayaç güncellenmezse sonsuz döngü.
-- `<` ile `<=` farkı: bir tur eksik/fazla (off-by-one).
-- `for (int i...)` içinde tanımlanan `i` döngü dışında yoktur.
+- `for (...);` veya `while (...);` → noktalı virgül loop body'yi boşaltır (empty statement). `for (i = 0; i < 3; i++); cout << i;` → bir kez `3` basar.
+- Counter update edilmezse infinite loop.
+- `<` ile `<=` farkı: bir iteration eksik/fazla (off-by-one error).
+- `for (int i...)` içinde declare edilen `i` loop dışında yoktur (scope).
 
-## 5. Hazır fonksiyonlar (Hafta 5)
+## 5. Predefined functions (Hafta 5)
 
-| Fonksiyon | Kütüphane | Not |
+| Function | Library | Not |
 | --- | --- | --- |
-| `sqrt(x)`, `pow(x, y)` | `<cmath>` | `double` döner. `pow(2,3)` = 8 |
+| `sqrt(x)`, `pow(x, y)` | `<cmath>` | `double` return eder. `pow(2,3)` = 8 |
 | `fabs(x)` | `<cmath>` | `double` mutlak değer |
-| `abs(x)` | `<cstdlib>` | `int` mutlak değer. `7 / abs(-2)` = 3 (int bölme) |
+| `abs(x)` | `<cstdlib>` | `int` mutlak değer. `7 / abs(-2)` = 3 (integer division) |
 | `ceil(5.8)` = 6, `floor(5.8)` = 5 | `<cmath>` | |
-| `rand()`, `srand(time(0))` | `<cstdlib>`, `<ctime>` | `srand` bir kez çağrılır |
+| `rand()`, `srand(time(0))` | `<cstdlib>`, `<ctime>` | `srand` bir kez call edilir |
 
-**Rastgele aralık:** `rand() % N + a` → `a` ile `a + N - 1` arası. Zar: `rand() % 6 + 1`. `10 < x < 21` için: `rand() % 10 + 11`.
+**Random number aralığı:** `rand() % N + a` → `a` ile `a + N - 1` arası. Zar: `rand() % 6 + 1`. `10 < x < 21` için: `rand() % 10 + 11`.
 
-**Geçerli çağrı:** dönen değer bir ifade gibi kullanılır: `fabs(3.5);` (değer atılır ama yasal), `cout << fabs(3.5);`. `cin >> fabs(3.5);` geçersiz.
+**Geçerli function call:** return value bir expression gibi kullanılır: `fabs(3.5);` (değer atılır ama yasal), `cout << fabs(3.5);`. `cin >> fabs(3.5);` geçersiz.
 
-## 6. Kendi fonksiyonların (Hafta 5–6)
+## 6. Programmer-defined functions (Hafta 5–6)
 
 ```cpp
 double totalCost(int number, double price);     // BİLDİRİM (prototype), ; ile biter
@@ -418,18 +419,18 @@ double totalCost(int number, double price) {    // TANIM: başlık + gövde
 }
 ```
 
-- Çağrıdan **önce** bildirim veya tanım görünmeli. Tanım `main`'den önceyse bildirim gerekmez.
-- Bildirimde parametre adları yazılmayabilir: `double totalCost(int, double);`. Tanımda adlar şart.
-- Değer dönen fonksiyonun her yolu bir `return` ile bitmeli.
-- Fonksiyon içinde başka fonksiyon **tanımlanamaz**, ama çağrılabilir.
-- Argüman sırası önemlidir; derleyici tip kontrolü yapar, mantıksal sıra kontrolü yapmaz.
-- `bool` dönen fonksiyon `if (isEven(n))` şeklinde kullanılır.
+- Function call'dan **önce** function declaration (prototype) veya function definition görünmeli. Definition `main`'den önceyse declaration gerekmez.
+- Declaration'da parameter adları yazılmayabilir: `double totalCost(int, double);`. Definition'da adlar şart.
+- Değer return eden function'ın her yolu bir `return` statement ile bitmeli.
+- Function içinde başka function **define edilemez**, ama call edilebilir.
+- Argument sırası önemlidir; compiler type kontrolü yapar, mantıksal sıra kontrolü yapmaz.
+- `bool` return eden function `if (isEven(n))` şeklinde kullanılır.
 
-**Call-by-value:** parametre, argümanın **kopyasıdır**. Fonksiyon içindeki değişiklik çağıranı etkilemez.
+**Call-by-value (değerle çağırma):** formal parameter, argument'ın **kopyasıdır**. Function içindeki değişiklik çağıranı etkilemez.
 
-**Local / global:** fonksiyonda tanımlanan değişken sadece orada yaşar. Parametreler de local'dir; gövdede tekrar tanımlanmaz. Global değişken tüm fonksiyonların dışında tanımlanır; aynı isimde local varsa local kazanır. Global sabit (`const double PI = 3.14159;`) yaygın ve kabul görür.
+**Scope (kapsam): local / global:** function'da declare edilen local variable sadece orada yaşar. Parameter'lar da local'dir; function body'de tekrar declare edilmez. Global variable tüm function'ların dışında declare edilir; aynı isimde local varsa local kazanır. Global constant (`const double PI = 3.14159;`) yaygın ve kabul görür.
 
-**Overloading:** aynı isim, **farklı parametre listesi** (sayı, tip veya sıra).
+**Function overloading (aşırı yükleme):** aynı isim, **farklı parameter list** (sayı, type veya sıra).
 
 ```cpp
 int    add(int a, int b);            // geçerli
@@ -439,16 +440,16 @@ double add(int a, int b);            // GEÇERSİZ: sadece dönüş tipi farklı
 int    add(int x, int y);            // GEÇERSİZ: sadece parametre adları farklı
 ```
 
-**Hangisi çağrılır?** Tam eşleşme kazanır. Tam eşleşme yoksa derleyici en az dönüşüm gereken sürümü seçer. İki aday eşit derecede iyiyse **derleme hatası (ambiguous)**.
+**Hangisi call edilir?** Exact match kazanır. Exact match yoksa compiler en az type conversion gereken sürümü seçer. İki aday eşit derecede iyiyse **compile error (ambiguous call)**.
 
 - `add(2, 3)` → `(int,int)`.
 - `add(2.5, 3.0)` → `(double,double)`.
-- `add(2, 3.0)` iki sürüm varken (`int,int` ve `double,double`) → **belirsiz, derleme hatası**. Hafta 6 kodunda (`week6.cpp`) bu çağrı var.
-- Tek sürüm varsa otomatik dönüşüm olur: `mpg(45, 2)` → `mpg(45.0, 2.0)`.
+- `add(2, 3.0)` iki sürüm varken (`int,int` ve `double,double`) → **ambiguous, compile error**. Hafta 6 kodunda (`week6.cpp`) bu call var.
+- Tek sürüm varsa automatic type conversion olur: `mpg(45, 2)` → `mpg(45.0, 2.0)`.
 
-## 7. void fonksiyonlar ve call-by-reference (Hafta 7)
+## 7. void functions ve call-by-reference (Hafta 7)
 
-**void:** değer döndürmez. `return;` (değersiz) erken çıkış için kullanılabilir, zorunlu değil. Çağrısı tek başına bir ifadedir: `showResults(a, b);`. `cout << showResults(a, b);` **hata**.
+**void function:** değer return etmez. `return;` (değersiz) erken çıkış için kullanılabilir, zorunlu değil. Call'u tek başına bir statement'tır: `showResults(a, b);`. `cout << showResults(a, b);` **compile error**.
 
 ```cpp
 void shareBudget(int number, double total) {
@@ -460,7 +461,7 @@ void shareBudget(int number, double total) {
 }
 ```
 
-**Call-by-reference (`&`):** parametre, argümanın **kendisidir** (aynı bellek adresi). Fonksiyondaki değişiklik çağıranın değişkenini değiştirir.
+**Call-by-reference (`&`, referansla çağırma):** reference parameter, argument'ın **kendisidir** (aynı memory address). Function'daki değişiklik çağıranın variable'ını değiştirir.
 
 ```cpp
 void swapValues(int& a, int& b) {   // & hem bildirimde hem tanımda
@@ -470,16 +471,16 @@ void swapValues(int& a, int& b) {   // & hem bildirimde hem tanımda
 }
 ```
 
-- Reference argümanı **değişken** olmalı: `swapValues(x, 5);` hata.
-- Karışık liste yasal: `void f(int& a, int b, double& c);`.
-- `&` unutulursa kod derlenir ama değişken değişmez (sık hata).
-- Ne zaman `&`? Fonksiyon çağıranın değişkenini değiştirecekse (girdi okuma, takas, birden çok sonuç döndürme).
+- Reference argument **variable** olmalı: `swapValues(x, 5);` compile error.
+- Mixed parameter list yasal: `void f(int& a, int b, double& c);`.
+- `&` unutulursa kod derlenir ama variable değişmez (sık logic error).
+- Ne zaman `&`? Function çağıranın variable'ını değiştirecekse (input okuma, swap, birden çok sonuç döndürme).
 
-**İzleme taktiği:** reference parametreyi gördüğünde kâğıda "`a` = main'deki `x`" yaz ve tek bir kutu üzerinde çalış.
+**Tracing taktiği:** reference parameter'ı gördüğünde kâğıda "`a` = main'deki `x`" yaz ve tek bir kutu üzerinde çalış.
 
-**Pre/postcondition:** fonksiyon yorumunda "çağrılmadan önce doğru olan" ve "çağrıdan sonra doğru olan".
+**Precondition / postcondition:** function comment'inde "call'dan önce doğru olan" ve "call'dan sonra doğru olan".
 
-## 8. Dosya I/O (Hafta 5, 6.1)
+## 8. File I/O (Hafta 5, 6.1)
 
 ```cpp
 #include <fstream>
@@ -498,28 +499,28 @@ out << "a = " << 20 << endl;
 out.close();
 ```
 
-İlk satırda kayıt sayısı varsa: önce `in >> total;`, sonra `for (int i = 0; i < total; i++) { in >> name >> score; }`.
+File'ın ilk satırında kayıt sayısı varsa: önce `in >> total;`, sonra `for (int i = 0; i < total; i++) { in >> name >> score; }`.
 
 ## Tuzak listesi (sınav sabahı oku)
 
-1. `int / int` kesri atar: `7/2 = 3`, `3/4 = 0`. `static_cast<double>(a/b)` geç kalır.
+1. `int / int` integer division kesri atar: `7/2 = 3`, `3/4 = 0`. `static_cast<double>(a/b)` geç kalır.
 2. `int a = 4.75;` → 4.
 3. `x++` eski değeri, `++x` yeni değeri kullanır; ikisinde de `x` artar.
-4. `while (x++ < 5)`: döngü bittiğinde `x` = 6.
-5. `if (x = 0)` atama yapar ve `false` olur; `if (x = 5)` her zaman `true`.
-6. `else` en yakın `if`'e bağlanır, girintiye bakma.
+4. `while (x++ < 5)`: loop bittiğinde `x` = 6.
+5. `if (x = 0)` assignment yapar ve `false` olur; `if (x = 5)` her zaman `true`.
+6. `else` en yakın `if`'e bağlanır, indentation'a bakma.
 7. `switch`'te `break` yoksa alttaki case'lere düşer; `case` etiketleri durdurmaz.
-8. `for(...);` ve `while(...);` gövdeyi boşaltır.
+8. `for(...);` ve `while(...);` loop body'yi boşaltır.
 9. `do-while` en az bir kez çalışır; `while (...)` sonrası `;` var.
-10. `break` sadece içinde olduğu döngüden çıkar.
-11. `&` yoksa fonksiyon kopya üzerinde çalışır, çağıranın değişkeni değişmez.
-12. Overloading sadece dönüş tipiyle olmaz; `add(2, 3.0)` iki eşit aday varsa derleme hatası.
-13. `void` fonksiyon `cout <<` içinde kullanılamaz ve `return x;` yazamaz.
+10. `break` sadece içinde olduğu loop'tan çıkar.
+11. `&` yoksa function kopya üzerinde çalışır (call-by-value), çağıranın variable'ı değişmez.
+12. Overloading sadece return type ile olmaz; `add(2, 3.0)` iki eşit aday varsa compile error.
+13. `void` function `cout <<` içinde kullanılamaz ve `return x;` yazamaz.
 14. `-3 % 2 == -1`, yani `x % 2 == 1` negatif tek sayılarda yanlış sonuç verir.
 15. `cout << "x";` harfi, `cout << x;` değeri basar.
-16. Global ile aynı isimli local değişken global'i değiştirmez.
+16. Global ile aynı isimli local variable global'i değiştirmez.
 17. `cin >> fabs(3.5)` geçersiz; `fabs(3.5);` yasal.
-18. Sayaç/toplamları başlat: `sum = 0`, `product = 1`.
+18. Counter ve toplamları initialize et: `sum = 0`, `product = 1`.
 
 </script>
 
@@ -537,19 +538,19 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 
 /* ---------- İÇERİK (önceki sayfadan aynen aktarıldı) ---------- */
 const TOPICS={
-  tip:"Tipler, int bölme, casting",artis:"++ / -- operatörleri",karar:"if / else, mantık",switch:"switch ve fall-through",
-  dongu:"Döngüler",fonk:"Fonksiyonlar (bildirim, return)",overload:"Overloading",ref:"void ve call-by-reference",
-  kapsam:"Kapsam (local / global)",dosya:"Dosya I/O",cmath:"Hazır fonksiyonlar"
+  tip:"Data types, integer division, type casting",artis:"Increment / decrement (++ / --)",karar:"if / else, Boolean expressions",switch:"switch ve fall-through",
+  dongu:"Loops",fonk:"Functions (declaration, return)",overload:"Function overloading",ref:"void functions ve call-by-reference",
+  kapsam:"Scope (local / global)",dosya:"File I/O",cmath:"Predefined functions"
 };
-const OZETREF={tip:"2. Tipler",artis:"2. Tipler",karar:"3. Karar",switch:"3. Karar",dongu:"4. Döngüler",fonk:"6. Kendi",overload:"6. Kendi",ref:"7. void",kapsam:"6. Kendi",dosya:"8. Dosya",cmath:"5. Hazır"};
+const OZETREF={tip:"2. Data types",artis:"2. Data types",karar:"3. Branching",switch:"3. Branching",dongu:"4. Loops",fonk:"6. Functions",overload:"6. Functions",ref:"7. void",kapsam:"6. Functions",dosya:"8. File I/O",cmath:"5. Predefined"};
 
 const PLAN=[
  {d:"Cum 13 Kas · ilk iş",t:"20 dk",h:"Teşhis testi",b:"Teşhis sekmesindeki 6 soruyu çöz.",go:"teshis"},
- {d:"Cum 13 Kas · yarın MATH",t:"1 saat",h:"Hafta 2: tipler, int bölme, %, casting, ++/--",b:"Özet §1–2. Çıktı: A1, A3, A18, A19, A22, A26. Hata: B7.",go:"cikti"},
- {d:"Cmt 14 Kas · MATH sonrası",t:"1,5 saat",h:"Hafta 3–4: if/else, switch, döngüler, break/continue",b:"Özet §3–4. Çıktı: A4, A5, A7, A8, A9, A17, A21, A23. Hata: B1, B4, B5, B6.",go:"cikti"},
- {d:"Paz 15 Kas · yarın NS",t:"45 dk",h:"İç içe döngü ve desenler",b:"A7, A21 tekrar. Kod: C7. Örnek sınav Part III.",go:"kod"},
- {d:"Pzt 16 Kas · NS sonrası",t:"2 saat",h:"Hafta 5–6: fonksiyonlar, cmath/rand, kapsam, overloading",b:"Özet §5–6. Çıktı: A13, A13b, A14, A15, A16, A25. Hata: B2, B8. Kod: C1, C2, C5, C10.",go:"kod"},
- {d:"Sal 17 Kas · sabah (ELIT 17:45)",t:"2 saat",h:"Hafta 7: void, call-by-reference + dosya I/O",b:"Özet §7–8. Çıktı: A12, A20, A24. Hata: B3, B9, B10. Kod: C3, C4, C8, C9.",go:"kod"},
+ {d:"Cum 13 Kas · yarın MATH",t:"1 saat",h:"Hafta 2: data types, integer division, %, type casting, ++/--",b:"Özet §1–2. Çıktı: A1, A3, A18, A19, A22, A26. Hata: B7.",go:"cikti"},
+ {d:"Cmt 14 Kas · MATH sonrası",t:"1,5 saat",h:"Hafta 3–4: if/else, switch, loops, break/continue",b:"Özet §3–4. Çıktı: A4, A5, A7, A8, A9, A17, A21, A23. Hata: B1, B4, B5, B6.",go:"cikti"},
+ {d:"Paz 15 Kas · yarın NS",t:"45 dk",h:"Nested loops ve desenler",b:"A7, A21 tekrar. Kod: C7. Örnek sınav Part III.",go:"kod"},
+ {d:"Pzt 16 Kas · NS sonrası",t:"2 saat",h:"Hafta 5–6: functions, cmath/rand, scope, function overloading",b:"Özet §5–6. Çıktı: A13, A13b, A14, A15, A16, A25. Hata: B2, B8. Kod: C1, C2, C5, C10.",go:"kod"},
+ {d:"Sal 17 Kas · sabah (ELIT 17:45)",t:"2 saat",h:"Hafta 7: void functions, call-by-reference + file I/O",b:"Özet §7–8. Çıktı: A12, A20, A24. Hata: B3, B9, B10. Kod: C3, C4, C8, C9.",go:"kod"},
  {d:"Çar 18 Kas",t:"4 saat",h:"Deneme sınavı",b:"midtermSample.pdf'i 80 dk süre tutarak kâğıtta çöz, Örnek sınav sekmesinde kontrol et. Sonra quizSample. Zayıf konulardan 3'er soru daha. Kod: C6.",go:"sinav"},
  {d:"Per 19 Kas · sınav 17:45",t:"1,5 saat sabah",h:"Son tekrar",b:"Özet sonundaki tuzak listesi + Zayıf konular sekmesi. Öğleden sonra yeni konu yok.",go:"zayif"}
 ];
@@ -559,7 +560,7 @@ const OUT=[
  {id:"T1",set:"teshis",topic:"artis",code:String.raw`int n = 4;
 int p = n++ * 2;
 int q = ++n * 2;
-cout << p << " " << q << " " << n << endl;`,ans:"8 12 6",why:"p = 4*2 = 8, sonra n = 5. ++n önce artırır: n = 6, q = 12."},
+cout << p << " " << q << " " << n << endl;`,ans:"8 12 6",why:"Postfix n++: p = 4*2 = 8, sonra n = 5. Prefix ++n önce artırır: n = 6, q = 12."},
  {id:"T2",set:"teshis",topic:"switch",code:String.raw`for (int i = 0; i < 4; i++) {
     switch (i) {
         case 0: cout << "A";
@@ -567,7 +568,7 @@ cout << p << " " << q << " " << n << endl;`,ans:"8 12 6",why:"p = 4*2 = 8, sonra
         case 2: cout << "C";
         default: cout << "D";
     }
-}`,ans:"ABBCDD",why:"i=0: A, düşer B, break. i=1: B. i=2: C, düşer D. i=3: default D."},
+}`,ans:"ABBCDD",why:"i=0: A, fall-through B, break. i=1: B. i=2: C, fall-through D. i=3: default D."},
  {id:"T3",set:"teshis",topic:"ref",code:String.raw`void f(int a, int& b) {
     a = a + 10;
     b = b + a;
@@ -578,35 +579,35 @@ int main() {
     cout << x << " " << y << endl;
     f(y, x);
     cout << x << " " << y << endl;
-}`,ans:"1 13\n24 13",why:"1. çağrı: a=11 (kopya), b=y → y = 2+11 = 13. 2. çağrı: a = 13+10 = 23, b=x → x = 1+23 = 24."},
- {id:"T4",set:"teshis",topic:"overload",type:"choice",prompt:"Bu iki fonksiyon varken <code>cout &lt;&lt; add(2, 3.0);</code> ne yapar?",code:String.raw`double add(int a, int b)       { return a + b; }
-double add(double a, double b) { return a + b; }`,choices:["5 basar (int sürümü)","5 basar (double sürümü)","Derleme hatası: belirsiz çağrı (ambiguous)","5.0 basar"],correct:2,why:"İki sürüm de birer dönüşümle uyuyor; derleyici seçemez. MSVC: error C2666."},
+}`,ans:"1 13\n24 13",why:"1. call: a=11 (call-by-value kopya), b=y → y = 2+11 = 13. 2. call: a = 13+10 = 23, b=x → x = 1+23 = 24."},
+ {id:"T4",set:"teshis",topic:"overload",type:"choice",prompt:"Bu iki function varken <code>cout &lt;&lt; add(2, 3.0);</code> ne yapar?",code:String.raw`double add(int a, int b)       { return a + b; }
+double add(double a, double b) { return a + b; }`,choices:["5 basar (int sürümü)","5 basar (double sürümü)","Compile error: ambiguous call","5.0 basar"],correct:2,why:"İki sürüm de birer type conversion ile uyuyor; compiler seçemez. MSVC: error C2666."},
  {id:"T5",set:"teshis",topic:"karar",code:String.raw`int fuel = 80;
 if (fuel < 75)
     if (fuel < 25)
         cout << "low";
 else
     cout << "high";
-cout << "!" << endl;`,ans:"!",why:"else en yakın if'e (fuel < 25) bağlanır; girinti yanıltıcı. Dış koşul yanlış olduğu için sadece ! basılır."},
+cout << "!" << endl;`,ans:"!",why:"Dangling else: else en yakın if'e (fuel < 25) bağlanır; indentation yanıltıcı. Dış condition false olduğu için sadece ! basılır."},
 
  {id:"A1",topic:"tip",code:String.raw`int a = 7, b = 2;
 double c = a / b;
 double d = static_cast<double>(a) / b;
 double e = static_cast<double>(a / b);
-cout << c << " " << d << " " << e << " " << a % b << endl;`,ans:"3 3.5 3 1",why:"a/b int bölme → 3. static_cast<double>(a/b) geç kalır: önce 3 hesaplanır."},
+cout << c << " " << d << " " << e << " " << a % b << endl;`,ans:"3 3.5 3 1",why:"a/b integer division → 3. static_cast<double>(a/b) geç kalır: önce 3 hesaplanır."},
  {id:"A3",topic:"artis",code:String.raw`int a = 3;
 while (a-- > 0)
     cout << a << " ";
-cout << "| " << a << endl;`,ans:"2 1 0 | -1",why:"Karşılaştırma eski değerle, sonra azalır. Son kontrol 0 > 0 yanlış ama a yine azalır → -1."},
+cout << "| " << a << endl;`,ans:"2 1 0 | -1",why:"Postfix: comparison eski değerle, sonra decrement. Son kontrol 0 > 0 false ama a yine azalır → -1."},
  {id:"A4",topic:"dongu",code:String.raw`int k = 10;
 do {
     cout << k << " ";
     k += 5;
 } while (k < 10);
-cout << k << endl;`,ans:"10 15",why:"do-while en az bir kez çalışır."},
+cout << k << endl;`,ans:"10 15",why:"do-while loop en az bir kez çalışır."},
  {id:"A5",topic:"dongu",code:String.raw`int i;
 for (i = 0; i < 3; i++);
-cout << "Hi " << i << endl;`,ans:"Hi 3",why:"for sonrası ; gövdeyi boşaltır. Döngü bitince i = 3, Hi bir kez basılır."},
+cout << "Hi " << i << endl;`,ans:"Hi 3",why:"for sonrası ; loop body'yi boşaltır. Loop bitince i = 3, Hi bir kez basılır."},
  {id:"A7",topic:"dongu",code:String.raw`for (int i = 3; i >= 1; i--) {
     for (int j = 1; j <= i; j++)
         cout << j;
@@ -624,7 +625,7 @@ if (x = 0)
     cout << "zero ";
 else
     cout << "nonzero ";
-cout << x << endl;`,ans:"nonzero 0",why:"x = 0 atamadır, değeri 0 → false. x artık 0."},
+cout << x << endl;`,ans:"nonzero 0",why:"x = 0 bir assignment'tır, değeri 0 → false. x artık 0."},
  {id:"A12",topic:"ref",code:String.raw`void swapA(int a, int b)   { int t = a; a = b; b = t; }
 void swapB(int& a, int& b) { int t = a; a = b; b = t; }
 int main() {
@@ -633,7 +634,7 @@ int main() {
     cout << x << " " << y << endl;
     swapB(x, y);
     cout << x << " " << y << endl;
-}`,ans:"3 8\n8 3",why:"swapA kopyalarla çalışır; swapB gerçek değişkenleri değiştirir."},
+}`,ans:"3 8\n8 3",why:"swapA call-by-value, kopyalarla çalışır; swapB call-by-reference, gerçek variable'ları değiştirir."},
  {id:"A13",topic:"overload",code:String.raw`double add(int a, int b)                 { cout << "1 "; return a + b; }
 double add(double a, double b)           { cout << "2 "; return a + b; }
 double add(double a, double b, double c) { cout << "3 "; return a + b + c; }
@@ -641,8 +642,8 @@ int main() {
     cout << add(2, 3) << endl;
     cout << add(2.5, 3.0) << endl;
     cout << add(1, 2.0, 3) << endl;
-}`,ans:"1 5\n2 5.5\n3 6",why:"Tam eşleşme kazanır. 3 argümanlı tek sürüm var; int'ler double'a döner."},
- {id:"A13b",topic:"overload",type:"choice",prompt:"A13'teki programa <code>cout &lt;&lt; add(2, 3.0) &lt;&lt; endl;</code> eklenirse?",code:"",choices:["1 5 basar","2 5 basar","Derleme hatası (ambiguous)","3 5 basar"],correct:2,why:"(int,int) ve (double,double) eşit derecede uyar. week6.cpp'deki add(2,3.0) çağrısı da bu yüzden derlenmez."},
+}`,ans:"1 5\n2 5.5\n3 6",why:"Exact match kazanır. 3 argument'lı tek sürüm var; int'ler double'a type conversion ile döner."},
+ {id:"A13b",topic:"overload",type:"choice",prompt:"A13'teki programa <code>cout &lt;&lt; add(2, 3.0) &lt;&lt; endl;</code> eklenirse?",code:"",choices:["1 5 basar","2 5 basar","Compile error (ambiguous call)","3 5 basar"],correct:2,why:"(int,int) ve (double,double) eşit derecede uyar. week6.cpp'deki add(2,3.0) call'u da bu yüzden derlenmez."},
  {id:"A14",topic:"kapsam",code:String.raw`int x = 1;
 cout << x << " ";
 {
@@ -650,7 +651,7 @@ cout << x << " ";
     int x = 2;
     cout << x << " ";
 }
-cout << x << endl;`,ans:"1 1 2 1",why:"İç x bildirilene kadar dıştaki görünür; blok bitince iç x yok olur."},
+cout << x << endl;`,ans:"1 1 2 1",why:"Block scope: iç x declare edilene kadar dıştaki görünür; block bitince iç x yok olur."},
  {id:"A15",topic:"kapsam",code:String.raw`int g = 5;
 void change()  { int g = 100; g++; }
 void change2() { g++; }
@@ -659,7 +660,7 @@ int main() {
     cout << g << " ";
     change2();
     cout << g << endl;
-}`,ans:"5 6",why:"change kendi local g'sini artırır; global değişmez."},
+}`,ans:"5 6",why:"change kendi local variable g'sini artırır; global variable değişmez."},
  {id:"A16",topic:"fonk",code:String.raw`bool isEven(int n) { return n % 2 == 0; }
 int main() {
     int count = 0;
@@ -671,7 +672,7 @@ int main() {
  {id:"A17",topic:"artis",code:String.raw`int x = 0, y = 0;
 while (x++ < 5)
     y += x;
-cout << x << " " << y << endl;`,ans:"6 15",why:"y = 1+2+3+4+5. Son kontrolde 5 < 5 yanlış ama x yine 6 olur."},
+cout << x << " " << y << endl;`,ans:"6 15",why:"y = 1+2+3+4+5. Son kontrolde 5 < 5 false ama postfix x++ yine 6 yapar."},
  {id:"A18",topic:"tip",code:String.raw`char c = 'A';
 int n = c + 2;
 char d = n;
@@ -692,7 +693,7 @@ int main() {
     update(p, q);
     update(q, p);
     cout << p << " " << q << endl;
-}`,ans:"10 18",why:"p = 2*3+4 = 10; q = 2*4+10 = 18. b kopya olduğundan b = 0 etkisiz."},
+}`,ans:"10 18",why:"p = 2*3+4 = 10; q = 2*4+10 = 18. b call-by-value olduğundan b = 0 etkisiz."},
  {id:"A21",topic:"switch",code:String.raw`int i, j;
 for (i = 1; i <= 3; i++) {
     j = i;
@@ -711,12 +712,12 @@ for (i = 1; i <= 3; i++) {
 cout.setf(ios::fixed);
 cout.setf(ios::showpoint);
 cout.precision(2);
-cout << price << " " << 10 / 4 << " " << 10 / 4.0 << endl;`,ans:"7.50 2 2.50",why:"10/4 int bölme → 2; fixed ayarı sadece double'ları etkiler."},
+cout << price << " " << 10 / 4 << " " << 10 / 4.0 << endl;`,ans:"7.50 2 2.50",why:"10/4 integer division → 2; fixed ayarı sadece double'ları etkiler."},
  {id:"A23",topic:"karar",code:String.raw`int kids = 0, pieces = 10;
 if ((kids != 0) && (pieces / kids >= 2))
     cout << "two each";
 else
-    cout << "no kids";`,ans:"no kids",why:"&& solu false → sağ taraf hesaplanmaz (short-circuit), sıfıra bölme olmaz."},
+    cout << "no kids";`,ans:"no kids",why:"&& solu false → sağ taraf hesaplanmaz (short-circuit evaluation), division by zero olmaz."},
  {id:"A24",topic:"dosya",prompt:"data.txt içeriği: <code>3 10 20 30 40</code>",code:String.raw`ifstream in;
 in.open("data.txt");
 int n, x, sum = 0;
@@ -728,10 +729,10 @@ for (int i = 0; i < n; i++) {
 cout << n << " " << sum << endl;
 in.close();`,ans:"3 60",why:"İlk sayı adet (3). Sonra 10+20+30; 40 okunmaz."},
  {id:"A25",topic:"cmath",code:String.raw`cout << pow(2, 3) << " " << fabs(-3.5) << " " << sqrt(pow(3, 2)) << " "
-     << 7 / abs(-2) << " " << ceil(5.8) << " " << floor(5.8) << endl;`,ans:"8 3.5 3 3 6 5",why:"7/abs(-2) = 7/2 int bölme → 3."},
+     << 7 / abs(-2) << " " << ceil(5.8) << " " << floor(5.8) << endl;`,ans:"8 3.5 3 3 6 5",why:"7/abs(-2) = 7/2 integer division → 3."},
  {id:"A26",topic:"tip",code:String.raw`double d = 11 / 2;
 cout << d << " " << static_cast<int>(2.9) << " " << (!(5 > 3) || (2 == 2))
-     << " " << 17 / 5 << " " << 17 % 5 << endl;`,ans:"5 2 1 3 2",why:"11/2 önce int bölme → 5. static_cast<int> keser."},
+     << " " << 17 / 5 << " " << 17 % 5 << endl;`,ans:"5 2 1 3 2",why:"11/2 önce integer division → 5. static_cast<int> keser (truncate)."},
  {id:"A27",topic:"tip",prompt:"enum (slaytta optional)",code:String.raw`enum Direction { N = 5, S, E = 1, W };
 cout << W << " " << E << " " << S << " " << N << endl;`,ans:"2 1 6 5",why:"N=5, S=6, E=1, W=2."},
 
@@ -739,11 +740,11 @@ cout << W << " " << E << " " << S << " " << N << endl;`,ans:"2 1 6 5",why:"N=5, 
  {id:"M-I.1",set:"sinav",topic:"artis",code:String.raw`int x=0, y=0;
 while( ++x < 5){
     y++; }
-cout << x << " "<< y;`,type:"choice",choices:["5 4","5 5","4 5","sonsuz döngü"],correct:0,why:"++x önce artırır; x=5'te koşul yanlış. y 4 kez artar."},
- {id:"M-I.2",set:"sinav",topic:"tip",code:String.raw`cout << static_cast<float>(3/4) << endl;`,type:"choice",choices:["3","0.5","0.0","0.75"],correct:2,why:"3/4 önce int bölme → 0. Ekranda 0 görünür; şıklarda karşılığı 0.0."},
- {id:"M-I.5",set:"sinav",topic:"overload",prompt:"<code>int doSomething(int first, float second);</code> için doğru overload hangisi?",code:"",type:"choice",choices:["float doSomething(int first, float second);","int doSomething(int next, float last);","int doSomething(int first, int second, float third);","int doSome(int first, float second);"],correct:2,why:"a: sadece dönüş tipi farklı. b: sadece adlar farklı. d: farklı isim."},
- {id:"M-I.6",set:"sinav",topic:"cmath",prompt:"fabs için hangileri geçerli çağrı?",code:"",type:"choice",choices:["a. fabs(3.5);","b. cout << fabs(3.5);","a ve b","a, b ve cin >> fabs(3.5);"],correct:2,why:"cin >> fabs(3.5) ve fabs(cin >> x) geçersiz."},
- {id:"M-I.8",set:"sinav",topic:"ref",prompt:"void fonksiyon için hangisi doğru?",code:"",type:"choice",choices:["return ifadesi olamaz","void değeri döndürülmeli","0 döndürülmeli","Hiçbir şey döndürülmez"],correct:3,why:"return; yazılabilir, ama değer döndürülmez."},
+cout << x << " "<< y;`,type:"choice",choices:["5 4","5 5","4 5","infinite loop"],correct:0,why:"Prefix ++x önce artırır; x=5'te condition false. y 4 kez artar."},
+ {id:"M-I.2",set:"sinav",topic:"tip",code:String.raw`cout << static_cast<float>(3/4) << endl;`,type:"choice",choices:["3","0.5","0.0","0.75"],correct:2,why:"3/4 önce integer division → 0. Ekranda 0 görünür; şıklarda karşılığı 0.0."},
+ {id:"M-I.5",set:"sinav",topic:"overload",prompt:"<code>int doSomething(int first, float second);</code> için doğru overload hangisi?",code:"",type:"choice",choices:["float doSomething(int first, float second);","int doSomething(int next, float last);","int doSomething(int first, int second, float third);","int doSome(int first, float second);"],correct:2,why:"a: sadece return type farklı. b: sadece parameter adları farklı. d: farklı function adı."},
+ {id:"M-I.6",set:"sinav",topic:"cmath",prompt:"fabs için hangileri geçerli function call?",code:"",type:"choice",choices:["a. fabs(3.5);","b. cout << fabs(3.5);","a ve b","a, b ve cin >> fabs(3.5);"],correct:2,why:"cin >> fabs(3.5) ve fabs(cin >> x) geçersiz."},
+ {id:"M-I.8",set:"sinav",topic:"ref",prompt:"void function için hangisi doğru?",code:"",type:"choice",choices:["return statement olamaz","void değeri return edilmeli","0 return edilmeli","Hiçbir şey return edilmez"],correct:3,why:"return; yazılabilir, ama değer return edilmez."},
  {id:"M-II.1",set:"sinav",topic:"ref",code:String.raw`void func1(int &a, int &c)
 {
    int b = 5;
@@ -761,13 +762,13 @@ int main( )
    func1(a, c);
    cout << a <<" , " << b << " , " << c << endl;
    return 0;
-}`,ans:"3 , 5 , 0\n5 , 5 , 50",why:"a = 5+0 = 5, c = 50. Fonksiyondaki b local; main'in b'si değişmez."},
+}`,ans:"3 , 5 , 0\n5 , 5 , 50",why:"a ve c reference parameter: a = 5+0 = 5, c = 50. Function'daki b local variable; main'in b'si değişmez."},
  {id:"M-II.2",set:"sinav",topic:"dongu",code:String.raw`int i = 5, j = 0;
 while(i > 0) {
     i--;
     j++;
 }
-cout << j;`,ans:"5",why:"5 tur."},
+cout << j;`,ans:"5",why:"5 iteration."},
  {id:"M-II.3",set:"sinav",topic:"dongu",code:String.raw`for (int i = 1; i < 4; i++) {
     for (int j = 1; j < i + 1; j++) {
         cout << "?";
@@ -787,7 +788,7 @@ int main() {
     int x = 2;
     voidFunc(x);
     cout << x << endl;
-}`,ans:"21\n4",why:"a (=x) 4 olur; 4*4+5 = 21. x reference ile 4."},
+}`,ans:"21\n4",why:"a (=x) 4 olur; 4*4+5 = 21. x call-by-reference ile 4."},
  {id:"M-II.5",set:"sinav",topic:"overload",code:String.raw`int myFun(int a,int b){
     return a*b;
 }
@@ -801,8 +802,8 @@ int main(){
     cout<<myFun(1,2);
     cout<<myFun(1.0,4.0,5);
     return 0;
-}`,ans:"210",why:"myFun(1,2) = 2. (1.0,4.0,5): (int,double,int) daha iyi eşleşir → 1+4+5 = 10. Arada boşluk yok."},
- {id:"M-II.6",set:"sinav",topic:"karar",prompt:"Kullanıcı girdisi: 5 ve 10",code:String.raw`int x,y;
+}`,ans:"210",why:"myFun(1,2) = 2. (1.0,4.0,5): (int,double,int) daha iyi match → 1+4+5 = 10. Arada boşluk yok."},
+ {id:"M-II.6",set:"sinav",topic:"karar",prompt:"Kullanıcı input'u: 5 ve 10",code:String.raw`int x,y;
 cin>>x>>y;
 if(x>5){
   if(y<10){
@@ -814,7 +815,7 @@ if(x>5){
 }
 else{
     cout<<"B"<<endl;
-}`,ans:"B",why:"5 > 5 yanlış → dış else."},
+}`,ans:"B",why:"5 > 5 false → dış else."},
  {id:"M-III",set:"sinav",topic:"switch",prompt:"Part III (10 puan)",code:String.raw`int i,j;
 for(i=2;i<=4;i++){
     j=4;
@@ -828,16 +829,16 @@ for(i=2;i<=4;i++){
         j--;
     }
     cout<< "\n";
-}`,ans:"KXZZ\nXZZ\nZ",why:"i=2: fark 2 → K; 1 → X,Z; 0 → Z. i=3: X,Z; Z. i=4: Z."},
+}`,ans:"KXZZ\nXZZ\nZ",why:"i=2: fark 2 → default K; 1 → X, fall-through Z; 0 → Z. i=3: X,Z; Z. i=4: Z."},
  {id:"Q-1",set:"sinav",topic:"tip",prompt:"Quiz örneği",code:String.raw`int a;
 a = (11.0 / 4) + 2.0;
-cout<< a;`,ans:"4",why:"4.75 int'e atanınca 4."},
- {id:"Q-2",set:"sinav",topic:"tip",prompt:"Quiz örneği, girdi: -3",code:String.raw`int x;
+cout<< a;`,ans:"4",why:"4.75 int variable'a assignment ile 4 olur."},
+ {id:"Q-2",set:"sinav",topic:"tip",prompt:"Quiz örneği, input: -3",code:String.raw`int x;
 cin>>x;
 if (x%2==1)
     cout<<"C"<<endl;
 else
-    cout<<x;`,ans:"-3",why:"-3 % 2 = -1, 1 değil → else."},
+    cout<<x;`,ans:"-3",why:"Remainder: -3 % 2 = -1, 1 değil → else."},
  {id:"Q-3",set:"sinav",topic:"artis",prompt:"Quiz örneği",code:String.raw`int i=0,j=i++,k=--i;
 if(i>0)
   j++;
@@ -858,7 +859,7 @@ if(x > y){
 else {
     z=0;
 }
-cout << z << " " << x <<" " << y << endl;`,ans:"0 0 10",why:"x > y yanlış → z = 0."}
+cout << z << " " << x <<" " << y << endl;`,ans:"0 0 10",why:"x > y false → z = 0."}
 ];
 
 const BUG=[
@@ -870,7 +871,7 @@ const BUG=[
 6      if (x = 5)
 7          cout << "five" << endl;
 8      return 0;
-9  }`,sol:"Satır 5: <code>;</code> eksik (derleme).<br>Satır 6: <code>=</code> atama → <code>if (x == 5)</code> (mantık: derlenir ama hep \"five\" basar)."},
+9  }`,sol:"Satır 5: <code>;</code> eksik (compile error).<br>Satır 6: <code>=</code> assignment → <code>if (x == 5)</code> (logic error: derlenir ama hep \"five\" basar)."},
  {id:"B2",topic:"fonk",code:String.raw`1  #include <iostream>
 2  using namespace std;
 3  int main() {
@@ -879,8 +880,8 @@ const BUG=[
 6  }
 7  int square(int n) {
 8      n * n;
-9  }`,sol:"main'den önce bildirim yok → <code>int square(int n);</code> ekle (derleme).<br>Satır 8: değer döndürülmüyor → <code>return n * n;</code>."},
- {id:"B3",topic:"ref",prompt:"Amaç: iki değişkeni de 0 yap, çıktı 00 olsun.",code:String.raw`1  void zeroBoth(int a, int b) {
+9  }`,sol:"main'den önce function declaration (prototype) yok → <code>int square(int n);</code> ekle (compile error).<br>Satır 8: değer return edilmiyor → <code>return n * n;</code>."},
+ {id:"B3",topic:"ref",prompt:"Amaç: iki variable'ı da 0 yap, output 00 olsun.",code:String.raw`1  void zeroBoth(int a, int b) {
 2      a = 0;
 3      b = 0;
 4  }
@@ -888,35 +889,35 @@ const BUG=[
 6      int x = 3, y = 4;
 7      zeroBoth(x, y);
 8      cout << x << y;
-9  }`,sol:"Satır 1: call-by-value, çıktı 34 olur (mantık) → <code>void zeroBoth(int&amp; a, int&amp; b)</code>. Reference ile <code>zeroBoth(5, y)</code> gibi sabit argüman geçersiz olur."},
+9  }`,sol:"Satır 1: call-by-value, output 34 olur (logic error) → <code>void zeroBoth(int&amp; a, int&amp; b)</code>. Reference parameter ile <code>zeroBoth(5, y)</code> gibi constant argument geçersiz olur."},
  {id:"B4",topic:"dongu",prompt:"Amaç: 1'den 10'a toplam.",code:String.raw`1  int sum = 0;
 2  for (int i = 1; i <= 10; i++);
 3      sum += i;
-4  cout << sum;`,sol:"Satır 2: <code>;</code> gövdeyi boşaltır → kaldır.<br>Satır 3: <code>i</code> döngü dışında tanımsız (derleme); <code>;</code> kalkınca düzelir. <code>{}</code> kullan."},
+4  cout << sum;`,sol:"Satır 2: <code>;</code> loop body'yi boşaltır → kaldır.<br>Satır 3: <code>i</code> loop dışında scope'ta yok (compile error); <code>;</code> kalkınca düzelir. <code>{}</code> kullan."},
  {id:"B5",topic:"switch",code:String.raw`1  char grade;
 2  cin >> grade;
 3  switch (grade) {
 4      case "A": cout << "Excellent";
 5      case 'B': cout << "Good"; break;
 6      default cout << "Other";
-7  }`,sol:"Satır 4: <code>\"A\"</code> string → <code>'A'</code> (derleme); <code>break</code> eksik → \"ExcellentGood\" basılır (mantık).<br>Satır 6: <code>default:</code> iki nokta eksik (derleme)."},
+7  }`,sol:"Satır 4: <code>\"A\"</code> string → <code>'A'</code> (compile error); <code>break</code> eksik → fall-through, \"ExcellentGood\" basılır (logic error).<br>Satır 6: <code>default:</code> iki nokta eksik (compile error)."},
  {id:"B6",topic:"dongu",prompt:"Amaç: 1 2 3 4 5 yaz.",code:String.raw`1  int i = 1;
 2  while (i < 5) {
 3      cout << i << " ";
-4  }`,sol:"Satır 2: <code>&lt;</code> → <code>&lt;=</code> (off-by-one).<br>Satır 3: <code>i++</code> yok → sonsuz döngü."},
+4  }`,sol:"Satır 2: <code>&lt;</code> → <code>&lt;=</code> (off-by-one error).<br>Satır 3: <code>i++</code> yok → infinite loop."},
  {id:"B7",topic:"tip",prompt:"Amaç: Average: 3.5",code:String.raw`1  int total = 7, count = 2;
 2  double avg = total / count;
-3  cout << "Average: " << avg;`,sol:"Satır 2: int bölme → 3. <code>static_cast&lt;double&gt;(total) / count</code>. (<code>static_cast&lt;double&gt;(total / count)</code> yine 3.)"},
- {id:"B8",topic:"overload",prompt:"Hangi bildirim geçersiz?",code:String.raw`1  int area(int side);
+3  cout << "Average: " << avg;`,sol:"Satır 2: integer division → 3. <code>static_cast&lt;double&gt;(total) / count</code>. (<code>static_cast&lt;double&gt;(total / count)</code> yine 3.)"},
+ {id:"B8",topic:"overload",prompt:"Hangi function declaration geçersiz?",code:String.raw`1  int area(int side);
 2  double area(int side);
-3  double area(double w, double h);`,sol:"Satır 2: satır 1 ile aynı parametre listesi, sadece dönüş tipi farklı → geçersiz."},
+3  double area(double w, double h);`,sol:"Satır 2: satır 1 ile aynı parameter list, sadece return type farklı → geçersiz overload (compile error)."},
  {id:"B9",topic:"ref",code:String.raw`1  void printSum(int a, int b) {
 2      return a + b;
 3  }
 4  int main() {
 5      cout << printSum(2, 3);
-6  }`,sol:"Satır 2: void değer döndüremez. Satır 5: void çağrı cout içinde kullanılamaz.<br>Düzeltme: <code>int printSum</code> + <code>return a + b;</code>, ya da void kalıp içinde <code>cout &lt;&lt; a + b;</code> ve main'de <code>printSum(2, 3);</code>."},
- {id:"B10",topic:"dosya",prompt:"Amaç: dosyadaki sayıları yazdır.",code:String.raw`1  #include <iostream>
+6  }`,sol:"Satır 2: void function değer return edemez. Satır 5: void function call cout içinde kullanılamaz.<br>Düzeltme: <code>int printSum</code> + <code>return a + b;</code>, ya da void kalıp içinde <code>cout &lt;&lt; a + b;</code> ve main'de <code>printSum(2, 3);</code>."},
+ {id:"B10",topic:"dosya",prompt:"Amaç: file'daki sayıları yazdır.",code:String.raw`1  #include <iostream>
 2  using namespace std;
 3  int main() {
 4      ifstream in;
@@ -924,8 +925,8 @@ const BUG=[
 6      int x;
 7      while (in >> x)
 8          cout << x << endl;
-9  }`,sol:"<code>#include &lt;fstream&gt;</code> eksik (derleme). Satır 5: tırnak → <code>in.open(\"numbers.txt\");</code>. Sonuna <code>in.close();</code> ekle."},
- {id:"QB3",topic:"dongu",prompt:"Quiz örneği Part II-3: negatif girildikçe tekrar sor.",code:String.raw`4.  int main() {
+9  }`,sol:"<code>#include &lt;fstream&gt;</code> eksik (compile error). Satır 5: tırnak → <code>in.open(\"numbers.txt\");</code>. Sonuna <code>in.close();</code> ekle."},
+ {id:"QB3",topic:"dongu",prompt:"Quiz örneği Part II-3: input validation loop, negatif girildikçe tekrar sor.",code:String.raw`4.  int main() {
 5.  int n
 6.  cout << "Enter a non-negative integer:";
 7.  cin << n;
@@ -936,7 +937,7 @@ const BUG=[
 13. }
 15. cout << "You entered a non-negative integer." << endl;
 16. return 0;
-17. }`,sol:"5: <code>;</code> eksik. 7: <code>cin &gt;&gt; n</code>. 9: <code>while (n &lt; 0)</code>; hem koşul ters hem <code>;</code> döngüyü boşaltıyor. 12: <code>;</code> eksik."},
+17. }`,sol:"5: <code>;</code> eksik. 7: <code>cin &gt;&gt; n</code>. 9: <code>while (n &lt; 0)</code>; hem condition ters hem <code>;</code> loop body'yi boşaltıyor. 12: <code>;</code> eksik."},
  {id:"QB4",topic:"dosya",prompt:"Quiz örneği Part II-4: numbers.txt'deki sayıları topla.",code:String.raw`1.  #include <iostream>
 2.  using namespace std;
 4.  int main() {
@@ -952,12 +953,12 @@ const BUG=[
 ];
 
 const CODE=[
- {id:"T6",set:"teshis",topic:"ref",prompt:"Bir <code>int</code> ve bir <code>double</code> alan, <code>double</code> parametreyi <code>int</code> parametrenin iki katı yapan, değer döndürmeyen <code>scale</code> fonksiyonunun <b>bildirimi</b> ve <b>tanımı</b>.",sol:String.raw`void scale(int factor, double& value);      // bildirim
+ {id:"T6",set:"teshis",topic:"ref",prompt:"Bir <code>int</code> ve bir <code>double</code> parameter alan, <code>double</code> parameter'ı <code>int</code> parameter'ın iki katı yapan, değer return etmeyen <code>scale</code> function'ının <b>function declaration</b> ve <b>function definition</b>'ı.",sol:String.raw`void scale(int factor, double& value);      // bildirim
 
 void scale(int factor, double& value) {     // tanım
     value = factor * 2;
-}`,tip:"Puan getiren iki şey: dönüş tipi void ve double& (reference). Bildirim ; ile biter, tanım başlığında ; yok."},
- {id:"C1",topic:"fonk",prompt:"(Örnek midterm IV-1) <code>get_number()</code>: bir tam sayı okuyup döndürsün. Sonra değiştir: sadece pozitif kabul etsin; 0 veya negatifse uyarı verip tekrar sorsun.",sol:String.raw`#include <iostream>
+}`,tip:"Puan getiren iki şey: return type void ve double& (reference parameter). Declaration ; ile biter, definition header'ında ; yok."},
+ {id:"C1",topic:"fonk",prompt:"(Örnek midterm IV-1) <code>get_number()</code> function'ının declaration ve definition'ını yaz: kullanıcıdan bir integer okuyup return etsin. Sonra değiştir: sadece pozitif kabul etsin; 0 veya negatifse warning message verip tekrar sorsun (input validation loop).",en:"a) Write the function declaration and function definition (place each one in the appropriate box) for a function named get_number that reads an integer from the user and returns it. b) Modify the get_number function so that it only accepts a positive integer. If the user enters a non-positive value, display a warning message and continue prompting until a valid positive number is entered.",sol:String.raw`#include <iostream>
 using namespace std;
 
 int get_number();                    // bildirim (üst kutu)
@@ -978,8 +979,8 @@ int get_number() {                   // tanım (alt kutu), (b) şıkkı
         cin >> n;
     }
     return n;
-}`,tip:"(a) şıkkı için while bloğunu çıkar: oku ve return n;"},
- {id:"C2",topic:"fonk",prompt:"(Örnek midterm IV-2, 30 puan) <code>factorial(int n)</code> döngüyle (özyineleme yok), <code>permutation(int n, int r)</code> = factorial(n) / factorial(n - r). <code>main</code> n ve r okuyup sonucu yazsın.",sol:String.raw`#include <iostream>
+}`,tip:"(a) şıkkı için while loop'unu çıkar: oku ve return n;"},
+ {id:"C2",topic:"fonk",prompt:"(Örnek midterm IV-2, 30 puan) <code>factorial(int n)</code> loop ile (recursion yok), <code>permutation(int n, int r)</code> = factorial(n) / factorial(n - r). <code>main</code> n ve r okuyup function'ı call etsin ve sonucu yazsın.",en:"Write a C++ program that asks the user to enter values for n and r, calculates the permutation using the formula above, and displays the result. Your program is required to include: 1. A function named factorial that calculates and returns the factorial of a given integer using a loop (do not use recursion). 2. A function named permutation that calculates permutations using the formula P(n, r) = factorial(n) / factorial(n - r). 3. A main() function that reads the values of n and r, calls the required function, and prints the result.",sol:String.raw`#include <iostream>
 using namespace std;
 
 int factorial(int n);
@@ -1003,8 +1004,8 @@ int factorial(int n) {
 
 int permutation(int n, int r) {
     return factorial(n) / factorial(n - r);
-}`,tip:"Test: n=5, r=2 → 20. result 1 ile başlar, 0 ile değil."},
- {id:"C3",topic:"ref",prompt:"(Örnek midterm IV-3) <code>hello(string name)</code> selam yazsın. <code>shareBudget(int number, double totalAmount)</code> kişi başı payı yazsın; kişi sayısı 0 ise <code>No people, no budget distribution!</code> yazıp <code>return</code> ile çıksın. Bütçe 900, main'de.",sol:String.raw`#include <iostream>
+}`,tip:"Test: n=5, r=2 → 20. result 1 ile initialize edilir, 0 ile değil."},
+ {id:"C3",topic:"ref",prompt:"(Örnek midterm IV-3) <code>hello(string name)</code> selam yazsın. <code>shareBudget(int number, double totalAmount)</code> kişi başı payı hesaplayıp yazsın; kişi sayısı 0 ise <code>No people, no budget distribution!</code> yazıp <code>return</code> ile function'dan çıksın. Budget 900, main'de declare edilsin.",en:"Write a C++ program that distributes a budget among a group of people. Create two functions: hello(string name) prints a greeting message; shareBudget(int number, double totalAmount) calculates and prints the amount per person. If the number of people is 0, print \"No people, no budget distribution!\" and terminate the function shareBudget using return. The total budget is 900km (declare in the main function).",sol:String.raw`#include <iostream>
 #include <string>
 using namespace std;
 
@@ -1036,7 +1037,7 @@ void shareBudget(int number, double totalAmount) {
     double each = totalAmount / number;
     cout << "Each person will receive " << each << "km. Good luck!\n";
 }`,tip:"#include <string> unutma. Test: Ali, 3 → 300km."},
- {id:"C4",topic:"ref",prompt:"<code>swapValues(int&amp; a, int&amp; b)</code> ve onu kullanan <code>order(int&amp; a, int&amp; b)</code>: çağrıdan sonra a &lt;= b olsun.",sol:String.raw`void swapValues(int& a, int& b);
+ {id:"C4",topic:"ref",prompt:"<code>swapValues(int&amp; a, int&amp; b)</code> ve onu call eden <code>order(int&amp; a, int&amp; b)</code>: call'dan sonra a &lt;= b olsun.",sol:String.raw`void swapValues(int& a, int& b);
 void order(int& a, int& b);
 
 void swapValues(int& a, int& b) {
@@ -1048,8 +1049,8 @@ void swapValues(int& a, int& b) {
 void order(int& a, int& b) {
     if (a > b)
         swapValues(a, b);
-}`,tip:"Fonksiyon başka fonksiyonu çağırabilir ama içinde tanımlayamaz."},
- {id:"C5",topic:"fonk",prompt:"<code>bool isPrime(int n)</code>. main 1'den 20'ye kadar asalları yazsın.",sol:String.raw`bool isPrime(int n);
+}`,tip:"Function başka function'ı call edebilir ama içinde define edemez."},
+ {id:"C5",topic:"fonk",prompt:"<code>bool isPrime(int n)</code> function'ı. main 1'den 20'ye kadar asal sayıları yazsın.",sol:String.raw`bool isPrime(int n);
 
 int main() {
     for (int i = 1; i <= 20; i++)
@@ -1067,8 +1068,8 @@ bool isPrime(int n) {
             return false;
     }
     return true;
-}`,tip:"Çıktı: 2 3 5 7 11 13 17 19."},
- {id:"C6",topic:"switch",prompt:"do-while ve switch ile menü: 1 kare, 2 küp, 0 çıkış, başka sayı \"Wrong choice!\".",sol:String.raw`int main() {
+}`,tip:"Output: 2 3 5 7 11 13 17 19."},
+ {id:"C6",topic:"switch",prompt:"do-while loop ve switch ile menü: 1 kare, 2 küp, 0 çıkış, başka sayı default'ta \"Wrong choice!\".",sol:String.raw`int main() {
     int choice;
     double x;
     do {
@@ -1093,8 +1094,8 @@ bool isPrime(int n) {
         }
     } while (choice != 0);
     return 0;
-}`,tip:"Her case sonunda break."},
- {id:"C7",topic:"dongu",prompt:"n okuyup önce sola dayalı, sonra sağa dayalı ters üçgen çizen <code>triangles(int n)</code>. n = 3:<pre>*\n**\n***\n***\n **\n  *</pre>",sol:String.raw`void triangles(int n) {
+}`,tip:"Her case sonunda break, yoksa fall-through."},
+ {id:"C7",topic:"dongu",prompt:"Önce sola dayalı, sonra sağa dayalı ters üçgen çizen <code>void triangles(int n)</code> function'ı (nested loop). n = 3:<pre>*\n**\n***\n***\n **\n  *</pre>",sol:String.raw`void triangles(int n) {
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= i; j++)
             cout << "*";
@@ -1107,8 +1108,8 @@ bool isPrime(int n) {
             cout << "*";
         cout << endl;
     }
-}`,tip:"Dış döngü satır, iç döngüler boşluk ve yıldız."},
- {id:"C8",topic:"dosya",prompt:"numbers.txt'deki tüm sayıları (adet bilinmiyor) okuyup adet, toplam ve ortalamayı (double) yaz.",sol:String.raw`#include <iostream>
+}`,tip:"Outer loop satır, inner loop'lar boşluk ve yıldız."},
+ {id:"C8",topic:"dosya",prompt:"File I/O: numbers.txt'deki tüm sayıları (adet bilinmiyor) ifstream ile okuyup count, sum ve average'ı (double) yaz.",sol:String.raw`#include <iostream>
 #include <fstream>
 using namespace std;
 
@@ -1128,15 +1129,15 @@ int main() {
     cout << "Count: " << count << ", Sum: " << sum
          << ", Average: " << static_cast<double>(sum) / count << endl;
     return 0;
-}`,tip:"Ortalamada static_cast, yoksa int bölme."},
- {id:"C9",topic:"ref",prompt:"<code>void stats(int a, int b, int&amp; sum, int&amp; product)</code>: toplam ve çarpımı reference parametrelerle döndürsün.",sol:String.raw`void stats(int a, int b, int& sum, int& product);
+}`,tip:"Average'da static_cast, yoksa integer division."},
+ {id:"C9",topic:"ref",prompt:"<code>void stats(int a, int b, int&amp; sum, int&amp; product)</code>: sum ve product'ı reference parameter'larla döndürsün.",sol:String.raw`void stats(int a, int b, int& sum, int& product);
 
 void stats(int a, int b, int& sum, int& product) {
     sum = a + b;
     product = a * b;
 }
-// çağrı: int s, p; stats(3, 5, s, p);  → s = 8, p = 15`,tip:"Birden çok sonuç = reference parametreler."},
- {id:"C10",topic:"dongu",prompt:"<code>int sumDigits(int n)</code>: basamakların toplamı (4071 → 12), % ve / ile.",sol:String.raw`int sumDigits(int n);
+// çağrı: int s, p; stats(3, 5, s, p);  → s = 8, p = 15`,tip:"Birden çok sonuç = reference parameter'lar (call-by-reference)."},
+ {id:"C10",topic:"dongu",prompt:"<code>int sumDigits(int n)</code>: basamakların toplamı (4071 → 12), loop içinde % (remainder) ve / (integer division) ile.",sol:String.raw`int sumDigits(int n);
 
 int sumDigits(int n) {
     int sum = 0;
@@ -1145,98 +1146,98 @@ int sumDigits(int n) {
         n /= 10;
     }
     return sum;
-}`,tip:"% 10 son basamak, / 10 son basamağı atar."}
+}`,tip:"% 10 son basamak, / 10 (integer division) son basamağı atar."}
 ];
 
 /* ---------- İPUÇLARI (çözümlerden türetildi; cevabı vermez) ---------- */
 const HINTS={
- T1:"Sonek ++ eski değeri kullanır, önek ++ önce artırır.",
- T2:"break görmeden alttaki case'lere düşer; her i için ayrı izle.",
- T3:"a kopya, b reference. İkinci çağrıda argümanların yeri değişiyor.",
- T4:"İki aday da birer tip dönüşümüyle mi uyuyor?",
- T5:"else hangi if'e bağlı? Girintiye bakma.",
- A1:"int / int kesri atar; cast parantezin içinde mi dışında mı?",
- A3:"Karşılaştırma eski değerle; azaltma her kontrolde olur, son kontrol dahil.",
- A4:"do-while koşulu sonda kontrol eder.",
+ T1:"Postfix ++ eski değeri kullanır, prefix ++ önce artırır.",
+ T2:"break görmeden alttaki case'lere fall-through olur; her i için ayrı trace et.",
+ T3:"a call-by-value, b call-by-reference. İkinci call'da argument'ların yeri değişiyor.",
+ T4:"İki aday da birer type conversion ile mi uyuyor?",
+ T5:"else hangi if'e bağlı? Indentation'a bakma.",
+ A1:"int / int integer division kesri atar; type cast parantezin içinde mi dışında mı?",
+ A3:"Comparison eski değerle; decrement her kontrolde olur, son kontrol dahil.",
+ A4:"do-while condition'ı sonda kontrol eder.",
  A5:"for satırının sonundaki ; işaretine bak.",
- A7:"Dış döngü satırı, iç döngü 1'den i'ye kadar yazar.",
+ A7:"Outer loop satırı, inner loop 1'den i'ye kadar yazar.",
  A8:"continue çiftleri atlar; break hangi i'de çalışır?",
- A9:"= atama mı karşılaştırma mı? Atanan değer koşul olur.",
- A12:"Hangi fonksiyon reference alıyor?",
- A13:"Her çağrıda tam eşleşen sürümü bul; fonksiyon önce kendi yazısını basar.",
- A13b:"(int, double) argümanı için iki aday da birer dönüşüm ister.",
- A14:"İç blokta yeni x hangi satırda doğuyor?",
- A15:"change içindeki g global mi local mi?",
+ A9:"= assignment mı comparison mı? Atanan değer condition olur.",
+ A12:"Hangi function reference parameter alıyor?",
+ A13:"Her call'da exact match olan sürümü bul; function önce kendi yazısını basar.",
+ A13b:"(int, double) argument'ları için iki aday da birer type conversion ister.",
+ A14:"İç block'ta yeni x hangi satırda declare ediliyor?",
+ A15:"change içindeki g global variable mı local variable mı?",
  A16:"i = 1, 3, 5, 7, 9; i+1 hep çift mi?",
- A17:"Karşılaştırma eski x ile yapılır, y'ye artmış x eklenir.",
+ A17:"Comparison eski x ile yapılır, y'ye artmış x eklenir.",
  A18:"'A' kaçtır? bool sıfır olmayan değeri nasıl saklar?",
- A19:"Satırları sırayla uygula; b *= a - 14 önce sağ tarafı hesaplar.",
- A20:"update'in ilk parametresi reference, ikincisi kopya.",
+ A19:"Satırları sırayla uygula; compound assignment b *= a - 14 önce sağ tarafı hesaplar.",
+ A20:"update'in ilk parameter'ı reference, ikincisi call-by-value.",
  A21:"j % 3 değerine göre giriş case'ini bul, break'e kadar devam et.",
- A22:"fixed/precision sadece double'ları etkiler; 10/4 int bölme.",
+ A22:"fixed/precision sadece double'ları etkiler; 10/4 integer division.",
  A23:"&& solu false ise sağ taraf hesaplanır mı?",
- A24:"İlk okunan sayı, kaç sayı daha okunacağını söyler.",
- A25:"abs int döndürür, 7/int ne olur? ceil yukarı, floor aşağı.",
- A26:"11/2 hangi tipte hesaplanır? static_cast<int> yuvarlar mı keser mi?",
- A27:"Değer verilmeyen enum sabiti bir öncekinin bir fazlası.",
- "M-I.1":"++x önce artırır; koşul kaç kez doğru?",
- "M-I.2":"Önce parantezin içi: 3/4 int bölme.",
- "M-I.5":"Overload için parametre listesi farklı olmalı; dönüş tipi ya da ad değişikliği yetmez.",
- "M-I.6":"fabs bir değer döndürür; cin bir değişkene yazmalı.",
- "M-I.8":"void fonksiyonda return; yazılabilir mi?",
- "M-II.1":"a ve c reference; fonksiyondaki b local.",
- "M-II.2":"Döngü kaç tur döner?",
+ A24:"File'dan ilk okunan sayı, kaç sayı daha okunacağını söyler.",
+ A25:"abs int return eder, 7/int ne olur? ceil yukarı, floor aşağı.",
+ A26:"11/2 hangi data type'ta hesaplanır? static_cast<int> yuvarlar mı keser mi?",
+ A27:"Değer verilmeyen enum constant'ı bir öncekinin bir fazlası.",
+ "M-I.1":"Prefix ++x önce artırır; condition kaç kez true?",
+ "M-I.2":"Önce parantezin içi: 3/4 integer division.",
+ "M-I.5":"Overload için parameter list farklı olmalı; return type ya da parameter adı değişikliği yetmez.",
+ "M-I.6":"fabs bir değer return eder; cin bir variable'a yazmalı.",
+ "M-I.8":"void function'da return; yazılabilir mi?",
+ "M-II.1":"a ve c reference parameter; function'daki b local variable.",
+ "M-II.2":"Loop kaç iteration döner?",
  "M-II.3":"i. satırda j 1'den i'ye kadar.",
- "M-II.4":"a reference: önce 2 artar, sonra kare + 5.",
- "M-II.5":"İkinci çağrıda (int,double,int) mı (int,double,double) mı daha iyi uyar? İki çıktı arasında boşluk yok.",
- "M-II.6":"x > 5 koşulu x = 5 için doğru mu?",
- "M-III":"Her (i, j) için j - i farkını hesapla; break'siz case'ler düşer.",
- "Q-1":"Ondalık sonuç int değişkene atanınca ne olur?",
+ "M-II.4":"a reference parameter: önce 2 artar, sonra kare + 5.",
+ "M-II.5":"İkinci call'da (int,double,int) mı (int,double,double) mı daha iyi uyar? İki output arasında boşluk yok.",
+ "M-II.6":"x > 5 condition'ı x = 5 için true mu?",
+ "M-III":"Her (i, j) için j - i farkını hesapla; break'siz case'ler fall-through olur.",
+ "Q-1":"Ondalık sonuç int variable'a assign edilince ne olur?",
  "Q-2":"-3 % 2 kaçtır?",
- "Q-3":"j = i++ ve k = --i bildirimlerini sırayla izle.",
+ "Q-3":"j = i++ ve k = --i declaration'larını sırayla trace et.",
  "Q-5":"x > y doğru mu?",
  B1:"Satır 5 ve 6'ya bak.",
- B2:"main'den önce ne eksik? Satır 8 bir değer döndürüyor mu?",
- B3:"Parametreler kopya mı, reference mı?",
+ B2:"main'den önce ne eksik? Satır 8 bir değer return ediyor mu?",
+ B3:"Parameter'lar call-by-value mı, call-by-reference mı?",
  B4:"Satır 2'nin sonuna bak.",
  B5:"Satır 4 ve 6; case'ler arasında break var mı?",
- B6:"Koşul ve sayaç güncellemesi.",
- B7:"int / int.",
- B8:"Parametre listelerini karşılaştır.",
- B9:"void fonksiyon ne döndürebilir, nerede kullanılabilir?",
- B10:"include satırları ve dosya adı.",
+ B6:"Condition ve counter update'i.",
+ B7:"int / int integer division.",
+ B8:"Parameter list'leri karşılaştır.",
+ B9:"void function ne return edebilir, nerede kullanılabilir?",
+ B10:"include satırları ve file adı.",
  QB3:"Satır 5, 7, 9 ve 12.",
  QB4:"include, satır 6, 10, 11, 14, 15 ve kapanış."
 };
 
 /* ---------- EZBER KARTLARI (ozet.md'den) ---------- */
 const FLASHCARDS=[
- {id:"f1",cat:"Tipler",q:"7/2 ve 7/2.0 kaç?",a:"3 ve 3.5. int / int kesri atar, yuvarlamaz."},
- {id:"f2",cat:"Tipler",q:"static_cast<double>(a/b) neden yanlış?",a:"Önce int bölme yapılır; cast sonuca uygulanır. Doğrusu static_cast<double>(a)/b."},
- {id:"f3",cat:"Tipler",q:"x++ ile ++x farkı?",a:"x++ eski değeri kullanır, ++x önce artırır. İkisinde de x artar."},
- {id:"f4",cat:"Tipler",q:"-3 % 2 kaç?",a:"-1. İşaret soldakinden gelir; bu yüzden x % 2 == 1 negatif tek sayıda yanlış verir."},
- {id:"f5",cat:"Tipler",q:"int a = 4.75; ve double d = 11/2; ne tutar?",a:"a = 4 (kesilir). d = 5 (önce int bölme)."},
- {id:"f6",cat:"Karar",q:"else hangi if'e bağlanır?",a:"En yakın, eşleşmemiş if'e. Girintiye bakılmaz."},
- {id:"f7",cat:"Karar",q:"if (x = 5) ne yapar?",a:"x'e 5 atar; koşul her zaman true. Karşılaştırma == ile."},
- {id:"f8",cat:"Karar",q:"Short-circuit nedir?",a:"&&'de sol false ise, ||'de sol true ise sağ taraf hesaplanmaz."},
- {id:"f9",cat:"Karar",q:"2 <= x <= 15 C++'ta nasıl yazılır?",a:"(x >= 2 && x <= 15)"},
- {id:"f10",cat:"switch",q:"break olmayan case'ten sonra ne olur?",a:"Alttaki tüm satırlar, break veya } görülene kadar çalışır; case etiketleri durdurmaz."},
- {id:"f11",cat:"switch",q:"switch hangi tiplerle çalışır?",a:"int, char, bool, enum. string ve double olamaz."},
- {id:"f12",cat:"Döngü",q:"while ile do-while farkı?",a:"while başta kontrol eder, hiç çalışmayabilir. do-while en az bir kez çalışır; while(...) sonrası ; var."},
- {id:"f13",cat:"Döngü",q:"for (...); ne yapar?",a:"Noktalı virgül gövdeyi boşaltır; alttaki satır döngüden sonra bir kez çalışır."},
- {id:"f14",cat:"Döngü",q:"İç içe döngüde break?",a:"Sadece içinde bulunduğu döngüden çıkar."},
- {id:"f15",cat:"Döngü",q:"continue ne yapar?",a:"Turun geri kalanını atlar; for'da güncelleme yine yapılır."},
- {id:"f16",cat:"Döngü",q:"Toplam ve çarpım neyle başlar?",a:"sum = 0, product = 1."},
- {id:"f17",cat:"Fonksiyon",q:"Bildirim ile tanım farkı?",a:"Bildirim (prototype) ; ile biter, çağrıdan önce gelir. Tanım başlık + gövde, başlıkta ; yok."},
- {id:"f18",cat:"Fonksiyon",q:"Call-by-value nedir?",a:"Parametre argümanın kopyasıdır; fonksiyondaki değişiklik çağıranı etkilemez."},
- {id:"f19",cat:"Fonksiyon",q:"Global ile aynı isimde local olursa?",a:"Fonksiyon içinde local kazanır; global değişmez."},
- {id:"f20",cat:"Overloading",q:"Geçerli overload kuralı?",a:"Aynı isim, farklı parametre listesi (sayı, tip veya sıra). Sadece dönüş tipi ya da adlar farklıysa geçersiz."},
- {id:"f21",cat:"Overloading",q:"add(2, 3.0) ne zaman derleme hatası verir?",a:"add(int,int) ve add(double,double) ikisi de varsa: eşit derecede iyi iki aday, ambiguous."},
- {id:"f22",cat:"Reference",q:"int& parametre ne demek?",a:"Argümanın kendisi (aynı adres). Değişiklik çağıranın değişkenini değiştirir. Argüman değişken olmalı, sabit olamaz."},
- {id:"f23",cat:"Reference",q:"void fonksiyonda return?",a:"return; (değersiz) erken çıkış için yazılabilir. Çağrı cout << içinde kullanılamaz."},
- {id:"f24",cat:"Hazır",q:"1–6 arası zar nasıl atılır?",a:"rand() % 6 + 1. srand(time(0)) bir kez çağrılır (<cstdlib>, <ctime>)."},
- {id:"f25",cat:"Hazır",q:"abs ile fabs farkı?",a:"abs int döndürür (<cstdlib>), fabs double (<cmath>). 7 / abs(-2) = 3."},
- {id:"f26",cat:"Dosya",q:"Dosyadaki tüm sayıları okuma kalıbı?",a:"ifstream in; in.open(\"f.txt\"); while (in >> x) { ... } in.close();  (#include <fstream>)"}
+ {id:"f1",cat:"Data types",q:"7/2 ve 7/2.0 kaç?",a:"3 ve 3.5. int / int integer division kesri atar, yuvarlamaz."},
+ {id:"f2",cat:"Data types",q:"static_cast<double>(a/b) neden yanlış?",a:"Önce integer division yapılır; type cast sonuca uygulanır. Doğrusu static_cast<double>(a)/b."},
+ {id:"f3",cat:"Data types",q:"Postfix x++ ile prefix ++x farkı?",a:"x++ eski değeri kullanır, ++x önce artırır (increment). İkisinde de x artar."},
+ {id:"f4",cat:"Data types",q:"-3 % 2 kaç?",a:"-1. İşaret soldakinden gelir; bu yüzden x % 2 == 1 negatif tek sayıda yanlış verir."},
+ {id:"f5",cat:"Data types",q:"int a = 4.75; ve double d = 11/2; ne tutar?",a:"a = 4 (kesilir). d = 5 (önce integer division)."},
+ {id:"f6",cat:"Branching",q:"else hangi if'e bağlanır (dangling else)?",a:"En yakın, eşleşmemiş if'e. Indentation'a bakılmaz."},
+ {id:"f7",cat:"Branching",q:"if (x = 5) ne yapar?",a:"x'e 5 atar (assignment); condition her zaman true. Comparison == ile."},
+ {id:"f8",cat:"Branching",q:"Short-circuit evaluation nedir?",a:"&&'de sol false ise, ||'de sol true ise sağ taraf hesaplanmaz."},
+ {id:"f9",cat:"Branching",q:"2 <= x <= 15 C++'ta nasıl yazılır?",a:"(x >= 2 && x <= 15)"},
+ {id:"f10",cat:"switch",q:"break olmayan case'ten sonra ne olur?",a:"Fall-through: alttaki tüm satırlar, break veya } görülene kadar çalışır; case label'ları durdurmaz."},
+ {id:"f11",cat:"switch",q:"switch hangi data type'larla çalışır?",a:"int, char, bool, enum. string ve double olamaz."},
+ {id:"f12",cat:"Loops",q:"while ile do-while farkı?",a:"while condition'ı başta kontrol eder, hiç çalışmayabilir. do-while en az bir kez çalışır; while(...) sonrası ; var."},
+ {id:"f13",cat:"Loops",q:"for (...); ne yapar?",a:"Noktalı virgül loop body'yi boşaltır; alttaki satır loop'tan sonra bir kez çalışır."},
+ {id:"f14",cat:"Loops",q:"Nested loop'ta break?",a:"Sadece içinde bulunduğu loop'tan çıkar."},
+ {id:"f15",cat:"Loops",q:"continue ne yapar?",a:"Iteration'ın geri kalanını atlar; for'da update yine yapılır."},
+ {id:"f16",cat:"Loops",q:"sum ve product neyle initialize edilir?",a:"sum = 0, product = 1."},
+ {id:"f17",cat:"Functions",q:"Function declaration ile function definition farkı?",a:"Declaration (prototype) ; ile biter, function call'dan önce gelir. Definition = header + body, header'da ; yok."},
+ {id:"f18",cat:"Functions",q:"Call-by-value nedir?",a:"Formal parameter, argument'ın kopyasıdır; function'daki değişiklik çağıranı etkilemez."},
+ {id:"f19",cat:"Functions",q:"Global variable ile aynı isimde local variable olursa?",a:"Function içinde local kazanır (scope); global değişmez."},
+ {id:"f20",cat:"Overloading",q:"Geçerli overload kuralı?",a:"Aynı isim, farklı parameter list (sayı, type veya sıra). Sadece return type ya da parameter adları farklıysa geçersiz."},
+ {id:"f21",cat:"Overloading",q:"add(2, 3.0) ne zaman compile error verir?",a:"add(int,int) ve add(double,double) ikisi de varsa: eşit derecede iyi iki aday, ambiguous call."},
+ {id:"f22",cat:"Reference",q:"int& parameter ne demek?",a:"Reference parameter: argument'ın kendisi (aynı memory address). Değişiklik çağıranın variable'ını değiştirir. Argument variable olmalı, constant olamaz."},
+ {id:"f23",cat:"Reference",q:"void function'da return?",a:"return; (değersiz) erken çıkış için yazılabilir. Function call cout << içinde kullanılamaz."},
+ {id:"f24",cat:"Predefined functions",q:"1–6 arası zar (random number) nasıl atılır?",a:"rand() % 6 + 1. srand(time(0)) bir kez call edilir (<cstdlib>, <ctime>)."},
+ {id:"f25",cat:"Predefined functions",q:"abs ile fabs farkı?",a:"abs int return eder (<cstdlib>), fabs double (<cmath>). 7 / abs(-2) = 3."},
+ {id:"f26",cat:"File I/O",q:"File'daki tüm sayıları okuma kalıbı?",a:"ifstream in; in.open(\"f.txt\"); while (in >> x) { ... } in.close();  (#include <fstream>)"}
 ];
 
 /* ---------- SETLER ---------- */
@@ -1249,9 +1250,9 @@ for(const id in ALLQ){const q=ALLQ[id]; q.src=SRC(id); q.h=q.kind==="code"?q.tip
 const qsOf=k=>Object.values(ALLQ).filter(q=>q.set===k);
 const SETS={
  teshis:{title:"🩺 Teşhis Testi",intro:"Önce bunu çöz (20 dk). Yanlışların İlerleme & Hatalar sekmesine düşer. Çok satırlı çıktıda her satırı ayrı satıra yaz.",qs:qsOf("teshis")},
- cikti:{title:"🖥️ Çıktı Tahmini",intro:"Önce kâğıtta izle, sonra yaz ve kontrol et. Boşluklar esnek değerlendirilir. Tüm cevaplar derleyiciyle doğrulandı. A2, A6, A10 ve A11 teşhisteki T1, T2, T5 ve T3 ile aynı.",qs:qsOf("cikti")},
- hata:{title:"🐞 Hata Bulma",intro:"Hatalı satırları ve düzeltmeyi Karalama'ya not et, sonra çözümü aç ve kendini puanla. Derleme mi mantık hatası mı, belirt.",qs:qsOf("hata")},
- kod:{title:"⌨️ Kâğıtta Kod Yazma",intro:"Önce kâğıda ya da Karalama kutusuna yaz. Sonra çözümü aç, karşılaştır, kendini puanla. Çözümler derlendi ve test girdisiyle çalıştı. Bildirim main'den önce, tanım sonra.",qs:qsOf("kod")},
+ cikti:{title:"🖥️ Çıktı Tahmini",intro:"Önce kâğıtta trace et, sonra output'u yaz ve kontrol et. Boşluklar esnek değerlendirilir. Tüm cevaplar compiler ile doğrulandı. A2, A6, A10 ve A11 teşhisteki T1, T2, T5 ve T3 ile aynı.",qs:qsOf("cikti")},
+ hata:{title:"🐞 Hata Bulma",intro:"Hatalı satırları ve düzeltmeyi Karalama'ya not et, sonra çözümü aç ve kendini puanla. Compile error mı logic error mı, belirt.",qs:qsOf("hata")},
+ kod:{title:"⌨️ Kâğıtta Kod Yazma",intro:"Önce kâğıda ya da Karalama kutusuna yaz. Sonra çözümü aç, karşılaştır, kendini puanla. Çözümler derlendi ve test girdisiyle çalıştı. Function declaration main'den önce, definition sonra.",qs:qsOf("kod")},
  sinav:{title:"📝 Örnek Midterm ve Quiz",intro:"Kaynak: midtermSample.pdf ve quizSample.pdf. Çarşamba 80 dakika süre tutarak kâğıtta çöz, sonra burada kontrol et. Part IV soruları Kod Yazma sekmesinde (C1–C3).",qs:qsOf("sinav"),time:80}
 };
 const TABS=[["plan","🧭 Plan & Kapsam"],["teshis","🩺 Teşhis"],["cikti","🖥️ Çıktı Tahmini"],["hata","🐞 Hata Bulma"],["kod","⌨️ Kod Yazma"],["sinav","📝 Örnek Sınav"],["konu","⚡ Konu & Ezber"],["ilerleme","📊 İlerleme & Hatalar"]];
@@ -1298,7 +1299,7 @@ function qCard(x){
      body=(x.prompt?`<div class="prompt">${x.prompt}</div>`:`<div class="prompt">Çıktı nedir?</div>`)+codeBlock(x.code)+
      `<div class="choices" role="radiogroup" aria-label="${x.id} şıkları">${x.choices.map((c,i)=>`<label><input type="radio" name="r-${x.id}" value="${i}"${sel===i?" checked":""}> <span>${esc(c)}</span></label>`).join("")}</div>`; }
   else if(x.kind==="bug"){ body=(x.prompt?`<div class="prompt">${x.prompt}</div>`:`<div class="prompt">Hatalı satırları bul ve düzelt.</div>`)+codeBlock(x.code); }
-  else { body=`<div class="prompt">${x.prompt}</div>`; }
+  else { body=`<div class="prompt">${x.prompt}</div>`+(x.en?`<div class="prompt-en"><b>Sınavdaki yazılışı:</b> <span lang="en">${esc(x.en)}</span></div>`:""); }
   let sol="";
   if(x.kind==="out") sol=`<p><b>Cevap:</b></p><pre>${esc(x.ans)}</pre><p>${x.why}</p>`;
   else if(x.kind==="choice") sol=`<p><b>Cevap:</b> <span class="ans">${esc(x.choices[x.correct])}</span></p><p>${x.why}</p>`;
@@ -1551,14 +1552,17 @@ document.addEventListener("keydown",e=>{
 });
 
 /* ---------- Ctrl+K ARAMA ---------- */
+/* Arama: İngilizce terimler eski Türkçe kelimeyle de bulunsun */
+const TR_ALIAS=[["integer division","int bölme tam sayı bölmesi"],["type cast","tip dönüştürme casting"],["data type","tip tipler"],["nested loop","iç içe döngü"],["infinite loop","sonsuz döngü"],["loop","döngü"],["function","fonksiyon"],["declaration","bildirim"],["declare","bildirim"],["definition","tanım"],["scope","kapsam"],["variable","değişken"],["assignment","atama"],["condition","koşul"],["parameter","parametre"],["argument","argüman"],["return","dönüş döndürme"],["compile error","derleme hatası"],["logic error","mantık hatası"],["file","dosya"],["overload","aşırı yükleme"],["reference","referans"],["remainder","kalan"],["precedence","öncelik"],["increment","artırma"],["decrement","azaltma"],["comparison","karşılaştırma"],["recursion","özyineleme"],["output","çıktı"],["input","girdi"],["iteration","tur"],["initializ","başlatma"],["constant","sabit"],["predefined","hazır fonksiyon"],["branching","karar"],["indentation","girinti"]];
+function trAlias(t){const l=t.toLowerCase(); return t+" "+TR_ALIAS.filter(([e])=>l.includes(e)).map(a=>a[1]).join(" ");}
 let lastFocus=null;
 $("#searchModal").addEventListener("click",e=>{ if(e.target.id==="searchModal") closeSearch(); });
 function openSearch(){ lastFocus=document.activeElement; const m=$("#searchModal"), i=$("#searchModalInput"); m.hidden=false; i.value=""; renderSearch(""); i.focus(); }
 function closeSearch(){ $("#searchModal").hidden=true; lastFocus&&lastFocus.focus&&lastFocus.focus(); }
 function searchIndex(){
-  const items=Object.values(ALLQ).map(x=>({type:"q",id:x.id,title:x.id,sub:`${x.src} · ${TOPICS[x.topic]}`,chip:TABS.find(t=>t[0]===x.set)[1].split(" ").slice(1).join(" "),text:[x.id,x.prompt||"",x.code||"",x.src,TOPICS[x.topic],x.h||"",x.why||"",x.sol||"",x.tip||""].join(" ")}));
-  FLASHCARDS.forEach(f=>items.push({type:"fc",id:f.id,title:f.q,sub:"Ezber kartı · "+f.cat,chip:"Kart",text:[f.q,f.a,f.cat].join(" ")}));
-  ozetSections().forEach((s,i)=>items.push({type:"oz",id:i,title:s.t,sub:"Konu özeti",chip:"Özet",text:s.t+" "+s.html.replace(/<[^>]+>/g," ")}));
+  const items=Object.values(ALLQ).map(x=>({type:"q",id:x.id,title:x.id,sub:`${x.src} · ${TOPICS[x.topic]}`,chip:TABS.find(t=>t[0]===x.set)[1].split(" ").slice(1).join(" "),text:trAlias([x.id,x.prompt||"",x.en||"",x.code||"",x.src,TOPICS[x.topic],x.h||"",x.why||"",x.sol||"",x.tip||""].join(" "))}));
+  FLASHCARDS.forEach(f=>items.push({type:"fc",id:f.id,title:f.q,sub:"Ezber kartı · "+f.cat,chip:"Kart",text:trAlias([f.q,f.a,f.cat].join(" "))}));
+  ozetSections().forEach((s,i)=>items.push({type:"oz",id:i,title:s.t,sub:"Konu özeti",chip:"Özet",text:trAlias(s.t+" "+s.html.replace(/<[^>]+>/g," "))}));
   return items;
 }
 function renderSearch(qs){
