@@ -184,7 +184,7 @@ footer{margin-top:18px;color:var(--ink-2);font-size:.86rem}
       <h2 id="planTitle">Plan: NS102 ve ELIT100'e kadar</h2>
       <span class="plan-count" id="planCount" aria-live="polite"></span>
     </div>
-    <p class="muted">Cumartesi akşamından Salı 17:45'e. Saatler öneri; blok sırasını koru, saati kaydırabilirsin. "aç →" ilgili sekmeyi açar. Fizikte soru kaynağı önce Pearson, sayfadaki Örnekler takıldığın yerde yardımcı.</p>
+    <p class="muted">Cumartesi akşamından Salı 17:45'e. Saatler öneri; blok sırasını koru, saati kaydırabilirsin. "aç →" ilgili sekmeyi açar. Fizik sıfırdan: her chapter'da önce konuyu oku, sonra örnekleri çözümüyle kâğıda geçir, en son kendin çöz. Geride kalırsan Ch 4–5 ve Ch 6–7'yi atlama; Ch 3'ün circular motion kısmını ve Part B'yi kısalt.</p>
     <div id="plan"></div>
   </section>
 
@@ -245,23 +245,26 @@ footer{margin-top:18px;color:var(--ink-2);font-size:.86rem}
   // Item: [id, time, course, text, link]. course "x" marks an exam row (no checkbox).
   var N = "NS102/calis.html#", E = "ELIT100/calis.html#";
   var PLAN = [
-    { date: "2026-11-14", title: "Cumartesi 14 Kas", note: "19:40'ta başla · yaklaşık 3,5 sa", items: [
-      ["c5", "19:40–20:25", "ns","Geçen yılın sınavı: C1, C2, C3'ü çözümlere bakmadan yeniden çöz, sonra Soru bankası'ndaki çözümlerle karşılaştır.", "NS102/soru-bankasi.html"],
-      ["c6", "20:25–21:30", "ns", "Part C: Soru bankası'nda Part C + Ch 5 filtresi, 8–10 exercise. Her birinde free-body diagram çiz.", "NS102/soru-bankasi.html"],
-      ["c7", "21:40–22:30", "ns", "10 dk mola, sonra Part C: Ch 3–4 exercise'ları (projectile motion, circular motion, Newton's laws).", "NS102/soru-bankasi.html"],
-      ["c8", "22:30–23:05", "ns", "Part A: Ch 1–4 clicker soruları.", "NS102/soru-bankasi.html"],
-      ["c9", "23:05–23:25", "ns", "Part B: Ch 3'ten 5 Discussion Question. İngilizce yaz, sonucu ilk cümlede söyle. 23:30'da yat.", "NS102/soru-bankasi.html"]
+    // Physics rows assume a start from zero: learn a chapter, copy its worked examples, then solve alone.
+    { date: "2026-11-14", title: "Cumartesi 14 Kas", note: "19:40'ta başla · sıfırdan Ch 1–4 · yaklaşık 4,5 sa", items: [
+      ["c10", "19:40–20:40", "ns", "Ch 1–2 öğren: Konu & Ezber'de vectors, components, motion along a line, free fall. Her formülü kâğıda kendin yaz.", N + "konu"],
+      ["c11", "20:40–21:30", "ns", "Ch 1–2 örnekleri: çözümü aç, adım adım kâğıda geçir. Sonra çözümü kapat, aynı soruyu kendin çöz.", N + "ornek"],
+      ["c12", "21:40–22:40", "ns", "10 dk mola, sonra Ch 3: projectile motion ve circular motion. 20 dk Konu & Ezber, 40 dk Ch 3 örnekleri (aynı yöntem).", N + "konu"],
+      ["c13", "22:40–23:50", "ns", "Ch 4: Newton's laws ve free-body diagram. 20 dk konu, 30 dk örnek, sonra Soru bankası'nda Ch 4'ten 3 exercise. Her soruda free-body diagram çiz.", N + "konu"],
+      ["c14", "23:50–00:30", "ns", "Hızlı test'te Ch 1–4 soruları, kaynak kapalı. Yanlışları işaretle, sonra yat.", N + "qt"]
     ]},
-    { date: "2026-11-15", title: "Pazar 15 Kas", note: "ana fizik günü · yaklaşık 7 sa", items: [
-      ["p8", "09:30–11:00", "ns", "Part C: Ch 6–7 exercise'ları. Pearson ödevindeki 6.32, 6.59, 7.45 ve 7.57'yi bu sefer kendin çöz.", "NS102/soru-bankasi.html"],
-      ["p9", "11:15–12:30", "ns", "Part C: Ch 5'te kalan exercise'lar, sonra Ch 1–2 hızlı tekrar.", "NS102/soru-bankasi.html"],
-      ["p10", "13:30–14:15", "ns", "Part A: Ch 5–7 clicker soruları.", "NS102/soru-bankasi.html"],
-      ["p11", "14:15–15:00", "ns", "Part B: Ch 4–7'den 8–10 Discussion Question.", "NS102/soru-bankasi.html"],
-      ["p12", "15:00–16:30", "ns", "Deneme: Part A, B, C (geçen yılın yapısı), 90 dk, süre tut, kaynak kapalı.", N + "deneme"],
-      ["p13", "16:30–17:00", "ns", "Denemeyi puanla, İlerleme & Hatalar'da zayıf chapter'a bak.", N + "ilerleme"],
-      ["p6", "17:00–17:30", "el", "Konu & Ezber: formal register ve email kalıpları (Task 3 ve Task 5'in hata türleri).", E + "konu"],
-      ["p14", "17:30–18:30", "ns", "Soru bankası'nda \"Yanlışlarım\" filtresi: yanlış çıkanları yeniden çöz.", "NS102/soru-bankasi.html"],
-      ["p7", "20:00–20:45", "ns", "Formüller: ezberden yaz, sayfayla karşılaştır. Hesap makinesini DEG moduna al. 23:00'te yat.", N + "form"]
+    { date: "2026-11-15", title: "Pazar 15 Kas", note: "Ch 5–7'yi öğren, sonra sınav biçiminde çöz · yaklaşık 11 sa", items: [
+      ["p15", "09:30–11:15", "ns", "Ch 5 (en ağır chapter): friction, inclined plane, circular dynamics. 30 dk konu, 45 dk örnek, sonra Soru bankası'nda Part C + Ch 5'ten 4 exercise.", N + "konu"],
+      ["p16", "11:30–12:45", "ns", "Ch 6: work, kinetic energy, work–energy theorem, power. 25 dk konu, 50 dk örnek.", N + "konu"],
+      ["p17", "13:30–15:00", "ns", "Ch 7: potential energy, conservation of energy. 25 dk konu, 35 dk örnek, sonra Pearson 6.32, 6.59, 7.45 ve 7.57'yi kendin çöz.", N + "konu"],
+      ["p18", "15:15–16:45", "ns", "Part C: önce geçen yılın C1, C2, C3'ü, sonra Ch 3, 4, 5'ten ikişer exercise. Takılırsan çözümü aç, kapat, baştan çöz.", "NS102/soru-bankasi.html"],
+      ["p19", "16:45–17:30", "ns", "Part A: Ch 1–7 clicker soruları.", "NS102/soru-bankasi.html"],
+      ["p20", "17:30–18:15", "ns", "Part B: Ch 4–7'den 6 Discussion Question. İngilizce yaz, sonucu ilk cümlede söyle.", "NS102/soru-bankasi.html"],
+      ["p21", "18:15–19:15", "re", "Yemek ve mola."],
+      ["p22", "19:15–20:45", "ns", "Deneme: Part A, B, C (geçen yılın yapısı), 90 dk, süre tut, kaynak kapalı.", N + "deneme"],
+      ["p23", "20:45–21:15", "ns", "Denemeyi puanla, İlerleme & Hatalar'da zayıf chapter'a bak.", N + "ilerleme"],
+      ["p24", "21:15–22:00", "ns", "Soru bankası'nda \"Yanlışlarım\" filtresi: yanlış çıkanları yeniden çöz.", "NS102/soru-bankasi.html"],
+      ["p25", "22:00–22:30", "ns", "Formüller: ezberden yaz, sayfayla karşılaştır. Hesap makinesini DEG moduna al. 23:00'te yat.", N + "form"]
     ]},
     { date: "2026-11-16", title: "Pazartesi 16 Kas", note: "sabah sınav · öğleden sonra ELIT 3,5 sa", items: [
       ["z1b", "07:30–07:50", "ns", "Formüller ve geçen yılın C1–C3 çözümlerine son bakış. Yeni konu açma.", N + "form"],
