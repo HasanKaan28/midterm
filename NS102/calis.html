@@ -262,6 +262,12 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
   .scratch-grid{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.btn:hover,.fc-card:hover{transform:none}}
+
+/* Turkish meaning of English terms (glossary tooltips) */
+.term{border-bottom:1px dotted var(--blue);cursor:help;position:relative;outline:none}
+.term:hover::after,.term:focus::after{content:attr(data-tr);position:absolute;left:0;top:calc(100% + 4px);z-index:60;background:var(--ink);color:var(--paper);font:500 .74rem/1.3 "IBM Plex Sans",system-ui,sans-serif;padding:3px 7px;border-radius:6px;width:max-content;max-width:60vw;white-space:normal;box-shadow:var(--shadow);pointer-events:none}
+.term:focus-visible{box-shadow:0 0 0 2px var(--blue-border);border-radius:3px}
+#glossBtn[aria-pressed="true"]{background:var(--blue-soft);color:var(--blue);border-color:var(--blue-border)}
 </style>
 </head>
 <body>
@@ -278,6 +284,7 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
           <button type="button" id="pomoReset" aria-label="Pomodoro sıfırla">↺</button>
         </div>
         <button class="search-trigger" id="searchBtn" type="button" aria-label="Soru / Konu Ara (Ctrl+K)"><span aria-hidden="true">⌕</span><span class="lbl">Soru / Konu Ara</span><kbd>Ctrl+K</kbd></button>
+        <button class="theme" id="glossBtn" type="button" aria-pressed="true" aria-label="Terimlerin Türkçesini göster" title="Terimlerin Türkçesini göster / gizle">TR</button>
         <button class="theme" id="themeBtn" type="button" aria-label="Tema değiştir">Tema</button>
       </div>
     </div>
@@ -722,7 +729,7 @@ const PLAN = [
     {id:"p4", w:"Örnek 1–4. Önce kendin çöz, sonra çözüme bak.", go:"ornek"},
     {id:"p5", w:"Clicker: CH01 ve CH02'den 10'ar soru (materyal klasörü)."}]},
   {d:"2026-11-14", t:"Cumartesi 14 Kasım", n:"19:40'ta başla, sıfırdan Bölüm 1–4, yaklaşık 4,5 saat", items:[
-    {id:"p31", w:"19:40–20:40 Bölüm 1–2 öğren: Konu & Ezber'de vectors, components, motion along a line, free fall. Her formülü kâğıda kendin yaz.", go:"konu"},
+    {id:"p31", w:"19:40–20:40 Önce 15 dk Konu & Ezber'in en üstündeki Terimler sözlüğünü oku (ör. counterclockwise = saat yönünün tersine). Sayfada altı noktalı her terime dokununca Türkçesi çıkar. Sonra Bölüm 1–2 öğren: Konu & Ezber'de vectors, components, motion along a line, free fall. Her formülü kâğıda kendin yaz.", go:"konu"},
     {id:"p32", w:"20:40–21:30 Bölüm 1–2 örnekleri: çözümü aç, adım adım kâğıda geçir. Sonra çözümü kapat, aynı soruyu kendin çöz.", go:"ornek"},
     {id:"p33", w:"21:40–22:40 10 dk mola, sonra Bölüm 3: projectile motion ve circular motion. 20 dk Konu & Ezber, 40 dk Bölüm 3 örnekleri (aynı yöntem).", go:"konu"},
     {id:"p34", w:"22:40–23:50 Bölüm 4: Newton's laws ve free-body diagram. 20 dk konu, 30 dk örnek, sonra Soru bankası'nda Bölüm 4'ten 3 exercise. Her soruda free-body diagram çiz.", go:"konu"},
@@ -871,7 +878,7 @@ const EX = Array.from(document.getElementById("tpl-ex").content.querySelectorAll
 /* ---------- state (same key and shape as before; new fields are additive) ---------- */
 const KEY = "ns102-calis-v1";
 const DEF = {plan:{}, qt:{}, qtDone:false, da:{}, daDone:false, db:{}, dbOpen:{}, ex:{}, exOpen:{}, timer:null, tab:"plan", theme:null, exf:"all",
-             tBase:null, open:{}, scratch:{}, fc:{}, fcOpen:{}};
+             tBase:null, open:{}, scratch:{}, fc:{}, fcOpen:{}, gloss:true};
 let S = JSON.parse(JSON.stringify(DEF));
 let storeOK = true;
 try{
@@ -893,6 +900,68 @@ function plain(s){ return String(s).replace(/<[^>]+>/g," ").replace(/\\[a-zA-Z]+
 /* Search aliases: the page uses English terms; old Turkish words still find them. */
 const TR_ALIAS = [["free-body diagram","serbest cisim diyagramı"],["free fall","serbest düşme"],["projectile","eğik atış"],["range","menzil"],["time of flight","uçuş süresi"],["circular motion","çembersel hareket"],["centripetal","merkezcil"],["centrifugal","merkezkaç"],["tangential","teğetsel"],["relative velocity","bağıl hız"],["displacement","yer değiştirme"],["velocity","hız"],["speed","sürat"],["acceleration","ivme"],["vector product","vektörel çarpım"],["scalar product","skaler çarpım"],["vector","vektör"],["scalar","skaler"],["component","bileşen"],["magnitude","büyüklük"],["quadrant","çeyrek"],["net force","net kuvvet"],["normal force","normal kuvvet"],["force","kuvvet"],["static friction","statik sürtünme"],["kinetic friction","kinetik sürtünme"],["friction","sürtünme"],["tension","gerilme"],["weight","ağırlık"],["mass","kütle"],["inclined plane","eğik düzlem"],["ramp","rampa"],["pulley","makara"],["equilibrium","denge"],["stable","kararlı"],["unstable","kararsız"],["banked curve","eğimli viraj"],["flat curve","düz viraj"],["conical pendulum","konik sarkaç"],["vertical circle","düşey çember"],["radius","yarıçap"],["period","periyot"],["work","iş"],["kinetic energy","kinetik enerji"],["potential energy","potansiyel enerji"],["power","güç"],["spring","yay"],["conservative","korunumlu"],["conservation","korunum"],["energy","enerji"],["mechanical energy","mekanik enerji"],["air resistance","hava direnci"],["fluid resistance","akışkan direnci"],["terminal speed","limit sürat"],["inertial frame","eylemsiz referans"],["third law","etki tepki"],["reaction","tepki"],["gravity","yerçekimi"],["gravitational","kütle çekim"],["position","konum"],["instantaneous","anlık"],["average","ortalama"],["slope","eğim"],["axis","eksen"],["counterclockwise","saat yönünün tersine"],["trajectory","yörünge"]];
 function tr(t){ let x=t; for(const [en,trw] of TR_ALIAS) if(t.includes(en)) x+=" "+plain(trw); return x; }
+/* ---------- glossary: Turkish meaning of every English term on the page ---------- */
+/* Shown as a tooltip on dotted terms (hover, focus or tap) and as a table in Konu & Ezber. */
+const GLOSS = [
+  ["acceleration","ivme"],["acceleration due to gravity","yerçekimi ivmesi"],["action","etki"],["action–reaction pair","etki–tepki çifti"],
+  ["air resistance","hava direnci"],["apparent weight","görünür ağırlık (tartının gösterdiği)"],["average","ortalama"],["average speed","ortalama sürat"],
+  ["average velocity","ortalama hız"],["axis","eksen"],["banked curve","eğimli viraj"],["banking angle","viraj eğim açısı"],
+  ["centrifugal force","merkezkaç kuvveti"],["centripetal","merkezcil (merkeze doğru)"],["centripetal acceleration","merkezcil ivme"],["centripetal force","merkezcil kuvvet"],
+  ["circle","çember"],["circular motion","çembersel hareket"],["coefficient of friction","sürtünme katsayısı"],["coefficient of static friction","statik sürtünme katsayısı"],
+  ["component","bileşen"],["conical pendulum","konik sarkaç"],["conservation of energy","enerji korunumu"],["conservative force","korunumlu kuvvet"],
+  ["constant acceleration","sabit ivme"],["constant force","sabit kuvvet"],["constant velocity","sabit hız"],["counterclockwise","saat yönünün tersine"],
+  ["cross product","vektörel çarpım"],["curve","viraj, eğri"],["direction","yön"],["displacement","yer değiştirme"],
+  ["distance","alınan yol, mesafe"],["dot product","skaler çarpım"],["dynamics of circular motion","çembersel hareketin dinamiği"],["elastic potential energy","yay potansiyel enerjisi"],
+  ["energy","enerji"],["energy diagram","enerji diyagramı"],["equilibrium","denge"],["first law","birinci yasa"],
+  ["flat curve","düz (eğimsiz) viraj"],["fluid resistance","akışkan direnci"],["force","kuvvet"],["free fall","serbest düşme"],
+  ["free-body diagram","serbest cisim diyagramı"],["friction","sürtünme"],["frictionless","sürtünmesiz"],["gradient","gradyan"],
+  ["gravitational","kütle çekimine ait"],["gravitational force","kütle çekim kuvveti"],["gravitational potential energy","yerçekimi potansiyel enerjisi"],["gravity","yerçekimi"],
+  ["horizontal","yatay"],["inclined plane","eğik düzlem"],["inertial frame","eylemsiz (ivmesiz) referans sistemi"],["inertial frame of reference","eylemsiz referans sistemi"],
+  ["instantaneous","anlık"],["instantaneous velocity","anlık hız"],["internal energy","iç enerji"],["kinetic energy","kinetik enerji"],
+  ["kinetic friction","kinetik (kayma) sürtünme"],["line integral","çizgi integrali"],["magnitude","büyüklük"],["mass","kütle"],
+  ["maximum height","en büyük yükseklik"],["mechanical energy","mekanik enerji"],["motion along a straight line","doğru boyunca hareket"],["net force","net kuvvet"],
+  ["Newton's laws","Newton yasaları"],["nonconservative force","korunumsuz kuvvet"],["nonuniform circular motion","düzgün olmayan çembersel hareket"],["normal force","normal kuvvet (yüzeyin dik itmesi)"],
+  ["period","periyot (bir turun süresi)"],["position","konum"],["potential energy","potansiyel enerji"],["potential energy function","potansiyel enerji fonksiyonu"],
+  ["power","güç"],["projectile","eğik atılan cisim"],["projectile motion","eğik atış"],["pulley","makara"],
+  ["quadrant","çeyrek (dörtte bir bölge)"],["radius","yarıçap"],["ramp","rampa"],["range","menzil (yatayda gidilen yol)"],
+  ["reaction","tepki"],["relative velocity","bağıl hız"],["right-hand rule","sağ el kuralı"],["scalar","skaler (yalnız sayı)"],
+  ["scalar product","skaler çarpım"],["second law","ikinci yasa"],["significant figures","anlamlı rakamlar"],["slope","eğim"],
+  ["speed","sürat (hızın büyüklüğü)"],["spring","yay"],["spring constant","yay sabiti"],["spring force","yay kuvveti"],
+  ["stable","kararlı"],["stable equilibrium","kararlı denge"],["static friction","statik (durgun) sürtünme"],["tangent","teğet"],
+  ["tangential acceleration","teğetsel ivme"],["tension","gerilme (ip kuvveti)"],["terminal speed","limit sürat"],["third law","üçüncü yasa"],
+  ["time of flight","uçuş süresi"],["total work","toplam iş"],["trajectory","yörünge"],["turning point","dönüş noktası"],
+  ["uniform circular motion","düzgün çembersel hareket"],["unit conversion","birim çevirme"],["unit vector","birim vektör"],["unstable","kararsız"],
+  ["unstable equilibrium","kararsız denge"],["varying force","değişken kuvvet"],["vector","vektör (büyüklük + yön)"],["vector addition","vektör toplama"],
+  ["vector product","vektörel çarpım"],["velocity","hız (yönlü)"],["vertical","düşey"],["vertical circle","düşey çember"],
+  ["weight","ağırlık (mg)"],["work","iş"],["work–energy theorem","iş–enerji teoremi"]
+];
+const GLOSS_MAP = new Map(GLOSS.map(([en,trw])=>[en.toLowerCase(),trw]));
+const GLOSS_RE = new RegExp("(?<![A-Za-z-])(" + GLOSS.map(g=>g[0]).sort((a,b)=>b.length-a.length)
+  .map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/'/g,"['’]")).join("|") + ")(?![A-Za-z])", "gi");
+function glossify(root){
+  if(S.gloss===false) return;
+  const skip = n => n.parentElement && n.parentElement.closest(".katex, script, style, textarea, .term, .no-gloss, kbd, code");
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode: n => (!skip(n) && /[A-Za-z]/.test(n.nodeValue)) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT});
+  const nodes=[]; while(w.nextNode()) nodes.push(w.currentNode);
+  for(const n of nodes){
+    const t=n.nodeValue; GLOSS_RE.lastIndex=0; if(!GLOSS_RE.test(t)) continue; GLOSS_RE.lastIndex=0;
+    const frag=document.createDocumentFragment(); let last=0, m;
+    while((m=GLOSS_RE.exec(t))){
+      const trw = GLOSS_MAP.get(m[1].toLowerCase().replace(/’/g,"'"));
+      if(!trw) continue;
+      frag.append(t.slice(last,m.index));
+      const sp=document.createElement("span"); sp.className="term"; sp.tabIndex=0; sp.dataset.tr=trw; sp.title=trw; sp.textContent=m[1];
+      frag.append(sp); last=m.index+m[1].length;
+    }
+    frag.append(t.slice(last)); n.replaceWith(frag);
+  }
+}
+function glossaryHTML(){
+  const rows=[...GLOSS].sort((a,b)=>a[0].localeCompare(b[0],"en")).map(([en,trw])=>`<tr><td><b>${esc(en)}</b></td><td>${esc(trw)}</td></tr>`).join("");
+  return `<section class="sheet"><h2>📘 Terimler sözlüğü (${GLOSS.length} terim)</h2>
+    <p class="muted small">Sınav İngilizce, bu yüzden sayfadaki terimler İngilizce. Altı noktalı her terimin üzerine gel ya da dokun: Türkçesi çıkar. Üst bardaki <b>TR</b> düğmesi bu yardımı açıp kapatır; sınava yakın kapatıp kendini dene.</p>
+    <div class="tblwrap no-gloss"><table><tr><th>English</th><th>Türkçe</th></tr>${rows}</table></div></section>`;
+}
 
 /* ---------- all gradable items ---------- */
 const QT_BY = Object.fromEntries(QT.map(q=>[String(q.id),q]));
@@ -1080,7 +1149,7 @@ function ornekView(){
 
 function konuView(){
   const m = FC.filter(f=>S.fc[f.id]==="ok").length;
-  return `<section class="sheet"><h2>🧠 Ezber kartları (${m}/${FC.length} öğrenildi)</h2>
+  return glossaryHTML() + `<section class="sheet"><h2>🧠 Ezber kartları (${m}/${FC.length} öğrenildi)</h2>
     <p class="muted">Karta tıkla ya da Enter'a bas, cevap çevrilsin. Bildiğin kartı "Öğrendim" ile işaretle. Kartlar Formüller ve Özet'ten alındı.</p>
     <div class="fc-grid">${FC.map(f=>{ const fl=!!S.fcOpen[f.id], ok=S.fc[f.id]==="ok";
       return `<div class="fc-card ${fl?"flipped":""} ${ok?"mastered":""}" id="fc-${f.id}" data-fcflip="${f.id}" role="button" tabindex="0" aria-pressed="${fl}" aria-label="${CHS[f.ch]} kartı, ${fl?"cevap gösteriliyor":"soru gösteriliyor"}">
@@ -1215,7 +1284,8 @@ function render(){
   const m=$("#main"), k=S.tab;
   m.setAttribute("aria-labelledby","tab-"+k);
   m.innerHTML = warnHTML() + (k==="plan"?planView(): k==="qt"?qtView(): k==="ornek"?ornekView(): k==="konu"?konuView(): k==="form"?formView(): k==="deneme"?denemeView(): ilerlemeView());
-  math(m); initScratchCanvases(); tick(); header();
+  math(m); glossify(m); initScratchCanvases(); tick(); header();
+  const gb=$("#glossBtn"); if(gb) gb.setAttribute("aria-pressed", String(S.gloss!==false));
 }
 function header(){
   const n=ITEMS.length, sts=ITEMS.map(status);
@@ -1302,6 +1372,7 @@ document.addEventListener("click",e=>{
     case "searchBtn": openSearch(); return;
     case "copyBtn": { const txt=summaryText(); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("İlerleme özeti kopyalandı"),()=>prompt("Kopyala:",txt)); return; }
     case "resetAll": if(confirm("Tüm ilerleme (plan, test, deneme, örnek, kart ve karalama) silinsin mi? Geri alınamaz.")){ const th=S.theme; S=JSON.parse(JSON.stringify(DEF)); S.theme=th; S.tab="ilerleme"; save(); render(); toast("Tüm ilerleme sıfırlandı"); } return;
+    case "glossBtn": S.gloss = S.gloss===false; save(); render(); toast(S.gloss?"Türkçe karşılıklar açık":"Türkçe karşılıklar kapalı"); return;
     case "themeBtn": { const r=document.documentElement, cur=r.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"); r.dataset.theme=cur==="dark"?"light":"dark"; S.theme=r.dataset.theme; save(); return; }
   }
 });

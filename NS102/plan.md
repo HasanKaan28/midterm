@@ -44,7 +44,7 @@ MATH101 sınavı Cumartesi 12:30'da. Bu yüzden Cuma günü NS102'ye az süre ay
 
 Yöntem her bölümde aynı: önce konuyu öğren (Konu & Ezber), sonra çözümlü örneği adım adım kâğıda geçir, sonra çözümü kapatıp aynı soruyu kendin çöz. Soru bankası: `soru-bankasi.html`.
 
-1. 19:40–20:40 Bölüm 1–2 öğren: Konu & Ezber'de vectors, components, motion along a line, free fall. Her formülü kâğıda kendin yaz.
+1. 19:40–20:40 Önce 15 dk Konu & Ezber'in en üstündeki Terimler sözlüğünü oku (ör. counterclockwise = saat yönünün tersine). Sayfada altı noktalı her terime dokununca Türkçesi çıkar. Sonra Bölüm 1–2 öğren: Konu & Ezber'de vectors, components, motion along a line, free fall. Her formülü kâğıda kendin yaz.
 2. 20:40–21:30 Bölüm 1–2 örnekleri: çözümü aç, adım adım kâğıda geçir. Sonra çözümü kapat, aynı soruyu kendin çöz.
 3. 21:40–22:40 10 dk mola, sonra Bölüm 3: projectile motion ve circular motion. 20 dk Konu & Ezber, 40 dk Bölüm 3 örnekleri (aynı yöntem).
 4. 22:40–23:50 Bölüm 4: Newton's laws ve free-body diagram. 20 dk konu, 30 dk örnek, sonra Soru bankası'nda Bölüm 4'ten 3 exercise. Her soruda free-body diagram çiz.
