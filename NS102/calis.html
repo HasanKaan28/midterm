@@ -268,6 +268,19 @@ details[open] summary{margin-bottom:8px;color:var(--blue)}
 .term:hover::after,.term:focus::after{content:attr(data-tr);position:absolute;left:0;top:calc(100% + 4px);z-index:60;background:var(--ink);color:var(--paper);font:500 .74rem/1.3 "IBM Plex Sans",system-ui,sans-serif;padding:3px 7px;border-radius:6px;width:max-content;max-width:60vw;white-space:normal;box-shadow:var(--shadow);pointer-events:none}
 .term:focus-visible{box-shadow:0 0 0 2px var(--blue-border);border-radius:3px}
 #glossBtn[aria-pressed="true"]{background:var(--blue-soft);color:var(--blue);border-color:var(--blue-border)}
+
+/* Turkish translation of each question (overlay; hover, tap or TR button) */
+.q .prompt{position:relative}
+.trbox{display:none;position:absolute;left:0;right:0;top:calc(100% + 2px);z-index:45;background:var(--paper-2);color:var(--ink);border:1px solid var(--blue-border);border-radius:10px;padding:8px 12px 6px;box-shadow:var(--shadow);font-size:.9rem;line-height:1.5}
+.trbox p{margin:0 0 4px}
+.trbox .trlab{display:block;font:600 .68rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:2px}
+.trbox .tr-opts{margin:4px 0 2px;padding-left:22px}
+.trbox .tr-opts li{margin:1px 0}
+@media (hover:hover){ .q .prompt:hover .trbox{display:block} }
+.q.tr-open .trbox{display:block}
+.q .prompt[data-trtap]{cursor:help}
+.trbtn{padding:4px 10px;font-weight:700}
+.q.tr-open .trbtn{background:var(--blue-soft);color:var(--blue);border-color:var(--blue-border)}
 </style>
 </head>
 <body>
@@ -963,14 +976,112 @@ function glossaryHTML(){
     <div class="tblwrap no-gloss"><table><tr><th>English</th><th>Türkçe</th></tr>${rows}</table></div></section>`;
 }
 
+/* ---------- English question texts (shown on the page); Turkish versions are in Q_TR ---------- */
+/* Options keep the same order as the Turkish ones, so answer keys do not change. */
+const Q_EN = {
+ qt:{
+  1:{q:R`The components of a vector are $A_x=-3$ and $A_y=+3$. What angle does the vector make with the $+x$-axis, measured counterclockwise?`},
+  2:{q:R`The magnitudes of two vectors are fixed. For what angle between them is the magnitude of their vector product largest?`},
+  3:{q:R`A car moving in the $+x$-direction brakes. What are the signs of its velocity and its acceleration, in that order?`},
+  4:{q:R`A stone is released from rest and falls a distance $h$ in time $t$. How far does it fall in total in time $2t$?`},
+  5:{q:R`An object is launched with speed $v_0$ at angle $\alpha$ above the horizontal. What is its speed at the highest point of its path?`},
+  6:{q:R`An object moves in uniform circular motion. What is the direction of its acceleration?`,o:["Tangent to the circle","Toward the center","Away from the center","Its acceleration is zero"]},
+  7:{q:R`A truck collides with a small car. Which statement about the forces during the collision is correct?`,o:["The force of the truck on the car is larger.","The force of the car on the truck is larger.","The two forces have equal magnitudes.","It depends on which one was moving faster."]},
+  8:{q:R`An object moves in a straight line at a constant speed of $5$ m/s. The net force on it is`,o:["zero.","in the direction of motion.","opposite to the motion.","equal to $mg$."]},
+  9:{q:R`A block of mass $m$ rests without sliding on a rough incline of angle $\theta$. What is the magnitude of the friction force on it?`},
+  10:{q:R`A ball on a string moves in a vertical circle. At the lowest point, how does the tension $T$ in the string compare with the weight $mg$?`},
+  11:{q:R`A $10$ N force makes an angle of $60°$ with the displacement. The displacement is $4$ m. How much work, in J, does the force do?`},
+  12:{q:R`The total work done on an object is negative. The object`,o:["speeds up.","slows down.","keeps the same speed.","moves backward."]},
+  13:{q:R`Identical blocks are released from rest at the same height on two frictionless ramps with different slopes. Which statement about their speeds at the bottom is correct?`,o:["The block on the steeper ramp is faster.","The block on the less steep ramp is faster.","It depends on the mass of the block.","Both have the same speed."]},
+  14:{q:R`At a point where the potential energy function $U(x)$ has a maximum,`,o:["the force is zero and the equilibrium is stable.","the force is zero and the equilibrium is unstable.","the force has its largest value.","the kinetic energy has its largest value."]}
+ },
+ da:{
+  1:{q:R`What is the magnitude of the vector $\vec A=3\hat\imath-4\hat\jmath$?`},
+  2:{q:R`What is $\hat\jmath\times\hat\imath$?`},
+  3:{q:R`The position of a particle is $x(t)=2t^2-3t$ ($x$ in meters, $t$ in seconds). What is its instantaneous velocity at $t=3$ s, in m/s?`},
+  4:{q:R`A ball thrown straight up is at its highest point (no air resistance). At that moment`,o:["its velocity and its acceleration are zero.",R`its velocity is zero and its acceleration is $9.8\ \text{m/s}^2$ downward.`,R`its velocity is zero and its acceleration is $9.8\ \text{m/s}^2$ upward.`,"its velocity is not zero and its acceleration is zero.","both its velocity and its acceleration change direction."]},
+  5:{q:R`An object moves in the $-x$-direction and is slowing down. What are the signs of $v_x$ and $a_x$, in that order?`},
+  6:{q:R`At the highest point of a projectile's path, what is the angle between its velocity vector and its acceleration vector?`,o:["$0°$","$90°$","$45°$","$180°$","The acceleration is zero, so the angle is undefined."]},
+  7:{q:R`From the same height and at the same instant, one ball is dropped and another is thrown horizontally. There is no air resistance. Which one hits the ground first?`,o:["Both hit at the same time.","The dropped ball.","The thrown ball.","The one with the larger mass.","It depends on the launch speed."]},
+  8:{q:R`The speed of an object in uniform circular motion doubles while the radius stays the same. Its centripetal acceleration`,o:["becomes 4 times larger.","becomes 2 times larger.","does not change.","is halved.","becomes one fourth as large."]},
+  9:{q:R`The earth exerts a gravitational force (weight) on a book resting on a table. According to Newton's third law, what is the reaction to this force?`,o:["The normal force of the table on the book.","The force of the book on the table.","The gravitational force of the book on the earth.","The friction between the table and the book.","There is no reaction force."]},
+  10:{q:R`If the net force on an object is zero, the object`,o:["is definitely at rest.","is definitely moving.","slows down and stops.","is at rest or moves at constant velocity.","moves in a circle at constant speed."]},
+  11:{q:R`An astronaut travels to the moon, where the acceleration due to gravity is smaller than on the earth. The astronaut's`,o:["mass and weight both decrease.","mass stays the same and weight decreases.","mass decreases and weight stays the same.","mass and weight both stay the same.","mass increases and weight decreases."]},
+  12:{q:R`An elevator is speeding up in the downward direction. The reading of a scale inside it (the apparent weight) is`,o:["greater than $mg$.","equal to $mg$.","less than $mg$.","definitely zero.","dependent on the speed of the elevator."]},
+  13:{q:R`A $10$ kg box rests on a horizontal floor. $\mu_s=0.50$ and $\mu_k=0.30$. The box is pushed with a horizontal $20$ N force. What is the friction force on the box, in N?`},
+  14:{q:R`A car rounds a flat (unbanked) curve without skidding. Which force provides its centripetal acceleration?`,o:["Normal force","Weight","Kinetic friction","Static friction","Centrifugal force"]},
+  15:{q:R`If the speed of an object doubles, by what factor does its kinetic energy increase?`,o:["$2$","$4$",R`$\sqrt2$`,"It does not change","$8$"]},
+  16:{q:R`A block slides down a fixed incline. The work done on the block by the normal force is`,o:["positive.","negative.","$mgh$.","zero.","dependent on the angle of the incline."]},
+  17:{q:R`Two motors do the same amount of work. The first motor finishes in half the time the second one needs. The power of the first motor is`,o:["half that of the second.","the same as that of the second.","4 times that of the second.","one fourth that of the second.","2 times that of the second."]},
+  18:{q:R`Two balls are thrown from the same height with the same speed, one at an angle above the horizontal and one at an angle below it. There is no air resistance. What can you say about their speeds when they hit the ground?`,o:["The one thrown upward is faster.","The one thrown downward is faster.","They are equal.","It depends on the masses.","There is not enough information."]},
+  19:{q:R`If the compression of a spring is doubled, by what factor does the potential energy stored in it increase?`,o:["$2$","$4$",R`$\tfrac12$`,"It does not change",R`$\sqrt2$`]},
+  20:{q:R`Which of the following is <b>not</b> a conservative force?`,o:["Gravitational force","Ideal spring force","All of them are conservative.","Kinetic friction","A and B"]}
+ },
+ db:{
+  B1:{q:R`<b>(Chapter 3)</b> A stone is thrown horizontally at $12$ m/s from the edge of a cliff $45$ m high. (a) How long does it take to reach the ground? (b) How far from the base of the cliff does it land? (c) What are its speed and its angle below the horizontal just before it hits the ground?`},
+  B2:{q:R`<b>(Chapter 5)</b> Block $m_1$ ($3.0$ kg) sits on a $30°$ incline, with $\mu_k=0.25$ between it and the incline. A light rope passes over a frictionless pulley at the top of the incline and is tied to a hanging block $m_2$ ($5.0$ kg). The system is released and $m_2$ moves down. (a) Draw a free-body diagram for each block. (b) Find the acceleration of the system. (c) Find the tension in the rope.`},
+  B3:{q:R`<b>(Chapter 5)</b> A $0.50$ kg ball on the end of a string $1.2$ m long moves in a horizontal circle (a conical pendulum). The string makes an angle of $25°$ with the vertical. (a) What is the tension in the string, in N? (b) What is the speed of the ball? (c) What is the time for one revolution (the period)?`},
+  B4:{q:R`<b>(Chapter 7)</b> A $2.0$ kg block is released from rest at a height of $3.0$ m on a frictionless curved ramp. At the bottom of the ramp there is a rough horizontal section $2.5$ m long with $\mu_k=0.40$. At the end of that section is a spring with force constant $800$ N/m (the floor under the spring is frictionless). (a) What is the speed of the block at the bottom of the ramp? (b) What is its speed after it crosses the rough section? (c) What is the maximum compression of the spring?`},
+  B5:{q:R`<b>(Chapter 6)</b> A $3.0$ kg particle moves along the $x$-axis. The net force on it is $F_x=6x-2$ ($F$ in newtons, $x$ in meters). At $x=0$ the particle moves in the $+x$-direction at $2.0$ m/s. (a) How much work does the force do from $x=0$ to $x=4.0$ m? (b) What is the speed of the particle at $x=4.0$ m? (c) What is the instantaneous power of the force at $x=4.0$ m?`},
+  K1:{q:R`<b>(Chapter 4)</b> An elevator is moving upward and slowing down. Is the apparent weight of a person in it (the scale reading) greater than, less than, or equal to the person's true weight? Explain with a free-body diagram and Newton's second law.`},
+  K2:{q:R`<b>(Chapter 6)</b> You push a box up a ramp with friction at constant speed. (a) What is the total work done on the box? (b) What are the signs of the work done by your force, by gravity and by friction? Explain.`}
+ },
+ ex:{
+  1:{q:R`<p><b>Adding vectors with components.</b> Vector $\vec A$ has magnitude $5.0$ m and makes an angle of $37°$ with the $+x$-axis. Vector $\vec B$ has magnitude $8.0$ m and makes an angle of $150°$ with the $+x$-axis. Find the magnitude and direction of $\vec R=\vec A+\vec B$.</p>`},
+  2:{q:R`<p><b>Scalar product and vector product.</b> $\vec A=2\hat\imath+3\hat\jmath-\hat k$ and $\vec B=-\hat\imath+4\hat\jmath+2\hat k$. Find (a) $\vec A\cdot\vec B$, (b) the angle between them, (c) $\vec A\times\vec B$.</p>`},
+  3:{q:R`<p><b>Constant acceleration in two stages.</b> A car starts from rest and speeds up with acceleration $2.5\ \text{m/s}^2$ for $8.0$ s, then brakes with acceleration $4.0\ \text{m/s}^2$ until it stops. What total distance does it travel, in meters?</p>`},
+  4:{q:R`<p><b>Free fall: throwing up from a roof.</b> A ball is thrown straight up at $15$ m/s from the edge of a roof $20$ m high. (a) What maximum height above the roof does it reach? (b) When does it hit the ground? (c) What is its speed when it hits the ground?</p>`},
+  5:{q:R`<p><b>Projectile motion on level ground.</b> A ball is launched from the ground at $20$ m/s at $53°$ above the horizontal. Find (a) the time of flight, (b) the range, (c) the maximum height, (d) the speed at the highest point.</p>`},
+  6:{q:R`<p><b>Flat curve.</b> A car rounds a flat curve of radius $50$ m at $15$ m/s. (a) What is its centripetal acceleration? (b) What is the minimum coefficient of static friction needed so that it does not skid?</p>`},
+  14:{q:R`<p><b>Relative velocity: a river.</b> A boat's speed relative to the water is $4.0$ m/s. The river flows east at $3.0$ m/s. (a) If the boat points due north, what is its velocity relative to the ground? (b) In what direction must it point to travel due north, and what is then its speed relative to the ground?</p>`},
+  7:{q:R`<p><b>Incline with friction.</b> A $5.0$ kg block slides down a $30°$ incline. $\mu_k=0.20$. (a) What is its acceleration? (b) If it starts from rest, what is its speed after sliding $2.0$ m?</p>`},
+  8:{q:R`<p><b>Block on a table and hanging mass.</b> A $4.0$ kg block is on a frictionless horizontal table. A light rope runs over a pulley at the edge of the table to a hanging $2.0$ kg block. Find the acceleration and the tension in the rope.</p>`},
+  9:{q:R`<p><b>Apparent weight in an elevator.</b> A $70$ kg person stands on a scale in an elevator. What does the scale read when the elevator's acceleration is (a) $2.0\ \text{m/s}^2$ upward, (b) $2.0\ \text{m/s}^2$ downward, (c) zero (constant velocity)?</p>`},
+  15:{q:R`<p><b>Banked curve.</b> A curve of radius $100$ m is to be banked so that cars moving at $20$ m/s can round it without friction. What should the banking angle be, in degrees?</p>`},
+  10:{q:R`<p><b>Work–energy theorem, pulling at an angle.</b> A $10$ kg crate is pulled $5.0$ m across a horizontal floor by a $50$ N force at $37°$ above the horizontal. $\mu_k=0.20$. The crate starts from rest. What is its final speed?</p>`},
+  12:{q:R`<p><b>Power.</b> An $800$ kg elevator is pulled upward at a constant speed of $3.0$ m/s. What power, in kW, must the motor supply?</p>`},
+  11:{q:R`<p><b>Spring, friction and a ramp.</b> A $2.0$ kg block compresses a spring of force constant $400$ N/m by $0.25$ m and is released. The floor is frictionless. (a) What is its speed when it leaves the spring? (b) How high does it go up a frictionless ramp? (c) How high would it go if there were a rough patch $1.0$ m long with $\mu_k=0.30$ before the ramp?</p>`},
+  13:{q:R`<p><b>Force from a potential energy function.</b> The potential energy of a particle is $U(x)=3x^2-x^3$ ($U$ in joules, $x$ in meters). (a) What is the force function? (b) Where are the equilibrium points, and which one is stable?</p>`}
+ }
+};
+/* Corrections to the Turkish versions: options changed after the backup, and the two new Part B questions. */
+const Q_TR_FIX = {
+ qt:{13:{o3:"İkisinin sürati aynıdır."}},
+ da:{10:{o3:"Durur ya da sabit hızla gider."}, 12:{o2:"$mg$'den küçüktür."}},
+ db:{
+  K1:{q:R`<b>(Bölüm 4)</b> Bir asansör yukarı doğru giderken yavaşlıyor. İçindeki kişinin tartıda okuduğu görünür ağırlık, gerçek ağırlığından büyük mü, küçük mü, eşit mi? Serbest cisim diyagramı ve Newton'un ikinci yasasıyla açıkla.`},
+  K2:{q:R`<b>(Bölüm 6)</b> Sürtünmeli bir rampada bir kutuyu sabit süratle yukarı itiyorsun. (a) Kutuya yapılan toplam iş ne kadardır? (b) Senin kuvvetinin, yerçekiminin ve sürtünmenin yaptığı işin işaretleri nedir? Açıkla.`}
+ }
+};
+const Q_TR = {"qt": {"1": {"q": "Bir vektörün bileşenleri $A_x=-3$, $A_y=+3$. $+x$ ekseninden saat yönünün tersine ölçülen açısı kaç derecedir?", "o": ["$135°$", "$45°$", "$225°$", "$315°$"]}, "2": {"q": "İki vektörün büyüklükleri sabit. Vektörel çarpımlarının büyüklüğü, aralarındaki açı kaç derece olduğunda en büyüktür?", "o": ["$0°$", "$45°$", "$90°$", "$180°$"]}, "3": {"q": "$+x$ yönünde giden bir araba fren yapıyor. Hızının ve ivmesinin işaretleri sırasıyla nedir?", "o": ["$+, +$", "$+, -$", "$-, +$", "$-, -$"]}, "4": {"q": "Durgun halden bırakılan bir taş $t$ sürede $h$ kadar düşüyor. $2t$ sürede toplam ne kadar düşer?", "o": ["$2h$", "$3h$", "$hsqrt2$", "$4h$"]}, "5": {"q": "$v_0$ süratle, yatayla $\\alpha$ açısıyla atılan bir cismin tepe noktasındaki sürati nedir?", "o": ["$0$", "$v_0$", "$v_0\\cos\\alpha$", "$v_0\\sin\\alpha$"]}, "6": {"q": "Düzgün çembersel hareket yapan cismin ivmesi ne yöndedir?", "o": ["Teğet yönünde", "Merkeze doğru", "Merkezden dışarı", "İvmesi sıfırdır"]}, "7": {"q": "Bir kamyon küçük bir arabayla çarpışıyor. Çarpışma anında kuvvetler için hangisi doğrudur?", "o": ["Kamyonun arabaya uyguladığı kuvvet daha büyüktür.", "Arabanın kamyona uyguladığı kuvvet daha büyüktür.", "İki kuvvetin büyüklüğü eşittir.", "Hangisinin hızlı gittiğine bağlıdır."]}, "8": {"q": "Bir cisim düz çizgide sabit $5$ m/s süratle gidiyor. Üzerindeki net kuvvet:", "o": ["Sıfırdır.", "Hareket yönündedir.", "Harekete zıttır.", "$mg$'ye eşittir."]}, "9": {"q": "$m$ kütleli bir blok, $\\theta$ açılı sürtünmeli eğik düzlemde kaymadan duruyor. Sürtünme kuvvetinin büyüklüğü nedir?", "o": ["$\\mu_s mg\\cos\\theta$", "$mg\\cos\\theta$", "$\\mu_k mg\\cos\\theta$", "$mg\\sin\\theta$"]}, "10": {"q": "İpe bağlı bir top düşey çemberde dönüyor. En alt noktada ip gerilmesi $T$ ile ağırlık $mg$ arasındaki ilişki nedir?", "o": ["$T=mg$", "$Tlt mg$", "$Tgt mg$", "$T=0$"]}, "11": {"q": "$10$ N'luk bir kuvvet, yer değiştirmeyle $60°$ açı yapıyor. Cisim $4$ m yer değiştiriyor. Kuvvetin yaptığı iş kaç J'dur?", "o": ["$40$", "$34{,}6$", "$20$", "$0$"]}, "12": {"q": "Bir cisme yapılan toplam iş negatif. Cisim:", "o": ["Hızlanır.", "Yavaşlar.", "Aynı süratle gider.", "Geriye doğru hareket eder."]}, "13": {"q": "Aynı yükseklikte, eğimleri farklı iki sürtünmesiz rampadan özdeş bloklar durgun halden bırakılıyor. Dipteki süratleri için hangisi doğrudur?", "o": ["Dik rampadaki daha hızlıdır.", "Yatık rampadaki daha hızlıdır.", "Bloğun kütlesine bağlıdır.", "İkisi aynıdır."]}, "14": {"q": "Potansiyel enerji fonksiyonu $U(x)$'in maksimum olduğu noktada:", "o": ["Kuvvet sıfırdır, denge kararlıdır.", "Kuvvet sıfırdır, denge kararsızdır.", "Kuvvet en büyük değerindedir.", "Kinetik enerji en büyük değerindedir."]}}, "da": {"1": {"q": "$\\vec A=3\\hat\\imath-4\\hat\\jmath$ vektörünün büyüklüğü nedir?", "o": ["$1$", "$5$", "$7$", "$-1$", "$25$"]}, "2": {"q": "$\\hat\\jmath\\times\\hat\\imath$ nedir?", "o": ["$\\hat k$", "$-\\hat k$", "$0$", "$\\hat\\imath$", "$1$"]}, "3": {"q": "Bir parçacığın konumu $x(t)=2t^2-3t$ ($x$ metre, $t$ saniye). $t=3$ s anındaki anlık hızı kaç m/s'dir?", "o": ["$3$", "$6$", "$9$", "$12$", "$15$"]}, "4": {"q": "Düşey yukarı atılan bir top en yüksek noktadayken (hava direnci yok):", "o": ["Hızı ve ivmesi sıfırdır.", "Hızı sıfırdır, ivmesi $9{,}8\\ \\text{m/s}^2$ aşağı yönlüdür.", "Hızı sıfırdır, ivmesi $9{,}8\\ \\text{m/s}^2$ yukarı yönlüdür.", "Hızı sıfır değildir, ivmesi sıfırdır.", "Hızı da ivmesi de yön değiştirir."]}, "5": {"q": "Bir cisim $-x$ yönünde gidiyor ve yavaşlıyor. $v_x$ ve $a_x$ işaretleri sırasıyla nedir?", "o": ["$-, -$", "$-, +$", "$+, -$", "$+, +$", "$-, 0$"]}, "6": {"q": "Eğik atılan bir cismin tepe noktasında hız vektörü ile ivme vektörü arasındaki açı kaç derecedir?", "o": ["$0°$", "$90°$", "$45°$", "$180°$", "İvme sıfırdır, açı tanımsızdır."]}, "7": {"q": "Aynı yükseklikten aynı anda bir top bırakılıyor, bir başka top yatay fırlatılıyor. Hava direnci yok. Hangisi yere önce çarpar?", "o": ["İkisi aynı anda çarpar.", "Bırakılan top.", "Fırlatılan top.", "Kütlesi büyük olan.", "Fırlatma süratine bağlıdır."]}, "8": {"q": "Düzgün çembersel hareket yapan bir cismin sürati iki katına çıkıyor, yarıçap aynı kalıyor. Merkezcil ivmesi:", "o": ["4 katına çıkar.", "2 katına çıkar.", "Değişmez.", "Yarıya iner.", "Dörtte birine iner."]}, "9": {"q": "Masada duran bir kitaba Dünya çekim kuvveti (ağırlık) uyguluyor. Newton'un 3. yasasına göre bu kuvvetin tepkisi hangisidir?", "o": ["Masanın kitaba uyguladığı normal kuvvet.", "Kitabın masaya uyguladığı kuvvet.", "Kitabın Dünya'ya uyguladığı çekim kuvveti.", "Masa ile kitap arasındaki sürtünme.", "Tepki kuvveti yoktur."]}, "10": {"q": "Bir cisme etkiyen net kuvvet sıfırsa cisim:", "o": ["Kesinlikle durur.", "Kesinlikle hareket eder.", "Yavaşlayarak durur.", "Ya durur ya da düz çizgide sabit süratle gider.", "Sabit süratle çember çizer."]}, "11": {"q": "Bir astronot, yerçekimi ivmesi Dünya'dakinden küçük olan Ay'a gidiyor. Astronotun:", "o": ["Kütlesi ve ağırlığı azalır.", "Kütlesi aynı kalır, ağırlığı azalır.", "Kütlesi azalır, ağırlığı aynı kalır.", "Kütlesi ve ağırlığı aynı kalır.", "Kütlesi artar, ağırlığı azalır."]}, "12": {"q": "Bir asansör aşağı yönde hızlanıyor. İçindeki tartının gösterdiği değer:", "o": ["$mg$'den büyüktür.", "$mg$'ye eşittir.", "$mg$'den küçüktür, sıfır olabilir de olmayabilir de.", "Kesinlikle sıfırdır.", "Asansörün süratine bağlıdır."]}, "13": {"q": "$10$ kg'lık bir kutu yatay zeminde duruyor. $\\mu_s=0{,}50$, $\\mu_k=0{,}30$. Kutu yatay $20$ N'luk kuvvetle itiliyor. Kutuya etkiyen sürtünme kuvveti kaç N'dur?", "o": ["$0$", "$20$", "$29{,}4$", "$49$", "$98$"]}, "14": {"q": "Eğimsiz bir virajı kaymadan dönen arabaya merkezcil ivmeyi veren kuvvet hangisidir?", "o": ["Normal kuvvet", "Ağırlık", "Kinetik sürtünme", "Statik sürtünme", "Merkezkaç kuvveti"]}, "15": {"q": "Bir cismin sürati iki katına çıkarsa kinetik enerjisi kaç katına çıkar?", "o": ["$2$", "$4$", "$\\sqrt2$", "Değişmez", "$8$"]}, "16": {"q": "Bir blok sabit bir eğik düzlemden aşağı kayıyor. Normal kuvvetin blok üzerinde yaptığı iş:", "o": ["Pozitiftir.", "Negatiftir.", "$mgh$'dir.", "Sıfırdır.", "Eğim açısına bağlıdır."]}, "17": {"q": "İki motor aynı işi yapıyor. Birinci motor işi ikincinin yarısı kadar sürede bitiriyor. Birinci motorun gücü ikincinin:", "o": ["Yarısıdır.", "Aynısıdır.", "4 katıdır.", "Dörtte biridir.", "2 katıdır."]}, "18": {"q": "Aynı yükseklikten, aynı süratle iki top atılıyor: biri yukarı doğru açıyla, diğeri aşağı doğru açıyla. Hava direnci yok. Yere çarpma süratleri için ne söylenir?", "o": ["Yukarı atılanınki büyüktür.", "Aşağı atılanınki büyüktür.", "İkisi eşittir.", "Kütlelere bağlıdır.", "Bilgi yetersizdir."]}, "19": {"q": "Bir yayın sıkışma miktarı iki katına çıkarılırsa depoladığı potansiyel enerji kaç katına çıkar?", "o": ["$2$", "$4$", "$\\tfrac12$", "Değişmez", "$\\sqrt2$"]}, "20": {"q": "Aşağıdakilerden hangisi korunumlu kuvvet <b>değildir</b>?", "o": ["Yerçekimi kuvveti", "İdeal yay kuvveti", "Hepsi korunumludur.", "Kinetik sürtünme", "A ve B"]}}, "db": {"B1": {"q": "<b>(Bölüm 3)</b> $45$ m yüksekliğindeki bir uçurumun kenarından bir taş $12$ m/s süratle yatay fırlatılıyor. (a) Taş yere kaç saniyede ulaşır? (b) Uçurumun dibinden kaç metre uzağa düşer? (c) Yere çarpma sürati ve yatayın altındaki açısı nedir?"}, "B2": {"q": "<b>(Bölüm 5)</b> $3{,}0$ kg'lık $m_1$ bloğu $30°$ eğimli düzlemin üzerinde, düzlemle arasında $\\mu_k=0{,}25$. Hafif bir ip, düzlemin tepesindeki sürtünmesiz makaradan geçip $5{,}0$ kg'lık asılı $m_2$ bloğuna bağlanıyor. Sistem serbest bırakılıyor ve $m_2$ aşağı iniyor. (a) Her iki blok için serbest cisim diyagramı çiz. (b) Sistemin ivmesini bul. (c) İpteki gerilmeyi bul."}, "B3": {"q": "<b>(Bölüm 5)</b> $0{,}50$ kg'lık bir top $1{,}2$ m uzunluğunda bir ipin ucunda yatay bir çemberde dönüyor (konik sarkaç). İp düşeyle $25°$ yapıyor. (a) İpteki gerilme kaç N'dur? (b) Topun sürati nedir? (c) Bir turun süresi nedir?"}, "B4": {"q": "<b>(Bölüm 7)</b> $2{,}0$ kg'lık bir blok, $3{,}0$ m yükseklikten sürtünmesiz eğri bir rampadan durgun halden bırakılıyor. Rampanın dibinde $2{,}5$ m uzunluğunda, $\\mu_k=0{,}40$ olan pürüzlü yatay bir bölge var. Bölgenin sonunda yay sabiti $800$ N/m olan bir yay duruyor (yayın altı sürtünmesiz). (a) Bloğun rampanın dibindeki sürati nedir? (b) Pürüzlü bölgeyi geçtikten sonraki sürati nedir? (c) Yay en fazla ne kadar sıkışır?"}, "B5": {"q": "<b>(Bölüm 6)</b> $3{,}0$ kg'lık bir parçacık $x$ ekseni boyunca hareket ediyor. Üzerine etkiyen net kuvvet $F_x=6x-2$ ($F$ newton, $x$ metre). Parçacık $x=0$'da $+x$ yönünde $2{,}0$ m/s süratle gidiyor. (a) $x=0$'dan $x=4{,}0$ m'ye kadar kuvvetin yaptığı iş nedir? (b) $x=4{,}0$ m'deki sürati nedir? (c) $x=4{,}0$ m'de kuvvetin anlık gücü nedir?"}}, "ex": {"1": {"q": "<p><b>Bileşenlerle vektör toplama.</b> $\\vec A$ vektörü $5{,}0$ m büyüklüğünde ve $+x$ ekseniyle $37°$ yapıyor. $\\vec B$ vektörü $8{,}0$ m büyüklüğünde ve $+x$ ekseniyle $150°$ yapıyor. $\\vec R=\\vec A+\\vec B$ vektörünün büyüklüğünü ve yönünü bul.</p>"}, "2": {"q": "<p><b>Skaler ve vektörel çarpım.</b> $\\vec A=2\\hat\\imath+3\\hat\\jmath-\\hat k$ ve $\\vec B=-\\hat\\imath+4\\hat\\jmath+2\\hat k$. (a) $\\vec A\\cdot\\vec B$, (b) aralarındaki açı, (c) $\\vec A\\times\\vec B$ nedir?</p>"}, "3": {"q": "<p><b>Sabit ivmeli hareket, iki aşama.</b> Bir araba durgun halden $2{,}5\\ \\text{m/s}^2$ ivmeyle $8{,}0$ s hızlanıyor, sonra $4{,}0\\ \\text{m/s}^2$ ivmeyle fren yapıp duruyor. Toplam yol kaç metre?</p>"}, "4": {"q": "<p><b>Yukarı atış, çatıdan.</b> $20$ m yüksekliğindeki bir çatının kenarından bir top $15$ m/s süratle düşey yukarı atılıyor. (a) Çatıdan en fazla ne kadar yükselir? (b) Yere ne zaman çarpar? (c) Yere çarpma sürati nedir?</p>"}, "5": {"q": "<p><b>Eğik atış, düz zemin.</b> Bir top yerden $20$ m/s süratle, yatayla $53°$ açıyla atılıyor. (a) Uçuş süresi, (b) menzil, (c) en büyük yükseklik, (d) tepe noktasındaki sürat nedir?</p>"}, "6": {"q": "<p><b>Düz viraj.</b> Bir araba $50$ m yarıçaplı düz bir virajı $15$ m/s süratle dönüyor. (a) Merkezcil ivmesi nedir? (b) Kaymaması için gereken en küçük statik sürtünme katsayısı nedir?</p>"}, "7": {"q": "<p><b>Sürtünmeli eğik düzlem.</b> $5{,}0$ kg'lık bir blok $30°$ eğimli düzlemden aşağı kayıyor. $\\mu_k=0{,}20$. (a) İvmesi nedir? (b) Durgun halden başlayıp $2{,}0$ m kayınca sürati ne olur?</p>"}, "8": {"q": "<p><b>Masa ve asılı kütle.</b> $4{,}0$ kg'lık blok sürtünmesiz yatay masada. Hafif bir iple, masanın kenarındaki makaradan geçerek $2{,}0$ kg'lık asılı bloğa bağlı. İvmeyi ve ip gerilmesini bul.</p>"}, "9": {"q": "<p><b>Asansörde görünür ağırlık.</b> $70$ kg'lık bir kişi asansörde tartının üzerinde duruyor. Tartı (a) asansör $2{,}0\\ \\text{m/s}^2$ ile yukarı ivmelenirken, (b) $2{,}0\\ \\text{m/s}^2$ ile aşağı ivmelenirken, (c) sabit hızla giderken ne gösterir?</p>"}, "10": {"q": "<p><b>İş–enerji teoremi, açılı çekme.</b> $10$ kg'lık bir sandık, yatayla $37°$ yukarı açı yapan $50$ N'luk kuvvetle yatay zeminde $5{,}0$ m çekiliyor. $\\mu_k=0{,}20$. Sandık durgun halden başlıyor. Son sürati nedir?</p>"}, "11": {"q": "<p><b>Yay, sürtünme ve rampa.</b> $2{,}0$ kg'lık bir blok, yay sabiti $400$ N/m olan yayı $0{,}25$ m sıkıştırıp bırakılıyor. Zemin sürtünmesiz. (a) Yaydan ayrıldığındaki sürati nedir? (b) Sürtünmesiz bir rampada ne kadar yükselir? (c) Rampadan önce $1{,}0$ m uzunluğunda, $\\mu_k=0{,}30$ olan pürüzlü bir bölge olsaydı ne kadar yükselirdi?</p>"}, "12": {"q": "<p><b>Güç.</b> $800$ kg'lık bir asansör sabit $3{,}0$ m/s süratle yukarı çekiliyor. Motorun gücü kaç kW olmalı?</p>"}, "13": {"q": "<p><b>Potansiyel enerji fonksiyonundan kuvvet.</b> Bir parçacığın potansiyel enerjisi $U(x)=3x^2-x^3$ ($U$ joule, $x$ metre). (a) Kuvvet fonksiyonu nedir? (b) Denge noktaları nerede, hangisi kararlı?</p>"}, "14": {"q": "<p><b>Bağıl hız, nehir.</b> Bir teknenin suya göre sürati $4{,}0$ m/s. Nehir doğuya $3{,}0$ m/s akıyor. (a) Tekne burnunu tam kuzeye çevirirse yere göre hızı nedir? (b) Tam kuzeye gitmek için burnunu nereye çevirmeli, yere göre sürati ne olur?</p>"}, "15": {"q": "<p><b>Eğimli viraj.</b> $100$ m yarıçaplı bir viraj, $20$ m/s süratle giden arabalar sürtünme olmadan dönebilsin diye eğimlendirilecek. Eğim açısı kaç derece olmalı?</p>"}}};
+
+for(const set in Q_TR_FIX) for(const id in Q_TR_FIX[set]){
+  const f=Q_TR_FIX[set][id]; Q_TR[set][id]=Q_TR[set][id]||{};
+  for(const k in f){ if(k==="q") Q_TR[set][id].q=f[k]; else Q_TR[set][id].o[+k.slice(1)]=f[k]; }
+}
+/* English display text; option arrays without English text are numbers or symbols, shown with a decimal point. */
+function enQ(set,id,fallback){ const e=(Q_EN[set]||{})[id]; return e&&e.q ? e.q : fallback; }
+function enO(set,id,fallback){ const e=(Q_EN[set]||{})[id]; return e&&e.o ? e.o : fallback.map(x=>String(x).replace(/\{,\}/g,".")); }
+/* Turkish translation box: opens on hover, on tap of the question, or with the TR button; an overlay, so nothing jumps. */
+function trBox(set,id){
+  if(S.gloss===false) return "";
+  const t=(Q_TR[set]||{})[id]; if(!t) return "";
+  const opts = t.o ? `<ol class="tr-opts" type="A">${t.o.map(o=>`<li>${o}</li>`).join("")}</ol>` : "";
+  return `<div class="trbox no-gloss" id="tr-${set}-${id}" role="note"><span class="trlab">Türkçesi</span>${t.q.startsWith("<p")?t.q:`<p>${t.q}</p>`}${opts}</div>`;
+}
+function trBtn(set,id){
+  if(S.gloss===false || !(Q_TR[set]||{})[id]) return "";
+  return `<button class="btn ghost trbtn" type="button" data-trq="${set}:${id}" aria-expanded="false" aria-controls="tr-${set}-${id}" title="Sorunun Türkçesi">TR</button>`;
+}
+
 /* ---------- all gradable items ---------- */
 const QT_BY = Object.fromEntries(QT.map(q=>[String(q.id),q]));
 const DA_BY = Object.fromEntries(DA.map(q=>[String(q.id),q]));
 const ITEMS = [
-  ...QT.map(q=>({set:"qt", id:String(q.id), ch:q.ch, tab:"qt", text:q.q})),
-  ...EX.map(x=>({set:"ex", id:x.id, ch:x.ch, tab:"ornek", text:x.p})),
-  ...DA.map(q=>({set:"da", id:String(q.id), ch:q.ch, tab:"deneme", text:q.q})),
-  ...DB.map(p=>({set:"db", id:p.id, ch:p.ch, tab:"deneme", text:p.q}))
+  ...QT.map(q=>({set:"qt", id:String(q.id), ch:q.ch, tab:"qt", text:q.q+" "+enQ("qt",q.id,"")})),
+  ...EX.map(x=>({set:"ex", id:x.id, ch:x.ch, tab:"ornek", text:x.p+" "+enQ("ex",x.id,"")})),
+  ...DA.map(q=>({set:"da", id:String(q.id), ch:q.ch, tab:"deneme", text:q.q+" "+enQ("da",q.id,"")})),
+  ...DB.map(p=>({set:"db", id:p.id, ch:p.ch, tab:"deneme", text:p.q+" "+enQ("db",p.id,"")}))
 ];
 const DB_BY = Object.fromEntries(DB.map(p=>[p.id,p]));
 function label(it){ return it.set==="db" ? DB_BY[it.id].n : PFX[it.set]+it.id; }
@@ -1046,12 +1157,12 @@ function mcCard(it){
   const st = status(it);
   return `<article class="q" id="${cid(it)}">
     ${headHTML(it, st, done && !has ? "Boş" : null)}
-    <div class="prompt"><p>${q.q}</p></div>
-    <div class="opts" role="radiogroup" aria-label="${label(it)} seçenekleri">${q.o.map((o,i)=>{
+    <div class="prompt" data-trtap="${it.set}:${it.id}"><p>${enQ(it.set,it.id,q.q)}</p>${trBox(it.set,it.id)}</div>
+    <div class="opts" role="radiogroup" aria-label="${label(it)} seçenekleri">${enO(it.set,it.id,q.o).map((o,i)=>{
       let c="opt"; if(done){ c+=" dis"; if(i===q.a) c+=" ok"; else if(i===sel) c+=" bad"; }
       return `<label class="${c}"><input type="radio" name="${it.set}${it.id}" data-mc="${it.set}" data-qid="${it.id}" value="${i}" ${sel===i?"checked":""} ${done?"disabled":""}><span class="L">${L[i]})</span><span>${o}</span></label>`;
     }).join("")}</div>
-    <div class="actions">${scratchBtn(it)}</div>
+    <div class="actions">${trBtn(it.set,it.id)}${scratchBtn(it)}</div>
     ${scratchHTML(it)}
     ${done?`<div class="sol"><p><b>Cevap ${L[q.a]}.</b> ${q.e}</p></div>`:""}
   </article>`;
@@ -1063,8 +1174,8 @@ function exCard(x){
   const [hb,hd] = hintParts(it, HINT_EX[x.id]);
   return `<article class="q" id="${cid(it)}">
     ${headHTML(it, st)}
-    <div class="prompt">${x.p}</div>
-    <div class="actions">${hb}<button class="btn soft" data-reveal="ex:${x.id}" type="button" aria-expanded="${open}">${open?"Çözümü gizle":"Çözümü göster"}</button>${scratchBtn(it)}</div>
+    <div class="prompt" data-trtap="ex:${x.id}">${enQ("ex",x.id,x.p)}${trBox("ex",x.id)}</div>
+    <div class="actions">${trBtn("ex",x.id)}${hb}<button class="btn soft" data-reveal="ex:${x.id}" type="button" aria-expanded="${open}">${open?"Çözümü gizle":"Çözümü göster"}</button>${scratchBtn(it)}</div>
     ${hd}${scratchHTML(it)}
     <div class="sol" id="s-ex-${x.id}" ${open?"":"hidden"}>${x.s}
       <div class="self"><span class="small muted">Kağıttaki çözümün:</span>
@@ -1082,8 +1193,8 @@ function dbCard(p){
   const half = fmt(p.pt/2), scored = p.part!=="X";
   return `<article class="q" id="${cid(it)}">
     ${headHTML(it, st)}
-    <div class="prompt"><p>${p.q}</p>${scored?`<p class="small muted">(${p.pt} puan)</p>`:""}</div>
-    <div class="actions">${hb}<button class="btn soft" data-reveal="db:${p.id}" type="button" aria-expanded="${open}">${open?"Çözümü gizle":(p.part==="B"?"Örnek cevabı göster":"Çözümü göster")}</button>${scratchBtn(it)}</div>
+    <div class="prompt" data-trtap="db:${p.id}"><p>${enQ("db",p.id,p.q)}</p>${trBox("db",p.id)}${scored?`<p class="small muted">(${p.pt} puan)</p>`:""}</div>
+    <div class="actions">${trBtn("db",p.id)}${hb}<button class="btn soft" data-reveal="db:${p.id}" type="button" aria-expanded="${open}">${open?"Çözümü gizle":(p.part==="B"?"Örnek cevabı göster":"Çözümü göster")}</button>${scratchBtn(it)}</div>
     ${hd}${scratchHTML(it)}
     <div class="sol" id="s-db-${p.id}" ${open?"":"hidden"}>${p.s}
       <div class="self"><span class="small muted">Kendine puan ver:</span>
@@ -1339,6 +1450,8 @@ function renderSearch(qs){
 
 /* ---------- events ---------- */
 document.addEventListener("click",e=>{
+  const tp=e.target.closest("[data-trtap]");
+  if(tp && !e.target.closest("button,a,input,label,.term") && matchMedia("(hover: none)").matches){ const art=tp.closest("article"); if(art && art.querySelector(".trbox")){ const open=!art.classList.contains("tr-open"); art.classList.toggle("tr-open",open); const b=art.querySelector(".trbtn"); if(b) b.setAttribute("aria-expanded",String(open)); return; } }
   const t=e.target.closest("button,a,[data-fcflip]"); if(!t) return;
   const d=t.dataset;
   if(d.res!==undefined){ const r=RESULTS[+d.res]; $("#searchModal").hidden=true; r && r.run(); return; }
@@ -1359,6 +1472,7 @@ document.addEventListener("click",e=>{
     toast(S.ex[id]==="ok"?"✓ Doğru olarak işaretlendi":S.ex[id]==="bad"?"✗ Hata listesine eklendi":"İşaret kaldırıldı"); const c=document.getElementById("q-ex-"+id); c&&c.querySelector(`[data-mark="${d.mark}"]`).focus(); return; }
   if(d.dbscore!==undefined){ const v=+d.dbscore; S.db[d.id] = S.db[d.id]===v ? undefined : v; save(); render(); const c=document.getElementById("q-db-"+d.id); c&&c.querySelector(`[data-dbscore="${v}"]`).focus(); return; }
   if(d.expandall==="ex"){ const any=EX.some(x=>!S.exOpen[x.id]); EX.forEach(x=>S.exOpen[x.id]=any); save(); render(); return; }
+  if(d.trq){ const art=t.closest("article"), open=!art.classList.contains("tr-open"); art.classList.toggle("tr-open",open); t.setAttribute("aria-expanded",String(open)); return; }
   switch(t.id){
     case "qtCheck": { const blank=QT.filter(q=>S.qt[q.id]===undefined).length; S.qtDone=true; if(!S.plan.p1) S.plan.p1=true; save(); render(); toast(blank?`${blank} boş soru yanlış sayıldı`:"Kontrol edildi"); return; }
     case "qtReset": if(confirm("Hızlı test cevapları silinsin mi?")){ S.qt={}; S.qtDone=false; save(); render(); toast("Hızlı test sıfırlandı"); } return;
