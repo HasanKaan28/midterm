@@ -40,30 +40,28 @@ MATH101 sınavı Cumartesi 12:30'da. Bu yüzden Cuma günü NS102'ye az süre ay
 2. `cozumlu-ornekler.md` Örnek 1–4. Önce kendin çöz, sonra çözüme bak.
 3. `materyal` klasöründe CH01 ve CH02 clicker sorularından 10'ar tane.
 
-### Cumartesi 14 Kasım (19:40'tan itibaren, sıfırdan Bölüm 1–4)
+### Cumartesi 14 Kasım (23:15'ten itibaren)
 
-Yöntem her bölümde aynı: önce konuyu öğren (Konu & Ezber), sonra çözümlü örneği adım adım kâğıda geçir, sonra çözümü kapatıp aynı soruyu kendin çöz. Soru bankası ve geçen yılın midterm'ü artık `calis.html` içinde (Soru bankası ve Geçen yıl sekmeleri).
+Bütün soru bankası (311 soru) yaklaşık 20 saat sürer; sınava kadar uyku dışında yaklaşık 12,5 saat var. Bu yüzden program şöyle: **bütün clicker'lar** (121, Part A), **Part C'den seçilmiş yaklaşık 40 exercise** (Bölüm 5 ağırlıklı) ve **her bölümden 3–5 Discussion Question**. Her bölümde önce kısa konu, sonra clicker'lar, sonra o bölümün problemleri. Hepsi `calis.html` içinde (Soru bankası ve Geçen yıl sekmeleri).
 
-1. 19:40–20:40 Önce 15 dk Konu & Ezber'in en üstündeki Terimler sözlüğünü oku (ör. counterclockwise = saat yönünün tersine). Sayfada altı noktalı her terime dokununca Türkçesi çıkar. Sonra Bölüm 1–2 öğren: Konu & Ezber'de vectors, components, motion along a line, free fall. Her formülü kâğıda kendin yaz.
-2. 20:40–21:30 Bölüm 1–2 örnekleri: çözümü aç, adım adım kâğıda geçir. Sonra çözümü kapat, aynı soruyu kendin çöz.
-3. 21:40–22:40 10 dk mola, sonra Bölüm 3: projectile motion ve circular motion. 20 dk Konu & Ezber, 40 dk Bölüm 3 örnekleri (aynı yöntem).
-4. 22:40–23:50 Bölüm 4: Newton's laws ve free-body diagram. 20 dk konu, 30 dk örnek, sonra Soru bankası'nda Bölüm 4'ten 3 exercise. Her soruda free-body diagram çiz.
-5. 23:50–00:30 Hızlı test'te Bölüm 1–4 soruları, kaynak kapalı. Yanlışları işaretle, sonra yat.
+1. 23:15–00:00 Bölüm 1: 10 dk Konu & Ezber (vectors, components), sonra Soru bankası'nda Bölüm 1'in 19 clicker'ı (18 + 1 sıralama). Yanlışların açıklamasını oku.
+2. 00:00–00:50 Bölüm 2: 10 dk konu (velocity, acceleration, free fall), Bölüm 2'nin 22 clicker'ı, sonra Part C + Bölüm 2'den 3 exercise.
+3. 00:50–01:30 Bölüm 3'ün 22 clicker'ı (projectile motion, circular motion, relative velocity). Sonra yat; yarın 09:00'da devam.
 
-### Pazar 15 Kasım (Bölüm 5–7, sonra sınav biçiminde, yaklaşık 11 saat)
+### Pazar 15 Kasım
 
-18:15–19:15 yemek ve mola.
+13:15–14:00 öğle yemeği, 17:45–18:30 akşam yemeği.
 
-1. 09:30–11:15 Bölüm 5 (en ağır bölüm): friction, inclined plane, circular dynamics. 30 dk konu, 45 dk örnek, sonra Soru bankası'nda Part C + Bölüm 5'ten 4 exercise.
-2. 11:30–12:45 Bölüm 6: work, kinetic energy, work–energy theorem, power. 25 dk konu, 50 dk örnek.
-3. 13:30–15:00 Bölüm 7: potential energy, conservation of energy. 25 dk konu, 35 dk örnek, sonra Pearson 6.32, 6.59, 7.45 ve 7.57'yi kendin çöz.
-4. 15:15–16:45 Part C: önce geçen yılın C1, C2, C3'ü, sonra Bölüm 3, 4, 5'ten ikişer exercise. Takılırsan çözümü aç, kapat, baştan çöz.
-5. 16:45–17:30 Part A: Bölüm 1–7 clicker soruları.
-6. 17:30–18:15 Part B: Bölüm 4–7'den 6 Discussion Question. İngilizce yaz, sonucu ilk cümlede söyle.
-7. 19:15–20:45 Deneme: Part A, B, C (geçen yılın yapısı), 90 dk, süre tut, kaynak kapalı.
-8. 20:45–21:15 Denemeyi puanla, İlerleme & Hatalar'da zayıf bölüme bak.
-9. 21:15–22:00 Soru bankası'nda "Yanlışlarım" filtresi: yanlış çıkanları yeniden çöz.
-10. 22:00–22:30 Formüller: ezberden yaz, sayfayla karşılaştır. Hesap makinesini DEG moduna al. 23:00'te yat.
+1. 09:00–10:00 Bölüm 3 Part C: 7 exercise (önce Geçen yıl sekmesindeki C2 jet sorusu ve benzerleri), sonra Bölüm 3'ten 4 Discussion Question (önce geçen yılın B1'i).
+2. 10:00–11:00 Bölüm 4: 15 dk konu (Newton's laws, free-body diagram), 18 clicker, Part C + Bölüm 4'ten 4 exercise, 3 Discussion Question.
+3. 11:15–13:15 Bölüm 5 (en önemli): 20 dk konu (friction, inclined plane, circular dynamics), 14 clicker, sonra Geçen yıl'daki C1 ve C3 ile benzerleri, sonra Part C + Bölüm 5'ten 6 exercise.
+4. 14:00–15:30 Bölüm 5 devam: Part C + Bölüm 5'ten 10 exercise daha (Çözülmemiş filtresi), 5 Discussion Question.
+5. 15:30–16:45 Bölüm 6: 15 dk konu (work, kinetic energy, power), 12 clicker, Geçen yıl'daki B2 ve benzerleri, Part C + Bölüm 6'dan 6 exercise.
+6. 16:45–17:45 Bölüm 7: 15 dk konu (potential energy, conservation of energy), 14 clicker, Part C + Bölüm 7'den 4 exercise, 3 Discussion Question.
+7. 18:30–20:00 Deneme: Part A, B, C (geçen yılın yapısı), 90 dk, süre tut, kaynak kapalı. TR düğmesini kapat.
+8. 20:00–20:30 Denemeyi puanla, İlerleme & Hatalar'da zayıf bölüme bak.
+9. 20:30–21:45 Soru bankası'nda Part A + "Bilmediklerim turu": doğru yapmadığın her clicker'ı yeniden çöz; sonra Part C "Yanlışlarım".
+10. 21:45–22:15 Formüller: ezberden yaz, sayfayla karşılaştır. Hesap makinesini DEG moduna al. 22:30'da yat.
 
 ### Pazartesi 16 Kasım (sınav sabahı)
 
