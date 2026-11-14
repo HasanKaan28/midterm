@@ -721,19 +721,23 @@ const PLAN = [
     {id:"p3", w:"Özet: Bölüm 1 ve 2.", go:"ozet"},
     {id:"p4", w:"Örnek 1–4. Önce kendin çöz, sonra çözüme bak.", go:"ornek"},
     {id:"p5", w:"Clicker: CH01 ve CH02'den 10'ar soru (materyal klasörü)."}]},
-  {d:"2026-11-14", t:"Cumartesi 14 Kasım", n:"MATH101 sonrası, yaklaşık 4 saat", items:[
-    {id:"p6", w:"Özet: Bölüm 3, 4 ve 5 (1 saat).", go:"ozet"},
-    {id:"p7", w:"Örnek 5–9, 14 ve 15 (1,5 saat). Her soruda free-body diagram'ı kâğıda çiz.", go:"ornek"},
-    {id:"p8", w:"Clicker: CH03, CH04 ve CH05 (1 saat)."},
-    {id:"p9", w:"Yanlış yaptığın soruların konusunu not al (15 dk).", go:"zayif"}]},
-  {d:"2026-11-15", t:"Pazar 15 Kasım", n:"ana gün, yaklaşık 7 saat", items:[
-    {id:"p10", w:"Sabah: Özet Bölüm 6 ve 7, Örnek 10–13 (2,5 saat).", go:"ozet"},
-    {id:"p11", w:"Clicker: CH06 ve CH07, zayıf bölümlerin tekrarı (1,5 saat).", go:"zayif"},
-    {id:"p12", w:"Öğleden sonra: deneme, 90 dakika, süre tutarak ve kaynak açmadan. Sonra kontrol (45 dk).", go:"deneme"},
-    {id:"p13", w:"Akşam: denemede yanlış çıkan konuların tekrarı, formül ezber kontrolü (1 saat).", go:"zayif"},
-    {id:"p14", w:"Erken yat. Sınav sabah 09:00'da."}]},
+  {d:"2026-11-14", t:"Cumartesi 14 Kasım", n:"bu akşam, yaklaşık 4,5 saat (ELIT 21:30–22:00)", items:[
+    {id:"p17", w:"18:00–18:45 Geçen yılın sınavı: C1, C2, C3'ü çözümlere bakmadan yeniden çöz, sonra Soru bankası'ndaki çözümlerle karşılaştır.", url:"soru-bankasi.html"},
+    {id:"p18", w:"18:45–20:00 Part C: Soru bankası'nda Part C + Bölüm 5 filtresi, 10–12 exercise. Her birinde free-body diagram çiz.", url:"soru-bankasi.html"},
+    {id:"p19", w:"20:30–21:30 Part C: Bölüm 3–4 exercise'ları (projectile motion, circular motion, Newton's laws).", url:"soru-bankasi.html"},
+    {id:"p20", w:"22:00–22:40 Part A: Bölüm 1–4 clicker soruları.", url:"soru-bankasi.html"},
+    {id:"p21", w:"22:40–23:00 Part B: Bölüm 3'ten 5 Discussion Question. İngilizce yaz, sonucu ilk cümlede söyle.", url:"soru-bankasi.html"}]},
+  {d:"2026-11-15", t:"Pazar 15 Kasım", n:"ana gün, yaklaşık 7 saat (ELIT 17:00–17:30)", items:[
+    {id:"p22", w:"09:30–11:00 Part C: Bölüm 6–7 exercise'ları. Pearson ödevindeki 6.32, 6.59, 7.45 ve 7.57'yi bu sefer kendin çöz.", url:"soru-bankasi.html"},
+    {id:"p23", w:"11:15–12:30 Part C: Bölüm 5'te kalan exercise'lar, sonra Bölüm 1–2 hızlı tekrar.", url:"soru-bankasi.html"},
+    {id:"p24", w:"13:30–14:15 Part A: Bölüm 5–7 clicker soruları.", url:"soru-bankasi.html"},
+    {id:"p25", w:"14:15–15:00 Part B: Bölüm 4–7'den 8–10 Discussion Question.", url:"soru-bankasi.html"},
+    {id:"p26", w:"15:00–16:30 Deneme: Part A, B, C; 90 dakika, süre tutarak, kaynak kapalı.", go:"deneme"},
+    {id:"p27", w:"16:30–17:00 Denemeyi puanla, İlerleme & Hatalar'da zayıf bölüme bak.", go:"ilerleme"},
+    {id:"p28", w:"17:30–18:30 Soru bankası'nda \"Yanlışlarım\" filtresi: yanlış çıkanları yeniden çöz.", url:"soru-bankasi.html"},
+    {id:"p29", w:"20:00–20:45 Formüller: ezberden yaz, sayfayla karşılaştır. Hesap makinesini DEG moduna al. 23:00'te yat.", go:"form"}]},
   {d:"2026-11-16", t:"Pazartesi 16 Kasım", n:"sınav sabahı", items:[
-    {id:"p15", w:"07:30 civarı formül sayfasından 20 dakikalık son tekrar. Yeni konu açma.", go:"form"},
+    {id:"p30", w:"07:30–07:50 Formüller ve geçen yılın C1–C3 çözümlerine son bakış. Yeni konu açma.", go:"form"},
     {id:"p16", w:"Hesap makinesini derece (DEG) moduna al."}]}
 ];
 
@@ -781,20 +785,25 @@ const DA = [
 
 /* ---------- deneme B ---------- */
 const DB = [
-  {id:"B1",ch:"b3",q:R`<b>(Bölüm 3)</b> $45$ m yüksekliğindeki bir uçurumun kenarından bir taş $12$ m/s speed'le yatay fırlatılıyor. (a) Taş yere kaç saniyede ulaşır? (b) Uçurumun dibinden kaç metre uzağa düşer? (c) Yere çarpma speed'i ve yatayın altındaki açısı nedir?`,
+  {id:"B1",ch:"b3",part:"X",pt:12,n:"Ek 1",q:R`<b>(Bölüm 3)</b> $45$ m yüksekliğindeki bir uçurumun kenarından bir taş $12$ m/s speed'le yatay fırlatılıyor. (a) Taş yere kaç saniyede ulaşır? (b) Uçurumun dibinden kaç metre uzağa düşer? (c) Yere çarpma speed'i ve yatayın altındaki açısı nedir?`,
    s:R`<ul><li>(a) $45=\tfrac12(9{,}80)t^2$, $t=\sqrt{90/9{,}80}=3{,}03$ s</li><li>(b) $x=(12)(3{,}03)=36{,}4$ m</li><li>(c) $v_x=12$ m/s, $v_y=(9{,}80)(3{,}03)=29{,}7$ m/s. $v=\sqrt{12^2+29{,}7^2}=32{,}0$ m/s. Açı $\arctan(29{,}7/12)=68{,}0°$, yatayın altında.</li></ul>`},
-  {id:"B2",ch:"b5",q:R`<b>(Bölüm 5)</b> $3{,}0$ kg'lık $m_1$ bloğu $30°$ eğimli inclined plane'in üzerinde, düzlemle arasında $\mu_k=0{,}25$. Hafif bir ip, düzlemin tepesindeki frictionless pulley'den geçip $5{,}0$ kg'lık asılı $m_2$ bloğuna bağlanıyor. Sistem serbest bırakılıyor ve $m_2$ aşağı iniyor. (a) Her iki blok için free-body diagram çiz. (b) Sistemin acceleration'ını bul. (c) İpteki tension'ı bul.`,
+  {id:"B2",ch:"b5",part:"C",pt:20,n:"C1",q:R`<b>(Bölüm 5)</b> $3{,}0$ kg'lık $m_1$ bloğu $30°$ eğimli inclined plane'in üzerinde, düzlemle arasında $\mu_k=0{,}25$. Hafif bir ip, düzlemin tepesindeki frictionless pulley'den geçip $5{,}0$ kg'lık asılı $m_2$ bloğuna bağlanıyor. Sistem serbest bırakılıyor ve $m_2$ aşağı iniyor. (a) Her iki blok için free-body diagram çiz. (b) Sistemin acceleration'ını bul. (c) İpteki tension'ı bul.`,
    s:R`<ul><li>(a) $m_1$: weight (aşağı), normal force (düzleme dik), tension (düzlem boyunca yukarı), kinetic friction (düzlem boyunca aşağı, çünkü blok yukarı kayıyor). $m_2$: weight (aşağı), tension (yukarı).</li><li>(b) $m_1$: $T-m_1g\sin30°-\mu_km_1g\cos30°=m_1a$. $m_2$: $m_2g-T=m_2a$. Topla: $a=\dfrac{49{,}0-14{,}7-6{,}37}{8{,}0}=3{,}49\ \text{m/s}^2$</li><li>(c) $T=m_2(g-a)=5{,}0(9{,}80-3{,}49)=31{,}5$ N</li></ul>`},
-  {id:"B3",ch:"b5",q:R`<b>(Bölüm 5)</b> $0{,}50$ kg'lık bir top $1{,}2$ m uzunluğunda bir ipin ucunda horizontal circle'da dönüyor (conical pendulum). İp düşeyle $25°$ yapıyor. (a) İpteki tension kaç N'dur? (b) Topun speed'i nedir? (c) Bir turun süresi (period) nedir?`,
+  {id:"B3",ch:"b5",part:"C",pt:10,n:"C2",q:R`<b>(Bölüm 5)</b> $0{,}50$ kg'lık bir top $1{,}2$ m uzunluğunda bir ipin ucunda horizontal circle'da dönüyor (conical pendulum). İp düşeyle $25°$ yapıyor. (a) İpteki tension kaç N'dur? (b) Topun speed'i nedir? (c) Bir turun süresi (period) nedir?`,
    s:R`<ul><li>(a) Düşey equilibrium: $T\cos25°=mg$, $T=\dfrac{(0{,}50)(9{,}80)}{\cos25°}=5{,}41$ N</li><li>(b) $R=L\sin25°=0{,}507$ m. Yatay: $T\sin25°=mv^2/R$, yani $v^2=gR\tan25°$, $v=1{,}52$ m/s</li><li>(c) Period $=2\pi R/v=2{,}09$ s</li></ul>`},
-  {id:"B4",ch:"b7",q:R`<b>(Bölüm 7)</b> $2{,}0$ kg'lık bir blok, $3{,}0$ m yükseklikten frictionless eğri bir ramp'tan durgun halden bırakılıyor. Ramp'ın dibinde $2{,}5$ m uzunluğunda, $\mu_k=0{,}40$ olan pürüzlü yatay bir bölge var. Bölgenin sonunda spring constant'ı $800$ N/m olan bir spring duruyor (spring'in altı frictionless). (a) Bloğun ramp'ın dibindeki speed'i nedir? (b) Pürüzlü bölgeyi geçtikten sonraki speed'i nedir? (c) Spring en fazla ne kadar sıkışır?`,
+  {id:"B4",ch:"b7",part:"C",pt:20,n:"C3",q:R`<b>(Bölüm 7)</b> $2{,}0$ kg'lık bir blok, $3{,}0$ m yükseklikten frictionless eğri bir ramp'tan durgun halden bırakılıyor. Ramp'ın dibinde $2{,}5$ m uzunluğunda, $\mu_k=0{,}40$ olan pürüzlü yatay bir bölge var. Bölgenin sonunda spring constant'ı $800$ N/m olan bir spring duruyor (spring'in altı frictionless). (a) Bloğun ramp'ın dibindeki speed'i nedir? (b) Pürüzlü bölgeyi geçtikten sonraki speed'i nedir? (c) Spring en fazla ne kadar sıkışır?`,
    s:R`<ul><li>(a) $mgh=\tfrac12mv^2$, $v=\sqrt{2(9{,}80)(3{,}0)}=7{,}67$ m/s. Energy $58{,}8$ J</li><li>(b) $W_f=-\mu_kmgd=-(0{,}40)(2{,}0)(9{,}80)(2{,}5)=-19{,}6$ J. Kalan $39{,}2$ J, $v=6{,}26$ m/s</li><li>(c) $\tfrac12kx^2=39{,}2$, $x=\sqrt{2(39{,}2)/800}=0{,}313$ m</li></ul>`},
-  {id:"B5",ch:"b6",q:R`<b>(Bölüm 6)</b> $3{,}0$ kg'lık bir parçacık $x$ axis boyunca hareket ediyor. Üzerine etki eden net force $F_x=6x-2$ ($F$ newton, $x$ metre). Parçacık $x=0$'da $+x$ yönünde $2{,}0$ m/s speed'le gidiyor. (a) $x=0$'dan $x=4{,}0$ m'ye kadar force'un yaptığı work nedir? (b) $x=4{,}0$ m'deki speed'i nedir? (c) $x=4{,}0$ m'de force'un instantaneous power'ı nedir?`,
-   s:R`<ul><li>(a) $W=\int_0^4(6x-2)\,dx=\left[3x^2-2x\right]_0^4=48-8=40$ J</li><li>(b) $K_1=\tfrac12(3{,}0)(2{,}0)^2=6{,}0$ J, $K_2=46$ J, $v=\sqrt{2(46)/3{,}0}=5{,}54$ m/s</li><li>(c) $F(4)=22$ N, $P=Fv=(22)(5{,}54)=122$ W</li></ul>`}
+  {id:"B5",ch:"b6",part:"X",pt:12,n:"Ek 2",q:R`<b>(Bölüm 6)</b> $3{,}0$ kg'lık bir parçacık $x$ axis boyunca hareket ediyor. Üzerine etki eden net force $F_x=6x-2$ ($F$ newton, $x$ metre). Parçacık $x=0$'da $+x$ yönünde $2{,}0$ m/s speed'le gidiyor. (a) $x=0$'dan $x=4{,}0$ m'ye kadar force'un yaptığı work nedir? (b) $x=4{,}0$ m'deki speed'i nedir? (c) $x=4{,}0$ m'de force'un instantaneous power'ı nedir?`,
+   s:R`<ul><li>(a) $W=\int_0^4(6x-2)\,dx=\left[3x^2-2x\right]_0^4=48-8=40$ J</li><li>(b) $K_1=\tfrac12(3{,}0)(2{,}0)^2=6{,}0$ J, $K_2=46$ J, $v=\sqrt{2(46)/3{,}0}=5{,}54$ m/s</li><li>(c) $F(4)=22$ N, $P=Fv=(22)(5{,}54)=122$ W</li></ul>`},
+  {id:"K1",ch:"b4",part:"B",pt:15,n:"B1",q:R`<b>(Bölüm 4)</b> Bir asansör yukarı doğru giderken yavaşlıyor. İçindeki kişinin tartıda okuduğu apparent weight, gerçek weight'inden büyük mü, küçük mü, eşit mi? Free-body diagram ve Newton's second law ile açıkla.`,
+   s:R`<p><b>Kısa cevap:</b> Küçüktür.</p><ul><li>Yukarı giderken yavaşlıyorsa acceleration aşağı yönlüdür: velocity yukarı, acceleration ona zıt.</li><li>Free-body diagram: yukarı normal force $n$, aşağı weight $mg$.</li><li>Yukarı pozitif, $a_y=-a$: $n-mg=-ma$, yani $n=m(g-a)\lt mg$.</li><li>Tartı $n$'yi gösterir; bu yüzden apparent weight gerçek weight'ten küçüktür.</li></ul><p>Puanlama: önce sonucu yaz, sonra nedenini. Geçen yılın B2'sinde sonuç yazılmadığı için puan alınamadı.</p>`},
+  {id:"K2",ch:"b6",part:"B",pt:15,n:"B2",q:R`<b>(Bölüm 6)</b> Bir kutuyu friction'lı bir ramp'tan sabit speed'le yukarı itiyorsun. (a) Kutuya yapılan total work ne kadardır? (b) Senin force'unun, gravity'nin ve friction'ın work'ünün işaretleri nedir? Açıkla.`,
+   s:R`<p><b>Kısa cevap:</b> (a) Total work sıfırdır. (b) Senin force'unun work'ü pozitif, gravity'nin ve friction'ın work'ü negatiftir.</p><ul><li>Work–energy theorem: $W_{top}=\Delta K$. Speed sabit olduğu için $\Delta K=0$, yani $W_{top}=0$.</li><li>Senin force'un hareket yönünde: work pozitif.</li><li>Gravity ramp boyunca aşağı çeker, hareket yukarı: $W_{grav}=-mgh$.</li><li>Friction harekete zıt: $W_f=-f_k d$.</li><li>Normal force harekete dik: work'ü sıfır.</li><li>Toplam sıfır olduğu için $W_{sen}=mgh+f_k d$.</li></ul>`}
 ];
 
 /* ---------- labels, hints, flashcards ---------- */
-const SRC = {qt:"Hızlı test", da:"Deneme A", db:"Deneme B", ex:"Çözümlü örnek"};
+const SRC = {qt:"Hızlı test", da:"Deneme · Part A", db:"Deneme", ex:"Çözümlü örnek"};
+const PART_NAME = {B:"Deneme · Part B", C:"Deneme · Part C", X:"Deneme · Ek problem"};
 const PFX = {qt:"H", da:"A", db:"", ex:"Ö"};
 /* Hints are one-line restatements of the first step of each existing solution. */
 const HINT_EX = {
@@ -819,7 +828,9 @@ const HINT_DB = {
   B2:R`Her blok için ayrı denklem yaz; $m_1$ yukarı kaydığı için friction düzlem boyunca aşağı.`,
   B3:R`Düşeyde $T\cos25°=mg$, yatayda $T\sin25°=mv^2/R$ ve $R=L\sin25°$.`,
   B4:R`Energy'yi aşama aşama izle: ramp'ta $mgh$, pürüzlü bölgede $-\mu_kmgd$, spring'de $\tfrac12kx^2$.`,
-  B5:R`Work $=\int F_x\,dx$; sonra work–energy theorem; power $P=Fv$.`
+  B5:R`Work $=\int F_x\,dx$; sonra work–energy theorem; power $P=Fv$.`,
+  K1:R`Önce acceleration'ın yönünü bul: yukarı giderken yavaşlıyorsa velocity ile acceleration zıt yönlüdür.`,
+  K2:R`Speed sabitse $\Delta K$ ne olur? Work–energy theorem'i kullan.`
 };
 const FC = [
   {id:"f1",ch:"b1",q:R`İki vector arasındaki açı scalar product (skaler çarpım) ile nasıl bulunur?`,a:R`$\cos\varphi=\dfrac{\vec A\cdot\vec B}{AB}$`},
@@ -890,7 +901,10 @@ const ITEMS = [
   ...DA.map(q=>({set:"da", id:String(q.id), ch:q.ch, tab:"deneme", text:q.q})),
   ...DB.map(p=>({set:"db", id:p.id, ch:p.ch, tab:"deneme", text:p.q}))
 ];
-function label(it){ return PFX[it.set]+it.id; }
+const DB_BY = Object.fromEntries(DB.map(p=>[p.id,p]));
+function label(it){ return it.set==="db" ? DB_BY[it.id].n : PFX[it.set]+it.id; }
+function srcOf(it){ return it.set==="db" ? PART_NAME[DB_BY[it.id].part] : SRC[it.set]; }
+function dbPts(p){ const v=S.db[p.id]; return [0,6,12].includes(v) ? p.pt*v/12 : null; }
 function cid(it){ return "q-"+it.set+"-"+it.id; }
 function status(it){
   if(it.set==="qt") return S.qtDone ? (S.qt[it.id]===QT_BY[it.id].a ? "ok":"bad") : null;
@@ -930,7 +944,7 @@ function go(k){
 
 /* ---------- shared card pieces ---------- */
 function headHTML(it, st, stOverride){
-  return `<header><span class="qid">${label(it)}</span><span class="chip">${CH[it.ch]}</span><span class="qsrc">${SRC[it.set]}</span><span class="st ${st||""}" aria-live="polite">${stOverride??stText(st)}</span></header>`;
+  return `<header><span class="qid">${label(it)}</span><span class="chip">${CH[it.ch]}</span><span class="qsrc">${srcOf(it)}</span><span class="st ${st||""}" aria-live="polite">${stOverride??stText(st)}</span></header>`;
 }
 function scratchBtn(it){ return `<button class="btn ghost" data-scratch="${it.set}:${it.id}" type="button" aria-expanded="${!!S.open["sc:"+it.set+":"+it.id]}">✏️ Karalama</button>`; }
 function scratchHTML(it){
@@ -989,20 +1003,22 @@ function exCard(x){
   </article>`;
 }
 
-/* ---------- deneme B card ---------- */
+/* ---------- deneme Part B / Part C / extra card ---------- */
+/* S.db keeps the old codes (12 full, 6 half, 0 wrong); points are scaled by each question's weight. */
 function dbCard(p){
   const it = ITEMS.find(i=>i.set==="db"&&i.id===p.id), st=status(it), open=!!S.dbOpen[p.id], v=S.db[p.id];
   const [hb,hd] = hintParts(it, HINT_DB[p.id]);
+  const half = fmt(p.pt/2), scored = p.part!=="X";
   return `<article class="q" id="${cid(it)}">
     ${headHTML(it, st)}
-    <div class="prompt"><p>${p.q}</p></div>
-    <div class="actions">${hb}<button class="btn soft" data-reveal="db:${p.id}" type="button" aria-expanded="${open}">${open?"Çözümü gizle":"Çözümü göster"}</button>${scratchBtn(it)}</div>
+    <div class="prompt"><p>${p.q}</p>${scored?`<p class="small muted">(${p.pt} puan)</p>`:""}</div>
+    <div class="actions">${hb}<button class="btn soft" data-reveal="db:${p.id}" type="button" aria-expanded="${open}">${open?"Çözümü gizle":(p.part==="B"?"Örnek cevabı göster":"Çözümü göster")}</button>${scratchBtn(it)}</div>
     ${hd}${scratchHTML(it)}
     <div class="sol" id="s-db-${p.id}" ${open?"":"hidden"}>${p.s}
       <div class="self"><span class="small muted">Kendine puan ver:</span>
-        <button class="btn ${v===12?"ok":"ghost"}" data-dbscore="12" data-id="${p.id}" type="button" aria-pressed="${v===12}">✓ Tam (12)</button>
-        <button class="btn ${v===6?"mid":"ghost"}" data-dbscore="6" data-id="${p.id}" type="button" aria-pressed="${v===6}">½ Yarım (6)</button>
-        <button class="btn ${v===0?"bad":"ghost"}" data-dbscore="0" data-id="${p.id}" type="button" aria-pressed="${v===0}">✗ Yanlış (0)</button></div>
+        <button class="btn ${v===12?"ok":"ghost"}" data-dbscore="12" data-id="${p.id}" type="button" aria-pressed="${v===12}">✓ Tam${scored?` (${p.pt})`:""}</button>
+        <button class="btn ${v===6?"mid":"ghost"}" data-dbscore="6" data-id="${p.id}" type="button" aria-pressed="${v===6}">½ Yarım${scored?` (${half})`:""}</button>
+        <button class="btn ${v===0?"bad":"ghost"}" data-dbscore="0" data-id="${p.id}" type="button" aria-pressed="${v===0}">✗ Yanlış${scored?" (0)":""}</button></div>
     </div>
   </article>`;
 }
@@ -1015,11 +1031,11 @@ function planView(){
   return `<section class="sheet plan">
     <h2>NS102 Midterm Çalışma Planı</h2>
     <p class="muted"><b>Sınav:</b> 16 Kasım 2026 Pazartesi 09:00 · <b>Kaynak:</b> Young &amp; Freedman, <i>University Physics</i> 15. baskı, Bölüm 1–7 slaytları. MATH101 Cumartesi 12:30'da, bu yüzden Cuma hafif, asıl yük Cumartesi akşamı ve Pazar'da.</p>
-    <div class="chips"><span class="chip">${ITEMS.length} etkileşimli soru</span><span class="chip purple">${FC.length} ezber kartı</span><span class="chip green">Otomatik puanlanan test ve deneme</span><span class="chip amber">${EX.length} çözümlü örnek</span></div>
+    <div class="chips"><span class="chip">${ITEMS.length} etkileşimli soru</span><span class="chip purple">${FC.length} ezber kartı</span><span class="chip green">Otomatik puanlanan test ve deneme</span><span class="chip amber">${EX.length} çözümlü örnek</span><a class="chip red" href="soru-bankasi.html">🎯 Soru bankası: kitaptan 289 soru (Part A, B, C)</a></div>
     <div class="note small"><b>Teyit edilmedi:</b> kapsam Bölüm 1–7 varsayıldı (klasöre yedi bölümün slaytı geldi). Sınav formatı ve formül kâğıdı verilip verilmeyeceği bilinmiyor. Hoca farklı bir şey söylediyse plan değişir.</div>
     ${PLAN.map(d=>`<div class="day ${d.d===today?"today":""}">
       <h3>${d.t} ${d.d===today?'<span class="chip amber">bugün</span>':""}<span class="muted">${d.n}</span></h3>
-      <ul>${d.items.map(i=>`<li class="${S.plan[i.id]?"done":""}"><input type="checkbox" id="pl-${i.id}" data-plan="${i.id}" ${S.plan[i.id]?"checked":""}><label class="what" for="pl-${i.id}">${i.w}</label>${i.go?`<button class="go" type="button" data-tab="${LEGACY[i.go]||i.go}">aç</button>`:""}</li>`).join("")}</ul>
+      <ul>${d.items.map(i=>`<li class="${S.plan[i.id]?"done":""}"><input type="checkbox" id="pl-${i.id}" data-plan="${i.id}" ${S.plan[i.id]?"checked":""}><label class="what" for="pl-${i.id}">${i.w}</label>${i.go?`<button class="go" type="button" data-tab="${LEGACY[i.go]||i.go}">aç</button>`:""}${i.url?`<a class="go" href="${i.url}">aç ↗</a>`:""}</li>`).join("")}</ul>
     </div>`).join("")}
   </section>
   <section class="sheet"><h2>Bölümler ve ağırlık</h2>${tpl("tpl-weights")}
@@ -1084,35 +1100,42 @@ const DUR = 90*60*1000;
 function tLeftMs(){ const base = S.tBase ?? DUR; return S.timer ? base-(Date.now()-S.timer) : base; }
 function denemeView(){
   const a = ITEMS.filter(i=>i.set==="da");
+  const byPart = k => DB.filter(p=>p.part===k).sort((x,y)=>x.n.localeCompare(y.n));
   return `<section class="sheet"><h2>📝 Deneme sınavı</h2>
-    <p class="muted">90 dakika. Kaynak ve formül sayfası kapalı, hesap makinesi serbest. $g=9{,}80\\ \\text{m/s}^2$. A bölümü 20 × 2 = 40 puan, B bölümü 5 × 12 = 60 puan. Sorular slaytlardaki konulara göre hazırlandı; hocanın gerçek sınav formatı bilinmiyor.</p>
+    <p class="muted">Yapı geçen yılın NS102 midterm'üne göre: <b>Part A</b> clicker tipi çoktan seçmeli (20 puan), <b>Part B</b> 2 kavramsal soru (30 puan; geçen yıl kitabın Discussion Questions bölümünden geldi), <b>Part C</b> 3 problem (50 puan, 20 + 10 + 20; geçen yıl kitabın Exercises bölümünden, sayıları değiştirilmiş olarak geldi). Kaynak ve formül sayfası kapalı, hesap makinesi serbest. $g=9{,}80\\ \\text{m/s}^2$. Gerçek sınavın süresi bilinmiyor; sayaç 90 dakika. Daha fazla soru için <a href="soru-bankasi.html">Soru bankası</a>: kitaptan 71 exercise, 119 Discussion Question, 99 clicker.</p>
     <div class="timer" id="dTimer"><span class="clock" id="dClock" aria-live="off">90:00</span>
       <button class="btn" id="tStart" type="button">Süreyi başlat</button>
       <button class="btn ghost" id="tPause" type="button">Duraklat</button>
       <button class="btn ghost" id="tReset" type="button">Sıfırla</button>
       <span class="small muted" id="tNote">Sınav süresi: 90 dk (kapalı defter)</span></div>
-    <h3>A Bölümü: Çoktan seçmeli</h3>
+    <h3>Part A: Çoktan seçmeli (20 × 1 = 20 puan)</h3>
     ${a.map(mcCard).join("")}
-    <div class="actions">${S.daDone?"":`<button class="btn" id="daCheck" type="button">A bölümünü kontrol et</button>`}<button class="btn ghost" id="daReset" type="button">A bölümünü sıfırla</button></div>
-    <h3>B Bölümü: Klasik sorular</h3>
-    <p class="muted small">Kâğıtta adım adım çöz, gereken yerde free-body diagram çiz. Sonra çözümü aç ve kendine puan ver: tam 12, yarım 6, yanlış 0.</p>
-    ${DB.map(dbCard).join("")}
+    <div class="actions">${S.daDone?"":`<button class="btn" id="daCheck" type="button">Part A'yı kontrol et</button>`}<button class="btn ghost" id="daReset" type="button">Part A'yı sıfırla</button></div>
+    <h3>Part B: Kavramsal sorular (2 × 15 = 30 puan)</h3>
+    <p class="muted small">İngilizce, 3–5 cümleyle cevapla. İlk cümlede sonucu söyle, sonra nedenini fizik terimleriyle açıkla. Sonra örnek cevabı aç ve kendine puan ver.</p>
+    ${byPart("B").map(dbCard).join("")}
+    <h3>Part C: Problemler (20 + 10 + 20 = 50 puan)</h3>
+    <p class="muted small">Kâğıtta adım adım çöz, gereken yerde free-body diagram çiz. Sonra çözümü aç ve kendine puan ver: tam, yarım ya da yanlış.</p>
+    ${byPart("C").map(dbCard).join("")}
     ${scoreHTML()}
+    <h3>Ek problemler (puana girmez)</h3>
+    <p class="muted small">Eski denemenin B bölümünden kalan iki problem. Part C'yi bitirdikten sonra ek pratik olarak çöz.</p>
+    ${byPart("X").map(dbCard).join("")}
   </section>`;
 }
 function scoreHTML(){
-  const a = S.daDone ? ITEMS.filter(i=>i.set==="da"&&status(i)==="ok").length*2 : null;
-  const marked = DB.filter(p=>[0,6,12].includes(S.db[p.id]));
-  const b = marked.reduce((s,p)=>s+S.db[p.id],0);
-  if(a===null && !marked.length) return "";
+  const a = S.daDone ? ITEMS.filter(i=>i.set==="da"&&status(i)==="ok").length : null;
+  const part = k => { const ps=DB.filter(p=>p.part===k), m=ps.filter(p=>dbPts(p)!==null); return {all:ps.length, n:m.length, pts:m.reduce((s,p)=>s+dbPts(p),0)}; };
+  const b = part("B"), c = part("C");
+  if(a===null && !b.n && !c.n) return "";
+  const full = a!==null && b.n===b.all && c.n===c.all, t = full ? a+b.pts+c.pts : null;
   let msg="";
-  if(a!==null && marked.length===DB.length){
-    const t=a+b;
+  if(full){
     msg = t>=80 ? "Hazırsın. Yanlış yaptığın bölümlerin clicker sorularını bir kez daha çöz."
         : t>=60 ? "Yanlışların bölümünü Konu & Ezber ve Örnekler'den tekrar et."
         : "İlerleme & Hatalar sekmesine bak, en zayıf bölümden başla.";
   }
-  return `<div class="score" role="status">A: <b>${a===null?"–":a}</b>/40 · B: <b>${b}</b>/60 <span class="small">(${marked.length}/5 işaretli)</span>${a!==null&&marked.length===DB.length?` · Toplam: <b>${a+b}</b>/100`:""}
+  return `<div class="score" role="status">Part A: <b>${a===null?"–":a}</b>/20 · Part B: <b>${fmt(b.pts)}</b>/30 <span class="small">(${b.n}/${b.all} işaretli)</span> · Part C: <b>${fmt(c.pts)}</b>/50 <span class="small">(${c.n}/${c.all} işaretli)</span>${full?` · Toplam: <b>${fmt(t)}</b>/100`:""}
     ${msg?`<div class="small">${msg} <button class="go" type="button" data-tab="ilerleme">İlerleme & Hatalar</button></div>`:""}</div>`;
 }
 
@@ -1139,7 +1162,7 @@ function ilerlemeView(){
   h += `<section class="sheet"><h2>📕 Hata listesi (${bad.length} soru)</h2>`;
   h += bad.length ? `<p class="muted">Sınavdan önce bu soruları tekrar çöz. Örneklerde "Doğru yaptım" deyince listeden düşer.</p>`+bad.map(it=>{
       const s=status(it), extra = (it.set==="qt"||it.set==="da") && (it.set==="qt"?S.qt:S.da)[it.id]===undefined ? " · boş" : "";
-      return `<div class="errrow"><span class="qid">${label(it)}</span><span class="chip ${s==="mid"?"amber":"red"}">${s==="mid"?"Yarım":"Yanlış"+extra}</span><span class="what">${SRC[it.set]} · ${CH[it.ch]}</span><button type="button" class="btn soft" data-jump="${it.set}:${it.id}" style="padding:3px 10px;font-size:.8rem">Soruya git</button></div>`;
+      return `<div class="errrow"><span class="qid">${label(it)}</span><span class="chip ${s==="mid"?"amber":"red"}">${s==="mid"?"Yarım":"Yanlış"+extra}</span><span class="what">${srcOf(it)} · ${CH[it.ch]}</span><button type="button" class="btn soft" data-jump="${it.set}:${it.id}" style="padding:3px 10px;font-size:.8rem">Soruya git</button></div>`;
     }).join("")
     : `<p class="muted">Henüz yanlış yok. Hızlı test, deneme ve örneklerde yanlış çıkan sorular burada birikir.</p>`;
   return h+`</section>`;
@@ -1149,7 +1172,7 @@ function summaryText(){
   for(const c in CHS){ const s=r[c]; lines.push(`- ${CH[c]}: ${fmt(s.ok)} doğru, ${fmt(s.bad)} yanlış, ${fmt(s.tot-s.ok-s.bad)} boş`); }
   const bad=ITEMS.filter(i=>["bad","mid"].includes(status(i))).map(label);
   lines.push("Yanlışlar: "+(bad.length?bad.join(", "):"yok"));
-  if(S.daDone || DB.some(p=>S.db[p.id]!==undefined)){ const a=S.daDone?ITEMS.filter(i=>i.set==="da"&&status(i)==="ok").length*2:"–"; const b=DB.reduce((s,p)=>s+(S.db[p.id]||0),0); lines.push(`Deneme: A ${a}/40, B ${b}/60`); }
+  if(S.daDone || DB.some(p=>p.part!=="X"&&dbPts(p)!==null)){ const a=S.daDone?ITEMS.filter(i=>i.set==="da"&&status(i)==="ok").length:"–"; const sum=k=>fmt(DB.filter(p=>p.part===k).reduce((t,p)=>t+(dbPts(p)||0),0)); lines.push(`Deneme: Part A ${a}/20, Part B ${sum("B")}/30, Part C ${sum("C")}/50`); }
   return lines.join("\n");
 }
 
@@ -1221,7 +1244,7 @@ let INDEX=null;
 function buildIndex(){
   const tmp=document.createElement("div");
   const out=[];
-  ITEMS.forEach(it=>out.push({kind:"q", title:label(it), sub:`${SRC[it.set]} · ${CH[it.ch]}`, text:tr(plain(label(it)+" "+it.text+" "+CH[it.ch]+" "+SRC[it.set]+" "+(it.set==="ex"?HINT_EX[it.id]||"":it.set==="db"?HINT_DB[it.id]||"":""))), run:()=>jumpItem(it.set,it.id)}));
+  ITEMS.forEach(it=>out.push({kind:"q", title:label(it), sub:`${srcOf(it)} · ${CH[it.ch]}`, text:tr(plain(label(it)+" "+it.text+" "+CH[it.ch]+" "+srcOf(it)+" "+(it.set==="ex"?HINT_EX[it.id]||"":it.set==="db"?HINT_DB[it.id]||"":""))), run:()=>jumpItem(it.set,it.id)}));
   FC.forEach(f=>out.push({kind:"k", title:"Kart", sub:CHS[f.ch], snippet:plain(f.q).slice(0,70), text:tr(plain("kart ezber "+f.q+" "+f.a+" "+CH[f.ch])), run:()=>jumpTo("konu","fc-"+f.id)}));
   tmp.innerHTML=tpl("tpl-ozet");
   tmp.querySelectorAll("details").forEach(d=>out.push({kind:"o", title:"Özet", sub:d.querySelector("summary").textContent, text:tr(plain("özet "+d.textContent)), run:()=>jumpTo("konu",d.id)}));
@@ -1267,8 +1290,8 @@ document.addEventListener("click",e=>{
   switch(t.id){
     case "qtCheck": { const blank=QT.filter(q=>S.qt[q.id]===undefined).length; S.qtDone=true; if(!S.plan.p1) S.plan.p1=true; save(); render(); toast(blank?`${blank} boş soru yanlış sayıldı`:"Kontrol edildi"); return; }
     case "qtReset": if(confirm("Hızlı test cevapları silinsin mi?")){ S.qt={}; S.qtDone=false; save(); render(); toast("Hızlı test sıfırlandı"); } return;
-    case "daCheck": { const blank=DA.filter(q=>S.da[q.id]===undefined).length; S.daDone=true; save(); render(); toast(blank?`${blank} boş soru yanlış sayıldı`:"A bölümü kontrol edildi"); return; }
-    case "daReset": if(confirm("Deneme A cevapları silinsin mi?")){ S.da={}; S.daDone=false; save(); render(); toast("A bölümü sıfırlandı"); } return;
+    case "daCheck": { const blank=DA.filter(q=>S.da[q.id]===undefined).length; S.daDone=true; save(); render(); toast(blank?`${blank} boş soru yanlış sayıldı`:"Part A kontrol edildi"); return; }
+    case "daReset": if(confirm("Part A cevapları silinsin mi?")){ S.da={}; S.daDone=false; save(); render(); toast("Part A sıfırlandı"); } return;
     case "tStart": if(!S.timer){ if(S.tBase==null) S.tBase=DUR; S.timer=Date.now(); save(); tick(); toast("Süre başladı"); } return;
     case "tPause": if(S.timer){ S.tBase=tLeftMs(); S.timer=null; save(); tick(); } return;
     case "tReset": S.timer=null; S.tBase=DUR; save(); tick(); return;
