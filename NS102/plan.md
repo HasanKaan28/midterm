@@ -40,33 +40,37 @@ MATH101 sınavı Cumartesi 12:30'da. Bu yüzden Cuma günü NS102'ye az süre ay
 2. `cozumlu-ornekler.md` Örnek 1–4. Önce kendin çöz, sonra çözüme bak.
 3. `materyal` klasöründe CH01 ve CH02 clicker sorularından 10'ar tane.
 
-### Cumartesi 14 Kasım (akşam, yaklaşık 4,5 saat fizik)
+### Cumartesi 14 Kasım (19:40'tan itibaren, sıfırdan Bölüm 1–4)
 
-Bu günden itibaren program geçen yılın sınav yapısına göre değişti (aşağıdaki "Sınav yapısı" bölümü). Soru bankası: `soru-bankasi.html`.
+Yöntem her bölümde aynı: önce konuyu öğren (Konu & Ezber), sonra çözümlü örneği adım adım kâğıda geçir, sonra çözümü kapatıp aynı soruyu kendin çöz. Soru bankası: `soru-bankasi.html`.
 
-1. 18:00–18:45 Geçen yılın sınavı: C1, C2, C3'ü çözümlere bakmadan yeniden çöz, sonra Soru bankası'ndaki çözümlerle karşılaştır.
-2. 18:45–20:00 Part C: Soru bankası'nda Part C + Bölüm 5 filtresi, 10–12 exercise. Her birinde free-body diagram çiz.
-3. 20:30–21:30 Part C: Bölüm 3–4 exercise'ları (projectile motion, circular motion, Newton's laws).
-4. 21:30–22:00 ELIT100 (ana sayfadaki planda).
-5. 22:00–22:40 Part A: Bölüm 1–4 clicker soruları.
-6. 22:40–23:00 Part B: Bölüm 3'ten 5 Discussion Question. İngilizce yaz, sonucu ilk cümlede söyle.
+1. 19:40–20:40 Bölüm 1–2 öğren: Konu & Ezber'de vectors, components, motion along a line, free fall. Her formülü kâğıda kendin yaz.
+2. 20:40–21:30 Bölüm 1–2 örnekleri: çözümü aç, adım adım kâğıda geçir. Sonra çözümü kapat, aynı soruyu kendin çöz.
+3. 21:40–22:40 10 dk mola, sonra Bölüm 3: projectile motion ve circular motion. 20 dk Konu & Ezber, 40 dk Bölüm 3 örnekleri (aynı yöntem).
+4. 22:40–23:50 Bölüm 4: Newton's laws ve free-body diagram. 20 dk konu, 30 dk örnek, sonra Soru bankası'nda Bölüm 4'ten 3 exercise. Her soruda free-body diagram çiz.
+5. 23:50–00:30 Hızlı test'te Bölüm 1–4 soruları, kaynak kapalı. Yanlışları işaretle, sonra yat.
 
-### Pazar 15 Kasım (ana gün, yaklaşık 7 saat)
+### Pazar 15 Kasım (Bölüm 5–7, sonra sınav biçiminde, yaklaşık 11 saat)
 
-1. 09:30–11:00 Part C: Bölüm 6–7 exercise'ları. Pearson ödevindeki 6.32, 6.59, 7.45 ve 7.57'yi bu sefer kendin çöz.
-2. 11:15–12:30 Part C: Bölüm 5'te kalan exercise'lar, sonra Bölüm 1–2 hızlı tekrar.
-3. 13:30–14:15 Part A: Bölüm 5–7 clicker soruları.
-4. 14:15–15:00 Part B: Bölüm 4–7'den 8–10 Discussion Question.
-5. 15:00–16:30 Deneme (`calis.html`, Deneme sekmesi): Part A, B, C; 90 dakika, süre tutarak, kaynak kapalı.
-6. 16:30–17:00 Denemeyi puanla, İlerleme & Hatalar'da zayıf bölüme bak.
-7. 17:00–17:30 ELIT100.
-8. 17:30–18:30 Soru bankası'nda "Yanlışlarım" filtresi: yanlış çıkanları yeniden çöz.
-9. 20:00–20:45 Formüller: ezberden yaz, sayfayla karşılaştır. 23:00'te yat.
+18:15–19:15 yemek ve mola.
+
+1. 09:30–11:15 Bölüm 5 (en ağır bölüm): friction, inclined plane, circular dynamics. 30 dk konu, 45 dk örnek, sonra Soru bankası'nda Part C + Bölüm 5'ten 4 exercise.
+2. 11:30–12:45 Bölüm 6: work, kinetic energy, work–energy theorem, power. 25 dk konu, 50 dk örnek.
+3. 13:30–15:00 Bölüm 7: potential energy, conservation of energy. 25 dk konu, 35 dk örnek, sonra Pearson 6.32, 6.59, 7.45 ve 7.57'yi kendin çöz.
+4. 15:15–16:45 Part C: önce geçen yılın C1, C2, C3'ü, sonra Bölüm 3, 4, 5'ten ikişer exercise. Takılırsan çözümü aç, kapat, baştan çöz.
+5. 16:45–17:30 Part A: Bölüm 1–7 clicker soruları.
+6. 17:30–18:15 Part B: Bölüm 4–7'den 6 Discussion Question. İngilizce yaz, sonucu ilk cümlede söyle.
+7. 19:15–20:45 Deneme: Part A, B, C (geçen yılın yapısı), 90 dk, süre tut, kaynak kapalı.
+8. 20:45–21:15 Denemeyi puanla, İlerleme & Hatalar'da zayıf bölüme bak.
+9. 21:15–22:00 Soru bankası'nda "Yanlışlarım" filtresi: yanlış çıkanları yeniden çöz.
+10. 22:00–22:30 Formüller: ezberden yaz, sayfayla karşılaştır. Hesap makinesini DEG moduna al. 23:00'te yat.
 
 ### Pazartesi 16 Kasım (sınav sabahı)
 
 - 07:30–07:50 Formüller ve geçen yılın C1–C3 çözümlerine son bakış. Yeni konu açma.
 - Hesap makinesini derece (DEG) moduna al.
+
+ELIT100 çalışması Pazartesi öğleden sonra ve Salı (ana sayfadaki planda).
 
 ## Sınav yapısı (geçen yılın midterm'üne göre)
 
