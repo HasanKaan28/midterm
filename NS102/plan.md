@@ -42,7 +42,7 @@ MATH101 sınavı Cumartesi 12:30'da. Bu yüzden Cuma günü NS102'ye az süre ay
 
 ### Cumartesi 14 Kasım (19:40'tan itibaren, sıfırdan Bölüm 1–4)
 
-Yöntem her bölümde aynı: önce konuyu öğren (Konu & Ezber), sonra çözümlü örneği adım adım kâğıda geçir, sonra çözümü kapatıp aynı soruyu kendin çöz. Soru bankası: `soru-bankasi.html`.
+Yöntem her bölümde aynı: önce konuyu öğren (Konu & Ezber), sonra çözümlü örneği adım adım kâğıda geçir, sonra çözümü kapatıp aynı soruyu kendin çöz. Soru bankası ve geçen yılın midterm'ü artık `calis.html` içinde (Soru bankası ve Geçen yıl sekmeleri).
 
 1. 19:40–20:40 Önce 15 dk Konu & Ezber'in en üstündeki Terimler sözlüğünü oku (ör. counterclockwise = saat yönünün tersine). Sayfada altı noktalı her terime dokununca Türkçesi çıkar. Sonra Bölüm 1–2 öğren: Konu & Ezber'de vectors, components, motion along a line, free fall. Her formülü kâğıda kendin yaz.
 2. 20:40–21:30 Bölüm 1–2 örnekleri: çözümü aç, adım adım kâğıda geçir. Sonra çözümü kapat, aynı soruyu kendin çöz.
@@ -98,7 +98,7 @@ Geçen yıl puan kaybedilen yerler:
 | `deneme.md` | 90 dakikalık deneme sınavı ve cevap anahtarı |
 | `hizli-test.md` | Zayıf konu tespiti için 14 kısa soru |
 | `calis.html` | Etkileşimli çalışma sayfası (deneme A/B/C yapısında) |
-| `soru-bankasi.html` | Kitaptan 71 exercise, 119 Discussion Question, 99 clicker; geçen yılın sınav çözümleri |
+| `soru-bankasi.html` | Eski soru bankası adresi; artık `calis.html#banka`'ya yönlendiriyor |
 | `materyal/` | Hocanın slaytları (zip'ten çıkarıldı) |
 
 Clicker dosyalarında her sorunun hemen ardından gelen slayt aynı soruyu doğru cevabı işaretli olarak gösterir.
