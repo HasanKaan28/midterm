@@ -15,6 +15,7 @@
   --ink:#111827; --ink-2:#4b5563;
   --blue:#1d4ed8; --blue-soft:#dbeafe;
   --red:#dc2626; --red-soft:#fee2e2;
+  --amber:#b45309; --amber-soft:#fef3c7; --purple:#6d28d9; --purple-soft:#ede9fe;
   --line:#d5dce8; --shadow:0 1px 2px rgba(15,23,42,.05),0 10px 26px -12px rgba(29,78,216,.14);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -22,6 +23,7 @@
   --ink:#f1f5f9; --ink-2:#94a3b8;
   --blue:#60a5fa; --blue-soft:#1e293b;
   --red:#f87171; --red-soft:#3b181c;
+  --amber:#fbbf24; --amber-soft:#362812; --purple:#c084fc; --purple-soft:#2b1c44;
   --line:#263147; --shadow:0 10px 30px -12px rgba(0,0,0,.7);
 }}
 :root[data-theme="dark"]{
@@ -29,6 +31,7 @@
   --ink:#f1f5f9; --ink-2:#94a3b8;
   --blue:#60a5fa; --blue-soft:#1e293b;
   --red:#f87171; --red-soft:#3b181c;
+  --amber:#fbbf24; --amber-soft:#362812; --purple:#c084fc; --purple-soft:#2b1c44;
   --line:#263147; --shadow:0 10px 30px -12px rgba(0,0,0,.7);
 }
 *{box-sizing:border-box}
@@ -76,6 +79,29 @@ ol{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
 .done .code{text-decoration:line-through;text-decoration-thickness:2px}
 footer{margin-top:18px;color:var(--ink-2);font-size:.86rem}
 
+/* Combined day-by-day plan */
+.sheet + .sheet{margin-top:18px}
+.plan-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.plan-count{font:500 .8rem "IBM Plex Mono",monospace;color:var(--ink-2)}
+.day{border-top:1px dashed var(--line);padding:14px 0 2px;margin-top:12px}
+.day h3{font:700 1.08rem/1.3 "Outfit",system-ui,sans-serif;margin:0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.day h3 small{font:500 .78rem "IBM Plex Mono",monospace;color:var(--ink-2)}
+.day.today h3::after{content:"bugün";font:600 .7rem "IBM Plex Sans",sans-serif;background:var(--amber-soft);color:var(--amber);padding:2px 8px;border-radius:999px}
+.day.past{opacity:.6}
+.day ul{list-style:none;margin:6px 0 0;padding:0}
+.day li{display:grid;grid-template-columns:20px 96px 1fr;gap:10px;align-items:start;padding:8px 2px;border-bottom:1px dashed var(--line)}
+.day li:last-child{border-bottom:none}
+.day input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--blue)}
+.day .time{font:600 .8rem/1.6 "IBM Plex Mono",monospace;color:var(--ink-2);white-space:nowrap}
+.day .what a{color:var(--blue);text-decoration:none;white-space:nowrap}
+.day .what a:hover{text-decoration:underline}
+.day li.checked label{text-decoration:line-through;color:var(--ink-2)}
+.day li.exam{background:var(--red-soft);border-radius:8px;border-bottom:none;padding:8px 10px;margin:4px 0;font-weight:600}
+.day li.exam .time{color:var(--red)}
+.tag{font-size:.7rem;font-weight:700;padding:1px 7px;border-radius:999px;margin-right:6px;background:var(--blue-soft);color:var(--blue);white-space:nowrap}
+.tag.elit{background:var(--purple-soft);color:var(--purple)}
+.tag.rest{background:var(--paper-3);color:var(--ink-2)}
+
 @media (max-width:520px){
   .sheet{padding:18px 16px 18px 28px}
   .sheet::before{left:13px}
@@ -83,6 +109,11 @@ footer{margin-top:18px;color:var(--ink-2);font-size:.86rem}
   .left{grid-column:2;text-align:left}
   .left small{display:inline-block;margin:0 8px 0 0}
   .date b{font-size:26px}
+  .day li{grid-template-columns:20px 1fr;row-gap:0}
+  .day li .time{grid-column:2}
+  .day li .what{grid-column:2}
+  .day li.exam{grid-template-columns:1fr}
+  .day li.exam .time,.day li.exam .what{grid-column:1}
   .date{padding-right:8px}
   .date span{letter-spacing:.02em;white-space:nowrap;font-size:.62rem}
   .top-in{flex-wrap:nowrap}
@@ -148,6 +179,15 @@ footer{margin-top:18px;color:var(--ink-2);font-size:.86rem}
     </ol>
   </section>
 
+  <section class="sheet" aria-labelledby="planTitle">
+    <div class="plan-head">
+      <h2 id="planTitle">Plan: NS102 ve ELIT100'e kadar</h2>
+      <span class="plan-count" id="planCount" aria-live="polite"></span>
+    </div>
+    <p class="muted">Cumartesi akşamından Salı 17:45'e. Saatler öneri; blok sırasını koru, saati kaydırabilirsin. "aç →" ilgili sekmeyi açar.</p>
+    <div id="plan"></div>
+  </section>
+
   <footer>İşaretlerin ve puanların bu tarayıcıda saklanır; başka cihazda sıfırdan başlar. Sınav saatleri Saraybosna saatiyle.</footer>
 </main>
 
@@ -200,6 +240,85 @@ footer{margin-top:18px;color:var(--ink-2);font-size:.86rem}
 
   render();
   setInterval(render, 60000);
+
+  // ---- Combined plan up to the NS102 and ELIT100 exams ----
+  // Item: [id, time, course, text, link]. course "x" marks an exam row (no checkbox).
+  var N = "NS102/calis.html#", E = "ELIT100/calis.html#";
+  var PLAN = [
+    { date: "2026-11-14", title: "Cumartesi 14 Kas", note: "bu akşam · yaklaşık 3,5 sa", items: [
+      ["c1", "18:00–18:30", "ns", "Hızlı test: 14 soru, kaynak kapalı. Zayıf chapter'ları not al.", N + "qt"],
+      ["c2", "18:30–19:30", "ns", "Konu & Ezber: Ch 3–5 (projectile motion, Newton's laws, friction, circular motion).", N + "konu"],
+      ["c3", "20:00–21:30", "ns", "Örnekler 5–9, 14, 15. Her soruda free-body diagram'ı kâğıda çiz, sonra çözüme bak.", N + "ornek"],
+      ["c4", "21:30–22:00", "el", "Task 1 provası: 5 kesin cümleyi hedging ile yeniden yaz (may / can, some / many, largely).", E + "alistirma"]
+    ]},
+    { date: "2026-11-15", title: "Pazar 15 Kas", note: "ana fizik günü · yaklaşık 7 sa", items: [
+      ["p1", "09:30–11:00", "ns", "Konu & Ezber: Ch 6–7 (work, kinetic energy, power, potential energy, conservation of energy) + Örnek 10–13.", N + "konu"],
+      ["p2", "11:15–12:30", "ns", "Ch 1–2 hızlı tekrar (vectors, motion along a line, free fall) + Örnek 1–4.", N + "ornek"],
+      ["p3", "13:30–15:00", "ns", "Deneme: 90 dk, süre tut, kaynak ve çözüm kapalı.", N + "deneme"],
+      ["p4", "15:00–15:45", "ns", "Denemeyi kontrol et. Yanlışları işaretle, İlerleme & Hatalar'da zayıf chapter'a bak.", N + "ilerleme"],
+      ["p5", "16:00–17:00", "ns", "Yanlış çıkan konuları yeniden çöz. Hocanın örnek midterm'ü varsa onu çöz.", N + "ilerleme"],
+      ["p6", "17:00–17:30", "el", "Konu & Ezber: formal register ve email kalıpları (Task 3 ve Task 5'in hata türleri).", E + "konu"],
+      ["p7", "20:00–20:45", "ns", "Formüller: ezberden yaz, sayfayla karşılaştır. Hesap makinesini DEG moduna al. 23:00'te yat.", N + "form"]
+    ]},
+    { date: "2026-11-16", title: "Pazartesi 16 Kas", note: "sabah sınav · öğleden sonra ELIT 3,5 sa", items: [
+      ["z1", "07:30–07:50", "ns", "Formüller son tekrar. Yeni konu açma.", N + "form"],
+      ["zx", "09:00", "x", "NS102 sınavı"],
+      ["z2", "11:00–14:00", "re", "Yemek ve dinlenme. Çalışma yok."],
+      ["z3", "14:00–14:40", "el", "Task 1 Hedging: 5 cümle, süreli. Kesin kelimeleri bul (always, every, will, guarantee), yumuşat.", E + "alistirma"],
+      ["z4", "14:40–15:30", "el", "Task 2 Summary ve paraphrase: bir paragraf için tek cümle summary + tam paraphrase, APA in-text citation ile.", E + "alistirma"],
+      ["z5", "15:45–16:25", "el", "Task 3 ve Task 5: formal paragraf ve informal email'de 10'ar hatayı bul, tabloya düzelt.", E + "alistirma"],
+      ["z6", "16:25–16:50", "el", "Task 4 Plagiarism: acceptable mı plagiarized mı, gerekçesini bir cümleyle yaz.", E + "alistirma"],
+      ["z7", "17:00–17:45", "el", "Task 6 paragraf: 180–220 kelime, 35 dk. Konuyu daralt, kelime sayısını sona yaz, Metin Denetleyici'den geçir.", E + "denetle"]
+    ]},
+    { date: "2026-11-17", title: "Salı 17 Kas", note: "sınav günü · yaklaşık 2,5 sa", items: [
+      ["s1", "10:00–11:00", "el", "Pazartesi yanlış çıkanları yeniden çöz. Konu & Ezber kartlarını çevir.", E + "konu"],
+      ["s2", "11:00–12:15", "el", "Tam prova: altı task'ı sınav sırasıyla, süreli çöz.", E + "deneme"],
+      ["s3", "12:15–12:45", "el", "Task 6'nın öteki konusu için outline: topic sentence, 3 supporting idea, concluding sentence.", E + "denetle"],
+      ["s4", "15:30'dan sonra", "re", "Çalışma yok. Yemek ye, erken çık."],
+      ["sx", "17:45", "x", "ELIT100 sınavı"]
+    ]}
+  ];
+  var PLAN_KEY = "midterm-index-plan-v1", done = {};
+  try { done = JSON.parse(localStorage.getItem(PLAN_KEY) || "{}") || {}; } catch (e) {}
+  var TAGS = { ns: ["NS102", ""], el: ["ELIT100", "elit"], re: ["Mola", "rest"] };
+  var box = document.getElementById("plan");
+
+  function localDay() {
+    var d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+
+  function count() {
+    var all = 0, ok = 0;
+    PLAN.forEach(function (d) { d.items.forEach(function (it) { if (it[2] !== "x" && it[2] !== "re") { all++; if (done[it[0]]) ok++; } }); });
+    document.getElementById("planCount").textContent = ok + "/" + all + " adım";
+  }
+
+  function renderPlan() {
+    var today = localDay();
+    box.innerHTML = PLAN.map(function (d) {
+      var cls = d.date === today ? " today" : d.date < today ? " past" : "";
+      return '<div class="day' + cls + '"><h3>' + d.title + " <small>" + d.note + "</small></h3><ul>" +
+        d.items.map(function (it) {
+          if (it[2] === "x") return '<li class="exam"><span class="time">' + it[1] + '</span><span class="what">' + it[3] + "</span></li>";
+          var tag = TAGS[it[2]], open = it[4] ? ' <a href="' + it[4] + '">aç →</a>' : "";
+          return '<li class="' + (done[it[0]] ? "checked" : "") + '"><input type="checkbox" id="pl-' + it[0] + '" data-plan="' + it[0] + '"' + (done[it[0]] ? " checked" : "") + ">" +
+            '<span class="time">' + it[1] + '</span><span class="what"><span class="tag ' + tag[1] + '">' + tag[0] + '</span><label for="pl-' + it[0] + '">' + it[3] + "</label>" + open + "</span></li>";
+        }).join("") + "</ul></div>";
+    }).join("");
+    count();
+  }
+
+  box.addEventListener("change", function (e) {
+    var id = e.target.dataset.plan;
+    if (!id) return;
+    done[id] = e.target.checked;
+    e.target.closest("li").classList.toggle("checked", e.target.checked);
+    try { localStorage.setItem(PLAN_KEY, JSON.stringify(done)); } catch (err) {}
+    count();
+  });
+
+  renderPlan();
 })();
 </script>
 </body>
