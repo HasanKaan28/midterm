@@ -338,6 +338,14 @@ details.qform summary{cursor:pointer;font-weight:600}
 button.opt.slide-l{width:auto;min-width:56px;justify-content:center;font-weight:700;font-size:1.05rem;padding:10px 16px}
 details.slide-alt{margin:8px 0;border:1px dashed var(--line);border-radius:8px;padding:6px 10px}
 details.slide-alt summary{cursor:pointer;font-size:.9rem;color:var(--ink-2)}
+
+.slide-wrap{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff;max-width:760px}
+.slide-svg{display:block;width:100%;height:auto}
+.slide-svg .slt{font-family:var(--slfont),"Times New Roman",Times,serif;color:#000;padding:3.6px 7.2px;line-height:1.2;font-size:24px;box-sizing:border-box}
+.slide-svg .slt sup{font-size:.62em;vertical-align:super;line-height:0}
+.slide-svg .slt sub{font-size:.62em;vertical-align:sub;line-height:0}
+.slide-svg .sltbl{border-collapse:collapse;font-size:14px}
+.slide-svg .sltbl td{border:1px solid #999;padding:2px 6px}
 </style>
 </head>
 <body>
@@ -1302,7 +1310,7 @@ function bkT(s){ return esc(s).replace(/([A-Za-z])⃗/g, "$$\\vec{$1}$$").replac
 let ORIG = null;
 (function loadOrig(){
   if(/github\.io$/.test(location.hostname)) return;
-  const sc=document.createElement("script"); sc.src="materyal/orijinal/clicker-orijinal.js";
+  const sc=document.createElement("script"); sc.src="materyal/orijinal/clicker-orijinal.js?t="+Date.now();
   sc.onload=()=>{ ORIG=window.ORIG_CLICKER||null; if(ORIG) render(); };
   sc.onerror=()=>{};
   document.head.appendChild(sc);
@@ -1312,7 +1320,8 @@ const CH7_KEY = {"7.1":"B","7.2":"C","7.3":"D","7.4":"D","7.5":"C","7.6":"D","7.
 function slideKey(b){ const k = b.r ? b.r[2] : CH7_KEY[b.m.ref]; return "ABCDE".indexOf(String(k||"").trim().charAt(0)); }
 function slideCount(b){
   const o = ORIG && ORIG[b.m.ref]; let n = 0;
-  if(o) n = o.seq.filter(x=>x.t && /^[A-E][.)\t ]/.test(x.t)).length;
+  if(o && o.svg){ const txt=o.svg.replace(/<[^>]+>/g,"\n"); n=(txt.match(/^\s*[A-E][.)]/gm)||[]).length; }
+  else if(o && o.seq) n = o.seq.filter(x=>x.t && /^[A-E][.)\t ]/.test(x.t)).length;
   return Math.min(5, Math.max(n, b.m.o.length, slideKey(b)+1));
 }
 function slideCard(b){
@@ -1331,6 +1340,7 @@ function origHTML(b, short){
   if(!ORIG || (b.kind!=="A" && b.kind!=="R")) return "";
   const ref = b.kind==="A" ? b.m.ref : b.t.ref.replace(/^RT/,"RT");
   const o = ORIG[ref]; if(!o) return "";
+  if(o.svg) return `<div class="orig no-gloss"><div class="orig-h">📄 Slayt Q${esc(ref)} (birebir)</div><div class="slide-wrap">${o.svg}</div>${short?"":`<p class="small muted">Aşağıda aynı sorunun düzenlenmiş hali var: cevabını oradan işaretle.</p>`}</div>`;
   const items = o.seq.map(x=>({...x, t: x.t ? x.t.replace(/\u000b/g," ") : x.t}));
   const firstT = items.findIndex(x=>x.t);
   const after = items.slice(firstT+1), optRun = after.filter(x=>x.t);
