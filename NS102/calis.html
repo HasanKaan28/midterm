@@ -1524,7 +1524,7 @@ function bkCard(b, opt){
     if(solOpen) out = `<div class="sol"><p><b>Cevap: ${esc(b.t.ans)}</b></p><p>${bkT(b.t.w)}</p>${bkGrade(b)}</div>`;
   } else if(b.kind==="B"){
     const dqo = dqOrigHTML(b);
-    body = `${dqo || fig}${dqo && b.local ? "" : `<div class="prompt" data-trtap="bk:${b.id}">${dqo?`<p class="small muted">Kendi cümlelerimizle:</p>`:""}<p>${bkT(b.q.q)}</p>${bkTrBox(b)}</div>`}
+    body = `${dqo || fig}${dqo && b.local ? `<div class="prompt" data-trtap="bk:${b.id}">${bkTrBox(b)}</div>` : `<div class="prompt" data-trtap="bk:${b.id}">${dqo?`<p class="small muted">Kendi cümlelerimizle:</p>`:""}<p>${bkT(b.q.q)}</p>${bkTrBox(b)}</div>`}
       <label class="small muted" for="bkn-${b.id}">Cevabın (sınavdaki gibi 3–5 cümle; ilk cümlede sonucu söyle):</label>
       <textarea class="scratch-Area bknote" id="bkn-${b.id}" data-bknote="${b.id}" rows="3">${esc(S.bkNote[b.id]||"")}</textarea>`;
     acts = b.q.a ? `<button class="btn soft" type="button" data-bksol="${b.id}" aria-expanded="${solOpen}">${solOpen?"Örnek cevabı gizle":"Örnek cevabı göster"}</button>` : `<span class="small muted">Bu soru için örnek cevap henüz yok.</span>`;
