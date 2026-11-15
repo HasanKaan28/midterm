@@ -1282,6 +1282,24 @@ const FIG = (() => {
   const axes = (ox, oy, w, h, xl = 't', yl = 'x') => ar(ox, oy, ox + w, oy) + ar(ox, oy + 6, ox, oy - h) + t(ox + w - 4, oy + 16, xl, 'it') + t(ox - 16, oy - h + 10, yl, 'it');
   const pulley = (x, y, r = 9) => `<circle cx="${x}" cy="${y}" r="${r}" class="fp"/>`;
   const box = (x, y, w, h, lab, cls = 'fb') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" class="${cls}"/>` + (lab ? t(x + w / 2 - 4 * lab.length, y + h / 2 + 5, lab) : '');
+  const f1 = v => +v.toFixed(1);
+  // incline rising to the right; arrows = [[from, to, label, offset]] as fractions of the slope length
+  const inc = (deg, o = {}) => {
+    const L = o.L || 200, r = deg * Math.PI / 180, c = Math.cos(r), sn = Math.sin(r);
+    const ox = 16, oy = Math.round(L * sn) + 34;
+    const N = (k, d) => [f1(ox + k * L * c - d * sn), f1(oy - k * L * sn - d * c)];
+    const tx = f1(ox + L * c), ty = f1(oy - L * sn);
+    let b = `<polygon points="${ox},${oy} ${tx},${oy} ${tx},${ty}" class="fs"/>`;
+    b += `<path d="M${ox + 34},${oy} A34,34 0 0 0 ${f1(ox + 34 * c)},${f1(oy - 34 * sn)}" class="fg" fill="none"/>` + t(f1(ox + 40 * Math.cos(r / 2) + 2), f1(oy - 40 * Math.sin(r / 2) + 5), o.ang || deg + '°', '', 11);
+    const [bx, by] = N(o.at || 0.55, 12);
+    b += `<g transform="translate(${bx},${by}) rotate(${-deg})">${box(-17, -12, 34, 24, '', 'fb')}</g>`;
+    (o.arrows || []).forEach(a => { const d = a[3] || 36, [x1, y1] = N(a[0], d), [x2, y2] = N(a[1], d), [lx, ly] = N((a[0] + a[1]) / 2, d + 16); b += ar(x1, y1, x2, y2, 'fc') + t(lx - 6, ly + 4, a[2], 'it', 12); });
+    if (o.len) { const [lx, ly] = N(0.5, -16); b += t(lx - 14, ly + 4, o.len, '', 11); }
+    return { w: Math.ceil(tx) + 24, h: oy + 10, b };
+  };
+  const incW = (deg, o, label) => { const q = inc(deg, o); return W(q.w + (o.padR || 0), q.h + (o.note ? 16 : 0), q.b + (o.note ? t(16, q.h + 10, o.note, '', 10) : ''), label); };
+  const coil = (x1, x2, y, n = 8, a = 8) => { const st = (x2 - x1) / n; let pts = `${x1},${y}`; for (let i = 0; i < n; i++) pts += ` ${f1(x1 + st * (i + 0.5))},${i % 2 ? y + a : y - a}`; return `<polyline points="${pts} ${x2},${y}" class="fl" fill="none"/>`; };
+  const coilV = (x, y1, y2, n = 8, a = 9) => { const st = (y2 - y1) / n; let pts = `${x},${y1}`; for (let i = 0; i < n; i++) pts += ` ${i % 2 ? x + a : x - a},${f1(y1 + st * (i + 0.5))}`; return `<polyline points="${pts} ${x},${y2}" class="fl" fill="none"/>`; };
   const F = {
     xt3: () => W(260, 150, axes(30, 125, 215, 110) + `<polyline points="30,120 95,55 145,55 225,25" class="fc" fill="none"/>` + t(55, 80, 'P') + t(115, 48, 'Q') + t(180, 34, 'R'), 'x–t graph with three straight segments P, Q, R'),
     xtcurve: () => W(300, 170, axes(30, 145, 255, 130) + `<path d="M30,140 C70,140 80,95 95,80 C110,60 120,40 140,38 C160,38 170,70 185,95 C200,120 215,135 245,136" class="fc" fill="none"/>` + `<circle cx="95" cy="80" r="3" class="fd"/>` + t(80, 76, 'P') + `<circle cx="140" cy="38" r="3" class="fd"/>` + t(136, 30, 'Q') + `<circle cx="185" cy="95" r="3" class="fd"/>` + t(192, 92, 'R') + `<circle cx="245" cy="136" r="3" class="fd"/>` + t(250, 132, 'S'), 'x–t curve through P, maximum Q, R and minimum S'),
@@ -1306,11 +1324,26 @@ const FIG = (() => {
     lamp: (ang = 60) => W(240, 150, `<rect x="10" y="10" width="220" height="8" class="fs"/>` + ln(30, 18, 120, 90) + ln(210, 18, 120, 90) + box(105, 90, 30, 34, '', 'fb') + ln(120, 30, 120, 90, 'fdash') + t(100, 74, ang + '°', '', 11) + t(126, 74, ang + '°', '', 11), 'Weight hung from two symmetric cables'),
     loop: () => W(200, 200, `<circle cx="100" cy="100" r="80" class="fg" fill="none"/>` + box(88, 168, 24, 12, '', 'fb') + t(118, 196, 'A (bottom)', '', 10) + box(88, 20, 24, 12, '', 'fb') + t(118, 14, 'B (top)', '', 10) + `<circle cx="100" cy="100" r="3" class="fd"/>` + ln(100, 100, 180, 100, 'fdash') + t(130, 96, 'R', 'it'), 'Car moving inside a vertical circle'),
     dive: () => W(280, 170, `<path d="M40,10 L40,70 A90,90 0 0 0 130,160" class="fc" fill="none"/>` + `<path d="M130,160 L240,160" class="fg" fill="none"/>` + ln(130, 70, 130, 160, 'fdash') + t(136, 120, 'R', 'it') + `<circle cx="130" cy="70" r="3" class="fd"/>`, 'Jet path: vertical dive then a quarter-circle pull-out'),
-    ramp2: () => W(300, 160, `<polygon points="20,140 270,140 20,40" class="fs"/>` + `<g transform="translate(120,92) rotate(21.8)">${box(-22, -26, 44, 26, '', 'fb')}${box(-14, -46, 28, 20, '', 'fb')}</g>` + ln(150, 102, 220, 130) + t(226, 132, 'rope (pulled up the ramp)', '', 9) + ln(20, 146, 270, 146, 'fg') + t(130, 158, 'horizontal run', '', 9) + t(4, 92, 'h', 'it'), 'Two stacked boxes lowered down a ramp by a rope'),
+    ramp2: () => W(300, 160, `<polygon points="20,140 270,140 20,40" class="fs"/>` + `<g transform="translate(120,92) rotate(21.8)">${box(-22, -26, 44, 26, '', 'fb')}${box(-14, -46, 28, 20, '', 'fb')}</g>` + ln(150, 102, 220, 130) + t(224, 134, 'rope', '', 10) + ln(20, 146, 270, 146, 'fg') + t(130, 158, 'horizontal run', '', 9) + t(4, 92, 'h', 'it'), 'Two stacked boxes lowered down a ramp by a rope'),
     stryker: () => W(300, 120, `<rect x="20" y="60" width="200" height="10" class="fs"/>` + `<rect x="40" y="48" width="150" height="12" rx="6" class="fbob"/>` + t(90, 44, 'patient', '', 10) + ln(190, 54, 236, 54) + pulley(242, 60) + ln(251, 60, 251, 90) + box(240, 90, 22, 22, 'W', 'fb'), 'Patient on a bed, rope over a pulley to a hanging weight'),
     wrecking: (ang = 35) => W(240, 170, `<rect x="10" y="20" width="8" height="140" class="fs"/>` + `<rect x="18" y="10" width="210" height="8" class="fs"/>` + ln(18, 110, 150, 110) + t(60, 104, 'cable A', '', 10) + ln(150, 110, 210, 18) + t(186, 70, 'cable B', '', 10) + ln(150, 110, 150, 40, 'fdash') + t(156, 92, ang + '°', '', 10) + `<circle cx="150" cy="128" r="16" class="fbob"/>`, 'Wrecking ball held by a horizontal cable and an angled cable'),
     roof: () => W(280, 160, `<rect x="20" y="70" width="40" height="80" class="fs"/>` + ln(10, 150, 270, 150, 'fg') + ar(55, 70, 95, 45, 'fc') + t(98, 44, 'v₀', 'it') + `<path d="M55,70 Q140,0 240,150" class="fdash" fill="none"/>` + t(26, 66, 'h', 'it'), 'Rock thrown up at an angle from a rooftop'),
-    river: () => W(260, 160, `<rect x="10" y="30" width="240" height="100" class="fw"/>` + ar(40, 50, 40, 100, 'fg') + t(46, 80, 'current', '', 10) + ar(110, 120, 190, 120, 'fc') + t(140, 114, 'boat', '', 10) + t(200, 22, 'N ↑', '', 11), 'River flowing south, boat heading east')
+    river: () => W(260, 160, `<rect x="10" y="30" width="240" height="100" class="fw"/>` + ar(40, 50, 40, 100, 'fg') + t(46, 80, 'current', '', 10) + ar(110, 120, 190, 120, 'fc') + t(140, 114, 'boat', '', 10) + t(200, 22, 'N ↑', '', 11), 'River flowing south, boat heading east'),
+    push2: () => { const a = inc(50, { L: 140, arrows: [[0.8, 0.35, 'F, v']] }), b = inc(50, { L: 140, arrows: [[0.35, 0.8, 'F, v']] }); return W(a.w + b.w + 20, a.h + 18, a.b + `<g transform="translate(${a.w + 20},0)">${b.b}</g>` + t(20, a.h + 12, '(a) pushed, moving down', '', 10) + t(a.w + 36, a.h + 12, '(b) pushed, moving up', '', 10), 'Box on a 50 degree ramp: (a) pushed and moving down, (b) pushed and moving up'); },
+    ice: () => incW(15.5, { L: 250, at: 0.88, ang: 'θ = ?', arrows: [[0.7, 0.35, 'v']], len: '1.50 m', note: 'starts from rest at the top' }, 'Ice block sliding down a 1.50 m frictionless ramp, angle unknown'),
+    rocks: () => incW(38, { L: 200, at: 0.4, arrows: [[0.3, 0.7, 'v (up)']], note: 'μ_k = 0.40, μ_s = 0.55' }, 'Rock sliding up a 38 degree slope'),
+    tilt: () => incW(25, { L: 210, ang: 'θ ↑', note: 'angle slowly increased until the box slips' }, 'Box on a ramp whose angle is slowly increased'),
+    chute: () => incW(50, { L: 170, at: 0.7, arrows: [[0.75, 0.35, 'v']], len: '2.50 m', note: 'μ_k = 0.35' }, 'Package sliding 2.50 m down a 50 degree chute'),
+    toolbox: () => incW(40, { L: 200, at: 0.75, arrows: [[0.75, 0.35, 'v']], len: '5.00 m', note: 'friction 25 N, starts from rest' }, 'Toolbox sliding 5.00 m down a 40 degree roof'),
+    proj: () => W(300, 160, ln(20, 130, 285, 130, 'fg') + `<path d="M30,130 Q150,-70 270,130" class="fdash" fill="none"/>` + ar(30, 130, 69, 84, 'fc') + t(76, 104, 'v₀ = 65.0 m/s', '', 10) + `<path d="M55,130 A25,25 0 0 0 46,111" class="fg" fill="none"/>` + t(60, 122, '50°', '', 10) + ln(150, 30, 150, 130, 'fdash') + t(156, 84, 'H', 'it') + ln(30, 146, 270, 146, 'fg') + t(140, 158, 'R (range)', '', 10), 'Shell fired at 50 degrees over level ground'),
+    atwood: () => W(200, 170, `<rect x="70" y="6" width="60" height="6" class="fs"/>` + ln(100, 12, 100, 30) + pulley(100, 50, 20) + ln(80, 50, 80, 125) + box(58, 125, 40, 28, '12 kg', 'fb') + ln(120, 50, 120, 80) + box(100, 80, 44, 40, '25 kg', 'fb'), 'Atwood machine: 12 kg and 25 kg over a frictionless pulley'),
+    flat: () => W(260, 170, `<path d="M30,150 A120,120 0 0 1 150,30" class="fl" fill="none" stroke-width="10" opacity="0.25"/>` + `<circle cx="150" cy="150" r="3" class="fd"/>` + ln(150, 150, 65, 65, 'fdash') + t(116, 120, 'R = 200 m', '', 10) + box(57, 57, 16, 16, '', 'fb') + ar(73, 57, 103, 27, 'fc') + t(106, 26, 'v = 25.0 m/s', '', 10) + t(160, 166, 'top view, flat road', '', 10), 'Car on a flat curve of radius 200 m, seen from above'),
+    bank: () => W(290, 150, `<polygon points="30,120 250,120 250,65" class="fs"/>` + `<g transform="translate(140,82) rotate(-14)">${box(-20, -14, 40, 14, '', 'fb')}</g>` + `<path d="M64,120 A34,34 0 0 0 63,112" class="fg" fill="none"/>` + t(70, 116, 'β', 'it') + ar(130, 40, 60, 40, 'fc') + t(52, 32, 'toward center (R = 250 m)', '', 10) + t(150, 140, 'cross-section, no friction', '', 10), 'Car on a curve banked at angle beta, center to the left'),
+    pail: () => W(200, 200, `<circle cx="100" cy="110" r="75" class="fg" fill="none"/>` + `<circle cx="100" cy="110" r="3" class="fd"/>` + ln(100, 110, 100, 46, 'fdash') + t(106, 84, 'R = 0.800 m', '', 10) + box(90, 26, 20, 16, '', 'fb') + ar(112, 34, 150, 34, 'fc') + t(146, 26, 'v = ?', '', 11) + t(50, 16, 'top of the circle', '', 10), 'Pail of water at the top of a vertical circle'),
+    boxspring: () => W(300, 100, ln(10, 80, 290, 80, 'fg') + `<rect x="270" y="20" width="10" height="60" class="fs"/>` + coil(200, 270, 60) + box(110, 44, 60, 36, '5.0 kg', 'fb') + ar(112, 32, 162, 32, 'fc') + t(168, 36, 'v = 2.5 m/s', '', 10) + t(196, 96, 'k = 60 N/cm', '', 10), 'Box sliding on a frictionless floor toward a spring'),
+    bookspring: () => W(220, 200, ln(40, 190, 180, 190, 'fg') + coilV(110, 130, 190) + ln(88, 130, 132, 130) + box(88, 40, 44, 24, 'book', 'fb') + ar(78, 70, 78, 110, 'fc') + ln(150, 64, 150, 130, 'fdash') + ln(144, 64, 156, 64, 'fg') + ln(144, 130, 156, 130, 'fg') + t(156, 102, '0.600 m', '', 10) + t(124, 166, 'k = 1500 N/m', '', 10), 'Book dropped from 0.600 m onto a vertical spring'),
+    springfric: () => W(300, 110, `<rect x="10" y="20" width="10" height="70" class="fs"/>` + coil(20, 90, 70, 10, 7) + box(90, 50, 64, 40, '3.00 kg', 'fb') + `<rect x="10" y="90" width="280" height="6" class="fs"/>` + ar(164, 60, 214, 60, 'fc') + t(220, 64, 'v = ?', '', 11) + t(40, 108, 'compressed 0.040 m · μ_k = 0.35 · k = 900 N/m', '', 10), 'Block pushed by a compressed spring across a rough floor'),
+    skier: () => W(340, 175, ln(10, 50, 200, 50, 'fg') + `<rect x="60" y="50" width="110" height="6" class="fs"/>` + t(70, 72, 'rough 5.00 m, μ_k = 0.25', '', 10) + `<path d="M200,50 C260,50 270,150 320,150" class="fl" fill="none"/>` + ln(320, 150, 338, 150, 'fl') + ln(330, 50, 330, 150, 'fdash') + t(284, 104, '3.00 m', '', 10) + `<circle cx="30" cy="40" r="8" class="fbob"/>` + ar(42, 40, 82, 40, 'fc') + t(88, 44, 'v₀ = 7.00 m/s', '', 10) + t(200, 168, 'frictionless hill', '', 10), 'Skier crosses a 5.00 m rough patch then goes down a 3.00 m frictionless hill')
   };
   return F;
 })();
@@ -1325,9 +1358,12 @@ const FIGMAP = {
   'A5.9': () => FIG.stack(), 'A5.12': () => FIG.conical(), 'A5.13': () => FIG.pendB(),
   'A6.7': () => FIG.tablehang('8 kg', '6'), 'A6.8': () => FIG.tablehang('8 kg', '6'), 'A6.9': () => FIG.threeblock(), 'A6.10': () => FIG.inclinehang(),
   'C3.21': () => FIG.roof(), 'C3.29': () => FIG.dive(), 'C3.41': () => FIG.river(), 'C3.42': () => FIG.river(),
-  'C4.23': () => FIG.crates(), 'C5.4': () => FIG.stryker(), 'C5.5': () => FIG.lamp('θ'), 'C5.6': () => FIG.wrecking(35), 'C5.15': () => FIG.tablehang ? null : null,
+  'C4.23': () => FIG.crates(), 'C5.4': () => FIG.stryker(), 'C5.5': () => FIG.lamp('θ'), 'C5.6': () => FIG.wrecking(35), 'C5.15': () => FIG.atwood(),
   'C5.17': () => FIG.tablehang('5 kg', 'm'), 'C5.33': () => FIG.ramp2(), 'C5.34': () => FIG.tablehang('A', 'B'), 'C5.39': () => FIG.tablehang('A', 'B'),
   'C5.45': () => FIG.loop(), 'C5.46': () => FIG.loop(), 'C5.58': () => FIG.pendB(), 'C5.12': () => null,
+  'C3.16': () => FIG.proj(), 'C5.16': () => FIG.ice(), 'C5.30': () => FIG.rocks(), 'C5.31': () => FIG.push2(), 'C5.36': () => FIG.tilt(),
+  'C5.48': () => FIG.flat(), 'C5.49': () => FIG.bank(), 'C5.56': () => FIG.dive(), 'C5.57': () => FIG.pail(), 'C6.10': () => FIG.chute(),
+  'C6.37': () => FIG.boxspring(), 'C7.21': () => FIG.bookspring(), 'C7.24': () => FIG.springfric(), 'C7.29': () => FIG.skier(), 'C7.30': () => FIG.toolbox(),
   'BQ3.6': () => null, 'BQ5.17': () => FIG.conical(), 'BQ6.7': () => FIG.conical(), 'BQ3.1': () => FIG.pendL(), 'BQ4.30': () => FIG.crates()
 };
 const figFor = id => { const f = FIGMAP[id]; const s = f ? f() : null; return s ? `<figure class="qfig">${s}</figure>` : ''; };
