@@ -963,7 +963,27 @@ try{
   localStorage.setItem(KEY+"-probe","1"); localStorage.removeItem(KEY+"-probe");
 }catch(e){ storeOK = false; }
 for(const k of ["plan","qt","da","db","dbOpen","ex","exOpen","open","scratch","fc","fcOpen"]) if(!S[k] || typeof S[k]!=="object") S[k] = {};
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ if(storeOK){ storeOK=false; render(); } } }
+const LOCAL_SRV = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+let srvT = null, srvReady = !LOCAL_SRV;
+function save(){
+  if(srvReady) S.savedAt = Date.now();
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ if(storeOK && !LOCAL_SRV){ storeOK=false; render(); } }
+  if(LOCAL_SRV && srvReady){ clearTimeout(srvT); srvT=setTimeout(()=>{ fetch("/__ilerleme/ns102",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(S),keepalive:true}).catch(()=>{}); },400); }
+}
+/* On the local study server: the saved file wins when it is newer than this browser's copy. */
+function sendNow(){ if(!LOCAL_SRV || !srvReady || !srvT) return; clearTimeout(srvT); srvT=null; try{ navigator.sendBeacon("/__ilerleme/ns102", new Blob([JSON.stringify(S)],{type:"application/json"})); }catch(e){} }
+window.addEventListener("pagehide", sendNow);
+function loadServerCopy(){
+  if(!LOCAL_SRV) return Promise.resolve(false);
+  return fetch("materyal/ilerleme-ns102.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(d=>{
+    if(!d || typeof d!=="object" || (d.savedAt||0) <= (S.savedAt||0)) return false;
+    const theme=S.theme; S=Object.assign(JSON.parse(JSON.stringify(DEF)), d); if(theme && !d.theme) S.theme=theme;
+    for(const k of ["plan","qt","da","db","dbOpen","ex","exOpen","open","scratch","fc","fcOpen","bk","bkPick","bkPickO","bkNote","bkIn"]) if(!S[k]||typeof S[k]!=="object") S[k]={};
+    try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
+    if(S.theme) document.documentElement.dataset.theme=S.theme;
+    return true;
+  }).catch(()=>false);
+}
 
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
@@ -2100,7 +2120,7 @@ S.tab = LEGACY[S.tab]||S.tab;
 { const h0=LEGACY[location.hash.slice(1)]||location.hash.slice(1); if(TABS.some(([k])=>k===h0)) S.tab=h0; }
 if(!TABS.some(([k])=>k===S.tab)) S.tab="plan";
 countdown(); setInterval(countdown,30000);
-function boot(){ if(!S.qSeen){ S.qSeen=true; S.tab="calis"; save(); } render(); if(location.hash.slice(1)!==S.tab) history.replaceState(null,"","#"+S.tab); }
+function boot(){ const start=restored=>{ if(!S.qSeen){ S.qSeen=true; S.tab="calis"; save(); } render(); if(restored) toast("İlerlemen geri yüklendi"); }; loadServerCopy().then(restored=>{ srvReady=true; if(!restored) save(); start(restored); }); if(location.hash.slice(1)!==S.tab) history.replaceState(null,"","#"+S.tab); }
 if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else boot();
 </script>
 </body>
