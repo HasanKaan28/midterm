@@ -1441,7 +1441,7 @@ const BK_BY = Object.fromEntries(BK.map(b=>[b.id,b]));
 const BK_ORDER = {A:0, R:1, B:2, C:3};
 const bkNum = id => +String(id).replace(/^[A-Z]+(RT)?/,"").split(".")[1];
 BK.sort((x,y)=>BK_ORDER[x.kind]-BK_ORDER[y.kind] || x.ch-y.ch || bkNum(x.id)-bkNum(y.id));
-const BK_KIND = {A:"Part A · Clicker", R:"Part A · Clicker (sıralama)", B:"Part B · Discussion Question", C:"Part C · Exercise"};
+const BK_KIND = {A:"Part A · Clicker", R:"Sıralama sorusu (şıksız, sınavda bu biçimde çıkmaz)", B:"Part B · Discussion Question", C:"Part C · Exercise"};
 function bkLabel(b){ return b.kind==="A" ? "Clicker "+b.m.ref : b.kind==="R" ? "Clicker "+b.t.ref : b.kind==="B" ? "DQ "+b.q.ref.replace(/^Q/,"") : "Ex "+b.p.ref; }
 function bkText(b){ return b.kind==="A" ? b.m.q+" "+b.m.o.join(" ")+" "+(b.m.tr||"") : b.kind==="R" ? b.t.q+" "+(b.t.tr||"") : b.kind==="B" ? b.q.q+" "+(b.q.tr||"") : b.p.title+" "+b.p.text+" "+(b.p.tr||""); }
 /* Last year's paper: the five questions, in exam order, and hand-picked look-alikes from the bank. */
@@ -1538,11 +1538,11 @@ function bkGrade(b){ const v=bkStatus(b.id); return `<div class="self"><span cla
 let BK_ROUND = null;   // shuffled ids for the "bilmediklerim" round (kept for this visit)
 function bkList(){
   const f=S.bkf;
-  let L = BK.filter(b=>(f.kind==="all" || (f.kind==="A" ? (b.kind==="A"||b.kind==="R") : b.kind===f.kind)) && (f.ch==="all" || b.ch===+f.ch));
+  let L = BK.filter(b=>(f.kind==="all" || b.kind===f.kind) && (f.ch==="all" || b.ch===+f.ch));
   if(f.st==="todo") L=L.filter(b=>!bkStatus(b.id));
   else if(f.st==="bad") L=L.filter(b=>bkStatus(b.id)==="bad");
   else if(f.st==="star") L=L.filter(b=>b.star);
-  else if(f.st==="round"){ L=L.filter(b=>(b.kind==="A"||b.kind==="R") && bkStatus(b.id)!=="ok");
+  else if(f.st==="round"){ L=L.filter(b=>b.kind==="A" && bkStatus(b.id)!=="ok");
     if(!BK_ROUND) { BK_ROUND = BK.map(b=>b.id); for(let k=BK_ROUND.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [BK_ROUND[k],BK_ROUND[j]]=[BK_ROUND[j],BK_ROUND[k]]; } }
     const pos=new Map(BK_ROUND.map((id,i)=>[id,i])); L=L.slice().sort((a,b)=>pos.get(a.id)-pos.get(b.id)); }
   return L;
@@ -1551,7 +1551,7 @@ function bankView(){
   const f=S.bkf, L=bkList(), n=Math.min(L.length, S.bkN||10);
   const meter = (name, its) => { const ok=its.filter(b=>bkStatus(b.id)==="ok").length, bad=its.filter(b=>bkStatus(b.id)==="bad").length;
     return `<div class="bkmeter"><b>${name}</b><div class="meter" role="img" aria-label="${ok} doğru, ${bad} yanlış, ${its.length} soru"><span class="g" style="width:${100*ok/its.length}%"></span><span class="r" style="width:${100*bad/its.length}%"></span></div><span class="small">${ok}/${its.length}</span></div>`; };
-  const A=BK.filter(b=>b.kind==="A"||b.kind==="R");
+  const A=BK.filter(b=>b.kind==="A");
   const chips = (key, arr) => `<div class="filter-bar" role="group" aria-label="${key}">${arr.map(([k,l])=>`<button type="button" class="filter-btn ${f[key]===k?"active":""}" data-bkf="${key}:${k}" aria-pressed="${f[key]===k}">${l}</button>`).join("")}</div>`;
   const chs = [...new Set(BK.map(b=>b.ch))].sort();
   return `${warnHTML()}<section class="sheet"><h2>🎯 Soru bankası (${BK.length} soru)</h2>
@@ -1560,7 +1560,7 @@ function bankView(){
     <details class="bkch" data-openkey="bkch" ${(S.open.bkch??(f.kind==="A"))?"open":""}><summary>Clicker'lar bölüm bölüm (hepsini bilmen gerekiyor)</summary>
       <div class="tblwrap"><table><tr><th>Bölüm</th><th>Clicker</th><th>Bildiğin</th><th>Yanlış</th><th></th></tr>${chs.map(c=>{ const its=A.filter(b=>b.ch===c), ok=its.filter(b=>bkStatus(b.id)==="ok").length, bad=its.filter(b=>bkStatus(b.id)==="bad").length;
         return `<tr><td>${CH["b"+c]}</td><td>${its.length}</td><td style="color:var(--green);font-weight:700">${ok}</td><td style="color:var(--red);font-weight:700">${bad}</td><td><button type="button" class="go" data-bkf="set:A:${c}:all">çöz</button> · <button type="button" class="go" data-bkf="set:A:${c}:round">bilmediklerim</button></td></tr>`; }).join("")}</table></div></details>
-    ${chips("kind",[["all","Tümü"],["A","Part A · Clicker ("+A.length+")"],["B","Part B · Discussion ("+BK.filter(b=>b.kind==="B").length+")"],["C","Part C · Exercise ("+BK.filter(b=>b.kind==="C").length+")"]])}
+    ${chips("kind",[["all","Tümü"],["A","Part A · Clicker ("+A.length+")"],["B","Part B · Discussion ("+BK.filter(b=>b.kind==="B").length+")"],["C","Part C · Exercise ("+BK.filter(b=>b.kind==="C").length+")"],["R","Sıralama, şıksız ("+BK.filter(b=>b.kind==="R").length+")"]])}
     ${chips("ch",[["all","Tüm bölümler"],...chs.map(c=>[String(c),"Bölüm "+c])])}
     ${chips("st",[["all","Hepsi"],["todo","⏳ Çözülmemiş"],["bad","✗ Yanlışlarım"],["star","★ Geçen yıl"],["round","🔁 Bilmediklerim turu (clicker)"]])}
     <p class="small"><b>${L.length}</b> soru bu filtrede${f.st==="round"?" · sıra karışık; doğru yaptıkların turdan düşer":""}.</p>
@@ -1572,7 +1572,7 @@ function bankView(){
 /* ---------- last year's midterm ---------- */
 function gecenView(){
   const asked = {3:"B1, C2", 5:"C1, C3", 6:"B2"};
-  const clk = c => BK.filter(b=>(b.kind==="A"||b.kind==="R")&&b.ch===c).length;
+  const clk = c => BK.filter(b=>b.kind==="A"&&b.ch===c).length;
   return `${warnHTML()}<section class="sheet"><h2>📜 Geçen yılın midterm'ü</h2>
     <p class="muted">Bu yılın sınavının da aynı yapıda olması bekleniyor. Soruların kaynağı belli, ama hoca sayıları ve soruları değiştirebilir: <b>cevapları ezberleme, yöntemi öğren.</b> Her geçen-yıl sorusunun altında aynı konudan benzer sorular var.</p>
     <div class="tblwrap"><table><tr><th>Kısım</th><th>Soru</th><th>Puan</th><th>Nereden geldi</th></tr>
@@ -1613,7 +1613,7 @@ const QUEUE = (()=>{
   const q=[];
   for(let c=1;c<=7;c++){
     const inCh = BK.filter(b=>b.ch===c);
-    const clk = inCh.filter(b=>b.kind==="A"||b.kind==="R");
+    const clk = inCh.filter(b=>b.kind==="A");
     const star = inCh.filter(b=>b.star).sort((x,y)=>BK_ORDER[y.kind]-BK_ORDER[x.kind]);
     const sim = new Set(PAST.filter(p=>star.some(s=>s.id===p.id)).flatMap(p=>p.sim));
     const exs = inCh.filter(b=>b.kind==="C" && !b.star);
@@ -2022,7 +2022,7 @@ function jumpTo(tab, targetId, prep){
 function jumpItem(set,id){
   const it=ITEMS.find(i=>i.set===set&&i.id===id); if(!it) return;
   jumpTo(it.tab, cid(it), ()=>{ if(set==="ex"&&S.exf!=="all"&&S.exf!==it.ch) S.exf="all";
-    if(set==="bk"){ const b=BK_BY[id]; S.bkf={kind:b.kind==="R"?"A":b.kind, ch:String(b.ch), st:"all"}; const i=bkList().findIndex(x=>x.id===id); S.bkN=Math.max(10,Math.ceil((i+1)/10)*10); } });
+    if(set==="bk"){ const b=BK_BY[id]; S.bkf={kind:b.kind, ch:String(b.ch), st:"all"}; const i=bkList().findIndex(x=>x.id===id); S.bkN=Math.max(10,Math.ceil((i+1)/10)*10); } });
 }
 let INDEX=null;
 function buildIndex(){
