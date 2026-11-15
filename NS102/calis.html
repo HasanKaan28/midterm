@@ -1612,9 +1612,22 @@ function fxKeys(b){
     if(has(/μ|coefficient|friction(?!less)|sürtünme(?!siz)/)) { k.add("fric"); } if(has(/du\/dx|potential.energy function|u\(x\)|−du|-du/)) k.add("fdu"); }
   return [...k];
 }
+/* Plain-language guide shown under the formula list on projectile problems. */
+const PROJ_HELP = `<div class="small" style="margin:8px 0;padding:8px 10px;border-left:3px solid currentColor;opacity:.92">
+<b>Eğik atış nasıl çözülür:</b> hızı ikiye ayır, iki ayrı hareket gibi çöz. Ortak tek şey zaman (t).
+<ol style="margin:6px 0 0;padding-left:20px">
+<li><b>Hızı parçala:</b> yatay = v₀cosθ, dikey = v₀sinθ (açı yerden ölçülüyorsa).</li>
+<li><b>Yatay:</b> kuvvet yok, hız hep aynı → x = (v₀cosθ)·t (yol = hız × zaman).</li>
+<li><b>Dikey:</b> topu dümdüz yukarı atmak gibi; g her saniye dikey hızı azaltır → v_y = v₀sinθ − gt, y = (v₀sinθ)t − ½gt².</li>
+<li><b>Tepeye çıkış süresi:</b> tepede v_y = 0 → v_y formülünü 0'a eşitle, t'yi çek.</li>
+<li><b>Maksimum yükseklik:</b> o t'yi y formülüne koy.</li>
+<li><b>Toplam uçuş (aynı yere iniş):</b> tepe süresinin 2 katı.</li>
+<li><b>Menzil:</b> toplam süreyi x formülüne koy, ya da R = v₀² sin2θ / g (sadece aynı yüksekliğe inişte).</li>
+</ol>
+<div style="margin-top:4px">⚠️ Hesap makinesi <b>DEG</b> modunda olsun.</div></div>`;
 function fxBox(b){
   const ks=fxKeys(b); if(!ks.length) return "";
-  return `<details class="fxbox" data-openkey="fx:${b.id}" ${S.open["fx:"+b.id]===false?"":"open"}><summary>📐 Bu soruda işine yarayacak formüller</summary><ul>${ks.map(x=>`<li><span class="muted">${FX[x][0]}:</span> <b>${FX[x][1]}</b></li>`).join("")}</ul><p class="small muted">Sınavda formül kâğıdı verilecek; asıl iş hangisini seçeceğini bilmek. Önce bilinenleri ve isteneni yaz, sonra bu listeden onları bağlayanı seç.</p></details>`;
+  return `<details class="fxbox" data-openkey="fx:${b.id}" ${S.open["fx:"+b.id]===false?"":"open"}><summary>📐 Bu soruda işine yarayacak formüller</summary><ul>${ks.map(x=>`<li><span class="muted">${FX[x][0]}:</span> <b>${FX[x][1]}</b></li>`).join("")}</ul>${ks.includes("proj")?PROJ_HELP:""}<p class="small muted">Sınavda formül kâğıdı verilecek; asıl iş hangisini seçeceğini bilmek. Önce bilinenleri ve isteneni yaz, sonra bu listeden onları bağlayanı seç.</p></details>`;
 }
 function bkCard(b, opt){
   const it = {set:"bk", id:b.id, ch:"b"+b.ch}, st = bkStatus(b.id), fig = figFor(b.id);
