@@ -356,6 +356,7 @@ details.slide-alt summary{cursor:pointer;font-size:.9rem;color:var(--ink-2)}
 .slide-svg .ov{border-top:1px solid currentColor;padding-top:.04em}
 .dqorig{border-left:3px solid var(--line,#ccc);padding:.2rem .8rem;margin:.4rem 0}.dqtext{font-size:1.05rem;line-height:1.5}
 .qswitch{display:flex;gap:.5rem;flex-wrap:wrap;margin:0 0 .8rem}.dqrate{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}.dqans ul{margin:.3rem 0 .3rem 1.2rem}
+.fxbox{border:1px dashed var(--line,#ccc);border-radius:10px;padding:.4rem .8rem;margin:.6rem 0}.fxbox ul{margin:.3rem 0 .3rem 1.1rem;padding:0}.fxbox li{margin:.15rem 0}
 </style>
 </head>
 <body>
@@ -1512,6 +1513,61 @@ function bkSrcNote(b){
   if(b.kind==="A") return `<span class="small muted">Slayt Q${b.m.ref}, kendi cümlelerimizle${b.r?" · konu: "+esc(b.r[1]):""}.</span>`;
   return `<span class="small muted">Slayt Q-${b.t.ref} (sıralama sorusu), kendi cümlelerimizle.</span>`;
 }
+/* Formulas a Part C problem needs (the exam gives a formula sheet; the skill is picking the right ones). */
+const FX = {
+  comp:["Bileşenler","Aₓ = A cosθ, A_y = A sinθ;  A = √(Aₓ² + A_y²), tanθ = A_y/Aₓ"],
+  add:["Vektör toplama","Rₓ = Aₓ + Bₓ, R_y = A_y + B_y"],
+  dot:["Skaler çarpım","A·B = AB cosφ = AₓBₓ + A_yB_y + A_zB_z"],
+  cross:["Vektörel çarpım","|A×B| = AB sinφ (yön: sağ el kuralı)"],
+  k1:["Sabit ivme","v = v₀ + at"],
+  k2:["Sabit ivme","x = x₀ + v₀t + ½at²"],
+  k3:["Sabit ivme","v² = v₀² + 2a(x − x₀)"],
+  k4:["Sabit ivme","x − x₀ = ½(v₀ + v)t"],
+  avg:["Ortalama hız / ivme","v_av = Δx/Δt,  a_av = Δv/Δt"],
+  ff:["Serbest düşme","a = −g, g = 9.80 m/s²"],
+  proj:["Eğik atış","x = (v₀cosθ)t,  y = (v₀sinθ)t − ½gt²,  v_y = v₀sinθ − gt"],
+  range:["Menzil (aynı yükseklik)","R = v₀² sin2θ / g"],
+  circ:["Çembersel hareket","a_rad = v²/R = 4π²R/T²,  v = 2πR/T"],
+  rel:["Bağıl hız","v_A/C = v_A/B + v_B/C"],
+  n2:["Newton 2. yasa","ΣFₓ = maₓ,  ΣF_y = ma_y"],
+  w:["Ağırlık","w = mg"],
+  n3:["Newton 3. yasa","F_A→B = −F_B→A"],
+  fric:["Sürtünme","f_s ≤ μ_s n,  f_k = μ_k n"],
+  incl:["Eğik düzlem","paralel: mg sinθ,  dik: mg cosθ"],
+  frad:["Merkezcil kuvvet","ΣF_rad = mv²/R"],
+  term:["Limit sürat","v_t = √(mg/D)"],
+  work:["İş","W = Fs cosφ"],
+  ke:["Kinetik enerji","K = ½mv²"],
+  wet:["İş-enerji teoremi","W_top = ΔK = ½mv₂² − ½mv₁²"],
+  spring:["Yay","F = kx,  W = ½kx²"],
+  wvar:["Değişken kuvvet","W = ∫F dx (F-x grafiği altındaki alan)"],
+  pow:["Güç","P_av = W/Δt,  P = Fv,  1 hp = 746 W"],
+  ug:["Yerçekimi PE","U = mgy"],
+  ue:["Yay PE","U = ½kx²"],
+  econ:["Enerji korunumu","K₁ + U₁ + W_diğer = K₂ + U₂"],
+  fdu:["Kuvvet ve PE","Fₓ = −dU/dx"]
+};
+function fxKeys(b){
+  const p=b.p, t=(p.title+" "+p.text+" "+(p.sol||[]).join(" ")).toLowerCase(), has=re=>re.test(t), k=new Set(), c=b.ch;
+  const kin = ()=>{ if(has(/½at|½gt|v₀t|v0t|\btime|süre|seconds?\b|\d\s*s\b/)) { k.add("k1"); k.add("k2"); } if(has(/v²|v\^2|v₀²|distance|mesafe|height|yükseklik/)) k.add("k3"); };
+  if(c===1){ k.add("comp"); if(has(/sum|add|toplam|resultant|displacement|r\s*=/)) k.add("add"); if(has(/·|dot|scalar product|skaler|angle between/)) k.add("dot"); if(has(/×|cross|vector product|vektörel/)) k.add("cross"); }
+  if(c===2){ ["k1","k2","k3","k4"].forEach(x=>k.add(x)); if(has(/average|ortalama/)) k.add("avg"); if(has(/fall|drop|thrown|throw|toss|up\b|g\b|düş|atı/)) k.add("ff"); }
+  if(c===3){ if(has(/projectile|launch|thrown|throw|kicked|horizontal|cliff|angle|atış|fırlat|θ/)) { k.add("proj"); if(has(/range|menzil|same height/)) k.add("range"); }
+    if(has(/circ|radius|orbit|rev|rpm|period|centripetal|a_rad|v²\/r|çember|yarıçap/)) k.add("circ"); if(has(/relative|river|wind|current|bağıl|akıntı|rüzgar|airspeed/)) k.add("rel"); if(!k.size) { k.add("proj"); } }
+  if(c>=4 && c<=5){ k.add("n2"); k.add("w"); if(c===4 && has(/third|reaction|tepki|on each other|push.*each|contact/)) k.add("n3"); }
+  if(c===4){ kin(); if(has(/μ|coefficient|friction(?!less)|sürtünme(?!siz)/)) k.add("fric"); }
+  if(c===5){ if(has(/μ|coefficient|friction(?!less)|sürtünme(?!siz)/)) k.add("fric"); if(has(/incline|ramp|slope|eğik|rampa/)) k.add("incl");
+    if(has(/circ|radius|curve|banked|loop|swing|rotat|rev|v²\/r|viraj|çember|yarıçap|merkezcil/)) { k.add("frad"); k.add("circ"); } if(has(/terminal|limit sürat/)) k.add("term"); kin(); }
+  if(c===6){ k.add("work"); k.add("ke"); k.add("wet"); if(has(/spring|yay\b|yayı|yaya|n\/m|\bkx\b|½kx/)) k.add("spring"); if(has(/power|güç|watt|\bhp\b|\bkw\b|horsepower/)) k.add("pow");
+    if(has(/μ|coefficient|friction(?!less)|sürtünme(?!siz)/)) k.add("fric"); if(has(/∫|graph|varies|variable|f\(x\)|grafik/)) k.add("wvar"); if(has(/incline|ramp|slope|eğik|rampa/)) k.add("incl"); }
+  if(c===7){ k.add("econ"); k.add("ke"); if(has(/height|high|drop|fall|slide|hill|ramp|swing|up|down|yüksek|mgy|mgh|g\b/)) k.add("ug"); if(has(/spring|yay\b|yayı|yaya|n\/m|\bkx\b|½kx/)) k.add("ue");
+    if(has(/μ|coefficient|friction(?!less)|sürtünme(?!siz)/)) { k.add("fric"); } if(has(/du\/dx|potential.energy function|u\(x\)|−du|-du/)) k.add("fdu"); }
+  return [...k];
+}
+function fxBox(b){
+  const ks=fxKeys(b); if(!ks.length) return "";
+  return `<details class="fxbox" data-openkey="fx:${b.id}" ${S.open["fx:"+b.id]===false?"":"open"}><summary>📐 Bu soruda işine yarayacak formüller</summary><ul>${ks.map(x=>`<li><span class="muted">${FX[x][0]}:</span> <b>${FX[x][1]}</b></li>`).join("")}</ul><p class="small muted">Sınavda formül kâğıdı verilecek; asıl iş hangisini seçeceğini bilmek. Önce bilinenleri ve isteneni yaz, sonra bu listeden onları bağlayanı seç.</p></details>`;
+}
 function bkCard(b, opt){
   const it = {set:"bk", id:b.id, ch:"b"+b.ch}, st = bkStatus(b.id), fig = figFor(b.id);
   const star = b.star ? `<span class="chip red">★ geçen yıl sınavda</span>` : "";
@@ -1543,6 +1599,7 @@ function bkCard(b, opt){
     const p=b.p, vals=S.bkIn[b.id]||[], checked=!!S.open["bkc:"+b.id];
     body = `<p class="bktitle"><b>${bkT(p.title)}</b> <span class="small muted">${"•".repeat(p.lvl||1)}</span></p>${fig}
       <div class="prompt" data-trtap="bk:${b.id}"><p>${bkT(p.text)}</p>${bkTrBox(b)}</div>
+      ${fxBox(b)}
       <div class="bkparts"><span class="small muted">Write your answer in the box below!</span>${p.parts.map((x,i)=>{ const v=vals[i]||""; const r=checked&&v!=="" ? (bkOK(x,v)?"ok":"bad") : "";
         return `<div class="bkrow"><label for="bki-${b.id}-${i}">${esc(x.l)} =</label><input class="bkin ${r}" id="bki-${b.id}-${i}" data-bkin="${b.id}:${i}" inputmode="decimal" autocomplete="off" spellcheck="false" value="${esc(v)}"><span class="unit">${esc(x.u)}</span><span class="res ${r}">${r==="ok"?"✓":r==="bad"?"✗":""}</span></div>`; }).join("")}</div>`;
     acts = `<button class="btn" type="button" data-bkchk="${b.id}">Kontrol et</button><button class="btn ghost" type="button" data-bkhint="${b.id}" aria-expanded="${hintOpen}">💡 İpucu</button><button class="btn soft" type="button" data-bksol="${b.id}" aria-expanded="${solOpen}">${solOpen?"Çözümü gizle":"Çözümü göster"}</button>`;
