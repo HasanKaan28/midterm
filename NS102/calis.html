@@ -355,6 +355,7 @@ details.slide-alt summary{cursor:pointer;font-size:.9rem;color:var(--ink-2)}
 .slide-svg .v::before{content:"→";position:absolute;left:0;right:0;top:-.62em;text-align:center;font-size:.62em;font-weight:400;font-style:normal;line-height:1}
 .slide-svg .ov{border-top:1px solid currentColor;padding-top:.04em}
 .dqorig{border-left:3px solid var(--line,#ccc);padding:.2rem .8rem;margin:.4rem 0}.dqtext{font-size:1.05rem;line-height:1.5}
+.qswitch{display:flex;gap:.5rem;flex-wrap:wrap;margin:0 0 .8rem}.dqrate{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}.dqans ul{margin:.3rem 0 .3rem 1.2rem}
 </style>
 </head>
 <body>
@@ -1662,7 +1663,43 @@ function formulaBox(c, defOpen){
   const open = S.open["qf:"+c] ?? defOpen;
   return `<details class="qform" data-openkey="qf:${c}" ${open?"open data-skip1=\"1\"":""}><summary>📐 Bölüm ${c} formülleri${defOpen?" (soruya geçmeden 5 dk bak)":""}</summary>${list}</details>`;
 }
+/* Çalış has two tours: the slide clickers (Part A) and Discussion Question flashcards (Part B). */
 function calisView(){
+  const dqN = BK.filter(b=>b.kind==="B").length;
+  const sw = `<div class="qswitch" role="group" aria-label="Çalışma türü">
+    <button type="button" class="filter-btn ${S.qmode!=="dq"?"active":""}" data-qmode="clk" aria-pressed="${S.qmode!=="dq"}">Part A · Clicker (${QUEUE.length})</button>
+    <button type="button" class="filter-btn ${S.qmode==="dq"?"active":""}" data-qmode="dq" aria-pressed="${S.qmode==="dq"}">Part B · DQ kartları (${dqN})</button></div>`;
+  return warnHTML() + sw + (S.qmode==="dq" ? dqView() : clickerView());
+}
+function dqList(){
+  const num = r => r.replace(/^Q/,"").split(".").map(Number);
+  const L = BK.filter(b=>b.kind==="B").sort((x,y)=>{ const a=num(x.q.ref), c=num(y.q.ref); return a[0]-c[0] || a[1]-c[1]; });
+  return S.dqch ? L.filter(b=>b.ch===S.dqch) : L;
+}
+function dqView(){
+  S.dqk = S.dqk || {};
+  const L = dqList(); if(!L.length) return `<section class="sheet"><p>Kart yok.</p></section>`;
+  let i = L.findIndex(b=>b.id===S.dqcur); if(i<0) i = Math.max(0, L.findIndex(b=>S.dqk[b.id]!=="ok"));
+  const b = L[i]; S.dqcur = b.id;
+  const all = BK.filter(x=>x.kind==="B"), okN = all.filter(x=>S.dqk[x.id]==="ok").length, agN = all.filter(x=>S.dqk[x.id]==="again").length;
+  const chs = [0,1,2,3,4,5,6,7].map(ch=>{ const a=all.filter(x=>!ch||x.ch===ch); return `<button type="button" class="filter-btn ${(S.dqch||0)===ch?"active":""}" data-dqch="${ch}" aria-pressed="${(S.dqch||0)===ch}">${ch?"Bölüm "+ch:"Hepsi"} <span class="small">${a.filter(x=>S.dqk[x.id]==="ok").length}/${a.length}</span></button>`; }).join("");
+  const o = DQO && DQO[b.q.ref];
+  const qHTML = o ? `<div class="dqtext">${o.h}</div>${(o.img||[]).map(src=>`<img src="${src}" alt="${esc(b.q.ref)} şekli" style="max-width:100%">`).join("")}` : `<p>${bkT(b.q.q)}</p>`;
+  const show = !!S.open["dqs:"+b.id], docA = window.DQ_ANS && window.DQ_ANS[b.q.ref], k = S.dqk[b.id];
+  const ans = show ? `<div class="sol">${docA?`<div class="dqans">${docA}</div>`:`<p class="muted">Dokümanda bu sorunun cevabı yok.</p>`}${b.q.a?`<details><summary>Türkçe örnek cevap</summary><p>${bkT(b.q.a)}</p></details>`:""}
+      <div class="dqrate"><button type="button" class="btn" data-dqk="${b.id}:ok">✓ Biliyorum</button><button type="button" class="btn ghost" data-dqk="${b.id}:again">↺ Tekrar sor</button></div></div>` : "";
+  return `<section class="sheet qmode">
+    <div class="qtop"><div><b>DQ ${esc(b.q.ref.replace(/^Q/,""))}</b> · Bölüm ${b.ch} · <span class="muted">${i+1}/${L.length}</span> ${k==="ok"?`<span class="chip">✓ biliyorum</span>`:k==="again"?`<span class="chip red">↺ tekrar</span>`:""}</div>
+      <div class="small muted">${okN}/${all.length} biliyorum · ${agN} tekrar</div></div>
+    <div class="meter" role="img" aria-label="${okN} / ${all.length} biliyorum"><span class="g" style="width:${100*okN/all.length}%"></span><span class="r" style="width:${100*agN/all.length}%"></span></div>
+    <div class="qchs" role="group" aria-label="Bölüm seç">${chs}</div>
+    <article class="card"><p class="small muted">Önce cevabı kafanda kur: ilk cümlede sonuç, sonra hangi yasa ya da formül, sonra bir cümle neden.</p>
+      ${qHTML}${b.q.tr?`<details class="small"><summary>Türkçesi</summary><p>${bkT(b.q.tr)}</p></details>`:""}
+      ${show?"":`<div class="dqrate"><button type="button" class="btn" data-dqshow="${b.id}">Cevabı göster</button></div>`}${ans}</article>
+    <div class="qnav"><button type="button" class="btn ghost" data-dqgo="-1" ${i===0?"disabled":""}>← Önceki</button><button type="button" class="btn ghost" data-dqgo="1" ${i===L.length-1?"disabled":""}>Sonraki →</button></div>
+  </section>`;
+}
+function clickerView(){
   const i=qIndex(), cur=QUEUE[i], b=BK_BY[cur.id], c=cur.ch;
   if(S.qcur!==cur.id){ S.qcur=cur.id; save(); }
   const chQ=QUEUE.filter(x=>x.ch===c), chPos=chQ.findIndex(x=>x.id===cur.id)+1;
@@ -1671,7 +1708,7 @@ function calisView(){
   const step = b.kind==="A"||b.kind==="R" ? "Clicker" : b.star ? "Geçen yılın sorusu" : b.kind==="C" ? "Problem" : "Kavramsal soru";
   const st = bkStatus(b.id);
   const ask = `NS102 ${bkLabel(b)}: anlamadım`;
-  return `${warnHTML()}<section class="sheet qmode">
+  return `<section class="sheet qmode">
     <div class="qtop">
       <div><b>Bölüm ${c}</b> · ${step} · <span class="muted">${chPos}/${chQ.length}</span></div>
       <div class="small muted">Toplam ${done}/${QUEUE.length} çözüldü · ${okN} doğru</div>
@@ -2100,6 +2137,13 @@ document.addEventListener("click",e=>{
   if(d.dbscore!==undefined){ const v=+d.dbscore; S.db[d.id] = S.db[d.id]===v ? undefined : v; save(); render(); const c=document.getElementById("q-db-"+d.id); c&&c.querySelector(`[data-dbscore="${v}"]`).focus(); return; }
   if(d.expandall==="ex"){ const any=EX.some(x=>!S.exOpen[x.id]); EX.forEach(x=>S.exOpen[x.id]=any); save(); render(); return; }
   if(d.more){ S.more=!(S.more || !MAIN_TABS.includes(S.tab)); if(!S.more && !MAIN_TABS.includes(S.tab)) S.tab="calis"; save(); go(S.tab); return; }
+  if(d.qmode){ S.qmode=d.qmode; save(); render(); return; }
+  if(d.dqch!==undefined){ S.dqch=+d.dqch; S.dqcur=null; save(); render(); return; }
+  if(d.dqshow){ S.open["dqs:"+d.dqshow]=true; save(); render(); return; }
+  if(d.dqgo){ const L=dqList(), i=L.findIndex(b=>b.id===S.dqcur), j=Math.min(L.length-1, Math.max(0, i+(+d.dqgo))); S.dqcur=L[j].id; save(); render(); window.scrollTo({top:0}); return; }
+  if(d.dqk){ const [id,v]=d.dqk.split(":"); S.dqk=S.dqk||{}; S.dqk[id]=v; delete S.open["dqs:"+id];
+    const L=dqList(), i=L.findIndex(b=>b.id===id), rest=L.slice(i+1).concat(L.slice(0,i+1)), nx=rest.find(b=>S.dqk[b.id]!=="ok") || L[(i+1)%L.length];
+    S.dqcur=nx.id; save(); render(); window.scrollTo({top:0}); return; }
   if(d.qgo){ const i=qIndex(), j=Math.min(QUEUE.length-1, Math.max(0, i+(+d.qgo))); S.qcur=QUEUE[j].id; save(); render(); window.scrollTo({top:0}); return; }
   if(d.qch){ const ch=+d.qch, a=QUEUE.filter(x=>x.ch===ch), nx=a.find(x=>!bkStatus(x.id))||a[0]; S.qcur=nx.id; save(); render(); return; }
   if(d.qask){ const txt=d.qask; (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(()=>toast("Kopyalandı: sohbete yapıştır"), ()=>toast("Kopyalanamadı; metni elle seç: "+txt)); return; }
