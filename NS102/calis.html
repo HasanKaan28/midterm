@@ -346,6 +346,9 @@ details.slide-alt summary{cursor:pointer;font-size:.9rem;color:var(--ink-2)}
 .slide-svg .slt sub{font-size:.62em;vertical-align:sub;line-height:0}
 .slide-svg .sltbl{border-collapse:collapse;font-size:17px}
 .slide-svg .sltbl td{border:1px solid #999;padding:2px 6px}
+
+@media (hover:hover){ .q .prompt.slideprompt:hover .trbox{display:none} .q.tr-open .prompt.slideprompt .trbox{display:block} }
+.prompt.slideprompt{cursor:auto}
 </style>
 </head>
 <body>
@@ -1344,6 +1347,11 @@ function slideCount(b){
   else if(o && o.seq) n = o.seq.filter(x=>x.t && /^[A-E][.)\t ]/.test(x.t)).length;
   return Math.min(5, Math.max(n, b.m.o.length, slideKey(b)+1));
 }
+function slideTrBox(b){
+  if(S.gloss===false || !b.m.tr) return "";
+  const opts = (b.m.tro||[]).length ? `<ul class="tr-opts">${b.m.tro.map(o=>`<li>${bkT(o)}</li>`).join("")}</ul><p class="small muted" style="margin:2px 0 0">Şıkların sırası slayttakinden farklı olabilir; harfi slayttan seç.</p>` : "";
+  return `<div class="trbox no-gloss" id="tr-bk-${b.id}" role="note"><span class="trlab">Türkçesi</span><p>${bkT(b.m.tr)}</p>${opts}</div>`;
+}
 function slideCard(b){
   const m=b.m, key=slideKey(b), n=slideCount(b), p=S.bkPickO[b.id], picked=p!==undefined && p!==null;
   const why = b.r ? b.r[3] : m.w;
@@ -1354,7 +1362,7 @@ function slideCard(b){
     <p>${bkT(m.q)}</p><ol type="A">${m.o.map(o=>`<li>${bkT(o)}</li>`).join("")}</ol>
     ${m.tr?`<p class="small"><b>Türkçesi:</b> ${bkT(m.tr)}</p><ol type="A" class="small">${(m.tro||[]).map(o=>`<li>${bkT(o)}</li>`).join("")}</ol>`:""}
     <p class="small muted">Şık sırası slayttakinden farklı olabilir; slaytın cevabı yukarıdaki harf.</p></details>`;
-  return {body: origHTML(b, true) + btns, acts: picked ? `<button class="btn ghost" type="button" data-bkretryo="${b.id}">↺ Tekrar dene</button>` : "", out: out + alt};
+  return {body: `<div class="prompt slideprompt" data-trtap="bk:${b.id}">${origHTML(b, true)}${slideTrBox(b)}</div>` + btns, acts: (picked ? `<button class="btn ghost" type="button" data-bkretryo="${b.id}">↺ Tekrar dene</button>` : ""), out: out + alt};
 }
 /* Inline equation pictures sit in gaps the slide's author left with spaces. Fonts differ a little from
    PowerPoint's, so a word can end up under a picture; push that word right until it clears the picture. */
