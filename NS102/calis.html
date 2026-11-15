@@ -1373,16 +1373,24 @@ function slideTrBox(b){
   const opts = (b.m.tro||[]).length ? `<ul class="tr-opts">${b.m.tro.map(o=>`<li>${bkT(o)}</li>`).join("")}</ul><p class="small muted" style="margin:2px 0 0">Şıkların sırası slayttakinden farklı olabilir; harfi slayttan seç.</p>` : "";
   return `<div class="trbox no-gloss" id="tr-bk-${b.id}" role="note"><span class="trlab">Türkçesi</span><p>${bkT(b.m.tr)}</p>${opts}</div>`;
 }
+/* The option text exactly as written on the slide ("A. ..." up to the next letter). */
+function slideOpt(b, i){
+  const o=ORIG&&ORIG[b.m.ref]; if(!o) return "";
+  const d=document.createElement("div"); d.innerHTML=o.svg; const L="ABCDE"[i];
+  for(const e of d.querySelectorAll("p,div")){ if(e.querySelector("p,div")) continue;
+    const m=e.textContent.replace(/\s+/g," ").trim().match(/^([A-E])[.)]\s*(.*)$/);
+    if(m && m[1]===L && m[2]) return m[2]; }
+  return "";
+}
 function slideCard(b){
   const m=b.m, key=slideKey(b), n=slideCount(b), p=S.bkPickO[b.id], picked=p!==undefined && p!==null;
   const why = b.r ? b.r[3] : m.w;
   const btns = `<div class="slide-ans" role="group" aria-label="Slayttaki şık">${"ABCDE".slice(0,n).split("").map((l,i)=>
     `<button type="button" class="opt slide-l ${picked?"dis":""} ${picked&&i===key?"ok":""} ${picked&&i===+p&&i!==key?"bad":""}" data-bkpicko="${b.id}:${i}" ${picked?"disabled":""}>${l}</button>`).join("")}</div>`;
-  const out = picked ? `<div class="sol"><p><b>${+p===key?"✓ Doğru.":"✗ Doğru cevap "+"ABCDE"[key]+"."}</b> ${bkT(why)}</p></div>` : "";
-  const alt = `<details class="slide-alt" data-openkey="alt:${b.id}" ${S.open["alt:"+b.id]?"open":""}><summary>Sorunun düzenlenmiş hali ve Türkçesi</summary>
-    <p>${bkT(m.q)}</p><ol type="A">${m.o.map(o=>`<li>${bkT(o)}</li>`).join("")}</ol>
+  const out = picked ? `<div class="sol"><p><b>${+p===key?"✓ Doğru.":"✗ Yanlış."}</b></p><p class="slide-key"><b>Cevap ${"ABCDE"[key]}.</b> ${esc(slideOpt(b,key)) || `<span class="muted">(slayttaki ${"ABCDE"[key]} şıkkı; şık bir şekil ya da grafik)</span>`}</p><p class="small muted">${bkT(why)}</p></div>` : "";
+  const alt = `<details class="slide-alt" data-openkey="alt:${b.id}" ${S.open["alt:"+b.id]?"open":""}><summary>Türkçesi</summary>
     ${m.tr?`<p class="small"><b>Türkçesi:</b> ${bkT(m.tr)}</p><ol type="A" class="small">${(m.tro||[]).map(o=>`<li>${bkT(o)}</li>`).join("")}</ol>`:""}
-    <p class="small muted">Şık sırası slayttakinden farklı olabilir; slaytın cevabı yukarıdaki harf.</p></details>`;
+    <p class="small muted">Türkçe şıkların sırası slayttakinden farklı olabilir; ezber için slayttaki harfi ve metni kullan.</p></details>`;
   return {body: `<div class="prompt slideprompt" data-trtap="bk:${b.id}">${origHTML(b, true)}${slideTrBox(b)}</div>` + btns, acts: (picked ? `<button class="btn ghost" type="button" data-bkretryo="${b.id}">↺ Tekrar dene</button>` : ""), out: out + alt};
 }
 /* Inline equation pictures sit in gaps the slide's author left with spaces. Fonts differ a little from
