@@ -1668,8 +1668,37 @@ function calisView(){
   const dqN = BK.filter(b=>b.kind==="B").length;
   const sw = `<div class="qswitch" role="group" aria-label="Çalışma türü">
     <button type="button" class="filter-btn ${S.qmode!=="dq"?"active":""}" data-qmode="clk" aria-pressed="${S.qmode!=="dq"}">Part A · Clicker (${QUEUE.length})</button>
-    <button type="button" class="filter-btn ${S.qmode==="dq"?"active":""}" data-qmode="dq" aria-pressed="${S.qmode==="dq"}">Part B · DQ kartları (${dqN})</button></div>`;
-  return warnHTML() + sw + (S.qmode==="dq" ? dqView() : clickerView());
+    <button type="button" class="filter-btn ${S.qmode==="dq"?"active":""}" data-qmode="dq" aria-pressed="${S.qmode==="dq"}">Part B · DQ kartları (${dqN})</button>
+    <button type="button" class="filter-btn ${S.qmode==="ex"?"active":""}" data-qmode="ex" aria-pressed="${S.qmode==="ex"}">Part C · Problemler (${exList(0).length})</button></div>`;
+  return warnHTML() + sw + (S.qmode==="dq" ? dqView() : S.qmode==="ex" ? exView() : clickerView());
+}
+/* Part C tour: per chapter, last year's exam problems first, then the ones like them, then the rest. */
+function exList(ch){
+  const out=[];
+  for(let c=1;c<=7;c++){ if(ch && c!==ch) continue;
+    const inCh=BK.filter(b=>b.ch===c && b.kind==="C");
+    const sim=new Set(PAST.filter(p=>inCh.some(s=>s.star && s.id===p.id)).flatMap(p=>p.sim));
+    out.push(...inCh.filter(b=>b.star), ...inCh.filter(b=>!b.star && sim.has(b.id)), ...inCh.filter(b=>!b.star && !sim.has(b.id)));
+  }
+  return out;
+}
+function exView(){
+  const L=exList(S.exch||0); if(!L.length) return `<section class="sheet"><p>Problem yok.</p></section>`;
+  let i=L.findIndex(b=>b.id===S.excur); if(i<0) i=Math.max(0, L.findIndex(b=>!bkStatus(b.id)));
+  const b=L[i]; S.excur=b.id;
+  const all=exList(0), done=all.filter(x=>bkStatus(x.id)).length, okN=all.filter(x=>bkStatus(x.id)==="ok").length;
+  const chs=[0,1,2,3,4,5,6,7].filter(ch=>!ch||exList(ch).length).map(ch=>{ const a=exList(ch); return `<button type="button" class="filter-btn ${(S.exch||0)===ch?"active":""}" data-exch="${ch}" aria-pressed="${(S.exch||0)===ch}">${ch?"Bölüm "+ch:"Hepsi"} <span class="small">${a.filter(x=>bkStatus(x.id)).length}/${a.length}</span></button>`; }).join("");
+  const st=bkStatus(b.id), ask=`NS102 ${bkLabel(b)}: anlamadım`;
+  return `<section class="sheet qmode">
+    <div class="qtop"><div><b>Bölüm ${b.ch}</b> · ${b.star?"Geçen yılın sorusu":"Problem"} · <span class="muted">${i+1}/${L.length}</span></div>
+      <div class="small muted">${done}/${all.length} çözüldü · ${okN} doğru</div></div>
+    <div class="meter" role="img" aria-label="${done} / ${all.length} çözüldü"><span class="g" style="width:${100*okN/all.length}%"></span><span class="r" style="width:${100*(done-okN)/all.length}%"></span></div>
+    <div class="qchs" role="group" aria-label="Bölüm seç">${chs}</div>
+    ${formulaBox(b.ch, false)}
+    ${bkCard(b)}
+    <div class="qnav"><button type="button" class="btn ghost" data-exgo="-1" ${i===0?"disabled":""}>← Önceki</button><button type="button" class="btn ${st?"":"ghost"}" data-exgo="1" ${i===L.length-1?"disabled":""}>${st?"Sonraki →":"Atla →"}</button></div>
+    <div class="qask"><span class="small muted">Çözümü okudun, yine anlamadın mı?</span><button type="button" class="btn soft" data-qask="${esc(ask)}">🙋 Claude'a sor</button><span class="small muted">Metni kopyalar: <code>${esc(ask)}</code> · sohbete yapıştır.</span></div>
+  </section>`;
 }
 function dqList(){
   const num = r => r.replace(/^Q/,"").split(".").map(Number);
@@ -2138,6 +2167,8 @@ document.addEventListener("click",e=>{
   if(d.expandall==="ex"){ const any=EX.some(x=>!S.exOpen[x.id]); EX.forEach(x=>S.exOpen[x.id]=any); save(); render(); return; }
   if(d.more){ S.more=!(S.more || !MAIN_TABS.includes(S.tab)); if(!S.more && !MAIN_TABS.includes(S.tab)) S.tab="calis"; save(); go(S.tab); return; }
   if(d.qmode){ S.qmode=d.qmode; save(); render(); return; }
+  if(d.exch!==undefined){ S.exch=+d.exch; S.excur=null; save(); render(); return; }
+  if(d.exgo){ const L=exList(S.exch||0), i=L.findIndex(b=>b.id===S.excur), j=Math.min(L.length-1, Math.max(0, i+(+d.exgo))); S.excur=L[j].id; save(); render(); window.scrollTo({top:0}); return; }
   if(d.dqch!==undefined){ S.dqch=+d.dqch; S.dqcur=null; save(); render(); return; }
   if(d.dqshow){ S.open["dqs:"+d.dqshow]=true; save(); render(); return; }
   if(d.dqgo){ const L=dqList(), i=L.findIndex(b=>b.id===S.dqcur), j=Math.min(L.length-1, Math.max(0, i+(+d.dqgo))); S.dqcur=L[j].id; save(); render(); window.scrollTo({top:0}); return; }
