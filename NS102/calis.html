@@ -354,6 +354,7 @@ details.slide-alt summary{cursor:pointer;font-size:.9rem;color:var(--ink-2)}
 .slide-svg .v{font-weight:700;font-style:italic;position:relative;display:inline-block}
 .slide-svg .v::before{content:"→";position:absolute;left:0;right:0;top:-.62em;text-align:center;font-size:.62em;font-weight:400;font-style:normal;line-height:1}
 .slide-svg .ov{border-top:1px solid currentColor;padding-top:.04em}
+.dqorig{border-left:3px solid var(--line,#ccc);padding:.2rem .8rem;margin:.4rem 0}.dqtext{font-size:1.05rem;line-height:1.5}
 </style>
 </head>
 <body>
@@ -1343,6 +1344,21 @@ let ORIG = null;
   sc.onerror=()=>{};
   document.head.appendChild(sc);
 })();
+/* Discussion Questions word for word from the eText (this computer only; materyal/ is not published). */
+let DQO = null;
+(function loadDQ(){
+  if(/github\.io$/.test(location.hostname)) return;
+  const sc=document.createElement("script"); sc.src="materyal/dq-orijinal.js?t="+Date.now();
+  sc.onload=()=>{ DQO=window.DQ_ORIG||null;
+    (window.DQ_EXTRA||[]).forEach(q=>{ if(!BK_BY[q.id]){ const b={id:q.id, kind:"B", ch:q.ch, star:false, q, local:true}; BK.push(b); BK_BY[q.id]=b; } });
+    render(); };
+  sc.onerror=()=>{};
+  document.head.appendChild(sc);
+})();
+function dqOrigHTML(b){
+  const o = DQO && DQO[b.q.ref]; if(!o) return "";
+  return `<div class="dqorig"><p class="small muted">Kitaptaki hali (${esc(b.q.ref)}):</p><div class="dqtext">${o.h}</div>${(o.img||[]).map(src=>`<img src="${src}" alt="${esc(b.q.ref)} şekli" style="max-width:100%">`).join("")}</div>`;
+}
 /* Slide mode (this computer only): the clicker exactly as on the slide, answered with a letter A–E against the slide's own key. */
 const CH7_KEY = {"7.1":"B","7.2":"C","7.3":"D","7.4":"D","7.5":"C","7.6":"D","7.7":"B","7.8":"A","7.9":"D","7.10":"B","7.11":"C","7.12":"B","7.13":"C"};
 function slideKey(b){ const k = b.r ? b.r[2] : CH7_KEY[b.m.ref]; return "ABCDE".indexOf(String(k||"").trim().charAt(0)); }
@@ -1507,11 +1523,12 @@ function bkCard(b, opt){
     acts = `<button class="btn soft" type="button" data-bksol="${b.id}" aria-expanded="${solOpen}">${solOpen?"Cevabı gizle":"Cevabı göster"}</button>`;
     if(solOpen) out = `<div class="sol"><p><b>Cevap: ${esc(b.t.ans)}</b></p><p>${bkT(b.t.w)}</p>${bkGrade(b)}</div>`;
   } else if(b.kind==="B"){
-    body = `${fig}<div class="prompt" data-trtap="bk:${b.id}"><p>${bkT(b.q.q)}</p>${bkTrBox(b)}</div>
+    const dqo = dqOrigHTML(b);
+    body = `${dqo || fig}${dqo && b.local ? "" : `<div class="prompt" data-trtap="bk:${b.id}">${dqo?`<p class="small muted">Kendi cümlelerimizle:</p>`:""}<p>${bkT(b.q.q)}</p>${bkTrBox(b)}</div>`}
       <label class="small muted" for="bkn-${b.id}">Cevabın (sınavdaki gibi 3–5 cümle; ilk cümlede sonucu söyle):</label>
       <textarea class="scratch-Area bknote" id="bkn-${b.id}" data-bknote="${b.id}" rows="3">${esc(S.bkNote[b.id]||"")}</textarea>`;
-    acts = `<button class="btn soft" type="button" data-bksol="${b.id}" aria-expanded="${solOpen}">${solOpen?"Örnek cevabı gizle":"Örnek cevabı göster"}</button>`;
-    if(solOpen) out = `<div class="sol"><p><b>Örnek cevap:</b> ${bkT(b.q.a)}</p>${bkGrade(b)}</div>`;
+    acts = b.q.a ? `<button class="btn soft" type="button" data-bksol="${b.id}" aria-expanded="${solOpen}">${solOpen?"Örnek cevabı gizle":"Örnek cevabı göster"}</button>` : `<span class="small muted">Bu soru için örnek cevap henüz yok.</span>`;
+    if(solOpen && b.q.a) out = `<div class="sol"><p><b>Örnek cevap:</b> ${bkT(b.q.a)}</p>${bkGrade(b)}</div>`;
   } else {
     const p=b.p, vals=S.bkIn[b.id]||[], checked=!!S.open["bkc:"+b.id];
     body = `<p class="bktitle"><b>${bkT(p.title)}</b> <span class="small muted">${"•".repeat(p.lvl||1)}</span></p>${fig}
