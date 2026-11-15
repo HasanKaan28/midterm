@@ -1535,8 +1535,9 @@ function bkCard(b, opt){
     body = `${dqo || fig}${dqo && b.local ? `<div class="prompt" data-trtap="bk:${b.id}">${bkTrBox(b)}</div>` : `<div class="prompt" data-trtap="bk:${b.id}">${dqo?`<p class="small muted">Kendi cümlelerimizle:</p>`:""}<p>${bkT(b.q.q)}</p>${bkTrBox(b)}</div>`}
       <label class="small muted" for="bkn-${b.id}">Cevabın (sınavdaki gibi 3–5 cümle; ilk cümlede sonucu söyle):</label>
       <textarea class="scratch-Area bknote" id="bkn-${b.id}" data-bknote="${b.id}" rows="3">${esc(S.bkNote[b.id]||"")}</textarea>`;
-    acts = b.q.a ? `<button class="btn soft" type="button" data-bksol="${b.id}" aria-expanded="${solOpen}">${solOpen?"Örnek cevabı gizle":"Örnek cevabı göster"}</button>` : `<span class="small muted">Bu soru için örnek cevap henüz yok.</span>`;
-    if(solOpen && b.q.a) out = `<div class="sol"><p><b>Örnek cevap:</b> ${bkT(b.q.a)}</p>${bkGrade(b)}</div>`;
+    const docA = window.DQ_ANS && window.DQ_ANS[b.q.ref];
+    acts = (b.q.a || docA) ? `<button class="btn soft" type="button" data-bksol="${b.id}" aria-expanded="${solOpen}">${solOpen?"Örnek cevabı gizle":"Örnek cevabı göster"}</button>` : `<span class="small muted">Bu soru için örnek cevap henüz yok.</span>`;
+    if(solOpen && (b.q.a || docA)) out = `<div class="sol">${docA?`<p><b>Cevap (dokümandaki):</b></p><div class="dqans">${docA}</div>`:""}${b.q.a?`<details ${docA?"":"open"}><summary>Türkçe örnek cevap</summary><p>${bkT(b.q.a)}</p></details>`:""}${bkGrade(b)}</div>`;
   } else {
     const p=b.p, vals=S.bkIn[b.id]||[], checked=!!S.open["bkc:"+b.id];
     body = `<p class="bktitle"><b>${bkT(p.title)}</b> <span class="small muted">${"•".repeat(p.lvl||1)}</span></p>${fig}
