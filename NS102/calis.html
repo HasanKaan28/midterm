@@ -349,6 +349,11 @@ details.slide-alt summary{cursor:pointer;font-size:.9rem;color:var(--ink-2)}
 
 @media (hover:hover){ .q .prompt.slideprompt:hover .trbox{display:none} .q.tr-open .prompt.slideprompt .trbox{display:block} }
 .prompt.slideprompt{cursor:auto}
+
+.slide-svg .slimg{padding:0;font-family:var(--slfont),"Times New Roman",Times,serif;color:#000}
+.slide-svg .v{font-weight:700;font-style:italic;position:relative;display:inline-block}
+.slide-svg .v::before{content:"→";position:absolute;left:0;right:0;top:-.62em;text-align:center;font-size:.62em;font-weight:400;font-style:normal;line-height:1}
+.slide-svg .ov{border-top:1px solid currentColor;padding-top:.04em}
 </style>
 </head>
 <body>
@@ -1371,13 +1376,20 @@ function fixSlide(svg){
   const vb=svg.viewBox.baseVal, sr=svg.getBoundingClientRect(); if(!sr.width) { delete svg.dataset.fixed; return; }
   const k=sr.width/vb.width;
   const imgs=[...svg.querySelectorAll("image")].map(im=>im.getBoundingClientRect()).filter(r=>r.width>2 && r.height < 70*k);
+  svg.querySelectorAll(".slimg").forEach(d=>{
+    /* shrink a transcribed formula to the width of the picture it replaces */
+    const maxW=+d.dataset.w||0, spans=[...d.querySelectorAll(".sl-l")];
+    const wide=Math.max(0,...spans.map(sp=>sp.getBoundingClientRect().width))/k;
+    if(maxW && wide>maxW*1.03){ const f=maxW/wide; d.querySelectorAll(":scope > div").forEach(row=>{ row.style.fontSize=(parseFloat(row.style.fontSize)*f).toFixed(2)+"px"; }); }
+    if(spans.length===1){ const r=spans[0].getBoundingClientRect(); if(r.width>2 && r.height < 70*k) imgs.push(r); }
+  });
   for(let pass=0; pass<4; pass++){
     let moved=false;
     for(const a of imgs){
       const walker=document.createTreeWalker(svg, NodeFilter.SHOW_TEXT);
       let n, hit=null;
       while((n=walker.nextNode())){
-        if(!n.parentElement.closest(".slt")) continue;
+        if(!n.parentElement.closest(".slt") || n.parentElement.closest(".slimg")) continue;
         const t=n.nodeValue, re=/\S+/g; let m;
         while((m=re.exec(t))){
           const rg=document.createRange(); rg.setStart(n,m.index); rg.setEnd(n,m.index+m[0].length);
