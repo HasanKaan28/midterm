@@ -1,0 +1,1237 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CS103 Midterm Hata Avı</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one column, code card centered, sticky header with progress. Clickable lines are the whole UI. */
+:root {
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --fg: #182029;
+  --muted: #5d6b7a;
+  --line: #d9dfe6;
+  --accent: #0b5fa6;
+  --accent-soft: #e2eefb;
+  --ok: #1f7a46;
+  --ok-soft: #dff3e6;
+  --bad: #b52f2f;
+  --bad-soft: #fbe1e1;
+  --warn: #9a6500;
+  --warn-soft: #fff0cc;
+  --sel: #fff4b8;
+  --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-code: "JetBrains Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111720; --surface: #1a212c; --fg: #e4e9f0; --muted: #98a5b5; --line: #2c3642;
+    --accent: #6fb3ea; --accent-soft: #1d3147; --ok: #5fcf8a; --ok-soft: #173627; --bad: #ff8a80; --bad-soft: #3e1f1f;
+    --warn: #f0c060; --warn-soft: #3b2f10; --sel: #4a4320; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111720; --surface: #1a212c; --fg: #e4e9f0; --muted: #98a5b5; --line: #2c3642;
+  --accent: #6fb3ea; --accent-soft: #1d3147; --ok: #5fcf8a; --ok-soft: #173627; --bad: #ff8a80; --bad-soft: #3e1f1f;
+  --warn: #f0c060; --warn-soft: #3b2f10; --sel: #4a4320; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+.code, pre.fixed, code, .exp .tag { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-ui); font-size: 15px; line-height: 1.5; margin: 0; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 0 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { position: sticky; top: env(safe-area-inset-top, 0px); background: var(--surface); border-bottom: 1px solid var(--line); z-index: 5; }
+.hwrap { max-width: 860px; margin: 0 auto; padding-block: 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+h1 { font-size: 18px; margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+h1 small { color: var(--muted); font-weight: 400; margin-left: 8px; font-size: 13px; }
+.stats { display: flex; gap: 14px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.stats b { color: var(--fg); font-weight: 600; }
+.bar { height: 4px; background: var(--line); }
+.bar i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .2s; }
+.intro { margin: 20px 0 14px; color: var(--muted); font-size: 14px; }
+.intro b { color: var(--fg); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.card-top h2 { font-size: 15px; margin: 0; font-weight: 600; }
+.chip { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.task { padding: 10px 16px; font-size: 14px; color: var(--muted); border-bottom: 1px solid var(--line); }
+.code { font-family: var(--font-code); font-size: 13.5px; line-height: 1.7; overflow-x: auto; padding: 8px 0; }
+.ln { display: flex; cursor: pointer; user-select: none; min-width: max-content; border-left: 4px solid transparent; }
+.ln:hover { background: var(--accent-soft); }
+.ln .n { width: 44px; flex: 0 0 44px; text-align: right; padding-right: 12px; color: var(--muted); }
+.ln .t { white-space: pre; padding-right: 16px; }
+.ln.sel { background: var(--sel); border-left-color: var(--warn); }
+.ln.hit { background: var(--ok-soft); border-left-color: var(--ok); }
+.ln.miss { background: var(--bad-soft); border-left-color: var(--bad); }
+.ln.wrong { background: var(--warn-soft); border-left-color: var(--warn); text-decoration: line-through; text-decoration-color: var(--muted); }
+.ln:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ln.static { cursor: default; }
+.ln.static:hover { background: transparent; }
+.answer { padding: 10px 16px; border-top: 1px solid var(--line); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.answer label { font-size: 13px; color: var(--muted); }
+.answer input { font: 15px var(--font-code); font-variant-ligatures: none; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--fg); flex: 1; min-width: 180px; }
+.answer input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.why { margin: 0 0 10px; font-size: 14px; }
+.checked .ln { cursor: default; }
+.checked .ln:hover { background: inherit; }
+.checked .ln.hit:hover { background: var(--ok-soft); }
+.checked .ln.miss:hover { background: var(--bad-soft); }
+.checked .ln.wrong:hover { background: var(--warn-soft); }
+.actions { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--line); flex-wrap: wrap; align-items: center; }
+button { font: inherit; font-weight: 500; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button:disabled { opacity: .45; cursor: default; }
+.spacer { flex: 1; }
+.result { padding: 12px 16px 4px; border-top: 1px solid var(--line); }
+.verdict { font-weight: 600; margin-bottom: 8px; }
+.verdict.good { color: var(--ok); }
+.verdict.mid { color: var(--warn); }
+.verdict.badv { color: var(--bad); }
+.exp { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 8px; }
+.exp li { display: grid; grid-template-columns: 56px 1fr; gap: 10px; font-size: 14px; align-items: start; }
+.exp .tag { font-family: var(--font-code); font-size: 12px; padding: 2px 6px; border-radius: 6px; text-align: center; white-space: nowrap; }
+.exp .tag.hit { background: var(--ok-soft); color: var(--ok); }
+.exp .tag.miss { background: var(--bad-soft); color: var(--bad); }
+.exp code, .task code, .intro code, .legend code { font-family: var(--font-code); font-size: 12.5px; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+details { margin: 4px 0 8px; }
+summary { cursor: pointer; font-weight: 500; color: var(--accent); }
+pre.fixed { font-family: var(--font-code); font-size: 13px; line-height: 1.6; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; margin: 8px 0 0; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); margin: 12px 0 0; }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.legend .l-sel::before { background: var(--sel); border: 1px solid var(--warn); }
+.legend .l-hit::before { background: var(--ok-soft); border: 1px solid var(--ok); }
+.legend .l-miss::before { background: var(--bad-soft); border: 1px solid var(--bad); }
+.legend .l-wrong::before { background: var(--warn-soft); border: 1px solid var(--warn); }
+.done { text-align: center; padding: 32px 16px; }
+.done h2 { margin: 0 0 8px; }
+.cheat { margin-top: 28px; }
+.cheat h2 { font-size: 16px; margin: 0 0 10px; }
+.cheat table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.cheat th, .cheat td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.cheat th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+.cheat .tw { overflow-x: auto; }
+.kbd { font-family: var(--font-code); font-size: 12px; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
+@media (max-width: 480px) {
+  .exp li { grid-template-columns: 1fr; gap: 2px; }
+  .exp .tag { justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+
+<header>
+  <div class="hwrap">
+    <h1>CS103 Midterm Hata Avı <small>Hafta 5–7 · function, reference, overloading, switch</small></h1>
+    <div class="stats"><span>Soru <b id="qpos">1</b>/<b id="qtot">0</b></span><span>Hata <b id="found">0</b>/<b id="total">0</b></span><span>Doğru soru <b id="perfect">0</b></span></div>
+  </div>
+  <div class="bar"><i id="bar"></i></div>
+</header>
+
+<div class="wrap">
+  <p class="intro"><a href="calis.html">← Çalışma sayfası</a> · <b>Nasıl oynanır:</b> hatalı olduğunu düşündüğün satırlara tıkla (birden fazla olabilir), sonra <b>Kontrol et</b>. Her soruda 1–5 hata var: compile error da var, derlenip yanlış çalışan logic error da. Eksik bir satır varsa boş satırı işaretle. <b>24. sorudan itibaren</b> "output nedir?" soruları: cevabı tek satıra yaz, Enter. Klavye: <span class="kbd">Enter</span> kontrol, <span class="kbd">→</span> sonraki.</p>
+
+  <div id="app"></div>
+
+  <div class="legend"><span class="l-sel">seçtin</span><span class="l-hit">doğru buldun</span><span class="l-miss">kaçırdın</span><span class="l-wrong">hata değildi</span></div>
+
+  <section class="cheat">
+    <h2>Hata türleri, hızlı liste</h2>
+    <div class="tw">
+    <table>
+      <tr><th>Gördüğün</th><th>Doğrusu</th><th>Neden</th></tr>
+      <tr><td>main'den önce prototype yok</td><td><code>int f(int n);</code> ekle</td><td>call, declaration ya da definition'dan sonra gelmeli</td></tr>
+      <tr><td><code>int f(int n)</code> (declaration)</td><td><code>int f(int n);</code></td><td>declaration <code>;</code> ile biter</td></tr>
+      <tr><td><code>int f(int n); {</code> (definition)</td><td><code>int f(int n) {</code></td><td>definition header'ında <code>;</code> yok</td></tr>
+      <tr><td>değer döndüren function'da return yok</td><td><code>return x;</code></td><td>her yol return ile bitmeli</td></tr>
+      <tr><td>void'da <code>return x;</code> / <code>cout &lt;&lt; f();</code></td><td><code>return;</code> / <code>f();</code></td><td>void değer vermez</td></tr>
+      <tr><td>swap çalışmıyor</td><td><code>int&amp; a, int&amp; b</code></td><td>& hem declaration'da hem definition'da</td></tr>
+      <tr><td><code>f(x, 5)</code> ve <code>int&amp;</code> parameter</td><td>variable ver</td><td>reference'a constant verilmez</td></tr>
+      <tr><td><code>int f(int)</code> + <code>double f(int)</code></td><td>birini sil</td><td>sadece return type farklıysa overload olmaz</td></tr>
+      <tr><td><code>add(2, 3.0)</code>, add(int,int) ve add(double,double)</td><td><code>add(2.0, 3.0)</code></td><td>ambiguous call, compile error</td></tr>
+      <tr><td>function içinde function definition</td><td>main'in dışına taşı</td><td>call edilir, tanımlanamaz</td></tr>
+      <tr><td>parameter body'de tekrar tanımlı</td><td>sil</td><td>parameter zaten local variable</td></tr>
+      <tr><td>başka function'ın local variable'ı</td><td>return value kullan</td><td>scope dışında</td></tr>
+      <tr><td><code>get_number</code></td><td><code>get_number()</code></td><td>call parantez ister</td></tr>
+      <tr><td><code>cin &gt;&gt; fabs(x)</code></td><td><code>cin &gt;&gt; x;</code></td><td>function değer döndürür, variable değil</td></tr>
+      <tr><td><code>switch (string)</code></td><td><code>char</code> / <code>int</code></td><td>switch string alamaz</td></tr>
+      <tr><td>case sonrası break yok</td><td><code>break;</code></td><td>fall-through: alttaki case'ler de çalışır</td></tr>
+      <tr><td>pozitif kontrolü <code>n &lt; 0</code></td><td><code>n &lt;= 0</code>, loop içinde <code>cin &gt;&gt; n;</code></td><td>0 pozitif değil; okumazsan infinite loop</td></tr>
+      <tr><td><code>result = 0</code> çarpım için</td><td><code>result = 1</code></td><td>0 ile çarpım hep 0</td></tr>
+      <tr><td><code>(a + b) / 2</code></td><td><code>/ 2.0</code> ya da <code>static_cast&lt;double&gt;</code></td><td>integer division kesri atar</td></tr>
+      <tr><td>declaration ≠ definition parameter'ları</td><td>aynı yap</td><td>linker error</td></tr>
+    </table>
+    </div>
+  </section>
+</div>
+
+<script>
+const EX = [
+ {
+  "t": "Prototype eksik",
+  "cat": "function declaration",
+  "task": "square(4) çağrısı 16 basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "int main() {",
+   "    int s = square(4);",
+   "    cout << s << endl;",
+   "    return 0;",
+   "}",
+   "",
+   "int square(int n) {",
+   "    n * n;",
+   "}"
+  ],
+  "err": {
+   "3": "main'den önce function declaration (prototype) yok. Buraya <code>int square(int n);</code> yaz; yoksa satır 5'teki call compile error verir (compiler square'i henüz görmedi).",
+   "11": "Değer hesaplanıyor ama döndürülmüyor: <code>return n * n;</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint square(int n);\n\nint main() {\n    int s = square(4);\n    cout << s << endl;\n    return 0;\n}\n\nint square(int n) {\n    return n * n;\n}"
+ },
+ {
+  "t": "Declaration ve definition'da ;",
+  "cat": "function declaration",
+  "task": "average(3, 4) 3.5 basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "double average(int a, int b)",
+   "",
+   "int main() {",
+   "    cout << average(3, 4) << endl;",
+   "    return 0;",
+   "}",
+   "",
+   "double average(int a, int b); {",
+   "    return (a + b) / 2;",
+   "}"
+  ],
+  "err": {
+   "4": "Declaration (prototype) <code>;</code> ile biter: <code>double average(int a, int b);</code>",
+   "11": "Definition header'ında <code>;</code> olmaz: <code>double average(int a, int b) {</code>",
+   "12": "<code>(a + b) / 2</code> integer division → 3. Doğrusu <code>return (a + b) / 2.0;</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\ndouble average(int a, int b);\n\nint main() {\n    cout << average(3, 4) << endl;\n    return 0;\n}\n\ndouble average(int a, int b) {\n    return (a + b) / 2.0;\n}"
+ },
+ {
+  "t": "void function değer döndürüyor",
+  "cat": "void function",
+  "task": "printSum void kalacak ve ekrana 5 yazacak.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "void printSum(int a, int b);",
+   "",
+   "int main() {",
+   "    cout << printSum(2, 3) << endl;",
+   "    return 0;",
+   "}",
+   "",
+   "void printSum(int a, int b) {",
+   "    return a + b;",
+   "}"
+  ],
+  "err": {
+   "7": "void function bir değer vermez, bu yüzden <code>cout &lt;&lt;</code> içinde kullanılamaz. Call tek başına bir statement: <code>printSum(2, 3);</code>",
+   "12": "void function <code>return a + b;</code> yazamaz. Ekrana kendisi yazsın: <code>cout &lt;&lt; a + b &lt;&lt; endl;</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nvoid printSum(int a, int b);\n\nint main() {\n    printSum(2, 3);\n    return 0;\n}\n\nvoid printSum(int a, int b) {\n    cout << a + b << endl;\n}"
+ },
+ {
+  "t": "swap çalışmıyor",
+  "cat": "call-by-reference",
+  "task": "Ekrana 8 3 basmalı (x ile y yer değiştirmeli).",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "void swapValues(int a, int b);",
+   "",
+   "int main() {",
+   "    int x = 3, y = 8;",
+   "    swapValues(x, y);",
+   "    cout << x << \" \" << y << endl;",
+   "    return 0;",
+   "}",
+   "",
+   "void swapValues(int a, int b) {",
+   "    a = b;",
+   "    b = a;",
+   "}"
+  ],
+  "err": {
+   "4": "Call-by-value: a ve b kopya, main'deki x ve y değişmez. Declaration'da <code>&amp;</code> gerekli: <code>void swapValues(int&amp; a, int&amp; b);</code>",
+   "13": "Definition'da da <code>&amp;</code> olmalı: <code>void swapValues(int&amp; a, int&amp; b) {</code>. İkisi aynı olmazsa linker error.",
+   "14": "<code>a = b;</code> a'nın eski değerini siler. Önce sakla: <code>int temp = a;</code> sonra <code>a = b;</code>",
+   "15": "a zaten b oldu, <code>b = a;</code> b'yi kendine eşitler. Doğrusu <code>b = temp;</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nvoid swapValues(int& a, int& b);\n\nint main() {\n    int x = 3, y = 8;\n    swapValues(x, y);\n    cout << x << \" \" << y << endl;\n    return 0;\n}\n\nvoid swapValues(int& a, int& b) {\n    int temp = a;\n    a = b;\n    b = temp;\n}"
+ },
+ {
+  "t": "Reference parameter'a sayı",
+  "cat": "call-by-reference",
+  "task": "a'yı 10 artırıp 15 basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "void addTen(int& n) {",
+   "    n = n + 10;",
+   "}",
+   "",
+   "int main() {",
+   "    int a = 5;",
+   "    addTen(a);",
+   "    addTen(7);",
+   "    cout << a << endl;",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "11": "Reference parameter'ın argument'ı bir variable olmalı; <code>7</code> bir constant, değiştirilecek bir yeri yok → compile error. Bu satırı sil."
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nvoid addTen(int& n) {\n    n = n + 10;\n}\n\nint main() {\n    int a = 5;\n    addTen(a);\n    cout << a << endl;\n    return 0;\n}"
+ },
+ {
+  "t": "Geçersiz overload",
+  "cat": "function overloading",
+  "task": "Ekrana 9 9 basmalı (kare alanı, dikdörtgen alanı).",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "int area(int side) { return side * side; }",
+   "double area(int side) { return side * side * 1.0; }",
+   "double area(double w, double h) { return w * h; }",
+   "",
+   "int main() {",
+   "    cout << area(3) << \" \" << area(2.0, 4.5) << endl;",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "5": "Satır 4 ile aynı parameter list <code>(int)</code>, sadece return type farklı. Overload için parameter list (sayı, type ya da sıra) farklı olmalı → compile error. Satırı sil."
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint area(int side) { return side * side; }\ndouble area(double w, double h) { return w * h; }\n\nint main() {\n    cout << area(3) << \" \" << area(2.0, 4.5) << endl;\n    return 0;\n}"
+ },
+ {
+  "t": "Ambiguous call",
+  "cat": "function overloading",
+  "task": "Ekrana alt alta 5, 4 ve 5.5 basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "double add(int a, int b)       { return a + b; }",
+   "double add(double a, double b) { return a + b; }",
+   "",
+   "int main() {",
+   "    cout << add(2, 3) << endl;",
+   "    cout << add(2.5, 1.5) << endl;",
+   "    cout << add(2, 3.5) << endl;",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "10": "<code>add(2, 3.5)</code>: (int, double) için iki aday da birer type conversion ister, compiler seçemez → ambiguous call, compile error. Doğrusu <code>add(2.0, 3.5)</code>."
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\ndouble add(int a, int b)       { return a + b; }\ndouble add(double a, double b) { return a + b; }\n\nint main() {\n    cout << add(2, 3) << endl;\n    cout << add(2.5, 1.5) << endl;\n    cout << add(2.0, 3.5) << endl;\n    return 0;\n}"
+ },
+ {
+  "t": "Local variable dışarıda",
+  "cat": "scope",
+  "task": "Ekrana 100 basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "int getTotal() {",
+   "    int total = 100;",
+   "    total;",
+   "}",
+   "",
+   "int main() {",
+   "    getTotal();",
+   "    cout << total << endl;",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "6": "Değer döndürülmüyor; <code>int</code> döndüren function'ın sonu <code>return</code> ile bitmeli: <code>return total;</code>",
+   "11": "<code>total</code>, getTotal'ın local variable'ı; main'de scope dışında → compile error. Return value'yu kullan: <code>cout &lt;&lt; getTotal() &lt;&lt; endl;</code> (satır 10'a gerek kalmaz)."
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint getTotal() {\n    int total = 100;\n    return total;\n}\n\nint main() {\n    cout << getTotal() << endl;\n    return 0;\n}"
+ },
+ {
+  "t": "Function içinde function",
+  "cat": "function definition",
+  "task": "Ekrana 27 basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "int main() {",
+   "    int cube(int n) {",
+   "        return n * n * n;",
+   "    }",
+   "    cout << cube(3) << endl;",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "5": "Bir function'ın içinde başka bir function definition yazılamaz (call edilebilir ama tanımlanamaz). cube'ü main'in üstüne taşı."
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint cube(int n) {\n    return n * n * n;\n}\n\nint main() {\n    cout << cube(3) << endl;\n    return 0;\n}"
+ },
+ {
+  "t": "Parameter tekrar tanımlanmış",
+  "cat": "scope",
+  "task": "doubleIt(4) 8 basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "int doubleIt(int x) {",
+   "    int x = 0;",
+   "    return 2 * x;",
+   "}",
+   "",
+   "int main() {",
+   "    cout << doubleIt(4) << endl;",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "5": "Parameter'lar da local variable'dır; function body'de aynı isimle tekrar tanımlanamaz → compile error. Satırı sil."
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint doubleIt(int x) {\n    return 2 * x;\n}\n\nint main() {\n    cout << doubleIt(4) << endl;\n    return 0;\n}"
+ },
+ {
+  "t": "bool function'da eksik return",
+  "cat": "return",
+  "task": "7 için odd basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "bool isEven(int n) {",
+   "    if (n % 2 = 0)",
+   "        return true;",
+   "",
+   "}",
+   "",
+   "int main() {",
+   "    if (isEven(7))",
+   "        cout << \"even\" << endl;",
+   "    else",
+   "        cout << \"odd\" << endl;",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "5": "<code>=</code> assignment; comparison <code>==</code> ile: <code>if (n % 2 == 0)</code>. (<code>n % 2 = 0</code> compile error da verir.)",
+   "7": "n tekse hiçbir <code>return</code> çalışmıyor. Değer döndüren function'ın her yolu return ile bitmeli: <code>return false;</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nbool isEven(int n) {\n    if (n % 2 == 0)\n        return true;\n    return false;\n}\n\nint main() {\n    if (isEven(7))\n        cout << \"even\" << endl;\n    else\n        cout << \"odd\" << endl;\n    return 0;\n}"
+ },
+ {
+  "t": "get_number (örnek midterm IV-1)",
+  "cat": "input validation",
+  "task": "Sadece pozitif sayı kabul etmeli; 0 ya da negatifte uyarıp tekrar sormalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "int get_number();",
+   "",
+   "int main() {",
+   "    int number = get_number;",
+   "    cout << \"Number you entered: \" << number << endl;",
+   "    return 0;",
+   "}",
+   "",
+   "int get_number() {",
+   "    int n;",
+   "    cout << \"Enter a positive integer: \";",
+   "    cin >> n;",
+   "    while (n < 0) {",
+   "        cout << \"Warning: the number must be positive!\\n\";",
+   "        cout << \"Enter a positive integer: \";",
+   "",
+   "    }",
+   "    return n;",
+   "}"
+  ],
+  "err": {
+   "7": "Function call parantezsiz olmaz: <code>get_number()</code>",
+   "16": "0 da pozitif değil. Koşul <code>while (n &lt;= 0)</code> olmalı.",
+   "19": "Loop içinde yeni sayı okunmuyor; n hiç değişmez → infinite loop. Buraya <code>cin &gt;&gt; n;</code> yaz."
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint get_number();\n\nint main() {\n    int number = get_number();\n    cout << \"Number you entered: \" << number << endl;\n    return 0;\n}\n\nint get_number() {\n    int n;\n    cout << \"Enter a positive integer: \";\n    cin >> n;\n    while (n <= 0) {\n        cout << \"Warning: the number must be positive!\\n\";\n        cout << \"Enter a positive integer: \";\n        cin >> n;\n    }\n    return n;\n}"
+ },
+ {
+  "t": "factorial ve permutation (örnek midterm IV-2)",
+  "cat": "loop + function",
+  "task": "n = 5, r = 2 için 20 basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "int factorial(int n);",
+   "int permutation(int n, int r);",
+   "",
+   "int main() {",
+   "    int n, r;",
+   "    cin >> n >> r;",
+   "    cout << permutation(n, r) << endl;",
+   "    return 0;",
+   "}",
+   "",
+   "int factorial(int n) {",
+   "    int result = 0;",
+   "    for (int i = 1; i < n; i++)",
+   "        result *= i;",
+   "    return result;",
+   "}",
+   "",
+   "int permutation(int n, int r) {",
+   "    return factorial(n) / factorial(r);",
+   "}"
+  ],
+  "err": {
+   "15": "Çarpım 0 ile başlarsa hep 0 kalır: <code>int result = 1;</code>",
+   "16": "n de çarpılmalı: <code>i &lt;= n</code>. (<code>i &lt; n</code> ile 5! yerine 4! çıkar.)",
+   "22": "Formül P(n, r) = n! / (n − r)!: <code>factorial(n) / factorial(n - r)</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint factorial(int n);\nint permutation(int n, int r);\n\nint main() {\n    int n, r;\n    cin >> n >> r;\n    cout << permutation(n, r) << endl;\n    return 0;\n}\n\nint factorial(int n) {\n    int result = 1;\n    for (int i = 1; i <= n; i++)\n        result *= i;\n    return result;\n}\n\nint permutation(int n, int r) {\n    return factorial(n) / factorial(n - r);\n}"
+ },
+ {
+  "t": "shareBudget (örnek midterm IV-3)",
+  "cat": "void function",
+  "task": "Ali, 3 girilince: Hello Ali! ve Each person will receive 300km.",
+  "code": [
+   "#include <iostream>",
+   "#include <string>",
+   "using namespace std;",
+   "",
+   "void hello(string name);",
+   "void shareBudget(int number, double totalAmount);",
+   "",
+   "int main() {",
+   "    string name;",
+   "    int people;",
+   "    double budget = 900;",
+   "    cin >> name >> people;",
+   "    hello(name);",
+   "    shareBudget(people, budget);",
+   "    return 0;",
+   "}",
+   "",
+   "void hello(string name) {",
+   "    cout << \"Hello \" << name << \"!\\n\";",
+   "}",
+   "",
+   "void shareBudget(int number, double totalAmount) {",
+   "    if (number = 0) {",
+   "        cout << \"No people, no budget distribution!\\n\";",
+   "        return 0;",
+   "    }",
+   "    cout << \"Each person will receive \" << totalAmount / number << \"km.\\n\";",
+   "}"
+  ],
+  "err": {
+   "23": "<code>number = 0</code> assignment: number 0 olur, koşul hep false, sonra 0'a bölünür. Doğrusu <code>if (number == 0)</code>",
+   "25": "void function değer döndüremez: <code>return;</code> (sadece çıkış)."
+  },
+  "fix": "#include <iostream>\n#include <string>\nusing namespace std;\n\nvoid hello(string name);\nvoid shareBudget(int number, double totalAmount);\n\nint main() {\n    string name;\n    int people;\n    double budget = 900;\n    cin >> name >> people;\n    hello(name);\n    shareBudget(people, budget);\n    return 0;\n}\n\nvoid hello(string name) {\n    cout << \"Hello \" << name << \"!\\n\";\n}\n\nvoid shareBudget(int number, double totalAmount) {\n    if (number == 0) {\n        cout << \"No people, no budget distribution!\\n\";\n        return;\n    }\n    cout << \"Each person will receive \" << totalAmount / number << \"km.\\n\";\n}"
+ },
+ {
+  "t": "switch menüsü",
+  "cat": "switch",
+  "task": "1 → Square, 2 → Cube, 0 → Bye, başka sayı → Wrong choice!",
+  "code": [
+   "int choice;",
+   "cin >> choice;",
+   "switch (choice) {",
+   "    case 1:",
+   "        cout << \"Square\";",
+   "    case 2:",
+   "        cout << \"Cube\";",
+   "        break;",
+   "    case '0':",
+   "        cout << \"Bye\";",
+   "        break;",
+   "    default",
+   "        cout << \"Wrong choice!\";",
+   "}"
+  ],
+  "err": {
+   "5": "Arkasından <code>break;</code> yok → fall-through: 1 girilince \"SquareCube\" basılır.",
+   "9": "choice bir <code>int</code>; <code>'0'</code> ise char (değeri 48). Doğrusu <code>case 0:</code>",
+   "12": "<code>default</code> sonrası iki nokta şart: <code>default:</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\nint main() {\n    int choice;\n    cin >> choice;\n    switch (choice) {\n        case 1:\n            cout << \"Square\";\n            break;\n        case 2:\n            cout << \"Cube\";\n            break;\n        case 0:\n            cout << \"Bye\";\n            break;\n        default:\n            cout << \"Wrong choice!\";\n    }\n    return 0;\n}"
+ },
+ {
+  "t": "switch ve string",
+  "cat": "switch",
+  "task": "A → Excellent, B → Good, diğer → Other.",
+  "code": [
+   "#include <iostream>",
+   "#include <string>",
+   "using namespace std;",
+   "",
+   "int main() {",
+   "    string grade;",
+   "    cin >> grade",
+   "    switch (grade) {",
+   "        case 'A': cout << \"Excellent\"; break;",
+   "        case 'B': cout << \"Good\"; break;",
+   "        default: cout << \"Other\";",
+   "    }",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "6": "switch string kabul etmez (sadece int, char, bool, enum). Case'ler de <code>'A'</code> gibi char: <code>char grade;</code>",
+   "7": "Statement <code>;</code> ile biter: <code>cin &gt;&gt; grade;</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char grade;\n    cin >> grade;\n    switch (grade) {\n        case 'A': cout << \"Excellent\"; break;\n        case 'B': cout << \"Good\"; break;\n        default: cout << \"Other\";\n    }\n    return 0;\n}"
+ },
+ {
+  "t": "Yıldız üçgeni",
+  "cat": "nested loop",
+  "task": "n = 3 için satır satır *, **, *** basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "int main() {",
+   "    int n = 3;",
+   "    for (int i = 1; i <= n; i++) {",
+   "        for (int j = 1; j <= n; j++);",
+   "            cout << \"*\";",
+   "        cout << endl;",
+   "    }",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "7": "İki hata: sondaki <code>;</code> inner loop body'sini boşaltır, <code>cout</code> her satırda bir kez çalışır. Koşul da <code>j &lt;= i</code> olmalı (i. satırda i yıldız)."
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 3;\n    for (int i = 1; i <= n; i++) {\n        for (int j = 1; j <= i; j++)\n            cout << \"*\";\n        cout << endl;\n    }\n    return 0;\n}"
+ },
+ {
+  "t": "Dosyadaki sayıların ortalaması",
+  "cat": "file I/O",
+  "task": "numbers.txt'deki sayıların ortalamasını (ondalıklı) yazmalı.",
+  "code": [
+   "#include <iostream>",
+   "",
+   "using namespace std;",
+   "",
+   "int main() {",
+   "    ifstream inFile;",
+   "    inFile.open(numbers.txt);",
+   "    int number, count = 0, sum = 0;",
+   "    while (inFile >> number); {",
+   "        sum += number;",
+   "        count++;",
+   "    }",
+   "    inFile.close;",
+   "    cout << \"Average: \" << sum / count << endl;",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "2": "ifstream için <code>#include &lt;fstream&gt;</code> gerekli.",
+   "7": "File adı string: <code>inFile.open(\"numbers.txt\");</code>",
+   "9": "Sondaki <code>;</code> loop body'sini boşaltır; toplama loop'a girmez. Sil.",
+   "13": "Function call parantez ister: <code>inFile.close();</code>",
+   "14": "<code>sum / count</code> integer division. Doğrusu <code>static_cast&lt;double&gt;(sum) / count</code>"
+  },
+  "fix": "#include <iostream>\n#include <fstream>\nusing namespace std;\n\nint main() {\n    ifstream inFile;\n    inFile.open(\"numbers.txt\");\n    int number, count = 0, sum = 0;\n    while (inFile >> number) {\n        sum += number;\n        count++;\n    }\n    inFile.close();\n    cout << \"Average: \" << static_cast<double>(sum) / count << endl;\n    return 0;\n}"
+ },
+ {
+  "t": "Declaration ile definition uyuşmuyor",
+  "cat": "call-by-reference",
+  "task": "Ekrana 8 15 basmalı (toplam ve çarpım).",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "void stats(int a, int b, int sum, int& product);",
+   "",
+   "int main() {",
+   "    int s, p;",
+   "    stats(3, 5, s, p);",
+   "    cout << s << \" \" << p << endl;",
+   "    return 0;",
+   "}",
+   "",
+   "void stats(int a, int b, int& sum, int& product) {",
+   "    sum = a + b;",
+   "    product = a * b;",
+   "}"
+  ],
+  "err": {
+   "4": "Declaration'da sum'ın <code>&amp;</code> işareti yok. Compiler bunu farklı bir function sanır; main onu call eder ama definition'ı yok → linker error. Declaration ve definition aynı olmalı: <code>int&amp; sum</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nvoid stats(int a, int b, int& sum, int& product);\n\nint main() {\n    int s, p;\n    stats(3, 5, s, p);\n    cout << s << \" \" << p << endl;\n    return 0;\n}\n\nvoid stats(int a, int b, int& sum, int& product) {\n    sum = a + b;\n    product = a * b;\n}"
+ },
+ {
+  "t": "Return type ve argument'lar",
+  "cat": "function definition",
+  "task": "Ekrana 9 basmalı (büyük olan).",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "maxOf(int a, int b) {",
+   "    if (a > b)",
+   "        return a;",
+   "    else",
+   "        return b;",
+   "}",
+   "",
+   "int main() {",
+   "    cout << maxOf(4; 9) << endl;",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "4": "Return type yazılmamış: <code>int maxOf(int a, int b) {</code>",
+   "12": "Argument'lar virgülle ayrılır: <code>maxOf(4, 9)</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint maxOf(int a, int b) {\n    if (a > b)\n        return a;\n    else\n        return b;\n}\n\nint main() {\n    cout << maxOf(4, 9) << endl;\n    return 0;\n}"
+ },
+ {
+  "t": "totalCost",
+  "cat": "function call",
+  "task": "3 adet 2.5'lik ürünün vergili toplamını (7.875) basmalı.",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "double totalCost(int number, double price);",
+   "",
+   "int main() {",
+   "    double bill = totalCost(2.5);",
+   "    cout << bill << endl;",
+   "    return 0;",
+   "}",
+   "",
+   "double totalCost(int number, double price) {",
+   "    const double TAX = 0.05;",
+   "    TAX = 0.08;",
+   "    double subtotal = number * price;",
+   "    return subtotal + subtotal * TAX;",
+   "}"
+  ],
+  "err": {
+   "7": "totalCost iki argument ister (sayı, fiyat), sırası da önemli: <code>totalCost(3, 2.5)</code>",
+   "14": "<code>const</code> değişmez; assignment compile error verir. Satırı sil."
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\ndouble totalCost(int number, double price);\n\nint main() {\n    double bill = totalCost(3, 2.5);\n    cout << bill << endl;\n    return 0;\n}\n\ndouble totalCost(int number, double price) {\n    const double TAX = 0.05;\n    double subtotal = number * price;\n    return subtotal + subtotal * TAX;\n}"
+ },
+ {
+  "t": "Predefined functions",
+  "cat": "predefined functions",
+  "task": "x'i okuyup karekökünü, sonra 2'nin karesini (4) yazmalı.",
+  "code": [
+   "#include <iostream>",
+   "#include <cmath>",
+   "using namespace std;",
+   "",
+   "int main() {",
+   "    double x;",
+   "    cin >> fabs(x);",
+   "    cout << sqrt(x) << endl;",
+   "    cout << pow(2) << endl;",
+   "    return 0;",
+   "}"
+  ],
+  "err": {
+   "7": "<code>fabs(x)</code> bir değer döndürür, içine okunacak yer değil (örnek midterm I-6). Doğrusu <code>cin &gt;&gt; x;</code>",
+   "9": "pow iki argument alır: <code>pow(2, 2)</code>"
+  },
+  "fix": "#include <iostream>\n#include <cmath>\nusing namespace std;\n\nint main() {\n    double x;\n    cin >> x;\n    cout << sqrt(x) << endl;\n    cout << pow(2, 2) << endl;\n    return 0;\n}"
+ },
+ {
+  "t": "Kâğıt kuralları karışık",
+  "cat": "function declaration",
+  "task": "Ekrana 12 basmalı (3 ile 4'ün çarpımı).",
+  "code": [
+   "#include <iostream>",
+   "using namespace std;",
+   "",
+   "int multiply(int, int);",
+   "",
+   "int main() {",
+   "    int result = multiply(3, 4);",
+   "    cout << result << endl;",
+   "    return 0;",
+   "}",
+   "",
+   "int multiply(int, int) {",
+   "    return a * b;",
+   "}"
+  ],
+  "err": {
+   "13": "Declaration'da parameter adı yazmamak serbest, ama definition'da adlar şart: <code>int multiply(int a, int b) {</code>"
+  },
+  "fix": "#include <iostream>\nusing namespace std;\n\nint multiply(int, int);\n\nint main() {\n    int result = multiply(3, 4);\n    cout << result << endl;\n    return 0;\n}\n\nint multiply(int a, int b) {\n    return a * b;\n}"
+ },
+ {
+  "type": "out",
+  "t": "Value ve reference birlikte",
+  "cat": "call-by-reference",
+  "code": [
+   "void f(int a, int& b) {",
+   "    a = a * 2;",
+   "    b = b + a;",
+   "}",
+   "int main() {",
+   "    int x = 2, y = 3;",
+   "    f(x, y);",
+   "    cout << x << \" \" << y << \" \";",
+   "    f(y, x);",
+   "    cout << x << \" \" << y;",
+   "}"
+  ],
+  "answer": [
+   "2 7 16 7"
+  ],
+  "why": "1. call: a = 4 (kopya), b = y → y = 3 + 4 = 7; x değişmez → 2 7. 2. call: a = 7·2 = 14, b = x → x = 2 + 14 = 16; y kopya olarak gitti, 7 kalır → 16 7."
+ },
+ {
+  "type": "out",
+  "t": "Global ve local",
+  "cat": "scope",
+  "code": [
+   "int g = 10;",
+   "void change() {",
+   "    int g = 50;",
+   "    g++;",
+   "}",
+   "void change2() {",
+   "    g = g + 5;",
+   "}",
+   "int main() {",
+   "    change();",
+   "    cout << g << \" \";",
+   "    change2();",
+   "    cout << g;",
+   "}"
+  ],
+  "answer": [
+   "10 15"
+  ],
+  "why": "change kendi local g'sini (50 → 51) artırır, global g'ye dokunmaz → 10. change2'de local g yok, global değişir → 15."
+ },
+ {
+  "type": "out",
+  "t": "Hangi overload?",
+  "cat": "function overloading",
+  "code": [
+   "void show(int x)    { cout << \"I\"; }",
+   "void show(double x) { cout << \"D\"; }",
+   "void show(char x)   { cout << \"C\"; }",
+   "int main() {",
+   "    show(5);",
+   "    show(5.0);",
+   "    show('5');",
+   "    show(5 / 2);",
+   "}"
+  ],
+  "answer": [
+   "IDCI"
+  ],
+  "why": "Exact match kazanır: 5 int, 5.0 double, '5' char. <code>5 / 2</code> integer division → 2, yine int → I."
+ },
+ {
+  "type": "out",
+  "t": "Üç parameter'lı overload",
+  "cat": "function overloading",
+  "code": [
+   "int calc(int a, int b) { return a + b; }",
+   "int calc(int a, double b, int c) { return a * c; }",
+   "int main() {",
+   "    cout << calc(2, 3);",
+   "    cout << calc(2, 1.5, 4);",
+   "}"
+  ],
+  "answer": [
+   "58"
+  ],
+  "why": "<code>calc(2, 3)</code> = 5. Üç argument'lı tek sürüm var → 2·4 = 8. Arada boşluk basılmıyor: 58."
+ },
+ {
+  "type": "out",
+  "t": "void ve erken return",
+  "cat": "void function",
+  "code": [
+   "void check(int n) {",
+   "    if (n < 0) {",
+   "        cout << \"N\";",
+   "        return;",
+   "    }",
+   "    cout << \"P\";",
+   "    cout << n;",
+   "}",
+   "int main() {",
+   "    check(-2);",
+   "    check(3);",
+   "    check(0);",
+   "}"
+  ],
+  "answer": [
+   "NP3P0"
+  ],
+  "why": "-2: N basar, <code>return;</code> function'ı bitirir (n basılmaz). 3: P3. 0 negatif değil: P0."
+ },
+ {
+  "type": "out",
+  "t": "Loop içinde function call",
+  "cat": "loop + function",
+  "code": [
+   "int half(int n) { return n / 2; }",
+   "int main() {",
+   "    int sum = 0;",
+   "    for (int i = 1; i <= 5; i++)",
+   "        sum += half(i);",
+   "    cout << sum;",
+   "}"
+  ],
+  "answer": [
+   "6"
+  ],
+  "why": "half(1..5) = 0, 1, 1, 2, 2 (integer division). Toplam 6."
+ },
+ {
+  "type": "out",
+  "t": "Nested loop + switch (Part III tipi)",
+  "cat": "switch",
+  "code": [
+   "int i, j;",
+   "for (i = 1; i <= 3; i++) {",
+   "    for (j = 1; j <= i; j++) {",
+   "        switch (i + j) {",
+   "            case 2:  cout << \"A\";",
+   "            case 3:  cout << \"B\"; break;",
+   "            case 4:  cout << \"C\";",
+   "            default: cout << \"D\";",
+   "        }",
+   "    }",
+   "    cout << \"|\";",
+   "}"
+  ],
+  "answer": [
+   "AB|BCD|CDDD|"
+  ],
+  "why": "i=1: j=1 → 2: A, fall-through B, break. i=2: j=1 → 3: B; j=2 → 4: C, fall-through D. i=3: 4 → CD; 5 → D; 6 → D. Her i sonunda |."
+ },
+ {
+  "type": "out",
+  "t": "default ortada",
+  "cat": "switch",
+  "code": [
+   "char c = 'b';",
+   "switch (c) {",
+   "    case 'a': cout << 1;",
+   "    default:  cout << 2;",
+   "    case 'c': cout << 3; break;",
+   "    case 'd': cout << 4;",
+   "}"
+  ],
+  "answer": [
+   "23"
+  ],
+  "why": "'b' hiçbir case'e uymaz → default'tan başlar: 2. break yok, alttaki case 'c'ye düşer: 3, break."
+ },
+ {
+  "type": "out",
+  "t": "break sadece içtekini bitirir",
+  "cat": "nested loop",
+  "code": [
+   "int count = 0;",
+   "for (int i = 0; i < 4; i++) {",
+   "    for (int j = 0; j < 4; j++) {",
+   "        if (j == i) break;",
+   "        count++;",
+   "    }",
+   "}",
+   "cout << count;"
+  ],
+  "answer": [
+   "6"
+  ],
+  "why": "break inner loop'u bitirir, outer devam eder. i. turda count i kez artar: 0 + 1 + 2 + 3 = 6."
+ },
+ {
+  "type": "out",
+  "t": "Reference ve return value",
+  "cat": "call-by-reference",
+  "code": [
+   "int twice(int& n) {",
+   "    n = n * 2;",
+   "    return n + 1;",
+   "}",
+   "int main() {",
+   "    int a = 3;",
+   "    int b = twice(a);",
+   "    cout << a << \" \" << b << \" \";",
+   "    b = twice(b);",
+   "    cout << a << \" \" << b;",
+   "}"
+  ],
+  "answer": [
+   "6 7 6 15"
+  ],
+  "why": "twice(a): a = 6, dönen 7 → b = 7. twice(b): n = b, b = 14, dönen 15 tekrar b'ye atanır → b = 15. a 6 kalır."
+ },
+ {
+  "type": "out",
+  "t": "double döndüren function'da int bölme",
+  "cat": "data type",
+  "code": [
+   "double avg(int a, int b) {",
+   "    return (a + b) / 2;",
+   "}",
+   "int main() {",
+   "    cout << avg(3, 4) << \" \";",
+   "    cout << avg(3, 4) * 2;",
+   "}"
+  ],
+  "answer": [
+   "3 6"
+  ],
+  "why": "<code>(3 + 4) / 2</code> integer division → 3, sonra double'a çevrilir (3.0, ekranda 3). 3 · 2 = 6. Return type double olsa da bölme önce int yapılır."
+ },
+ {
+  "type": "out",
+  "t": "do-while ve function",
+  "cat": "loop + function",
+  "code": [
+   "int next(int n) {",
+   "    if (n % 2 == 0) return n / 2;",
+   "    return 3 * n + 1;",
+   "}",
+   "int main() {",
+   "    int n = 6, steps = 0;",
+   "    do {",
+   "        n = next(n);",
+   "        steps++;",
+   "    } while (n != 1);",
+   "    cout << steps;",
+   "}"
+  ],
+  "answer": [
+   "8"
+  ],
+  "why": "6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1: 8 adım."
+ },
+ {
+  "type": "out",
+  "t": "Argument'ta ++",
+  "cat": "increment",
+  "code": [
+   "int sq(int x) { return x * x; }",
+   "int main() {",
+   "    int a = 3;",
+   "    int b = sq(a++);",
+   "    int c = sq(++a);",
+   "    cout << a << \" \" << b << \" \" << c;",
+   "}"
+  ],
+  "answer": [
+   "5 9 25"
+  ],
+  "why": "<code>sq(a++)</code>: eski değer 3 gider → b = 9, sonra a = 4. <code>sq(++a)</code>: önce a = 5 → c = 25."
+ },
+ {
+  "type": "out",
+  "t": "Block scope",
+  "cat": "scope",
+  "code": [
+   "int x = 1;",
+   "for (int i = 0; i < 2; i++) {",
+   "    int x = 10;",
+   "    x++;",
+   "    cout << x << \" \";",
+   "}",
+   "cout << x;"
+  ],
+  "answer": [
+   "11 11 1"
+  ],
+  "why": "Loop içindeki x her turda yeniden 10 olarak oluşur, 11 basılır. Dıştaki x'e hiç dokunulmaz → 1."
+ },
+ {
+  "type": "out",
+  "t": "cmath",
+  "cat": "predefined functions",
+  "code": [
+   "cout << sqrt(16) + pow(2, 3) << \" \" << 9 / abs(-2) << \" \" << ceil(2.1);"
+  ],
+  "answer": [
+   "12 4 3"
+  ],
+  "why": "4 + 8 = 12. <code>abs</code> int döndürür → 9 / 2 integer division = 4. ceil yukarı yuvarlar → 3."
+ },
+ {
+  "type": "out",
+  "t": "Üç parameter, ikisi reference (M-II.1 tipi)",
+  "cat": "call-by-reference",
+  "code": [
+   "void g(int& a, int b, int& c) {",
+   "    a = a + b;",
+   "    b = b * 10;",
+   "    c = a + b;",
+   "}",
+   "int main() {",
+   "    int x = 1, y = 2, z = 0;",
+   "    g(x, y, z);",
+   "    cout << x << \" \" << y << \" \" << z << \" \";",
+   "    g(z, x, y);",
+   "    cout << x << \" \" << y << \" \" << z;",
+   "}"
+  ],
+  "answer": [
+   "3 2 23 3 56 26"
+  ],
+  "why": "1. call: a = x → x = 3; b = 20 (kopya, y 2 kalır); c = z → z = 3 + 20 = 23. 2. call: a = z → z = 23 + 3 = 26; b = 30; c = y → y = 26 + 30 = 56. x 3 kalır."
+ }
+];
+
+
+const app = document.getElementById("app");
+let idx = 0, checked = false, sel = new Set();
+let found = 0, total = 0, perfect = 0;
+const done = new Array(EX.length).fill(null);
+try {
+  const s = JSON.parse(localStorage.getItem("cs103-hataavi-midterm") || "null");
+  if (s && (s.v === 1 || s.v === 2) && Array.isArray(s.done)) {
+    s.done.slice(0, EX.length).forEach((d, i) => { done[i] = d || null; });
+    idx = Math.min(s.idx || 0, EX.length - 1);
+  }
+} catch (e) {}
+
+function save() { try { localStorage.setItem("cs103-hataavi-midterm", JSON.stringify({ v: 2, done, idx })); } catch (e) {} }
+save();
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function errCount(ex) { return ex.type === "out" ? 1 : Object.keys(ex.err || {}).length; }
+function recount() {
+  found = 0; total = 0; perfect = 0;
+  done.forEach((d, i) => { const n = errCount(EX[i]); if (d) { total += n; found += d.hit; if (d.hit === n && d.wrong === 0) perfect++; } });
+  document.getElementById("found").textContent = found;
+  document.getElementById("total").textContent = total;
+  document.getElementById("perfect").textContent = perfect;
+  document.getElementById("qpos").textContent = idx + 1;
+  document.getElementById("qtot").textContent = EX.length;
+  document.getElementById("bar").style.width = (done.filter(Boolean).length / EX.length * 100) + "%";
+}
+
+function norm(s) { return String(s).trim().replace(/\s+/g, " ").toLowerCase(); }
+const NONE = ["", "yok", "çıktı yok", "cikti yok", "hiçbir şey", "hicbir sey", "hiçbirşey", "hicbirsey", "boş", "bos", "no output", "nothing", "-", "yok."];
+function navButtons(ex) {
+  return `<button id="prev" ${idx === 0 ? "disabled" : ""}>← Önceki</button>` +
+    (checked ? `<button id="retry">Tekrar dene</button>` : `<button id="check" class="primary">Kontrol et</button>${ex.type === "out" ? "" : `<button id="clear">Temizle</button>`}`) +
+    `<span class="spacer"></span><button id="next" class="${checked ? "primary" : ""}">${idx === EX.length - 1 ? "Özet" : "Sonraki →"}</button>`;
+}
+function bindNav() {
+  const q = id => document.getElementById(id);
+  const go = i => { idx = i; save(); render(); window.scrollTo({ top: 0 }); };
+  if (q("retry")) q("retry").onclick = () => { done[idx] = null; save(); render(); };
+  if (q("prev")) q("prev").onclick = () => { if (idx > 0) go(idx - 1); };
+  if (q("next")) q("next").onclick = () => { if (idx < EX.length - 1) go(idx + 1); else if (!done.every(Boolean)) { const i = done.findIndex(d => !d); if (i >= 0) go(i); } };
+  if (q("reset")) q("reset").onclick = () => { done.fill(null); go(0); };
+}
+function summaryCard() {
+  if (idx === EX.length - 1 && done.every(Boolean)) return `<div class="done card" style="margin-top:16px"><h2>Bitti</h2><p>${EX.length} soruda ${total} hatadan ${found} tanesini buldun, ${perfect} soruyu eksiksiz çözdün.</p><button id="reset">Baştan başla</button></div>`;
+  return "";
+}
+function renderOut(ex, prev) {
+  checked = !!prev;
+  let html = `<div class="card${checked ? " checked" : ""}">
+    <div class="card-top"><h2>${idx + 1}. ${esc(ex.t)}</h2><span class="chip">${esc(ex.cat)}</span></div>
+    <div class="task">Çıktı nedir? Ekrana basılanı aynen yaz (boşluklar dahil). Hiçbir şey basılmıyorsa <b>yok</b> yaz.</div>
+    <div class="code">`;
+  ex.code.forEach((line, i) => { html += `<div class="ln static"><span class="n">${i + 1}.</span><span class="t">${esc(line) || " "}</span></div>`; });
+  html += `</div><div class="answer"><label for="ans">Cevabın</label><input id="ans" type="text" autocomplete="off" spellcheck="false" ${checked ? "disabled" : ""} value="${prev ? esc(prev.ans) : ""}"></div>`;
+  if (checked) {
+    const shown = ex.answer[0] === "" ? "çıktı yok" : ex.answer[0];
+    html += `<div class="result"><div class="verdict ${prev.ok ? "good" : "badv"}">${prev.ok ? "Doğru." : "Yanlış."} Doğru cevap: <code>${esc(shown)}</code></div><p class="why">${ex.why}</p></div>`;
+  }
+  html += `<div class="actions">${navButtons(ex)}</div></div>` + summaryCard();
+  app.innerHTML = html;
+  recount(); bindNav();
+  const c = document.getElementById("check"); if (c) c.onclick = checkOut;
+  const inp = document.getElementById("ans");
+  if (inp && !checked) { inp.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); checkOut(); } }); inp.focus(); }
+}
+function checkOut() {
+  const ex = EX[idx]; const inp = document.getElementById("ans"); const ans = inp ? inp.value : "";
+  const a = norm(ans); const accepted = ex.answer.map(norm);
+  const ok = accepted.includes(a) || (accepted.includes("") && NONE.includes(a));
+  done[idx] = { ans, ok, hit: ok ? 1 : 0, wrong: 0 }; save(); render();
+}
+function render() {
+  const ex = EX[idx];
+  const prev = done[idx];
+  if (ex.type === "out") { renderOut(ex, prev); return; }
+  checked = !!prev; sel = new Set(prev ? prev.sel : []);
+  const errLines = Object.keys(ex.err).map(Number);
+  let html = `<div class="card${checked ? " checked" : ""}">
+    <div class="card-top"><h2>${idx + 1}. ${esc(ex.t)}</h2><span class="chip">${esc(ex.cat)}</span></div>
+    <div class="task">Beklenen: ${esc(ex.task)} · Hata sayısı: <b>${errLines.length}</b></div>
+    <div class="code" id="code">`;
+  ex.code.forEach((line, i) => {
+    const n = i + 1; let cls = "ln";
+    if (checked) { const isErr = errLines.includes(n), picked = sel.has(n); if (isErr && picked) cls += " hit"; else if (isErr) cls += " miss"; else if (picked) cls += " wrong"; }
+    else if (sel.has(n)) cls += " sel";
+    html += `<div class="${cls}" data-n="${n}" tabindex="0" role="button" aria-pressed="${sel.has(n)}"><span class="n">${n}.</span><span class="t">${esc(line) || " "}</span></div>`;
+  });
+  html += `</div>`;
+  if (checked) {
+    const hit = errLines.filter(n => sel.has(n)).length, wrong = [...sel].filter(n => !errLines.includes(n)).length;
+    let v, vc;
+    if (hit === errLines.length && wrong === 0) { v = "Hepsini buldun, fazladan işaretleme yok."; vc = "good"; }
+    else if (hit === errLines.length) { v = `Tüm hataları buldun ama ${wrong} sağlam satırı da işaretledin.`; vc = "mid"; }
+    else if (hit > 0) { v = `${errLines.length} hatadan ${hit} tanesini buldun${wrong ? ", " + wrong + " yanlış işaret" : ""}.`; vc = "mid"; }
+    else { v = `Hiçbirini bulamadın${wrong ? ", " + wrong + " yanlış işaret" : ""}. Açıklamaları oku, sonra düzeltilmiş koda bak.`; vc = "badv"; }
+    html += `<div class="result"><div class="verdict ${vc}">${v}</div><ul class="exp">`;
+    errLines.forEach(n => { const ok = sel.has(n); html += `<li><span class="tag ${ok ? "hit" : "miss"}">satır ${n}</span><span>${ex.err[n]}</span></li>`; });
+    html += `</ul><details><summary>Düzeltilmiş kodu göster</summary><pre class="fixed">${esc(ex.fix)}</pre></details></div>`;
+  }
+  html += `<div class="actions">${navButtons(ex)}</div></div>` + summaryCard();
+  app.innerHTML = html;
+  recount(); bindNav();
+  if (!checked) app.querySelectorAll(".ln").forEach(el => {
+    const toggle = () => { const n = +el.dataset.n; if (sel.has(n)) sel.delete(n); else sel.add(n); el.classList.toggle("sel", sel.has(n)); el.setAttribute("aria-pressed", sel.has(n)); };
+    el.addEventListener("click", toggle);
+    el.addEventListener("keydown", e => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(); } });
+  });
+  const q = id => document.getElementById(id);
+  if (q("check")) q("check").onclick = check;
+  if (q("clear")) q("clear").onclick = () => { sel.clear(); render(); };
+}
+function check() {
+  const ex = EX[idx], errLines = Object.keys(ex.err).map(Number);
+  const hit = errLines.filter(n => sel.has(n)).length, wrong = [...sel].filter(n => !errLines.includes(n)).length;
+  done[idx] = { sel: [...sel], hit, wrong }; save(); render();
+}
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+  if (e.key === "Enter" && !checked && !e.target.classList.contains("ln")) { if (EX[idx].type === "out") checkOut(); else check(); }
+  else if (e.key === "ArrowRight") { const b = document.getElementById("next"); if (b) b.click(); }
+  else if (e.key === "ArrowLeft") { const b = document.getElementById("prev"); if (b && !b.disabled) b.click(); }
+});
+render();
+</script>
+
+</body></html>
