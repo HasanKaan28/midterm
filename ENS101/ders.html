@@ -238,6 +238,7 @@ table.trace th{text-transform:none}
       <div class="hud-right">
         <span class="count" id="count">Sınav: 21 Kas 12:30</span>
         <a class="pill-link" href="calis.html">← Çalışma sayfası</a>
+        <button class="theme" id="langBtn" type="button" aria-live="polite"></button>
         <button class="theme" id="themeBtn" type="button" aria-label="Temayı değiştir">Tema</button>
       </div>
     </div>
@@ -281,9 +282,12 @@ const GENERATORS={
   for(let n=1;n<=N;n++){const x=n%a===0,y=n%b===0;if(x)ma.push(n);if(y)mb.push(n);if(x&&y)both.push(n);
     if(form==="or"?(x||y):form==="andnot"?(x&&!y):((x||y)&&!(x&&y)))hit.push(n)}
   const desc={or:`${a}'e ya da ${b}'e bölünenler (ikisine birden bölünen bir kez sayılır)`,andnot:`${a}'e bölünen ama ${b}'e bölünmeyenler`,xor:`${a}'e ya da ${b}'e bölünen ama ikisine birden bölünmeyenler`}[form];
+  const descEn={or:`multiples of ${a} or ${b} (a number divisible by both is counted once)`,andnot:`divisible by ${a} but not by ${b}`,xor:`divisible by ${a} or ${b}, but not by both`}[form];
+  const whyEn=`<p>Condition: ${descEn}.</p><p>Multiples of ${a}: ${ma.join(", ")||"none"}. Multiples of ${b}: ${mb.join(", ")||"none"}. Multiples of both: ${both.join(", ")||"none"}.</p><p>Counted: ${hit.join(", ")||"none"} → <b>count = ${hit.length}</b></p>`;
   const why=`<p>Koşul: ${desc}.</p><p>${a}'in katları: ${ma.join(", ")||"yok"}. ${b}'in katları: ${mb.join(", ")||"yok"}. İkisinin de katı: ${both.join(", ")||"yok"}.</p><p>Sayılanlar: ${hit.join(", ")||"hiçbiri"} → <b>count = ${hit.length}</b></p>`;
   return{q:`Bu kod çalıştıktan sonra <code>count</code> kaçtır?${PRE(code)}`,en:"What is the value of <code>count</code> after this code runs?",
-   fields:[{kind:"num",label:"count",val:hit.length}],why,hint:"1'den başlayıp koşulu sağlayan sayıları tek tek yaz, sonra say. mod(n,a)==0 demek n, a'ya kalansız bölünür demek.",
+   fields:[{kind:"num",label:"count",val:hit.length}],why,whyEn,hint:"1'den başlayıp koşulu sağlayan sayıları tek tek yaz, sonra say. mod(n,a)==0 demek n, a'ya kalansız bölünür demek.",
+   hintEn:"Starting from 1, write down the numbers that satisfy the condition one by one, then count them. mod(n,a)==0 means n is divisible by a with no remainder.",
    _mat:{code,vars:{count:hit.length}}}},
 
  condSum(rng,args){
@@ -294,53 +298,66 @@ const GENERATORS={
   const code=`total = 0;\nfor k = 1:${N}\n  if ${cond}\n    total = total + k;\n  end\nend`;
   const hit=[];let t=0;const rows=[];
   for(let k=1;k<=N;k++){const x=k%a===0,y=k%b===0;const ok=form==="andnot"?(x&&!y):(x||y);if(ok){hit.push(k);t+=k;rows.push([k,t])}}
+  const whyEn=`<p>The values of k that satisfy the condition: ${hit.join(", ")||"none"}.</p>${rows.length?traceTable(["k (condition true)","total"],[["start","0"],...rows]):""}<p><b>total = ${t}</b></p>`;
   const why=`<p>Koşulu sağlayan k değerleri: ${hit.join(", ")||"yok"}.</p>${rows.length?traceTable(["k (koşul doğru)","total"],[["başta","0"],...rows]):""}<p><b>total = ${t}</b></p>`;
   return{q:`Bu kod çalıştıktan sonra <code>total</code>'ın değeri nedir?${PRE(code)}`,en:"What is the value of <code>total</code> after this code runs?",
-   fields:[{kind:"num",label:"total",val:t}],why,hint:"Sadece koşulu sağlayan k'ler total'a eklenir. Önce o k'leri listele, sonra topla.",
+   fields:[{kind:"num",label:"total",val:t}],why,whyEn,hint:"Sadece koşulu sağlayan k'ler total'a eklenir. Önce o k'leri listele, sonra topla.",
+   hintEn:"Only the k values that satisfy the condition are added to total. First list those k values, then add them up.",
    _mat:{code,vars:{total:t}}}},
 
  whileTrace(rng){
   const d=RI(rng,2,4),K=RI(rng,8,20),L=RI(rng,0,Math.max(0,K-2*d-1));const op=PICK(rng,[">",">=",">"]);
   const code=`k = ${K};\ns = 0;\nwhile k ${op} ${L}\n  s = s + k;\n  k = k - ${d};\nend`;
-  let k=K,s=0;const rows=[];
-  while(op===">"?k>L:k>=L){rows.push([k,`${k} ${op} ${L} doğru`,s+k,k-d]);s+=k;k-=d}
-  rows.push([k,`${k} ${op} ${L} yanlış → loop biter`,"",""]);
+  let k=K,s=0;const rows=[],rowsEn=[];
+  while(op===">"?k>L:k>=L){rows.push([k,`${k} ${op} ${L} doğru`,s+k,k-d]);rowsEn.push([k,`${k} ${op} ${L} true`,s+k,k-d]);s+=k;k-=d}
+  rows.push([k,`${k} ${op} ${L} yanlış → loop biter`,"",""]);rowsEn.push([k,`${k} ${op} ${L} false → the loop ends`,"",""]);
+  const whyEn=`<p>In each iteration the condition is checked first; if it is true, k is added to s, then k decreases by ${d}.</p>${traceTable(["k (at start)","condition","new s","new k"],rowsEn)}<p><b>s = ${s}, k = ${k}</b></p>`;
   const why=`<p>Her turda önce koşula bakılır, doğruysa s'ye k eklenir, sonra k ${d} azalır.</p>${traceTable(["k (başta)","koşul","yeni s","yeni k"],rows)}<p><b>s = ${s}, k = ${k}</b></p>`;
   return{q:`Loop bittikten sonra <code>s</code> ve <code>k</code>'nin değerleri nedir?${PRE(code)}`,en:"What are the values of <code>s</code> and <code>k</code> after the loop?",
-   fields:[{kind:"num",label:"s",val:s},{kind:"num",label:"k",val:k}],why,hint:"Tablo çiz: sütunlar k, koşul, s. Koşul yanlış olduğu anda dur; o andaki k son değerdir.",
+   fields:[{kind:"num",label:"s",val:s},{kind:"num",label:"k",val:k}],why,whyEn,hint:"Tablo çiz: sütunlar k, koşul, s. Koşul yanlış olduğu anda dur; o andaki k son değerdir.",
+   hintEn:"Draw a table with the columns k, condition, s. Stop as soon as the condition is false; the k at that moment is the final value.",
    _mat:{code,vars:{s,k}}}},
 
  indexExpr(rng){
   const A=rand3(rng,1,9);const r=RI(rng,1,3),c=RI(rng,1,3),i=RI(rng,1,3),j=RI(rng,1,3),p=RI(rng,1,3),q=RI(rng,1,3);
   const form=RI(rng,1,5);const g=(x,y)=>A[x-1][y-1];const row=x=>A[x-1],col=y=>A.map(rw=>rw[y-1]);const sm=a=>a.reduce((u,v)=>u+v,0);
-  let expr,val,why;
+  let expr,val,why,whyEn;
   if(form===1){expr=`sum(A(${r},:)) + A(${i},${j}) - A(${p},${q})`;val=sm(row(r))+g(i,j)-g(p,q);
-    why=`A(${r},:) = ${VEC(row(r))}, toplamı ${sm(row(r))}. A(${i},${j}) = ${g(i,j)}. A(${p},${q}) = ${g(p,q)}. ${sm(row(r))} + ${g(i,j)} − ${g(p,q)} = ${val}.`}
+    why=`A(${r},:) = ${VEC(row(r))}, toplamı ${sm(row(r))}. A(${i},${j}) = ${g(i,j)}. A(${p},${q}) = ${g(p,q)}. ${sm(row(r))} + ${g(i,j)} − ${g(p,q)} = ${val}.`;
+    whyEn=`A(${r},:) = ${VEC(row(r))}, sum ${sm(row(r))}. A(${i},${j}) = ${g(i,j)}. A(${p},${q}) = ${g(p,q)}. ${sm(row(r))} + ${g(i,j)} − ${g(p,q)} = ${val}.`}
   else if(form===2){expr=`sum(A(:,${c})) - A(${i},${j})`;val=sm(col(c))-g(i,j);
-    why=`A(:,${c}) column ${c}: ${col(c).join(", ")}, toplamı ${sm(col(c))}. A(${i},${j}) = ${g(i,j)}. ${sm(col(c))} − ${g(i,j)} = ${val}.`}
+    why=`A(:,${c}) column ${c}: ${col(c).join(", ")}, toplamı ${sm(col(c))}. A(${i},${j}) = ${g(i,j)}. ${sm(col(c))} − ${g(i,j)} = ${val}.`;
+    whyEn=`A(:,${c}) is column ${c}: ${col(c).join(", ")}, sum ${sm(col(c))}. A(${i},${j}) = ${g(i,j)}. ${sm(col(c))} − ${g(i,j)} = ${val}.`}
   else if(form===3){expr=`A(${i},${j}) * A(${p},${q}) - sum(A(${r},:))`;val=g(i,j)*g(p,q)-sm(row(r));
-    why=`A(${i},${j}) = ${g(i,j)}, A(${p},${q}) = ${g(p,q)}, çarpım ${g(i,j)*g(p,q)}. Row ${r} toplamı ${sm(row(r))}. Sonuç ${val}.`}
+    why=`A(${i},${j}) = ${g(i,j)}, A(${p},${q}) = ${g(p,q)}, çarpım ${g(i,j)*g(p,q)}. Row ${r} toplamı ${sm(row(r))}. Sonuç ${val}.`;
+    whyEn=`A(${i},${j}) = ${g(i,j)}, A(${p},${q}) = ${g(p,q)}, product ${g(i,j)*g(p,q)}. Sum of row ${r} is ${sm(row(r))}. Result ${val}.`}
   else if(form===4){expr=`max(A(${r},:)) + min(A(:,${c}))`;val=Math.max(...row(r))+Math.min(...col(c));
-    why=`Row ${r}: ${VEC(row(r))}, max ${Math.max(...row(r))}. Column ${c}: ${col(c).join(", ")}, min ${Math.min(...col(c))}. Toplam ${val}.`}
+    why=`Row ${r}: ${VEC(row(r))}, max ${Math.max(...row(r))}. Column ${c}: ${col(c).join(", ")}, min ${Math.min(...col(c))}. Toplam ${val}.`;
+    whyEn=`Row ${r}: ${VEC(row(r))}, max ${Math.max(...row(r))}. Column ${c}: ${col(c).join(", ")}, min ${Math.min(...col(c))}. Total ${val}.`}
   else{expr=`A(end,${c}) + A(${r},end)`;val=g(3,c)+g(r,3);
-    why=`end burada 3 demek (son row ya da son column). A(3,${c}) = ${g(3,c)}, A(${r},3) = ${g(r,3)}. Toplam ${val}.`}
+    why=`end burada 3 demek (son row ya da son column). A(3,${c}) = ${g(3,c)}, A(${r},3) = ${g(r,3)}. Toplam ${val}.`;
+    whyEn=`Here end means 3 (the last row or the last column). A(3,${c}) = ${g(3,c)}, A(${r},3) = ${g(r,3)}. Total ${val}.`}
   const code=`A = ${MATROWS(A)};\ns = ${expr};`;
   return{q:`<code>s</code>'nin değeri nedir?${PRE(code)}`,en:"What is the value of <code>s</code>?",fields:[{kind:"num",label:"s",val}],
    why:`<p>A'yı satır satır yaz:</p>${traceTable(["","col 1","col 2","col 3"],A.map((rw,ix)=>["row "+(ix+1),...rw]))}<p>${why}</p>`,
+   whyEn:`<p>Write A row by row:</p>${traceTable(["","col 1","col 2","col 3"],A.map((rw,ix)=>["row "+(ix+1),...rw]))}<p>${whyEn}</p>`,
    hint:"A(r,c): önce row (satır), sonra column (sütun). A(r,:) bütün row r, A(:,c) bütün column c. Saymaya 1'den başla.",
+   hintEn:"A(r,c): row first, then column. A(r,:) is the whole of row r, A(:,c) is the whole of column c. Start counting from 1.",
    _mat:{code,vars:{s:val}}}},
 
  vecOps(rng){
   const B=rand3(rng,1,12);let r=RI(rng,1,3),q=RI(rng,1,3),c=RI(rng,1,3);if(q===r)q=r%3+1;
-  const row=x=>B[x-1],col=y=>B.map(rw=>rw[y-1]);const form=RI(rng,1,5);let expr,val,why;
-  if(form===1){expr=`B(${r},:) + B(${q},:)`;val=row(r).map((x,i)=>x+row(q)[i]);why=`${VEC(row(r))} + ${VEC(row(q))} = ${VEC(val)}`}
-  else if(form===2){expr=`B(:,${c})' .* B(${r},:)`;val=col(c).map((x,i)=>x*row(r)[i]);why=`B(:,${c})' = column ${c}'ün transpose'u = ${VEC(col(c))} (row oldu). .* eleman eleman çarpar: ${VEC(col(c))} .* ${VEC(row(r))} = ${VEC(val)}`}
-  else if(form===3){expr=`B(${r},:) - B(:,${c})'`;val=row(r).map((x,i)=>x-col(c)[i]);why=`B(:,${c})' = ${VEC(col(c))}. ${VEC(row(r))} − ${VEC(col(c))} = ${VEC(val)}`}
-  else if(form===4){expr=`2*B(${r},:) + B(${q},:)`;val=row(r).map((x,i)=>2*x+row(q)[i]);why=`2*${VEC(row(r))} = ${VEC(row(r).map(x=>2*x))}; + ${VEC(row(q))} = ${VEC(val)}`}
-  else{expr=`B(${r},:) .* B(${q},:)`;val=row(r).map((x,i)=>x*row(q)[i]);why=`${VEC(row(r))} .* ${VEC(row(q))} = ${VEC(val)} (eleman eleman)`}
+  const row=x=>B[x-1],col=y=>B.map(rw=>rw[y-1]);const form=RI(rng,1,5);let expr,val,why,whyEn;
+  if(form===1){expr=`B(${r},:) + B(${q},:)`;val=row(r).map((x,i)=>x+row(q)[i]);why=`${VEC(row(r))} + ${VEC(row(q))} = ${VEC(val)}`;whyEn=why}
+  else if(form===2){expr=`B(:,${c})' .* B(${r},:)`;val=col(c).map((x,i)=>x*row(r)[i]);why=`B(:,${c})' = column ${c}'ün transpose'u = ${VEC(col(c))} (row oldu). .* eleman eleman çarpar: ${VEC(col(c))} .* ${VEC(row(r))} = ${VEC(val)}`;
+    whyEn=`B(:,${c})' = the transpose of column ${c} = ${VEC(col(c))} (it became a row). .* multiplies element by element: ${VEC(col(c))} .* ${VEC(row(r))} = ${VEC(val)}`}
+  else if(form===3){expr=`B(${r},:) - B(:,${c})'`;val=row(r).map((x,i)=>x-col(c)[i]);why=`B(:,${c})' = ${VEC(col(c))}. ${VEC(row(r))} − ${VEC(col(c))} = ${VEC(val)}`;whyEn=why}
+  else if(form===4){expr=`2*B(${r},:) + B(${q},:)`;val=row(r).map((x,i)=>2*x+row(q)[i]);why=`2*${VEC(row(r))} = ${VEC(row(r).map(x=>2*x))}; + ${VEC(row(q))} = ${VEC(val)}`;whyEn=why}
+  else{expr=`B(${r},:) .* B(${q},:)`;val=row(r).map((x,i)=>x*row(q)[i]);why=`${VEC(row(r))} .* ${VEC(row(q))} = ${VEC(val)} (eleman eleman)`;whyEn=`${VEC(row(r))} .* ${VEC(row(q))} = ${VEC(val)} (element by element)`}
   const code=`B = ${MATROWS(B)};\nresult = ${expr};`;
   return{q:`<code>result</code> vector'ü nedir? <span class="muted small">Sayıları boşlukla yaz, ör. 3 8 15</span>${PRE(code)}`,en:"What is the vector <code>result</code>?",
-   fields:[{kind:"vec",label:"result",val}],why:`<p>${why}</p>`,hint:"B(r,:) row r'nin tamamı. B(:,c) column c, yanındaki ' (transpose) onu row'a çevirir. .* aynı sıradaki elemanları çarpar.",
+   fields:[{kind:"vec",label:"result",val}],why:`<p>${why}</p>`,whyEn:`<p>${whyEn}</p>`,hint:"B(r,:) row r'nin tamamı. B(:,c) column c, yanındaki ' (transpose) onu row'a çevirir. .* aynı sıradaki elemanları çarpar.",
+   hintEn:"B(r,:) is the whole of row r. B(:,c) is column c; the ' (transpose) next to it turns it into a row. .* multiplies the elements in the same positions.",
    _mat:{code,vars:{result:val}}}},
 
  growVec(rng){
@@ -353,7 +370,9 @@ const GENERATORS={
   return{q:`Loop bittikten sonra <code>v</code> vector'ü nedir ve <code>length(v)</code> kaçtır?${PRE(code)}`,en:"What is the vector <code>v</code>, and what is <code>length(v)</code>?",
    fields:[{kind:"vec",label:"v",val:v},{kind:"num",label:"length(v)",val:v.length}],
    why:`<p>k şu değerleri alır: ${ks.join(", ")} (${range}; ${b} aşılmaz).</p>${traceTable(["k",ex[0],"v"],[["","","[]"],...rows])}<p><b>v = ${VEC(v)}, length(v) = ${v.length}</b></p>`,
+   whyEn:`<p>k takes these values: ${ks.join(", ")} (${range}; ${b} is not exceeded).</p>${traceTable(["k",ex[0],"v"],[["","","[]"],...rows])}<p><b>v = ${VEC(v)}, length(v) = ${v.length}</b></p>`,
    hint:"v = [v yeni] eski v'nin sonuna yeni elemanı ekler. Önce k'nin aldığı değerleri yaz.",
+   hintEn:"v = [v new] adds the new element to the end of the old v. First write down the values k takes.",
    _mat:{code,vars:{v,len:v.length},extra:"len = length(v);"}}},
 
  nestedPrint(rng){
@@ -365,7 +384,9 @@ const GENERATORS={
   else{code=`for k = 1:${n}\n  for j = 1:k\n    fprintf('%d ', k*j);\n  end\n  fprintf('\\n');\nend`;for(let k=1;k<=n;k++){const a=[];for(let j=1;j<=k;j++)a.push(k*j);lines.push(a.join(" "))}}
   return{q:`Bu kod ne yazdırır (print)? <span class="muted small">Her satırı alt alta yaz.</span>${PRE(code)}`,en:"What does this code print?",
    fields:[{kind:"lines",val:lines}],why:`<p>Dıştaki loop her tur bir satır üretir; içteki loop o satırın karakterlerini yazar; <code>fprintf('\\n')</code> alt satıra geçer.</p>${traceTable(["satır","çıktı"],lines.map((l,i)=>[i+1,EH(l)]))}`,
+   whyEn:`<p>The outer loop produces one line per iteration; the inner loop prints the characters of that line; <code>fprintf('\\n')</code> moves to the next line.</p>${traceTable(["line","output"],lines.map((l,i)=>[i+1,EH(l)]))}`,
    hint:"Dıştaki k'nin her değeri için içteki j'nin hangi değerleri aldığını yaz. Satır sonu sadece fprintf('\\n') ile gelir.",
+   hintEn:"For each value of the outer k, write down which values the inner j takes. A line ends only with fprintf('\\n').",
    _mat:{code,lines}}},
 
  polyFunc(rng){
@@ -379,7 +400,9 @@ const GENERATORS={
   const code=`${ftext}\n\n${call}`;
   return{q:`<code>r</code>'nin değeri nedir?${PRE(code)}`,en:"What is the value of <code>r</code>?",fields:[{kind:"num",label:"r",val}],
    why:`<p>Call'da x = ${x0}. Expression'da x yerine ${x0} koy: <code>${EH(expr.replace(/x/g,"("+x0+")"))}</code> = <b>${val}</b>. Önce ^ (üs), sonra * , en son + ve −.</p>`,
+   whyEn:`<p>In the call, x = ${x0}. Put ${x0} in place of x in the expression: <code>${EH(expr.replace(/x/g,"("+x0+")"))}</code> = <b>${val}</b>. First ^ (power), then *, and last + and −.</p>`,
    hint:"Function'a gönderilen sayı x olur. y'yi hesapla; function'ın döndürdüğü y, r'ye yazılır.",
+   hintEn:"The number passed to the function becomes x. Calculate y; the y that the function returns is stored in r.",
    _mat:{code:call,fn:{name,text:ftext},vars:{r:val}}}}
 };
 
@@ -1554,8 +1577,15 @@ function highlightAll(root=document){$$("pre.m:not([data-hl])",root).forEach(p=>
 const LSP="ens101ders:";
 const store={get(k,d){try{const v=localStorage.getItem(LSP+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
   set(k,v){try{localStorage.setItem(LSP+k,JSON.stringify(v))}catch(e){}}};
+const EN=()=>LANGV==="en";
+let LANGV=store.get("lang","en")==="tr"?"tr":"en";
 const ST=Object.assign({m:{},att:{},wrong:{},q:{},test:{},drill:{},fixed:{},last:null},store.get("state",{}));
 function save(){store.set("state",ST)}
+/* question language: EN (default) shows en/enOpts/whyEn/hintEn, TR shows q/opts/why/hint */
+const qText=q=>EN()&&q.en?q.en:q.q;
+const optsOf=(f,q)=>EN()?(f.enOpts||(q&&q.enOpts)||f.opts):f.opts;
+const whyOf=q=>EN()&&q.whyEn?q.whyEn:q.why;
+const hintOf=q=>EN()&&q.hintEn?q.hintEn:q.hint;
 
 /* answer checking (from calis.html, Turkish-safe text) */
 const norm=s=>String(s||"").replace(/[İIı]/g,"i").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]/g,"");
@@ -1576,7 +1606,7 @@ function checkField(f,val){
     case"lines":{const a=normLines(String(val).split(/\n/)),b=normLines(f.val);return a.length===b.length&&a.every((x,i)=>x===b[i])}}
   return false}
 function fmtAns(f){
-  switch(f.kind){case"mc":return f.opts[f.ans];case"text":return esc((f.accept||[""])[0]);
+  switch(f.kind){case"mc":return optsOf(f)[f.ans];case"text":return esc((f.accept||[""])[0]);
     case"num":return Array.isArray(f.val)?`${f.val[0]} – ${f.val[1]}`:String(f.val);
     case"vec":return"["+f.val.join(" ")+"]";case"lines":return`<pre>${esc(f.val.join("\n"))}</pre>`}return""}
 
@@ -1588,6 +1618,141 @@ function cleanLesson(l,part){
   return Object.assign({},l,{id:String(l.id).toLowerCase(),part:l.part||part,blocks})}
 const TEORI=(Array.isArray(window.LESSONS_TEORI)?window.LESSONS_TEORI:[]).map(l=>cleanLesson(l,"teori")).filter(Boolean);
 const KOD=LESSONS_KOD.map(l=>cleanLesson(l,"kod")).filter(Boolean);
+/* English explanations/hints for the static MATLAB questions, in pool order (generators carry their own whyEn/hintEn) */
+const MAT_EN=[
+/*0*/ ["<p>b is calculated once, on the second line: 3 + 2 = 5. Even if a becomes 10 later, b does not change.</p>","Write a and b after each line. A variable changes only on its own line."],
+/*1*/ ["<p>The right side is calculated with the old x: 4 · 2 + 1 = 9. Then it is stored in x.</p>","Right side first, with the old value. Then it is stored in the variable on the left."],
+/*2*/ ["<p>7 → 7 − 3 = 4 → 4 · 4 = 16.</p>"],
+/*3*/ ["<p>In the line q = p, 2 is copied into q. p becomes 7 later, but q stays 2.</p>"],
+/*4*/ ["<p><code>;</code> only hides the output; the line still runs. Use <code>%</code> for a comment.</p>"],
+/*5*/ ["<p>2, 5, 8, 11, 14. The next one would be 17, which passes 14.</p>"],
+/*6*/ ["<p>10, 7, 4, 1. The next one would be −2, which falls below 1.</p>"],
+/*7*/ ["<p>1, 5, 9. The next one is 13, which passes 12.</p>"],
+/*8*/ ["<p>v = [0 5 10 15 20], 5 elements. 25 passes 22.</p>"],
+/*9*/ ["<p>20, 16, 12, 8. The next one, 4, falls below 5.</p>"],
+/*10*/ ["<p>Column 3: 3 + 6 + 9 = 18. A(2,2) = 5. 18 − 5 = 13. (F25 MATLAB 3)</p>"],
+/*11*/ ["<p>Row 2: 1 + 3 + 5 = 9. A(3,1) = 8. A(1,3) = 6. 9 + 8 − 6 = 11.</p>"],
+/*12*/ ["<p>end = last row = 2. A(2,2) = 4.</p>"],
+/*13*/ ["<p>A(2,end) = A(2,4) = 4. A(1,3) = 1. 4 + 1 = 5.</p>"],
+/*14*/ ["<p>v(4) = 2, v(end) = v(5) = 7. v(2) becomes 9.</p>"],
+/*15*/ ["<p>A(3,:) is the whole of row 3: [5 6].</p>"],
+/*16*/ ["<p>A has only 2 rows. There is no row 3: <b>Index exceeds matrix dimensions</b> error.</p>"],
+/*17*/ ["<p>[1 3 5] + [7 9 11] = [8 12 16]. (F25 MATLAB 4)</p>"],
+/*18*/ ["<p>Element-wise multiplication is <code>.*</code>. <code>*</code> without a dot is matrix multiplication and gives an error for two 1×3 vectors.</p>"],
+/*19*/ ["<p>There is no dot, so this is matrix multiplication. 1×3 and 1×3 cannot be multiplied: <b>error</b>. You would need <code>a .* b</code> to get [2 8 18].</p>"],
+/*20*/ ["<p><code>v.^2</code> = [1 4 9]. <code>v^2</code> and <code>v*v</code> give an error. <code>2.^v</code> = [2 4 8], not the square.</p>"],
+/*21*/ ["<p>No dot is needed when multiplying by a scalar: every element is multiplied by 3.</p>"],
+/*22*/ ["<p>Every element is divided by 2: [1 2 4]. (<code>/</code> would also work when dividing by a scalar.)</p>"],
+/*23*/ ["<p>sum(A) gives the column sums: 2 + 7 + 3 = 12, 5 + 1 + 4 = 10.</p>","For a matrix, sum adds each column separately."],
+/*24*/ ["<p>The largest is 8. There are two 8s; max returns the index of the first one: 2.</p>"],
+/*25*/ ["<p>23 = 5·4 + 3 → remainder 3. 10 is divisible by 5 → 0. Total 3.</p>"],
+/*26*/ ["<p>2 rows, 4 columns. length is the largest dimension: 4.</p>"],
+/*27*/ ["<p>The smallest is 2, at index 2. The mean is (6 + 2 + 9 + 3) / 4 = 20 / 4 = 5.</p>"],
+/*28*/ ["<p>Row 2 = [3 4], sum 7.</p>"],
+/*29*/ ["<p>sum(A) = [4 6], then sum([4 6]) = 10.</p>"],
+/*30*/ ["<p>Column 1 = 2, 5 → 7. 7 · 2 = 14.</p>"],
+/*31*/ ["<p>Row 1 = [4 1], the mean is 5 / 2 = 2.5.</p>"],
+/*32*/ ["<p>sum(A) = [7 5 3]. The largest is 7.</p>"],
+/*33*/ ["<p>Pattern: <code>function [outputs] = name(inputs)</code>. Outputs are on the left, inputs are in parentheses.</p>"],
+/*34*/ ["<p>With a single output, square brackets are not needed: <code>function y = square(x)</code>. Inputs go in normal parentheses.</p>"],
+/*35*/ ["<p>Two outputs go in square brackets: <code>[s, d]</code>. Inputs go in normal parentheses: <code>(a, b)</code>.</p>"],
+/*36*/ ["<p>If there is no output, the <code>=</code> and the output part are not written: <code>function tempCheck(T)</code>. (<code>function [] = evenOrOdd(x)</code> from the lesson means the same thing.)</p>"],
+/*37*/ ["<p>a = 3, b = 2. y = 5, z = 3² = 9. The outputs go to p and q in order.</p>"],
+/*38*/ ["<p>Only one output was requested, so only the first output (y = 4 + 2 = 6) is returned.</p>","If there is only one variable on the left of the call, you get only the first output."],
+/*39*/ ["<p>a = 10, b = 4. s = 14, d = 6.</p>"],
+/*40*/ ["<p>L = 2. V = 8, SA = 6 · 4 = 24.</p>"],
+/*41*/ ["<p>addNums(7, 1) = 8, 2 · 8 = 16.</p>"],
+/*42*/ ["<p>27 − 6 + 1 = 22. (F25 MATLAB 2)</p>"],
+/*43*/ ["<p>2·16 − 12 + 4 = 24.</p>"],
+/*44*/ ["<p>The file name must be the same as the function name: <b>areaCalc.m</b>.</p>"],
+/*45*/ ["<p>A value must be assigned to every output inside the function; otherwise you get an error at the call.</p>"],
+/*46*/ ["<p>Function: input → output, local variables. Script: a list of commands, shares the workspace. Both are .m files.</p>"],
+/*47*/ ["<p>Typing the script name runs that script. In order: first lazyFriends, then activeFriends.</p>"],
+/*48*/ ["<p>The value of n (12) replaces %d.</p>"],
+/*49*/ ["<p>%.1f rounds to one decimal place: 2.46 → 2.5.</p>"],
+/*50*/ ["<p>The three %d are filled in order with a, b and a+b.</p>"],
+/*51*/ ["<p>The first fprintf has no \\n, so B sticks to the same line: AB. Then C is on a new line.</p>"],
+/*52*/ ["<p>%g is the short format: 2.5. The other characters in the format (\" s\") are printed as they are.</p>"],
+/*53*/ ["<p>Pattern: <code>variable = input('message');</code></p>"],
+/*54*/ ["<p>For text, the second input is <code>'s'</code>.</p>"],
+/*55*/ ["<p>%d is the placeholder, x is the value. disp does not use a format.</p>"],
+/*56*/ ["<p>An assignment that ends with <code>;</code> hides the result. The others print 12 (the first one prints it as <code>y = 12</code>).</p>"],
+/*57*/ ["<p>disp(7) → 7 and a new line. 'x' and 'y' are on the same line: xy. Then done.</p>"],
+/*58*/ ["<p>disp prints 8, fprintf prints 3.</p>"],
+/*59*/ ["<p>The format is repeated for each element: 1, 2, 3, one per line.</p>"],
+/*60*/ ["<p>10 is an integer. a·2 = 5, %.1f prints one decimal: 5.0.</p>"],
+/*61*/ ["<p>8 ~= 3 → 1. 2 >= 5 → 0. 1 && 0 → 0.</p>"],
+/*62*/ ["<p>12 is divisible by 4 → 1. For || one is enough → 1.</p>"],
+/*63*/ ["<p>7 > 3 → 1, ~1 → 0.</p>"],
+/*64*/ ["<p>6 > 2 → 1; 6 is even → 1. 1 && 1 → 1.</p>"],
+/*65*/ ["<p>Both are true (1). 1 + 1 = 2: true/false can be added like numbers.</p>"],
+/*66*/ ["<p>90 > 100 is false. 90 > 80 is true → disp(90·90) = 8100. The later branches are not checked.</p>","Find the first true condition; only that branch runs."],
+/*67*/ ["<p>120 > 100 is true → 120 is printed. 120 > 80 is also true, but it is not checked because the first true branch already ran.</p>"],
+/*68*/ ["<p>No condition is true → else.</p>"],
+/*69*/ ["<p>80 < 30 is false, 80 > 80 is false (equal, not greater) → else: OK.</p>"],
+/*70*/ ["<p>15 is divisible by both 3 and 5 → the first branch.</p>"],
+/*71*/ ["<p>There are 5 multiples of 4, 4 multiples of 5, and 20 is in both: 5 + 4 − 1 = 8. (F25 MATLAB 1)</p>"],
+/*72*/ ["<p>10 multiples of 3, 4 multiples of 7, and 21 is in both: 10 + 4 − 1 = 13.</p>"],
+/*73*/ ["<p>\"but\" = and (&&). Divisible by 3: <code>mod(k,3)==0</code>; not divisible by 2: <code>mod(k,2)~=0</code>. In mod, the number comes first, then the divisor.</p>"],
+/*74*/ ["<p>Two conditions joined with &&. The limits are included, so >= and <=. <code>||</code> would be true for every number.</p>"],
+/*75*/ ["<p>An odd number leaves a remainder of 1 when divided by 2. A single <code>=</code> is an assignment and gives an error in a condition.</p>"],
+/*76*/ ["<p>(divisible by 4 or by 6) <b>&&</b> not (divisible by both). Example: 8 → true, 12 → false, 6 → true.</p>"],
+/*77*/ ["<p>A single <code>=</code> cannot be used in a condition; the comparison is <code>==</code>.</p>"],
+/*78*/ ["<p>k: 1, 3, 5, 7, 9 → 5 iterations, count increases by one each time.</p>"],
+/*79*/ ["<p>k: 10, 7, 4, 1 → 4 iterations.</p>"],
+/*80*/ ["<p>5:1 is an empty vector (you cannot go from 5 to 1 with step 1). The loop never runs: count = 0.</p>"],
+/*81*/ ["<p>k: 2, 4, 6, 8, 10 (12 passes 11). In the last iteration x = 10.</p>"],
+/*82*/ ["<p>k: 0, 5, 10, 15, 20 → 5 iterations.</p>"],
+/*83*/ ["<p>3 + 6 + 9 + 12 = 30; 15 is left out. (F25 MATLAB 5)</p>"],
+/*84*/ ["<p>The sum of the even numbers is 110. Remove the multiples of 6 (6, 12, 18 = 36): 74.</p>"],
+/*85*/ ["<p>1·1·2·3·4·5 = 120 (product pattern, p starts from 1).</p>"],
+/*86*/ ["<p><div class=\"tblwrap\"><table class=\"trace\"><tr><th>k</th><th>x</th></tr><tr><td>start</td><td>1</td></tr><tr><td>1</td><td>2·1 + 1 = 3</td></tr><tr><td>2</td><td>2·3 + 2 = 8</td></tr><tr><td>3</td><td>2·8 + 3 = 19</td></tr></table></div></p>","Table: in each iteration, new x = 2 · old x + k."],
+/*87*/ ["<p>k: 10, 8, 6, 4, 2 → total 30.</p>"],
+/*88*/ ["<p><div class=\"tblwrap\"><table class=\"trace\"><tr><th>k</th><th>odd?</th><th>s</th></tr><tr><td>start</td><td></td><td>0</td></tr><tr><td>1</td><td>yes: +1</td><td>1</td></tr><tr><td>2</td><td>no: −1</td><td>0</td></tr><tr><td>3</td><td>yes: +3</td><td>3</td></tr><tr><td>4</td><td>no: −1</td><td>2</td></tr><tr><td>5</td><td>yes: +5</td><td>7</td></tr></table></div></p>"],
+/*89*/ ["<p><div class=\"tblwrap\"><table class=\"trace\"><tr><th>k</th><th>t</th><th>a</th><th>b</th></tr><tr><td>start</td><td></td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td></tr><tr><td>2</td><td>2</td><td>1</td><td>2</td></tr><tr><td>3</td><td>3</td><td>2</td><td>3</td></tr><tr><td>4</td><td>5</td><td>3</td><td>5</td></tr></table></div></p>"],
+/*90*/ ["<p>Because >= is used, the index is also updated on an equal 8: the index of the last 8 is 4.</p>"],
+/*91*/ ["<p>The smallest is 4. Because < is used, it is not updated on the second 4: index 2.</p>"],
+/*92*/ ["<p>The lowest consumption is 6.5, at index 3. speed(3) = 60.</p>"],
+/*93*/ ["<p>The built-in max returns the first index when there is a tie: 3.</p>"],
+/*94*/ ["<p>With >, it updates at the first 9 (index 2) and does not update at the second 9.</p>"],
+/*95*/ ["<p>k: 10, 8, 6, 4 are added (s = 28); at k = 2 the condition is false.</p>"],
+/*96*/ ["<p>k goes down from 1: 0, −1, −2, … always < 5. The condition never becomes false.</p>"],
+/*97*/ ["<p>For the condition n > 0 to become false, n must decrease: 20, 18, …, 0 → it stops.</p>"],
+/*98*/ ["<p>x is always odd: 1, 3, 5, 7, 9, 11, … it skips 10. ~= 10 stays true forever.</p>"],
+/*99*/ ["<p>3, 2, 1, 0 → 0 > 0 is false, it stops. The others: k is always ≥ 0; k goes 5, 3, 1, −1 … and skips 0; k never changes.</p>"],
+/*100*/ ["<p>k = 1, 3, 5, 7, 9 → [1 9 25 49 81], length 5.</p>"],
+/*101*/ ["<p>The ones greater than 3: 4, 7, 5, 8 → 4.</p>"],
+/*102*/ ["<p>The even ones: 6, 2, 8 → 16.</p>"],
+/*103*/ ["<p>3 outer iterations × 4 inner iterations = 12.</p>"],
+/*104*/ ["<p>k == j only on the diagonal: A(1,1) + A(2,2) + A(3,3) = 1 + 5 + 9 = 15.</p>"],
+/*105*/ ["<p>k = 1: j 1..3 (3 iterations), k = 2: j 2..3 (2), k = 3: j 3 (1). 3 + 2 + 1 = 6.</p>"],
+/*106*/ ["<p>1 / 12 / 123.</p>"],
+/*107*/ ["<p>3 lines, 4 stars on each line (the inner loop does not depend on k).</p>"],
+/*108*/ ["<p>The output is on the left, the inputs are in parentheses: <code>function p = bacteria(p0, t)</code>.</p>"],
+/*109*/ ["<p><code>function m = myMean(A, r)</code>. Inputs go in normal parentheses.</p>"],
+/*110*/ ["<p>The two outputs are in square brackets, the inputs are in normal parentheses.</p>"],
+/*111*/ ["<p>Input n, output count: <code>function count = MyCheck(n)</code>.</p>"],
+/*112*/ ["<p>\"divisible by 3\" and \"not divisible by 2\" → &&.</p>"],
+/*113*/ ["<p>Store the position together with the value: <code>iMax = k;</code> (in an assignment the new value is on the left).</p>"],
+/*114*/ ["<p>1 hour = 60 minutes: <code>t * 60</code>. Check: bacteriaHours(100, 1) = 100 · 2³ = 800.</p>"],
+/*115*/ ["<p>Row r has cols elements: mean = total / cols.</p>"],
+/*116*/ ["<p>Above 80 is too hot. 80 itself must stay OK, so <code>&gt;</code>.</p>"],
+/*117*/ ["<p><code>count + 1</code> cannot be calculated if count has no initial value: error. You need <code>count = 0;</code> before the loop.</p>"],
+/*118*/ ["<p>The condition must use <code>==</code>: <code>if x == 100</code>.</p>"],
+/*119*/ ["<p>There are two outputs but only s was assigned. Calling <code>[x, y] = sp(2, 3)</code> gives an error. For example, <code>p = a * b;</code> should be added.</p>"],
+/*120*/ ["<p>The start must be the first element of row r: <code>m = A(r,1);</code>. A(1,r) takes it from row 1.</p>"],
+/*121*/ ["<p>40 / 20 = 2, 2² = 4, 50 · 4 = 200.</p>"],
+/*122*/ ["<p>The odd numbers divisible by 3: 3, 9, 15, 21, 27 → 5.</p>"],
+/*123*/ ["<p>Row 2 = [6 10], the mean is 8.</p>"],
+/*124*/ ["<p>2 hours = 120 min. 120 / 20 = 6, 2⁶ = 64, 50 · 64 = 3200.</p>"],
+/*125*/ ["<p>80 > 80 is false (equal, not greater) → else.</p>"],
+/*126*/ ["<p><code>xlabel</code>, <code>ylabel</code>, <code>title</code>.</p>"],
+/*127*/ ["<p><code>plot(x, y)</code>: the horizontal axis comes first.</p>"],
+/*128*/ ["<p><code>grid on</code>.</p>"],
+/*129*/ ["<p><code>title('...')</code>.</p>"],
+];
+(()=>{let i=0;for(const l of KOD)for(const b of l.blocks)if(b.type==="check")for(const it of b.pool){if(it.gen)continue;const e=MAT_EN[i++];if(e){it.whyEn=e[0];if(e[1])it.hintEn=e[1]}}
+  if(i!==MAT_EN.length)console.warn("MAT_EN length mismatch",i,MAT_EN.length)})();
 const ALL=[...TEORI,...KOD];
 const LBYID={},CHK={};
 ALL.forEach(l=>{LBYID[l.id]=l;l.blocks.forEach(b=>{if(b.type==="check")CHK[b.id]={c:b,l}})});
@@ -1606,7 +1771,7 @@ function qSlot(map,id){if(!map[id])map[id]={seed:randSeed(),k:0,res:null,vals:nu
 function fieldsHTML(q,pid,st){
   const done=!!st.res,vals=st.vals||[],per=st.per||[];
   return q.fields.map((f,i)=>{const id=`${pid}-f${i}`,cls=done?(per[i]?" right":" wrong"):"";const dis=done?" disabled":"";
-    if(f.kind==="mc")return`<fieldset class="opts"><legend>Seçenekler</legend>${f.opts.map((o,j)=>{
+    if(f.kind==="mc")return`<fieldset class="opts"><legend>Seçenekler</legend>${optsOf(f,q).map((o,j)=>{
         const sel=vals[i]===String(j);const c=done?(j===f.ans?" right":sel?" wrong":""):"";
         return`<label class="${c}"><input type="radio" name="${id}" value="${j}"${sel?" checked":""}${dis}><span class="ot">${o}</span></label>`}).join("")}</fieldset>`;
     const lab=f.label?`<label for="${id}">${esc(f.label)}</label>`:"";const aria=f.label?"":` aria-label="Cevap"`;
@@ -1614,23 +1779,23 @@ function fieldsHTML(q,pid,st){
     if(f.kind==="lines")return`<div class="fld">${lab}<textarea id="${id}" rows="${Math.max(3,f.val.length+1)}" class="code-area${cls}" spellcheck="false" placeholder="Her satırı alt alta yaz"${aria}${dis}>${v}</textarea></div>`;
     const ph=f.kind==="vec"?"ör. 2 5 9":f.kind==="num"?"sayı":"cevap";
     return`<div class="fld">${lab}<input type="text" id="${id}" class="${f.kind==="vec"?"wide":""}${cls}" value="${v}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${ph}"${aria}${dis}></div>`}).join("")}
-function enHTML(q){if(!q.en)return"";const mcf=q.fields.find(f=>f.kind==="mc")||{};const eo=q.enOpts||mcf.enOpts||[];const o=eo.length?`<ol type="A">${eo.map(x=>`<li>${x}</li>`).join("")}</ol>`:"";
+function enHTML(q){if(EN()||!q.en)return"";const mcf=q.fields.find(f=>f.kind==="mc")||{};const eo=q.enOpts||mcf.enOpts||[];const o=eo.length?`<ol type="A">${eo.map(x=>`<li>${x}</li>`).join("")}</ol>`:"";
   return`<details class="en-orig"><summary>Sınavdaki yazılışı (EN)</summary><div>${q.en}${o}</div></details>`}
 function fbHTML(q,st){if(!st.res)return"";const ok=st.res==="ok";const some=(st.per||[]).some(Boolean);
   let h=`<div class="res ${ok?"ok":"bad"}">${ok?"✓ Doğru!":some&&q.fields.length>1?"✗ Kısmen doğru. Bu doğru sayılmaz.":"✗ Yanlış."}</div>`;
   if(!ok)h+=`<div class="ans"><b>Doğru cevap:</b> ${q.fields.map(f=>(f.label?`<span class="mono">${esc(f.label)}</span> = `:"")+fmtAns(f)).join(" &nbsp;·&nbsp; ")}</div>`;
-  if(q.why)h+=`<div class="why">${q.why}</div>`;return h}
+  if(whyOf(q))h+=`<div class="why">${whyOf(q)}</div>`;return h}
 function readVals(q,pid){return q.fields.map((f,i)=>{const id=`${pid}-f${i}`;if(f.kind==="mc"){const r=$(`input[name="${id}"]:checked`);return r?r.value:null}const el=document.getElementById(id);return el?el.value:null})}
 const isEmpty=vals=>vals.every(v=>v==null||String(v).trim()==="");
 function grade(q,vals){const per=q.fields.map((f,i)=>checkField(f,vals[i]));return{per,ok:per.every(Boolean)}}
 
 function questionCard(mode,id,q,st,extra){ /* mode: L (lesson), D (drill) */
-  const pid=`${mode}-${id}`;const hint=q.hint?`<button class="btn ghost" type="button" data-act="hint" data-pid="${pid}" aria-expanded="false">💡 İpucu</button>`:"";
+  const pid=`${mode}-${id}`;const hint=hintOf(q)?`<button class="btn ghost" type="button" data-act="hint" data-pid="${pid}" aria-expanded="false">💡 İpucu</button>`:"";
   const btns=!st.res?`<button class="btn" type="button" data-act="check" data-mode="${mode}" data-cid="${id}">Kontrol et</button>${hint}`
     :st.res==="bad"?`<button class="btn blue" type="button" data-act="new" data-mode="${mode}" data-cid="${id}">Yeni soru →</button>`
     :`<button class="btn ghost" type="button" data-act="new" data-mode="${mode}" data-cid="${id}">Başka bir soru dene (pratik)</button>`;
-  return`<div class="prompt">${q.q}</div>${fieldsHTML(q,pid,st)}${enHTML(q)}
-   ${q.hint?`<div class="hint" id="hint-${pid}" hidden>${q.hint}</div>`:""}
+  return`<div class="prompt">${qText(q)}</div>${fieldsHTML(q,pid,st)}${enHTML(q)}
+   ${hintOf(q)?`<div class="hint" id="hint-${pid}" hidden>${hintOf(q)}</div>`:""}
    <div class="actions">${btns}${extra||""}</div>
    <div class="fb" id="fb-${pid}" tabindex="-1">${fbHTML(q,st)}</div>`}
 
@@ -1698,7 +1863,7 @@ function testHTML(l){const t=testSlot(l);const cs=checksOf(l);
   if(t.graded)h+=`<div class="scorebox" tabindex="-1" id="score-${l.id}"><span class="big">${t.score}/${cs.length}</span><span>${t.score===cs.length?"Hepsi doğru. Bu ders tamam.":"Yanlışları aşağıda gör; Tekrar listesinden yeniden çöz."}</span></div>`;
   cs.forEach((b,i)=>{const q=testQ(l,b,i,t);const pid=`T-${l.id}-${i}`;const st=t.graded?{res:t.per[b.id]?"ok":"bad",vals:t.vals[b.id],per:t.perF[b.id]}:{};
     h+=`<div class="tq"><div class="qhead"><span class="qid">${i+1}</span><span class="qtitle">${esc(b.title||"")}</span>${t.graded?`<span class="st ${t.per[b.id]?"ok":"bad"}">${t.per[b.id]?"Doğru":"Yanlış"}</span>`:""}</div>
-      <div class="prompt">${q.q}</div>${fieldsHTML(q,pid,st)}${enHTML(q)}${t.graded?`<div class="fb">${fbHTML(q,st)}</div>`:""}</div>`});
+      <div class="prompt">${qText(q)}</div>${fieldsHTML(q,pid,st)}${enHTML(q)}${t.graded?`<div class="fb">${fbHTML(q,st)}</div>`:""}</div>`});
   h+=`<div class="actions">${t.graded?`<button class="btn blue" type="button" data-act="newtest" data-lid="${l.id}">Yeni test</button><a class="btn ghost" href="#tekrar">Tekrar listesi</a>`:`<button class="btn" type="button" data-act="gradetest" data-lid="${l.id}">Testi puanla</button>`}</div></section>`;
   return h}
 
@@ -1748,6 +1913,10 @@ main.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b)r
   else if(a==="newtest"){const l=LBYID[b.dataset.lid];const t=testSlot(l);t.n++;t.graded=false;t.vals={};t.per={};t.perF={};save();rerender(`#test-${l.id} input, #test-${l.id} textarea`)}});
 main.addEventListener("keydown",e=>{if(e.key!=="Enter"||e.target.tagName!=="INPUT"||e.target.type!=="text")return;
   const card=e.target.closest(".check, .rv");if(!card)return;const btn=card.querySelector('[data-act="check"]');if(btn){e.preventDefault();btn.click()}});
+const langBtn=$("#langBtn");
+function paintLang(){langBtn.textContent="Soru dili: "+(EN()?"EN":"TR");langBtn.setAttribute("aria-label",EN()?"Soru dili İngilizce, Türkçeye geçmek için tıkla":"Soru dili Türkçe, İngilizceye geçmek için tıkla")}
+langBtn.addEventListener("click",()=>{LANGV=EN()?"tr":"en";store.set("lang",LANGV);paintLang();rerender()});
+paintLang();
 $("#themeBtn").addEventListener("click",()=>{const r=document.documentElement,cur=r.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
   r.dataset.theme=cur==="dark"?"light":"dark";try{localStorage.setItem("ens101:theme",JSON.stringify(r.dataset.theme))}catch(e){}});
 try{const th=JSON.parse(localStorage.getItem("ens101:theme"));if(th==="dark"||th==="light")document.documentElement.dataset.theme=th}catch(e){}
