@@ -12,6 +12,7 @@ Interactive study pages for five midterm exams (Fall 2026), published with GitHu
 | NS102   | Mon 16 Nov 2026 09:00 | [NS102/calis.html](NS102/calis.html)         |
 | ELIT100 | Tue 17 Nov 2026 17:45 | [ELIT100/calis.html](ELIT100/calis.html)     |
 | CS103   | Thu 19 Nov 2026 17:45 | [CS103/calis.html](CS103/calis.html)         |
+| TRD121  | Fri 20 Nov 2026 17:45 | [TRD121/calis.html](TRD121/calis.html)       |
 | ENS101  | Sat 21 Nov 2026 12:30 | [ENS101/calis.html](ENS101/calis.html)       |
 
 ## Layout
