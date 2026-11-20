@@ -106,6 +106,9 @@ h4{font:700 1rem/1.3 "Outfit",system-ui,sans-serif;margin:14px 0 4px}
 .note{background:var(--amber-soft);border-left:3.5px solid var(--amber);padding:10px 13px;border-radius:9px;margin:10px 0;font-size:.94rem}
 .key{background:var(--blue-soft);border-left:3.5px solid var(--blue);padding:10px 13px;border-radius:9px;margin:10px 0;font-size:.94rem}
 .trap{background:var(--red-soft);border-left:3.5px solid var(--red);padding:10px 13px;border-radius:9px;margin:10px 0;font-size:.94rem}
+.say{background:var(--green-soft);border-left:3.5px solid var(--green);padding:10px 13px;border-radius:9px;margin:12px 0 4px;font-size:.94rem;color:var(--ink)}
+.say p{margin:.35em 0;line-height:1.55}
+.say>b:first-child{color:var(--green);font-size:.82rem;letter-spacing:.02em}
 ul,ol{padding-left:22px} li{margin:3px 0}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
 .chip{font-size:.77rem;padding:3px 9px;border-radius:999px;background:var(--blue-soft);color:var(--blue);font-weight:600;border:none}
@@ -512,7 +515,8 @@ f = b ./ a;     % [4 2.5 2]`,{c:[5,7,9],d:[4,10,18],e:[1,4,9],f:[4,2.5,2]})}
  <div class="trap"><b>Tuzak:</b> Noktasız <code>a * b</code> matrix multiplication'dır. İki 1×3 row vector için <b>error</b> verir (Incorrect dimensions for matrix multiplication). <code>a^2</code> da vector için error verir; <code>a.^2</code> yaz.</div>
  <div class="tblwrap"><table><tr><th>yazılış</th><th>a = [1 2 3], b = [4 5 6]</th></tr>
  <tr><td>${C("a .* b")}</td><td>${C("[4 10 18]")}</td></tr><tr><td>${C("a * b")}</td><td>error</td></tr>
- <tr><td>${C("3 * a")}</td><td>${C("[3 6 9]")} (scalar, nokta gerekmez)</td></tr><tr><td>${C("a .^ 2")}</td><td>${C("[1 4 9]")}</td></tr><tr><td>${C("a ^ 2")}</td><td>error</td></tr></table></div>`},
+ <tr><td>${C("3 * a")}</td><td>${C("[3 6 9]")} (scalar, nokta gerekmez)</td></tr><tr><td>${C("a .^ 2")}</td><td>${C("[1 4 9]")}</td></tr><tr><td>${C("a ^ 2")}</td><td>error</td></tr></table></div>
+ <div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Element-wise multiplication (.*) multiplies the elements of two vectors one by one, in the same positions. Matrix multiplication (*) follows the rules of linear algebra, and it needs the inner dimensions to agree. For example, for two 1x3 row vectors, a .* b works, but a * b gives an error.</p></div>`},
  {type:"teach",h:"3. Transpose: '",html:`
  <p><code>'</code> (tek tırnak) <b>transpose</b> demektir: row'u column'a, column'u row'a çevirir. Bir column'u bir row ile eleman eleman çarpacaksan önce transpose et, yoksa boyutlar uymaz.</p>
  ${P(R`B = [1 2 3; 4 5 6; 7 8 9];
@@ -588,7 +592,8 @@ const M3={id:"m3",no:"M3",part:"kod",title:"Scripts vs functions",sub:"Function 
  <p>Bir script başka bir script'i <b>adını yazarak</b> çalıştırır. Dersteki <code>manager.m</code>:</p>
  ${P(R`% manager.m
 lazyFriends      % lazyFriends.m script'ini çalıştırır
-activeFriends    % sonra activeFriends.m'yi çalıştırır`)}`},
+activeFriends    % sonra activeFriends.m'yi çalıştırır`)}
+ <div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>A script is a file with a list of commands that run from top to bottom. Its variables are stored in the workspace, so the script can see the workspace variables and I can see them after it runs.</p></div>`},
  {type:"teach",h:"2. Function ve header satırı",html:`
  <p><b>Function</b> bir makine gibidir: <b>input</b> alır, iş yapar, <b>output</b> döndürür. İlk satırına <b>header</b> denir:</p>
  ${P(R`function [V, SA] = cylinderCal(r, h)
@@ -607,7 +612,8 @@ end
 
 [v, s] = cylinderCal(1, 2);   % iki output: v = 6.2832, s = 18.8496
 k = cylinderCal(1, 2);        % tek output istenirse SADECE İLKİ gelir: k = 6.2832`,{v:6.283185307179586,s:18.84955592153876,k:6.283185307179586})}
- <div class="key">Input'lar <b>sırayla</b> eşleşir: <code>cylinderCal(1, 2)</code> → r = 1, h = 2. Output'lar da sırayla: ilk output v'ye, ikinci s'ye.</div>`},
+ <div class="key">Input'lar <b>sırayla</b> eşleşir: <code>cylinderCal(1, 2)</code> → r = 1, h = 2. Output'lar da sırayla: ilk output v'ye, ikinci s'ye.</div>
+ <div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>A function takes inputs, does a job and returns outputs. The first line is the header: the keyword function, the outputs, the function name and the inputs. The file name must be the same as the function name. The variables in a function are local, so a function cannot see the workspace. The difference from a script is that a script shares the workspace, but a function has its own local variables.</p></div>`},
  {type:"check",id:"m3-c1",title:"Function header",pool:[
   {q:"r ve h input'larını alan, V ve SA output'larını döndüren <code>cylinderCal</code> function'ının ilk satırı hangisi?",en:"Which is the correct first line of a function <code>cylinderCal</code> that takes inputs r and h and returns outputs V and SA?",
    fields:[MC(2,CO(["function cylinderCal(r, h) = [V, SA]","function [r, h] = cylinderCal(V, SA)","function [V, SA] = cylinderCal(r, h)","[V, SA] = function cylinderCal(r, h)"]))],why:"<p>Kalıp: <code>function [output'lar] = ad(input'lar)</code>. Output'lar solda, input'lar parantezde.</p>"},
@@ -737,7 +743,8 @@ fprintf('a');
 fprintf('b\n');
 disp('c')`,{_out:["5","ab","c"]})}
  ${OUT(`     5\nab\nc`)}
- <p>Bir ipucu daha: <code>fprintf('%d\n', [1 2 3])</code> format'ı her eleman için tekrarlar ve 1, 2, 3'ü alt alta yazar.</p>`},
+ <p>Bir ipucu daha: <code>fprintf('%d\n', [1 2 3])</code> format'ı her eleman için tekrarlar ve 1, 2, 3'ü alt alta yazar.</p>
+ <div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>The disp command displays a value or text and always moves to a new line. The fprintf command prints formatted output. I use %d for an integer, %f for a decimal number, %g for a short format and %s for text. I must write <code>\\n</code> at the end of fprintf to start a new line; disp does this automatically.</p></div>`},
  {type:"check",id:"m4-c1",title:"fprintf çıktısı",pool:[
   Q("Bu kod ne yazdırır (print)?",R`n = 12;
 fprintf('n is %d\n', n);`,[LN(["n is 12"])],"<p>%d yerine n'nin değeri (12) gelir.</p>","What does this code print?"),
@@ -783,7 +790,8 @@ const M5={id:"m5",no:"M5",part:"kod",title:"Conditionals: if, mod, && ||",sub:"R
  <tr><td>${C("~=")}</td><td>eşit değil mi?</td><td>${C("7 ~= 2")} → 1</td></tr>
  <tr><td>${C("<")} ${C(">")}</td><td>küçük / büyük</td><td>${C("3 > 5")} → 0</td></tr>
  <tr><td>${C("<=")} ${C(">=")}</td><td>küçük eşit / büyük eşit</td><td>${C("6 >= 6")} → 1</td></tr></table></div>
- <div class="trap"><b>En sık hata:</b> <code>=</code> atama, <code>==</code> karşılaştırma. <code>if x = 5</code> <b>error</b> verir; doğrusu <code>if x == 5</code>. Octave'daki <code>!=</code> yerine sınavda <code>~=</code> yaz.</div>`},
+ <div class="trap"><b>En sık hata:</b> <code>=</code> atama, <code>==</code> karşılaştırma. <code>if x = 5</code> <b>error</b> verir; doğrusu <code>if x == 5</code>. Octave'daki <code>!=</code> yerine sınavda <code>~=</code> yaz.</div>
+ <div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>A relational operator compares two values, and the result is 1 (true) or 0 (false). The single equal sign = is the assignment operator: it stores a value in a variable. The double equal sign == is the equality operator: it asks if two values are equal. For example, x = 5 stores 5 in x, and x == 5 asks if x is equal to 5.</p></div>`},
  {type:"teach",h:"2. Logical operators: && || ~",html:`
  <div class="tblwrap"><table><tr><th>operator</th><th>anlamı</th><th>ne zaman 1?</th></tr>
  <tr><td>${C("&&")}</td><td>and (ve)</td><td>iki taraf da doğruysa</td></tr>
@@ -1118,7 +1126,8 @@ while k > 3
   k = k - 2;
 end`,{s:28,k:2})}
  ${TT(["k (tur başı)","k > 3 ?","yeni s","yeni k"],[[10,"evet",10,8],[8,"evet",18,6],[6,"evet",24,4],[4,"evet",28,2],[2,"hayır → biter","",""]])}
- <p><b>s = 28, k = 2.</b> Dikkat: son k, koşulu bozan değerdir (2), son eklenen değer (4) değil.</p>`},
+ <p><b>s = 28, k = 2.</b> Dikkat: son k, koşulu bozan değerdir (2), son eklenen değer (4) değil.</p>
+ <div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>A while loop repeats a block of code as long as its condition is true. MATLAB checks the condition at the start of each turn. A for loop is used when I know the number of repetitions in advance, because the loop variable takes the values of a vector one by one. A while loop is used when I do not know the number of repetitions, and it stops when the condition becomes false.</p></div>`},
  {type:"check",id:"m7-c1",title:"while trace",pool:[{gen:"whileTrace"},
   Q("Loop'tan sonra <code>s</code> ve <code>k</code> kaçtır?",R`k = 10;
 s = 0;
@@ -1131,7 +1140,8 @@ end`,[N("s",28),N("k",2)],"<p>k: 10, 8, 6, 4 eklenir (s = 28); k = 2'de koşul y
  <ul><li>Loop variable'ını değiştirmeyi unutmak (<code>k = k - 1</code> yok).</li>
  <li>Yanlış yöne değiştirmek: <code>while k > 3</code> iken <code>k = k + 1</code>.</li>
  <li><code>~=</code> ile hedefin üstünden atlamak: <code>x = 1; while x ~= 10, x = x + 2; end</code> → x: 1, 3, 5, 7, 9, 11, … hiç 10 olmaz.</li></ul>
- <div class="key">Kontrol: "Koşuldaki variable her turda bitişe doğru yaklaşıyor mu ve bitişe tam ulaşabiliyor mu?"</div>`},
+ <div class="key">Kontrol: "Koşuldaki variable her turda bitişe doğru yaklaşıyor mu ve bitişe tam ulaşabiliyor mu?"</div>
+ <div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>An infinite loop is a loop whose condition never becomes false, so it never stops. A common cause is that I forget to change the variable in the condition, or I change it in the wrong direction.</p></div>`},
  {type:"check",id:"m7-c2",title:"Infinite loop'u bul",pool:[
   {q:"Hangisi infinite loop'tur?",en:"Which of these is an infinite loop?",
    fields:[MC(1,CO(["k = 1; while k < 5, k = k + 1; end","k = 1; while k < 5, k = k - 1; end","k = 10; while k > 5, k = k - 1; end","k = 1; while k < 5, k = k * 2; end"]))],why:"<p>k 1'den aşağı iner: 0, −1, −2, … hep < 5. Koşul hiç yanlış olmaz.</p>"},

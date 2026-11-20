@@ -14,7 +14,8 @@ window.LESSONS_TEORI = [
 <li>Kötü sonuçlardan kaçınmak: para cezası, hapis, işini kaybetmek.</li>
 </ol>
 <p>İdeal bir toplumda ikinci neden olmazdı. Etik dışı davranış yaygın olduğu için toplumlar kurallar, kodlar ve yasalar yazmıştır (s. 37).</p>
-<div class="box"><b>Akılda tut:</b> Kitap “en etik kararı garanti eden bir algoritma yok” der. Ama düşünmeye yardım eden <b>4 adımlı bir yöntem</b> verir (s. 37). Sınav bu yöntemi sorar.</div>` },
+<div class="box"><b>Akılda tut:</b> Kitap “en etik kararı garanti eden bir algoritma yok” der. Ama düşünmeye yardım eden <b>4 adımlı bir yöntem</b> verir (s. 37). Sınav bu yöntemi sorar.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Ethical decision making means choosing the right action when a choice affects other people. People try to make ethical decisions for two reasons. The first is altruism: they want to make the world a better place for everyone. The second is to avoid bad results, such as fines, jail or losing a job. Engineers need ethics because their decisions can affect the lives of thousands of people.</p></div>` },
 
       { type: "teach", h: "4 adım: büyük resim", html: `
 <p>Ethical decision making (etik karar verme) 4 adımdır (s. 38–41). Önce tabloyu ezberle, sonra her adımı tek tek açacağız.</p>
@@ -24,7 +25,8 @@ window.LESSONS_TEORI = [
 <tr><td>2</td><td>Alternatifleri <b>üç perspective</b>'ten değerlendir: <b>consequences</b>, <b>intent</b>, <b>character</b></td><td>3 bakış</td></tr>
 <tr><td>3</td><td><b>Correlate perspectives</b>: üç sonucu karşılaştır</td><td>uyuşuyor mu?</td></tr>
 <tr><td>4</td><td><b>Act</b>: kararı uygula</td><td>cesaret</td></tr>
-</table>` },
+</table>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>The ethical decision-making procedure has four steps. Step 1: determine the issues (What) and the stakeholders (Who). Step 2: evaluate the alternatives from three perspectives: consequences, intent and character. Step 3: correlate the perspectives, that is, compare the three results. Step 4: act on the decision.</p></div>` },
 
       { type: "teach", h: "Adım 1: Issues ve stakeholders", html: `
 <p><b>Issues (What)</b>: sorun ne? Kişisel özgürlük, ulusal güvenlik, yaşam kalitesi, ekonomi, adalet, eşitlik gibi her şey olabilir (s. 38).</p>
@@ -35,7 +37,8 @@ window.LESSONS_TEORI = [
 <tr><th>Issues (What)</th><th>Stakeholders (Who)</th></tr>
 <tr><td>Oil independence<br>The price of gasoline<br>Possible impacts on the ecosystem</td><td>Oil companies<br>The general population of the U.S.<br>Other countries we buy oil from<br>The flora and fauna in ANWR<br>The native people in Alaska</td></tr>
 </table>
-<div class="box">“Flora and fauna” (bitkiler ve hayvanlar) da bir stakeholder'dır. Sınavda “stakeholder sadece insandır” şıkkı görürsen yanlıştır.</div>` },
+<div class="box">“Flora and fauna” (bitkiler ve hayvanlar) da bir stakeholder'dır. Sınavda “stakeholder sadece insandır” şıkkı görürsen yanlıştır.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>In Step 1, I ask two questions: What are the issues, and Who might be affected? The issues are the problems or values involved in the decision. The stakeholders are the individuals, groups, institutions or natural systems that might be affected. A stakeholder does not have to be a person.</p><p>For example, if a company wants to drill for oil in a wildlife refuge, the issues are oil independence and the possible impact on the ecosystem. The stakeholders are the oil companies, the general population and the flora and fauna in the refuge.</p></div>` },
 
       { type: "check", id: "t1-c1", title: "Issues ve stakeholders", pool: [
         { q: "Ethical decision making'in 1. adımında, bir karardan etkilenebilecek kişi, grup, kurum ya da doğal sistemlere ne ad verilir?",
@@ -77,7 +80,8 @@ window.LESSONS_TEORI = [
 <li>Bu eylemin <b>mağduru</b> ben olsam ister miydim?</li>
 </ol>
 <p><b>Örnek (Example 2-3, s. 40):</b> İnternetten yasa dışı müzik indirmek. Intent soruları: Herkes istediği müziği bedavaya almalı mı? Yasa bunu serbest bırakmalı mı? Geçinmeye çalışan bir müzisyen olsan gelirinin kesilmesini ister miydin?</p>
-<div class="box"><b>Hızlı ayırt etme:</b> Soruda “etkilenir, zarar, kaç kişi” varsa <b>consequences</b>. “Herkes yapsa, yasa olsa, mağdur ben olsam” varsa <b>intent</b>. “İyi bir insan yapar mı, beni nasıl biri yapar” varsa <b>character</b>.</div>` },
+<div class="box"><b>Hızlı ayırt etme:</b> Soruda “etkilenir, zarar, kaç kişi” varsa <b>consequences</b>. “Herkes yapsa, yasa olsa, mağdur ben olsam” varsa <b>intent</b>. “İyi bir insan yapar mı, beni nasıl biri yapar” varsa <b>character</b>.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>In Step 2, I evaluate each alternative from three perspectives. The consequences perspective asks how each alternative affects each stakeholder, and I give a weight to each effect. The intent perspective looks only at the intention behind the action, not at the result; it is also called the rights perspective. The character perspective asks if a person of good character would do this, and if the action would improve or damage my character.</p><p>For intent, I can ask: Should everyone do this? Should it be a law? Would I like to be the victim?</p></div>` },
 
       { type: "check", id: "t1-c2", title: "Üç perspective", pool: [
         { q: "“Bunu herkes yapsa olur mu? Bu davranış yasa olsa olur mu? Mağdur ben olsam ister miydim?” soruları hangi perspective'e aittir?",
@@ -115,7 +119,8 @@ window.LESSONS_TEORI = [
 <li>Kitabın örnekleri: işini kaybetmeyi göze alan <b>whistle-blower</b>; köleleri özgürlüğe götürmek için hayatını defalarca riske atan Harriet Tubman; seçimi kaybedeceğini bile bile doğruyu savunan politikacı.</li>
 <li>Kendine sor: “Doğru olduğunu bildiğim şeyi yapacak cesaretim var mı?”</li>
 </ul>
-<div class="box">Kitaptaki e-sigara örneğinde (Example 2-5, s. 41–42) yazarlar 3. adımda karar vermeyi reddeder: farklı insanlar vicdanen farklı sonuçlara varabilir. Yani sınavda “tek doğru etik cevap” beklenmez; <b>yöntemi doğru uygulaman</b> beklenir.</div>` },
+<div class="box">Kitaptaki e-sigara örneğinde (Example 2-5, s. 41–42) yazarlar 3. adımda karar vermeyi reddeder: farklı insanlar vicdanen farklı sonuçlara varabilir. Yani sınavda “tek doğru etik cevap” beklenmez; <b>yöntemi doğru uygulaman</b> beklenir.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>In Step 3, I correlate the three perspectives. If all three agree, I have a high level of confidence that this is the best choice. If they do not agree, I rethink the problem and talk to more people. If they still disagree, I go with two out of three.</p><p>Step 4 is to act. It is often the hardest step, because ethical action often requires courage.</p></div>` },
 
       { type: "check", id: "t1-c3", title: "Correlate ve Act", pool: [
         { q: "Üç perspective, tüm çabana rağmen aynı sonuca varmıyor. Kitap ne yapmanı önerir?",
@@ -154,7 +159,8 @@ window.LESSONS_TEORI = [
 <tr><th>Durum</th><th>Örnek</th></tr>
 <tr><td><b>Legal but not ethical</b></td><td>Plagiarism (copyright ihlali yoksa; s. 42). Arkadaşlarınla birlikte fakir bir öğrenciyle arkasından alay etmek (Example 2-4, s. 40). Yasal gereklilikleri karşılayan ama nadiren güvenlik hatası veren bir malzemeyi kullanmak (F25 Q2).</td></tr>
 <tr><td><b>Ethical but not legal</b></td><td>Harriet Tubman'ın köleleri özgürlüğe kaçırması: o dönemde yasa dışıydı (s. 41). Yaralı bir çocuğu hastaneye yetiştirmek için hız sınırını aşmak (kitabın ICA 2-1 listesindeki durum, s. 46).</td></tr>
-</table>` },
+</table>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Plagiarism means presenting someone else's work as my own. It is not illegal by itself, but it is widely considered unethical. It becomes illegal if it includes copyright infringement. For a student, it is academic dishonesty.</p><p>Legal and ethical are not the same. An example of something legal but not ethical is plagiarism without copyright infringement. An example of something ethical but not legal is Harriet Tubman helping slaves to escape when it was against the law.</p></div>` },
 
       { type: "check", id: "t1-c4", title: "Plagiarism, legal ve ethical", pool: [
         { q: "Kitaba göre plagiarism için hangisi doğrudur?",
@@ -200,7 +206,8 @@ window.LESSONS_TEORI = [
 <li>Avoid <b>deceptive acts</b></li>
 <li>Conduct themselves honorably, responsibly, ethically, and lawfully so as to enhance the honor, reputation, and usefulness of the profession</li>
 </ol>
-<div class="box"><b>Hafıza ipucu:</b> 1 halk, 2 uzmanlık, 3 dürüst açıklama, 4 işverene sadakat, 5 aldatma yok, 6 onurlu davranış. Halkın güvenliği <b>1. sırada</b> ve işverene sadakatin (4) <b>önünde</b>. Mühendis halkın güvenliğini her şeyin üstünde tutmalıdır (hold paramount).</div>` },
+<div class="box"><b>Hafıza ipucu:</b> 1 halk, 2 uzmanlık, 3 dürüst açıklama, 4 işverene sadakat, 5 aldatma yok, 6 onurlu davranış. Halkın güvenliği <b>1. sırada</b> ve işverene sadakatin (4) <b>önünde</b>. Mühendis halkın güvenliğini her şeyin üstünde tutmalıdır (hold paramount).</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>NSPE is the National Society of Professional Engineers. Its Code of Ethics for Engineers includes the Engineer's Creed and the Fundamental Canons. In the Creed, the engineer promises to place service before profit and the public welfare above all other considerations.</p><p>Canon 1 says engineers shall hold paramount the safety, health, and welfare of the public. The other canons say: perform services only in areas of their competence; issue public statements only in an objective and truthful manner; act for each employer or client as faithful agents or trustees; avoid deceptive acts; and conduct themselves honorably, responsibly, ethically, and lawfully so as to enhance the honor, reputation, and usefulness of the profession.</p><p>The purpose of a code of ethics is to protect public safety and to guide professional conduct.</p></div>` },
 
       { type: "check", id: "t1-c5", title: "NSPE canons ve creed", pool: [
         { q: "Fundamental Canon 1'deki boşluğu doldur: Engineers shall hold paramount the safety, health, and _________ of the public.",
@@ -241,7 +248,8 @@ window.LESSONS_TEORI = [
 F24 Q6 (2 puan, açık uçlu): “Give an example of an action that is legal but not ethical, and something ethical but not legal.” Her biri için bir örnek yaz: plagiarism (copyright ihlali yok) ve Harriet Tubman ya da yaralıyı hastaneye yetiştirmek.<br>
 F25 Q1 (MC): “What is the primary purpose of an engineering code of ethics?” → protect public safety and guide professional conduct.<br>
 F25 Q2 (MC): yasal gereklilikleri karşılayan ama nadiren güvenlik hatası veren malzeme → public welfare and safety.<br>
-F25 Q3 (boşluk): “Engineers who report safety concerns internally and externally when necessary are engaging in ___.” → whistle-blowing.</div>` },
+F25 Q3 (boşluk): “Engineers who report safety concerns internally and externally when necessary are engaging in ___.” → whistle-blowing.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Whistle-blowing means reporting a safety concern inside the organization first, and outside it if necessary. It is an example of Step 4 (act), because it needs courage and the engineer may lose the job. Public safety comes before loyalty to the employer.</p><p>Social responsibility is the ideology that an individual has an obligation to act to benefit society at large. Engineers are part of society, so they should use their skills to help solve societal problems, not only technical ones.</p><p>Model answer (F24 Q6): Plagiarism without copyright infringement is legal but not ethical. Helping slaves escape, as Harriet Tubman did, was ethical but not legal at that time.</p></div>` },
 
       { type: "check", id: "t1-c6", title: "Whistle-blowing ve social responsibility", pool: [
         { q: "Bir güvenlik sorununu önce şirket içinde, gerekirse şirket dışında bildiren mühendis ne yapmış olur?",
@@ -288,7 +296,8 @@ F25 Q3 (boşluk): “Engineers who report safety concerns internally and externa
 <li><b>Analysis</b>: tasarımı parçalarına ayırıp varsayımlarını, faydalarını ve risklerini incelemek.</li>
 <li><b>Prototyping, implementation, testing</b>.</li>
 </ol>
-<p><b>Problemi nasıl tanımladığın, bulduğun çözümleri belirler</b> (s. 58–59). Elektrik hatlarındaki buz örneği: “hatta buz var” dersen buzu kırmayı, “hatta donabilecek su var” dersen hattı kuru tutmayı, “hat çok soğuk” dersen ısıtmayı düşünürsün. Dum Dum şirketi iki tadın karıştığı lolipopları atmak yerine “Mystery” flavor diye satar: problemi farklı tanımlamak para kazandırır.</p>` },
+<p><b>Problemi nasıl tanımladığın, bulduğun çözümleri belirler</b> (s. 58–59). Elektrik hatlarındaki buz örneği: “hatta buz var” dersen buzu kırmayı, “hatta donabilecek su var” dersen hattı kuru tutmayı, “hat çok soğuk” dersen ısıtmayı düşünürsün. Dum Dum şirketi iki tadın karıştığı lolipopları atmak yerine “Mystery” flavor diye satar: problemi farklı tanımlamak para kazandırır.</p>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Design is a creative process. First I define the problem, then I generate ideas, develop solutions and share the solution. Design is multiobjective: it has more than one goal, so there is more than one possible solution. The aim is to find the design that meets the most important objectives. Design is also iterative: I design, build, test and redesign.</p><p>The general steps are: (1) problem definition (or specification), (2) generating ideas, (3) analysis, and (4) prototyping, implementation and testing. Problem definition is the critical step, because it shapes all the other steps. The way I define the problem decides which solutions I find.</p></div>` },
 
       { type: "check", id: "t2-c1", title: "Tasarım süreci", pool: [
         { q: "Kitaba göre “design is inherently multiobjective.” Bu ne demektir?",
@@ -325,7 +334,8 @@ F25 Q3 (boşluk): “Engineers who report safety concerns internally and externa
 <p>Kitabın sloganı: <b>“In brainstorming, quality is quantity.”</b> Ne kadar çok fikir üretirsen, içinden birkaç kaliteli fikir çıkma olasılığı o kadar artar. “The best way to get a good idea is to get lots of ideas!” (s. 55)</p>
 <p><b>Hikâye (s. 55):</b> 1952'de bir telefon şirketi 700 mil telefon hattındaki buzu temizlemek zorundaydı. Herkes (yöneticiler, sekreterler, mühendisler, hat işçileri) brainstorming'e katıldı. Biri şaka yollu “ayılar direklere tırmansa buz düşer” dedi. Eleştirilmedi; “direklere bal koyalım”, “balı helikopterle taşıyalım” fikirleri geldi. Sonunda bir sekreter helikopter pervanesinin rüzgârının buzu silkeleyebileceğini söyledi. Fikir denendi ve işe yaradı.</p>
 <p>Aynı problem beş deneyimli helikopter pilotuna verildi. Onlar da aynı çözüme ulaştı, ama bu çözüm listelerindeki <b>36. fikirdi</b>. 35'te dursalardı belki daha zayıf bir çözümle kalırlardı. Ders: <b>variety</b> ve <b>eleştirmemek</b> değerlidir, <b>quantity</b> şarttır.</p>
-<div class="box">F24 Q3: “What is your first choice for generating ideas for a design problem? Why?” Cevap: <b>brainstorming</b>; çünkü çok ve çeşitli fikir üretir, eleştiri yasağı sıra dışı fikirleri ortaya çıkarır, fikir sayısı arttıkça iyi fikir bulma olasılığı artar. Üç kuralı da yaz.</div>` },
+<div class="box">F24 Q3: “What is your first choice for generating ideas for a design problem? Why?” Cevap: <b>brainstorming</b>; çünkü çok ve çeşitli fikir üretir, eleştiri yasağı sıra dışı fikirleri ortaya çıkarır, fikir sayısı arttıkça iyi fikir bulma olasılığı artar. Üç kuralı da yaz.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Brainstorming is a method for generating ideas. It has three rules: (1) more is better, (2) variety is better, and (3) do not criticize. The third rule is important, because the first two work only if nobody criticizes.</p><p>In brainstorming, quality is quantity. If I have many ideas, I am more likely to find a few good ones.</p><p>Model answer (F24 Q3): My first choice for generating ideas is brainstorming. It produces many different ideas in a short time. Because nobody criticizes, people also say unusual ideas. When the number of ideas grows, the chance of a good idea grows too. The rules are: more is better, variety is better, and do not criticize.</p></div>` },
 
       { type: "check", id: "t2-c2", title: "Brainstorming", pool: [
         { q: "Aşağıdakilerden hangisi brainstorming kurallarından biri DEĞİLDİR?",
@@ -362,7 +372,8 @@ F25 Q3 (boşluk): “Engineers who report safety concerns internally and externa
 <tr><td>Automobile</td><td>Environmentally friendly</td><td>Has an estimated MPG of at least 50</td></tr>
 <tr><td>Bookshelf</td><td>Easy to assemble</td><td>Requires only a screwdriver</td></tr>
 </table>
-<p><b>Az kriter iyidir.</b> Rule of thumb: 10 anlamlı kriter düşünebildiysen, çözümleri karşılaştırırken <b>en önemli 2 tanesini</b> kullan. Uzmanlar, müşteriler ve araştırma en önemlilerini seçmene yardım eder (s. 60).</p>` },
+<p><b>Az kriter iyidir.</b> Rule of thumb: 10 anlamlı kriter düşünebildiysen, çözümleri karşılaştırırken <b>en önemli 2 tanesini</b> kullan. Uzmanlar, müşteriler ve araştırma en önemlilerini seçmene yardım eder (s. 60).</p>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Criteria tell us what is important when we evaluate solutions. I must define the criteria before I start the evaluation. Then all ideas are judged fairly, and there are no arguments about hidden criteria. If people see a best solution first, they may choose criteria that fit it.</p><p>A criterion must be clear and measurable. For example, inexpensive becomes less than $300, and environmentally friendly becomes an estimated MPG of at least 50. It is better to use few criteria. If I have ten, I can compare the solutions using the two most important ones.</p></div>` },
 
       { type: "check", id: "t2-c3", title: "Criteria first, clear and measurable", pool: [
         { q: "Kriterler neden çözümler üretilmeden önce tanımlanmalıdır?",
@@ -401,7 +412,8 @@ F25 Q3 (boşluk): “Engineers who report safety concerns internally and externa
 <li><b>Requirement</b>: tasarımın <b>yerine getirmesi gereken bir işlev</b> (a function the design must perform). <b>Constraint</b> (kısıt): tasarımın <b>aşmaması gereken bir sınır</b> (a limitation or boundary the design must not violate). Örnek: bütçe, boyut, süre. (F25 Q4)</li>
 <li><b>Trade-off</b> (ödünleşim): bir özelliği iyileştirmek için başka bir özellikten vazgeçmek. F25 örneği: daha iyi görünüm için yüksek maliyet mi, basit yapım için düşük maliyet mi? (F25 Q6, anahtarda “tradeoff” diye yazılmış)</li>
 </ul>
-<div class="box">Kitap da “identifying <b>constraints and criteria</b> first” (s. 59) ve proje planlamasında “satisfying all constraints” (s. 72) der, ama constraint'i tanımlamaz.</div>` },
+<div class="box">Kitap da “identifying <b>constraints and criteria</b> first” (s. 59) ve proje planlamasında “satisfying all constraints” (s. 72) der, ama constraint'i tanımlamaz.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Requirements are needs. A solution that does not meet a requirement is eliminated. Criteria are wants. The better a solution meets a criterion, the better it scores. Requirements can be legal, from the company or from the client.</p><p>A requirement is a function the design must perform. A constraint is a limitation or boundary the design must not violate. For example, a budget, a size limit or a deadline is a constraint.</p><p>A trade-off means giving up one feature to improve another. For example, I can choose a higher cost for a better appearance, or a lower cost for a simple construction.</p></div>` },
 
       { type: "check", id: "t2-c4", title: "Requirement, constraint, trade-off", pool: [
         { q: "Requirement, tasarımın yerine getirmesi gereken bir işlevi tanımlar. Constraint ise nedir?",
@@ -444,7 +456,8 @@ F25 Q3 (boşluk): “Engineers who report safety concerns internally and externa
 <tr><td><b>Total</b></td><td><b>1</b></td><td><b>4</b></td><td><b>1</b></td></tr>
 </table>
 <p>Nasıl okunur: A sütunu, B satırı = 0, çünkü A, B'den kötü. B sütunu, A satırı = 2, çünkü B, A'dan iyi. Safety'de kazanan <b>B</b>.</p>
-<div class="box"><b>Dezavantaj (sınav sorusu!):</b> pairwise comparisons'da <b>bütün kriterler eşit ağırlıktadır</b>. Oysa bazı kriterler diğerlerinden daha önemlidir (s. 62). Çözüm: weighted benefit analysis.</div>` },
+<div class="box"><b>Dezavantaj (sınav sorusu!):</b> pairwise comparisons'da <b>bütün kriterler eşit ağırlıktadır</b>. Oysa bazı kriterler diğerlerinden daha önemlidir (s. 62). Çözüm: weighted benefit analysis.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Pairwise comparison is a method for choosing between options. For each criterion, I make a table and compare the options in pairs. A cell gets 0 if the column option is worse, 1 if they are equal, and 2 if the column option is better. I add up each column. The highest total is the best option for that criterion. Then I add the totals of all criteria.</p><p>The disadvantage is that all criteria have the same weight. But some criteria are more important than others. Weighted benefit analysis solves this problem.</p></div>` },
 
       { type: "check", id: "t2-c5", title: "Pairwise comparisons", pool: [
         { q: "Criterion: cost (ucuz olan daha iyi). Maliyet sıralaması Z &lt; X &lt; Y (Z en ucuz). Pairwise tabloda Z'nin sütun toplamı kaçtır?",
@@ -490,7 +503,8 @@ F25 Q3 (boşluk): “Engineers who report safety concerns internally and externa
 <tr><td>Mass</td><td>2</td><td>6</td><td>7</td><td>9</td></tr>
 </table>
 <p>Cevap: A = 12+40+12 = 64; B = 27+25+14 = 66; C = 18+35+18 = <b>71</b>. Kazanan C.</p>
-<div class="box">Bir puanlayıcının “7”si diğerininkinden farklı olabilir. Bunu azaltmak için ölçeği tanımla: kitapta 0 not satisfactory, 1 barely applicable, 2 fairly good, 3 good, 4 very good/ideal (Table 3-3, s. 62).</div>` },
+<div class="box">Bir puanlayıcının “7”si diğerininkinden farklı olabilir. Bunu azaltmak için ölçeği tanımla: kitapta 0 not satisfactory, 1 barely applicable, 2 fairly good, 3 good, 4 very good/ideal (Table 3-3, s. 62).</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Weighted benefit analysis gives each criterion a weight, which shows its importance. Each option gets a score for each criterion. The total is the sum of weight times score, and the highest total wins.</p><p>A decision matrix is used to compare design alternatives using weighted criteria. For example, a cheap option can lose if cost has a low weight and safety has a high weight.</p></div>` },
 
       { type: "check", id: "t2-c6", title: "Decision matrix hesabı", pool: [
         { q: "Kitabın tablosu: weights cost 2, safety 8, weight 10, wow 5. Option 2'nin skorları sırasıyla 6, 4, 7, 4. Option 2'nin toplam puanı kaçtır?",
@@ -537,7 +551,8 @@ F25 Q3 (boşluk): “Engineers who report safety concerns internally and externa
 F24 Q3 (açık uçlu): “What is your first choice for generating ideas for a design problem? Why?” → brainstorming + 3 kural + quality is quantity.<br>
 F25 Q4 (MC): “A requirement describes a function the design must perform, while a constraint is:” → a limitation or boundary the design must not violate.<br>
 F25 Q5 (MC): “What is the primary purpose of a decision matrix in engineering design?” → to compare design alternatives using weighted criteria.<br>
-F25 Q6 (boşluk): “choosing between higher cost for better aesthetics versus lower cost for simple construction is an example of a ___.” → tradeoff.</div>` },
+F25 Q6 (boşluk): “choosing between higher cost for better aesthetics versus lower cost for simple construction is an example of a ___.” → tradeoff.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>A reality check comes after the best solution is chosen and before it is implemented. I ask whether any eliminated idea deserves another look, and whether parts of those ideas can be added to the chosen design. If an idea should not have been eliminated, it may be appropriate to change the selection criteria.</p><p>Sustainability means meeting the needs of the present without compromising the ability of future generations to do the same. It has three dimensions: environmental, social and economic, and they must be balanced. Sustainability cannot be bolted onto a design at the end; the best opportunities are at the start of a project.</p></div>` },
 
       { type: "check", id: "t2-c7", title: "Reality check ve sustainability", pool: [
         { q: "En iyi çıkan çözümü uygulamadan önce durup elenen fikirlere yeniden bakmaya ne denir? _________ check",
@@ -578,7 +593,8 @@ F25 Q6 (boşluk): “choosing between higher cost for better aesthetics versus l
 <tr><td><b>Team</b></td><td>Individuals cooperating to accomplish a common goal.</td><td>Bir köprü projesini birlikte bitirmeye çalışan 4 öğrenci</td></tr>
 </table>
 <p>Fark: group'ta sadece <b>aynı yer ve zaman</b> var. Team'de <b>ortak hedef</b> ve <b>iş birliği</b> var.</p>
-<p>Birlikte çalışan insanlarda fikir ve beceri çeşitliliğinden çok iyilik çıkabilir, ama <b>conflict</b> (çatışma) de çıkabilir. Conflict verimli de olabilir, verimsiz de; bu yüzden <b>yönetilmesi</b> gerekir. Takım çalışacaksa <b>ground rules</b> (temel kurallar) olmalı (s. 65).</p>` },
+<p>Birlikte çalışan insanlarda fikir ve beceri çeşitliliğinden çok iyilik çıkabilir, ama <b>conflict</b> (çatışma) de çıkabilir. Conflict verimli de olabilir, verimsiz de; bu yüzden <b>yönetilmesi</b> gerekir. Takım çalışacaksa <b>ground rules</b> (temel kurallar) olmalı (s. 65).</p>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>A group is a number of people who come together at the same place, at the same time. A team is a set of individuals cooperating to accomplish a common goal. For example, people waiting at a bus stop are a group, and four students who build a bridge together are a team.</p><p>Working together can bring many ideas and skills, but it can also cause conflict. Conflict can be productive or unproductive, so a team must manage it. A team needs ground rules.</p></div>` },
 
       { type: "check", id: "t3-c1", title: "Group ve team", pool: [
         { q: "Kitaba göre team nedir?",
@@ -621,7 +637,8 @@ F25 Q6 (boşluk): “choosing between higher cost for better aesthetics versus l
 <tr><td><b>Participation</b></td><td>İş nasıl dağıtılacak; biri hastalanırsa yük nasıl kayacak.</td></tr>
 <tr><td><b>Values</b></td><td>Her üyenin kendine özgü katkısını kabul etmek.</td></tr>
 <tr><td><b>Outcomes</b></td><td>Son hedefe ulaşıldığını hangi ölçülerle anlayacağız.</td></tr>
-</table>` },
+</table>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>The most critical task of a team, especially a new team, is to decide its purpose, its process and a means of measuring team progress.</p><p>A team should also agree on ground rules, decision making (for example, consensus or majority vote), communication, roles, participation, values and outcomes. Communication is often the hardest part. In a long project, the roles should rotate, so every member learns every role.</p></div>` },
 
       { type: "check", id: "t3-c2", title: "Team behavior", pool: [
         { q: "Kitaba göre yeni bir takımın en kritik görevi nedir?",
@@ -661,7 +678,8 @@ F25 Q6 (boşluk): “choosing between higher cost for better aesthetics versus l
 </table>
 <p><b>“High-quality” rating</b> = gözlenen davranışla <b>tutarlı</b> puan. Yüksek puan demek değildir (s. 70).</p>
 <p><b>Kitaptaki örnek takım (s. 70–71):</b> Robin çok bilgili ve işin büyük kısmını yapıyor, ama arkadaşlarının katkı denemelerini engelliyor ve Pat'e “bu takım için yeterince zeki değilsin” diyor. Knowledge yüksek, <b>interacting with teammates</b> zayıf. Chris toplantıları kaçırıyor, işi yarım bırakıyor: <b>contributing</b> zayıf.</p>
-<div class="box">F24 Q4: “What is the first character you would look for in your team members? Why?” Tek doğru cevap yok. Bir özellik seç ve CATME'ye bağla. Örnek: <b>reliability</b>: sözünü tutar, payına düşeni zamanında bitirir (contributing to the team's work). Çünkü bir kişinin kaçırdığı tarih bütün projeyi geciktirir.</div>` },
+<div class="box">F24 Q4: “What is the first character you would look for in your team members? Why?” Tek doğru cevap yok. Bir özellik seç ve CATME'ye bağla. Örnek: <b>reliability</b>: sözünü tutar, payına düşeni zamanında bitirir (contributing to the team's work). Çünkü bir kişinin kaçırdığı tarih bütün projeyi geciktirir.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Peer evaluation means that team members rate each other. To be fair, I must look at what my teammate does, not at what I think about him or her. I must focus on behaviors.</p><p>CATME means Comprehensive Assessment of Team-Member Effectiveness. It uses a behaviorally anchored rating scale: each rating level is described by example behaviors. It measures five dimensions: (1) contributing to the team's work, (2) interacting with teammates, (3) keeping the team on track, (4) expecting quality, and (5) having relevant knowledge, skills, and abilities.</p><p>Model answer (F24 Q4): The first character I would look for in my team members is reliability. A reliable member keeps promises and finishes his or her part on time. This is contributing to the team's work. If one person misses a deadline, the whole project is late.</p></div>` },
 
       { type: "check", id: "t3-c3", title: "CATME boyutları", pool: [
         { q: "Toplantılara hazırlıklı gelir, sözünü tutar, payına düşen işi zamanında teslim eder. Bu davranışlar hangi CATME boyutuna aittir?",
@@ -724,7 +742,8 @@ F25 Q6 (boşluk): “choosing between higher cost for better aesthetics versus l
 <tr><td><b>Assumed shared knowledge</b></td><td>Mühendislik takımlarında <b>miscommunication</b>'ın (yanlış anlaşmanın) yaygın nedeni: herkesin aynı şeyi bildiğini varsaymak (Q8).</td></tr>
 </table>
 <p>Kitapta bunlara yakın fikirler var: haftalık sabit toplantı saati “toplantı olduğunu bilmiyordum” ve “mesajı almadım” sorunlarını önler (s. 72). Bir mühendis de “misunderstanding and miscommunication leads to delays, poor quality, and frustration” der (s. 87).</p>
-<div class="box">Ezber cümlesi: <b>charter = roles + communication</b>; <b>round-robin = sırayla birer kez</b>; <b>miscommunication = assumed shared knowledge</b>.</div>` },
+<div class="box">Ezber cümlesi: <b>charter = roles + communication</b>; <b>round-robin = sırayla birer kez</b>; <b>miscommunication = assumed shared knowledge</b>.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>A team charter is a document that defines the team. It most often includes team roles and communication expectations.</p><p>Round-robin is a meeting technique. Each team member speaks once, in turn, before the open discussion.</p><p>Assumed shared knowledge is a common cause of miscommunication in engineering teams. It means that people assume that everybody already knows the same things.</p></div>` },
 
       { type: "check", id: "t3-c5", title: "Team charter, round-robin, shared knowledge", pool: [
         { q: "Bir team charter'da en çok hangisini bulmayı beklersin?",
@@ -777,7 +796,8 @@ F25 Q6 (boşluk): “choosing between higher cost for better aesthetics versus l
 F24 Q4 (açık uçlu): “What is the first character you would look for in your team members? Why?” → bir özellik seç (ör. reliability) ve bir cümleyle gerekçelendir.<br>
 F25 Q7 (MC): “A team charter most often includes:” → team roles and communication expectations.<br>
 F25 Q8 (MC): “Which of the following is a common cause of miscommunication in engineering teams?” → assumed shared knowledge.<br>
-F25 Q9 (boşluk): “A meeting technique where each team member speaks once in turn before open discussion is called a ___.” → round-robin.</div>` },
+F25 Q9 (boşluk): “A meeting technique where each team member speaks once in turn before open discussion is called a ___.” → round-robin.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>To plan a project, I first make a project timeline. I divide the project into tasks and subtasks, and I work backwards from the due date to give each task its own due date. The team should meet at least once a week at a fixed day, time and place.</p><p>Second, I make a responsibility matrix. The tasks are listed on the left and the team members across the top. I mark who is responsible for each task. A second member is assigned to help or to check the work. The goal is an equal share of effort.</p><p>The timeline and the matrix are working documents. Nothing is carved in stone, so the team should review and change them every week.</p></div>` },
 
       { type: "check", id: "t3-c6", title: "Timeline ve responsibility matrix", pool: [
         { q: "Proje 30. günün sonunda teslim. Rapor yazımı son 3 günü (28, 29, 30) kaplıyor. Prototip testi 5 gün sürüyor ve rapordan hemen önce bitmeli. Test en geç hangi gün başlamalı?",
@@ -827,7 +847,8 @@ F25 Q9 (boşluk): “A meeting technique where each team member speaks once in t
 <tr><td><b>When</b></td><td>Programda kaçıncıyım? İlk konuşmacı: dinleyici en dikkatli. Öğle yemeğinden önce: huzursuz (restless). Öğle yemeğinden sonra: uykulu (sleepy).</td></tr>
 <tr><td><b>Why</b></td><td>Bu konuşmayı neden yapıyorum, dinleyici neden burada?</td></tr>
 <tr><td><b>How</b> long?</td><td>Çok az insan <b>20 dakikadan</b> uzun odaklanabilir. Dinleyici “ne zaman oturacak” demeden, daha fazlasını isterken bitir.</td></tr>
-</table>` },
+</table>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Before a presentation, I plan with 5 Ws and 1 H. Who is my audience? What is my purpose? Where is the talk and where is the equipment? When am I in the schedule? Why am I giving this talk? How long should it be?</p><p>Who is the first question. The age, background, previous knowledge and opinions of the audience decide what I say. Very few people can focus for longer than 20 minutes. It is better to finish while the audience still wants more.</p></div>` },
 
       { type: "check", id: "t4-c1", title: "5 W + 1 H", pool: [
         { q: "Kitaba göre sunum preplanning listesindeki ilk soru hangisidir?",
@@ -876,7 +897,8 @@ F25 Q9 (boşluk): “A meeting technique where each team member speaks once in t
 <li><b>Body</b>: ilgiyi korumak. <b>2–3 ana nokta</b>, her birine basit örnek, görsel destek.</li>
 <li><b>Conclusion</b>: toparlamak. Ana noktaları <b>özetle</b>, dinleyiciye <b>teşekkür et</b>, birkaç <b>soru</b> al.</li>
 </ul>
-<p><b>Sunarken</b> (s. 85): rahatla, yavaş ve net konuş, göz teması kur, sesli prova yap, erken git ve teknolojiyi kontrol et. Yapma: arkanı dönmek, metinden okumak, uygunsuz şaka, sürekli “um”, sakız, not kâğıtlarıyla oynamak.</p>` },
+<p><b>Sunarken</b> (s. 85): rahatla, yavaş ve net konuş, göz teması kur, sesli prova yap, erken git ve teknolojiyi kontrol et. Yapma: arkanı dönmek, metinden okumak, uygunsuz şaka, sürekli “um”, sakız, not kâğıtlarıyla oynamak.</p>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>The 4-S formula says that a good presentation is short, simple, strong and sincere. Shortness: short sentences and little detail. Simplicity: avoid long, complicated phrases. Strength: use active voice and action verbs, not passive voice. Sincerity: show empathy, understanding and respect to the audience.</p><p>A presentation has three parts. The introduction catches the attention of the audience. The body keeps their interest with two or three main points, simple examples and visual support. The conclusion summarizes the main points, thanks the audience and takes a few questions.</p></div>` },
 
       { type: "check", id: "t4-c2", title: "4-S ve sunum yapısı", pool: [
         { q: "4-S formula'nın dört S'si hangileridir?",
@@ -919,7 +941,8 @@ F25 Q9 (boşluk): “A meeting technique where each team member speaks once in t
 <li>Süslü font (cursive) ve <b>tamamı büyük harf</b> kullanma.</li>
 <li>Arka planı sade tut, animasyonu azalt, bütün slaytlarda <b>aynı arka plan</b>.</li>
 </ul>
-<div class="box">F25 Q10: “Which of the following improves the clarity of a technical presentation slide?” → concise bullet points and readable font sizes. Uzun paragraf, tek slaytta çok sayıda karmaşık grafik ve rapordan kopyalanmış tam sayfa metin yanlış şıklardı.</div>` },
+<div class="box">F25 Q10: “Which of the following improves the clarity of a technical presentation slide?” → concise bullet points and readable font sizes. Uzun paragraf, tek slaytta çok sayıda karmaşık grafik ve rapordan kopyalanmış tam sayfa metin yanlış şıklardı.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>A good slide has one concept and no more than six lines. On average, I speak for about 60 seconds per slide. The font size must be at least 18 pt, and preferably 24 pt or larger. I use bullet points, not full sentences. I use high contrast, such as dark text on a light background. I avoid all capital letters, and I use the same simple background on every slide.</p><p>Model answer (F25 Q10): Concise bullet points and readable font sizes improve the clarity of a technical slide. Long paragraphs and too many complex graphs make the slide hard to read.</p></div>` },
 
       { type: "check", id: "t4-c3", title: "Slayt kuralları", pool: [
         { q: "Kitaba göre bir slaytta en fazla kaç satır olmalıdır?",
@@ -963,7 +986,8 @@ F25 Q9 (boşluk): “A meeting technique where each team member speaks once in t
 <tr><td>Dil</td><td>Teknik olmayan, kısa</td><td>Teknik, ayrıntılı</td></tr>
 <tr><td>Görsel</td><td>Demo, basit grafikler</td><td>Akış şemaları, kod parçaları</td></tr>
 </table>
-<div class="box">Sınavda tabloyu iki üç cümleye çevir: “For an investor I would focus on the problem, the market, cost and profit, using non-technical language and a short demo. For my team I would focus on the architecture, algorithms, known bugs and who does what, in technical detail.”</div>` },
+<div class="box">Sınavda tabloyu iki üç cümleye çevir: “For an investor I would focus on the problem, the market, cost and profit, using non-technical language and a short demo. For my team I would focus on the architecture, algorithms, known bugs and who does what, in technical detail.”</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Model answer (F24 Q5): My content depends on my audience, so I first ask who my audience is. For an investor, my purpose is to convince them to give money. I would talk about the problem the software solves, the market, the cost, the expected profit and the schedule. I would use non-technical language and a short demo. For my team members, my purpose is to share information and divide the work. I would talk about the architecture, the algorithms, the known bugs and who does what, in technical detail.</p></div>` },
 
       { type: "check", id: "t4-c4", title: "Dinleyiciye göre sunum", pool: [
         { q: "Yazdığın yazılımı bir yatırımcıya sunuyorsun. Hangi içerik en uygundur?",
@@ -1016,7 +1040,8 @@ F25 Q9 (boşluk): “A meeting technique where each team member speaks once in t
 <tr><td>Dolar sembolü kullan</td><td>four thousand dollars</td><td>$4,000</td></tr>
 <tr><td>Makul significant figures</td><td>2.5029 inches</td><td>2.5 inches</td></tr>
 </table>
-<p><b>Proofread</b>: birkaç kez oku. <b>İki kez oku: bir kez teknik içerik, bir kez akış için.</b> Bir kez sesli oku. Spell check “whether/weather” farkını yakalamaz (s. 86).</p>` },
+<p><b>Proofread</b>: birkaç kez oku. <b>İki kez oku: bir kez teknik içerik, bir kez akış için.</b> Bir kez sesli oku. Spell check “whether/weather” farkını yakalamaz (s. 86).</p>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>In technical writing, I use clear and exact language. I usually write in the past tense and I keep the tense consistent in a paragraph. I define terms, abbreviations and symbols that the reader may not know. I write facts and conclusions, not personal feelings, in a professional tone.</p><p>I number every table and figure and give it a caption. A table caption goes above the table. A figure caption goes below the figure. I refer to each of them in the text.</p><p>For numbers: I write out a number at the beginning of a sentence, I keep the zero before a decimal point ($0.23, not .23), and I use reasonable significant figures. Finally, I proofread the document more than once.</p></div>` },
 
       { type: "check", id: "t4-c5", title: "Technical writing kuralları", pool: [
         { q: "Kitaba göre tablo ve şekillerin numara ve caption'ı nereye yazılır?",
@@ -1056,7 +1081,8 @@ F25 Q9 (boşluk): “A meeting technique where each team member speaks once in t
 <li><b>Discussion</b>: verileri nasıl elde ettiğin, eğilimlerin anlamı, hatalar, teoriden farklar; seçmediğin seçenekleri neden seçmediğin.</li>
 <li><b>References</b>.</li>
 </ul>
-<div class="box">Ayırt et: “ne bulduk” = <b>results</b>; “nasıl yaptık” = <b>methods</b>; “bu ne anlama geliyor” = <b>discussion</b>.</div>` },
+<div class="box">Ayırt et: “ne bulduk” = <b>results</b>; “nasıl yaptık” = <b>methods</b>; “bu ne anlama geliyor” = <b>discussion</b>.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>The methods section of a report explains how the engineer performed the tests, calculations or experiments. It is usually written in the past tense. For example: The samples were measured three times with a digital caliper.</p><p>The results section shows what we found, usually in tables and figures. The discussion section explains what the results mean, and mentions errors and differences from theory.</p></div>` },
 
       { type: "check", id: "t4-c6", title: "Methods section", pool: [
         { q: "Bir raporda mühendisin testleri, hesapları ya da deneyleri nasıl yaptığını anlatan bölüme ne denir? _________ section",
@@ -1095,7 +1121,8 @@ F25 Q9 (boşluk): “A meeting technique where each team member speaks once in t
 F24 Q5 (açık uçlu, 2 puan): yazılımını yatırımcıya ve takım arkadaşlarına sunarken içerik nasıl değişir? → Who is my audience; amaç, içerik, dil, görsel farkı.<br>
 F25 Q10 (MC): “Which of the following improves the clarity of a technical presentation slide?” → using concise bullet points and readable font sizes.<br>
 F25 Q11 (boşluk): raporun testlerin <i>nasıl</i> yapıldığını anlatan bölümü → methods.<br>
-Kitaptan sayılar da sorulabilir: 6 satır, 60 s, 18/24 pt, 20 dakika, table caption üstte, figure caption altta.</div>` },
+Kitaptan sayılar da sorulabilir: 6 satır, 60 s, 18/24 pt, 20 dakika, table caption üstte, figure caption altta.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>I evaluate information with the ABCs. A is authority: who is responsible for the source and what is the author's expertise? B is bias: what is the purpose of the source, and is the author objective? C is currency: when was the information created or last updated?</p><p>I should also compare the information with other sources and corroborate it with one or more different sources. I do not use information unless I have corroborated it.</p></div>` },
 
       { type: "check", id: "t4-c7", title: "ABC ile kaynak değerlendirme", pool: [
         { q: "Kaynak değerlendirmenin ABC'si hangi kelimelerden oluşur?",
@@ -1133,7 +1160,8 @@ Kitaptan sayılar da sorulabilir: 6 satır, 60 s, 18/24 pt, 20 dakika, table cap
 <li>Cevap genellikle bir <b>order of magnitude</b> (10 kat) içinde doğrudur (s. 108).</li>
 <li>Usta bir mühendis hesaptan önce cevabın <b>makul aralığını</b> bilir. Yukarı atılan beyzbol topu kaç saniyede düşer? Birkaç milisaniye saçma, birkaç ay da saçma; <b>birkaç saniye</b> makul. Hesaptan sonra kendine sor: “Is my answer reasonable?” (s. 108)</li>
 <li>Farklı insanlar farklı varsayım yapar ve farklı cevap bulur. Bu normaldir; puanı <b>yöntem</b> getirir.</li>
-</ul>` },
+</ul>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>A Fermi problem is a problem with so much missing information that it seems impossible to solve. I must find an answer with much less information than a real calculation needs. The answer is usually correct within an order of magnitude.</p><p>For example, Enrico Fermi estimated the power of the first atomic bomb test from pieces of paper that moved in the blast wave. He estimated 10 kilotons, and the real value was 19 kilotons.</p><p>After the calculation, I ask myself: Is my answer reasonable? Different people make different assumptions, and that is normal. The method is what matters.</p></div>` },
 
       { type: "check", id: "t5-c1", title: "Fermi problems", pool: [
         { q: "Çözmek için gereken bilginin çoğu eksik olan, çözümü imkânsız gibi görünen problemlere ne denir? _________ problems",
@@ -1171,7 +1199,8 @@ Kitaptan sayılar da sorulabilir: 6 satır, 60 s, 18/24 pt, 20 dakika, table cap
 </ul></li>
 <li><b>İkinci derece etkilere takılma.</b> Sınıftaki havanın kütlesini tahmin ederken mobilyaları çıkarmana gerek yok.</li>
 </ol>
-<div class="box"><b>Conservative estimate</b> = en kötü durumu (worst case) düşünen tahmin. Dayanım tahmin ediyorsan worst case <b>alt sınırdır</b>; gereken malzeme miktarını tahmin ediyorsan worst case <b>üst sınırdır</b> (s. 113).</div>` },
+<div class="box"><b>Conservative estimate</b> = en kötü durumu (worst case) düşünen tahmin. Dayanım tahmin ediyorsan worst case <b>alt sınırdır</b>; gereken malzeme miktarını tahmin ediyorsan worst case <b>üst sınırdır</b> (s. 113).</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>First, I decide how accurate the estimate must be. An order of magnitude may be enough. A ballpark value is often enough for a typical quantity. I do not worry about second-order effects.</p><p>I must decide if it is better to estimate too high or too low. For safety, I estimate the load that a bridge can carry low, and the load that a beam must carry high. Also, if I round one number down in a multiplication, I round the other one up, so the errors cancel.</p><p>A conservative estimate is a worst-case estimate. For strength, the worst case is the lower bound. For the amount of material needed, the worst case is the upper bound.</p></div>` },
 
       { type: "check", id: "t5-c2", title: "Conservative yön", pool: [
         { q: "Bir köprünün güvenle taşıyabileceği yükü tahmin ediyorsun. Kitaba göre hangi yönde hata yapmak daha iyidir?",
@@ -1211,7 +1240,8 @@ Kitaptan sayılar da sorulabilir: 6 satır, 60 s, 18/24 pt, 20 dakika, table cap
 <tr><td><b>Estimation by upper and lower bounds</b></td><td>Tahminin fazla mı az mı olduğunu takip et; <b>conservative</b> (worst case) tahmin.</td><td>Boya: ölçüleri yukarı yuvarla, tam kovaya tamamla.</td></tr>
 <tr><td><b>Estimation using modeling</b></td><td>Matematiksel model ya da istatistik kullan.</td><td>Tabağa yayılan bezelye daha hızlı soğur: surface area / volume oranı. Ayçiçeği çekirdeği: milyarda bir en uzunu ortalamadan 6 standart sapma büyük.</td></tr>
 </table>
-<div class="box">F25 Q12: “When making an estimation, which strategy is most commonly used?” → <b>breaking the problem into simpler, estimable components</b>. Bu aggregation'ın özüdür. Yanlış şıklar: varsayım yapmamak, birimleri yok saymak, sadece en küçük sayıları kullanmak.</div>` },
+<div class="box">F25 Q12: “When making an estimation, which strategy is most commonly used?” → <b>breaking the problem into simpler, estimable components</b>. Bu aggregation'ın özüdür. Yanlış şıklar: varsayım yapmamak, birimleri yok saymak, sadece en küçük sayıları kullanmak.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>There are four methods for estimating a variable. (1) Estimation by analogy: I compare the quantity with something I already know, an anchor point. For example, a laptop is about the size of a sheet of notebook paper. (2) Estimation by aggregation: I estimate the parts separately and then add or multiply them. (3) Estimation by upper and lower bounds: I keep track of whether my estimate is too high or too low, and I make a conservative (worst-case) estimate. (4) Estimation using modeling: I use a mathematical model or statistics.</p><p>Model answer (F24 Q2): The methods for estimating variables are estimation by analogy, estimation by aggregation, estimation by upper and lower bounds, and estimation using modeling.</p><p>The most common strategy is to break the problem into simpler, estimable components. This is aggregation.</p></div>` },
 
       { type: "check", id: "t5-c3", title: "Dört yöntemi tanı", pool: [
         { q: "Bir fayansın boyunu ayağınla karşılaştırıyorsun, odadaki fayansları sayıp fayans boyuyla çarparak odanın uzunluğunu buluyorsun. Bu hangi yöntemdir?",
@@ -1251,7 +1281,8 @@ Kitaptan sayılar da sorulabilir: 6 satır, 60 s, 18/24 pt, 20 dakika, table cap
 <li><b>Sanity check</b>: sonuç fiziksel olarak mantıklı mı? Sonra cevabı 1–2 significant figure ile ya da aralık olarak ver.</li>
 </ol>
 <p><b>Kitabın örneği kısaca:</b> ABD'de yılda kaç galon benzin, yolda kalmış araçlara taşınır? 3.5 × 10⁸ sürücü × (1 benzinsiz kalma / 4 yıl) = 8.75 × 10⁷ olay/yıl; bunların 24/25'inde benzin araca getirilir: 8.4 × 10⁷; her seferinde 1.5 galon: <b>1.26 × 10⁸ galon/yıl</b>. Kitap “yaklaşık 100 milyon” demenin de geçerli olduğunu, çünkü sonuca ancak bir significant figure kadar güvenilebileceğini söyler (s. 109).</p>
-<p><b>Sanity check</b> (ya da <b>reasonableness check</b>): ayrıntılı bir hesabın makul olup olmadığını kaba bir tahminle kontrol etmek. Bu terim F25 Q13 anahtarından. Kitabın karşılığı: “Is my answer reasonable?” (s. 108) ve Section 5.7 Reasonableness (s. 117): 200 yolcuyu taşıyacak uçağın kanat açıklığı 4 ft çıktıysa sonuç “obvious rubbish”tır (s. 118).</p>` },
+<p><b>Sanity check</b> (ya da <b>reasonableness check</b>): ayrıntılı bir hesabın makul olup olmadığını kaba bir tahminle kontrol etmek. Bu terim F25 Q13 anahtarından. Kitabın karşılığı: “Is my answer reasonable?” (s. 108) ve Section 5.7 Reasonableness (s. 117): 200 yolcuyu taşıyacak uçağın kanat açıklığı 4 ft çıktıysa sonuç “obvious rubbish”tır (s. 118).</p>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>To answer an estimation question, I follow these steps. First, I write my assumptions with units. Second, I break the problem into parts. Third, I round the numbers; one or two significant figures are enough. Fourth, I multiply with the units, so the units cancel correctly. Fifth, I do a sanity check: is the result physically reasonable? Last, I give the answer with one or two significant figures.</p><p>A sanity check (or reasonableness check) means checking a detailed calculation with a rough estimate to see if the answer makes sense.</p></div>` },
 
       { type: "check", id: "t5-c4", title: "Yöntem ve sanity check", pool: [
         { q: "Ayrıntılı bir hesabın makul olup olmadığını kontrol etmek için kullanılan kaba tahmine ne denir? _________ check",
@@ -1314,7 +1345,8 @@ F25 Q12 (MC): en yaygın strateji → breaking the problem into simpler, estimab
 F25 Q13 (boşluk): → sanity / reasonableness check.<br>
 F25 Q14: “Estimate the number of liters of water a typical household uses in one week... (Assume 4 people)” → 3500–5000.<br>
 F25 Q15: “Estimate the number of steps, and the hours to walk from IUS to old town Sarajevo” → 14000–18000 adım, 2–4 saat.<br>
-Puanı <b>yöntem</b> getirir: varsayımları birimleriyle yaz, parçalara böl, çarp, yuvarla, makul mü diye bak.</div>` },
+Puanı <b>yöntem</b> getirir: varsayımları birimleriyle yaz, parçalara böl, çarp, yuvarla, makul mü diye bak.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Model answer (F25 Q14): I assume 4 people use 150 L of water per person per day. In one week, 4 people x 150 L per person per day x 7 days = 4200 L. So a household of four uses about 4000 L of water in a week.</p><p>Model answer (F25 Q15): I assume the distance is about 12 km, one step is about 0.75 m, and my walking speed is 5 km per hour. The number of steps is 12,000 m / 0.75 m per step = 16,000 steps. The time is 12 km / 5 km per hour = 2.4 hours.</p><p>Model answer (F24 Q1b): I assume a flight of 300 euros, a hotel of 100 euros for 7 nights (700), food of 40 euros for 7 days (280), local transport of 70 euros and museums of 100 euros. The total is about 1500 euros.</p></div>` },
 
       { type: "check", id: "t5-c5", title: "Sınav tipi tahminler", pool: [
         { q: "5 kişilik bir ev haftada kaç litre su kullanır? Kişi başı günlük su kullanımını ~150 L varsay. Cevabı litre olarak yaz.",
@@ -1399,7 +1431,8 @@ Puanı <b>yöntem</b> getirir: varsayımları birimleriyle yaz, parçalara böl,
 <li>Sıfır <b>anlamlıdır</b>: iki sıfır olmayan rakamın arasındaysa (306 → 3; 5.006 → 4) ya da ondalık noktası olan sayının <b>sonundaysa</b> (2.790 → 4; 2000.0 → 5).</li>
 <li>Sıfır <b>anlamlı değildir</b>: sadece ondalık yerini sabitliyorsa (0.0456 → 3) ya da ondalık noktası olmayan tam sayının sonundaysa (2000 → 1, çünkü 2 × 10³; 35,100 → 3, çünkü 3.51 × 10⁴).</li>
 </ul>
-<div class="box"><b>Hızlı yol:</b> Soldaki sıfırlar hiçbir zaman sayılmaz. Ortadaki sıfırlar her zaman sayılır. Sağdaki sıfırlar sadece sayıda nokta varsa sayılır.</div>` },
+<div class="box"><b>Hızlı yol:</b> Soldaki sıfırlar hiçbir zaman sayılmaz. Ortadaki sıfırlar her zaman sayılır. Sağdaki sıfırlar sadece sayıda nokta varsa sayılır.</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Significant figures are the digits in a measurement or calculation that we consider reliable. Decimal places are different: they are only the digits to the right of the decimal point.</p><p>The rules: every nonzero digit is significant. A zero is significant if it is between two nonzero digits, or if it is at the end of a number with a decimal point. A zero is not significant if it only fixes the position of the decimal point, or if it is at the end of a whole number without a decimal point.</p><p>For example, 5.006 has 4 significant figures, 2.790 has 4, 0.0456 has 3, and 2000 has 1.</p></div>` },
 
       { type: "check", id: "t6-c1", title: "Sig fig sayma", pool: [
         { q: "0.0050 sayısında kaç significant figure vardır?",
@@ -1440,7 +1473,8 @@ Puanı <b>yöntem</b> getirir: varsayımları birimleriyle yaz, parçalara böl,
 <li>En az olan 3 → cevap <b>43.0</b> (3 sig figs). “43” yazarsan 2 sig figs olur, yanlış.</li>
 </ul>
 <p><b>Exact conversions sayılmaz</b> (Example 5-10, s. 116): 2.479 h × 60 min/h = 148.74 min → <b>148.7 min</b>. 2.479'da 4 sig figs var; 60 min/h tanım gereği tam olduğu için kuralı etkilemez.</p>
-<p>Pi gibi sabitlerde, sabiti diğer değerlerden <b>en az 2 basamak fazla</b> alarak kullan (s. 117).</p>` },
+<p>Pi gibi sabitlerde, sabiti diğer değerlerden <b>en az 2 basamak fazla</b> alarak kullan (s. 117).</p>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>In multiplication and division, the result has as many significant figures as the number with the fewest significant figures. For example, 2.43 x 17.675 = 42.95025, and the answer is 43.0, because 2.43 has only 3 significant figures.</p><p>Exact conversions, such as 60 min per hour, do not count. For a constant such as pi, I use at least two more digits than the other values.</p></div>` },
 
       { type: "check", id: "t6-c2", title: "Çarpma ve bölme", pool: [
         { q: "2.43 × 17.675 = 42.95025. Kurala göre doğru yazım hangisidir?",
@@ -1470,7 +1504,8 @@ Puanı <b>yöntem</b> getirir: varsayımları birimleriyle yaz, parçalara böl,
 <p><b>Örnek (Example 5-11):</b> 1725.463 + 489.2 + 16.73 = 1931.393. En az kesin olan 489.2 (1 ondalık) → <b>1931.4</b>.</p>
 <p><b>Örnek (Example 5-12):</b> 903,000 + 59,600 + 104,470 = 1,067,070. En az kesin olan 903,000 (binler basamağı) → <b>1,067,000</b>.</p>
 <p><b>Yuvarlama</b> (s. 116): atılan ilk basamak 5 ya da büyükse, kalan son basamağı 1 artır. 43.48 → 3 sig figs: 43.5; 2 sig figs: 43. 0.0143 → 2 sig figs: 0.014.</p>
-<p><b>Ne zaman yuvarlanır?</b> Ara adımlarda yuvarlamak gerekli de değil, istenir de değil. Yuvarlayacaksan sonuçta kullanacağından <b>en az 2 fazla</b> sig fig tut. Kitaptaki örnekte aynı ifade, farklı yerlerde yuvarlanınca 4.4, 0 ve −40 çıktı (s. 117).</p>` },
+<p><b>Ne zaman yuvarlanır?</b> Ara adımlarda yuvarlamak gerekli de değil, istenir de değil. Yuvarlayacaksan sonuçta kullanacağından <b>en az 2 fazla</b> sig fig tut. Kitaptaki örnekte aynı ifade, farklı yerlerde yuvarlanınca 4.4, 0 ve −40 çıktı (s. 117).</p>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>In addition and subtraction, the result goes only as far to the right as the least precise number. I look at the position of the last digit, not at the number of significant figures. For example, 1725.463 + 489.2 + 16.73 = 1931.393, and the answer is 1931.4, because 489.2 is the least precise number.</p><p>For rounding: if the first digit I drop is 5 or larger, I increase the last remaining digit by one. I do not round in the middle of a calculation. I keep at least two more significant figures than I need in the final answer.</p></div>` },
 
       { type: "check", id: "t6-c3", title: "Toplama, çıkarma, yuvarlama", pool: [
         { q: "1725.463 + 489.2 + 16.73 = 1931.393. Sonucu kurala uygun yaz.",
@@ -1516,7 +1551,8 @@ Puanı <b>yöntem</b> getirir: varsayımları birimleriyle yaz, parçalara böl,
 <tr><td>Birbirine yakın, merkezden uzak</td><td>Repeatable, but not accurate</td></tr>
 <tr><td>Dağınık, ortalaması merkezde</td><td>Accurate, but not repeatable</td></tr>
 <tr><td>Birbirine yakın ve merkezde</td><td>Both: <b>precise</b></td></tr>
-</table>` },
+</table>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Accuracy is how close a measurement, or the average of the measurements, is to the true value. Repeatability is how close multiple measurements of the same parameter are to each other, whether or not they are close to the true value. Precision is the combination of accuracy and repeatability, and it is shown by the number of significant figures that I report.</p><p>Error is the difference between the measured value and the true value. For example, shots on a target that are close together but far from the center are repeatable but not accurate.</p></div>` },
 
       { type: "check", id: "t6-c4", title: "Accuracy, repeatability, precision", pool: [
         { q: "Bir terazinin ölçümlerinin ortalaması gerçek değere çok yakın, ama tek tek ölçümler birbirinden çok farklı. Bu ölçümler nasıldır?",
@@ -1559,7 +1595,8 @@ Puanı <b>yöntem</b> getirir: varsayımları birimleriyle yaz, parçalara böl,
 <tr><td>Çap 0.0024 cm, alan</td><td>0.0004446 cm²</td><td>0.00044 cm² ya da 4.4 × 10⁻⁴ cm² (iki ondalık “0.00” anlamsız olurdu)</td></tr>
 <tr><td>Excel doğrusu</td><td>y = 0.50236x + 2.0378</td><td>y = 0.5x + 2</td></tr>
 </table>
-<p>Küçük sayılarda decimal places değil <b>significant figures</b> kullan.</p>` },
+<p>Küçük sayılarda decimal places değil <b>significant figures</b> kullan.</p>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>A reasonable answer has two parts. It must be physically reasonable, which means it agrees with the real situation. For example, an airplane for 200 passengers with a wingspan of 4 ft is obviously wrong. It must also have a reasonable precision, which means that the number of digits agrees with the accuracy of the data.</p><p>Most engineering problems need 2 to 4 significant figures, and 3 is a good choice. Too much precision makes a design more expensive. For small numbers, I use significant figures, not decimal places.</p></div>` },
 
       { type: "check", id: "t6-c5", title: "Reasonable precision", pool: [
         { q: "Çapı 2.63 cm ölçülen bir dairenin alanı hesap makinesinde 5.432521 cm² çıkıyor. Hangisi makul yazımdır?",
@@ -1608,7 +1645,8 @@ Puanı <b>yöntem</b> getirir: varsayımları birimleriyle yaz, parçalara böl,
 <li><b>Mantissa</b>: sig figs'in değerini veren kısım; <b>exponent</b>: ondalık noktasının yerini veren kısım (s. 114).</li>
 <li>Hesap makinesindeki <b>E</b> “times 10 raised to the” diye okunur. Raporda 3.707 E−5 değil <b>3.707 × 10⁻⁵</b> yaz. Asla küçük “e” kullanma (e sayısıyla karışır) (s. 123).</li>
 <li>Büyüklük 10,000'den büyük ya da 0.0001'den küçükse exponential notation düşün (s. 123).</li>
-</ul>` },
+</ul>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>Scientific notation has one digit to the left of the decimal point and a whole-number exponent. For example, 43,480,000 = 4.348 x 10^7. Engineering notation uses an exponent that is a multiple of three, so there can be one, two or three digits to the left of the decimal point. For example, 43,480,000 = 43.48 x 10^6.</p><p>The mantissa gives the value of the significant figures, and the exponent gives the position of the decimal point. In a report, I write 3.707 x 10^-5, not 3.707 E-5.</p></div>` },
 
       { type: "check", id: "t6-c6", title: "Scientific ve engineering notation", pool: [
         { q: "43,480,000 sayısını engineering notation'da yazınca 10'un üssü kaç olur?",
@@ -1647,7 +1685,8 @@ Puanı <b>yöntem</b> getirir: varsayımları birimleriyle yaz, parçalara böl,
 <p>10,000,000 ile 1,000: log(10,000,000) = 7, log(1,000) = 3 → 7 − 3 = <b>4 order of magnitude</b>.</p>
 <p>Daha örnek: 0.01 (log = −2) ile 10 (log = 1) → 1 − (−2) = <b>3</b>. 5,000 ile 50 → 100 kat → <b>2</b>.</p>
 <div class="exam"><b>Sınavda nasıl sorulur</b><br>
-F24 ve F25'te significant figures ve notation <b>doğrudan sorulmadı</b>; konu kitapta (s. 114–123) ve ders kapsamında olduğu için kısa sorular gelebilir. Kesin kullanıldığı yer: tahmin sorusu. F24 Q1 ve F25 Q14–15'te cevabı 1–2 significant figure ile ver (ör. “about 4,000 L”, “about 16,000 steps”). Kitap da benzin örneğinde “about 100 million” demenin geçerli olduğunu söyler, çünkü sonuca ancak 1 significant figure kadar güvenilir (s. 109). Bir tahminin “bir order of magnitude içinde” doğru olması yeterlidir (s. 108).</div>` },
+F24 ve F25'te significant figures ve notation <b>doğrudan sorulmadı</b>; konu kitapta (s. 114–123) ve ders kapsamında olduğu için kısa sorular gelebilir. Kesin kullanıldığı yer: tahmin sorusu. F24 Q1 ve F25 Q14–15'te cevabı 1–2 significant figure ile ver (ör. “about 4,000 L”, “about 16,000 steps”). Kitap da benzin örneğinde “about 100 million” demenin geçerli olduğunu söyler, çünkü sonuca ancak 1 significant figure kadar güvenilir (s. 109). Bir tahminin “bir order of magnitude içinde” doğru olması yeterlidir (s. 108).</div>
+<div class="say" lang="en"><b>Sınavda böyle yaz (EN):</b><p>An order of magnitude is a factor of ten. Three orders of magnitude means a factor of 10^3, which is 1,000. To find the difference, I take the log of both numbers and subtract. For example, log(10,000,000) = 7 and log(1,000) = 3, so the difference is 4 orders of magnitude.</p><p>An estimate that is correct within one order of magnitude is usually good enough.</p></div>` },
 
       { type: "check", id: "t6-c7", title: "Order of magnitude", pool: [
         { q: "10,000,000 ile 1,000 arasında kaç order of magnitude fark vardır?",
