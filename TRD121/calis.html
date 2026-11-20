@@ -376,7 +376,8 @@ function vKonular(){
 let A = {id:null, ord:null, sec:null};
 function pool(){
   if (S.fil === "yanlis") return QL.filter(q => S.hata[q.id]);
-  if (S.fil === "all") return QL;
+  // "Tümü" means the exam scope (Ders 1–7); the "ek" lesson is reachable only through its own filter.
+  if (S.fil === "all") return QL.filter(q => !isEk(q._d));
   return QL.filter(q => q._d == S.fil);
 }
 function ordFor(q){ const o = q.siklar.map((_, i) => i); return q.karistirma === false ? o : shuffle(o); }
@@ -458,7 +459,8 @@ function solve(id){
 
 /* ---------- 3. KARTLAR ---------- */
 let flip = false;
-function kpool(){ return S.kfil === "all" ? KL : KL.filter(k => k._d == S.kfil); }
+function isEk(dn){ return VERI.some(d => d && d.ek && d.ders == dn); }
+function kpool(){ return S.kfil === "all" ? KL.filter(k => !isEk(k._d)) : KL.filter(k => k._d == S.kfil); }
 function buildKQ(){ S.kq = kpool().filter(k => S.kart[k.id] !== "bil").map(k => k.id); flip = false; }
 function kGecerli(){ if (!Array.isArray(S.kq) || S.kq.some(id => !K[id])) buildKQ(); }
 function kMark(m){
