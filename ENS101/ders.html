@@ -1582,7 +1582,10 @@ let LANGV=store.get("lang","en")==="tr"?"tr":"en";
 const ST=Object.assign({m:{},att:{},wrong:{},q:{},test:{},drill:{},fixed:{},last:null},store.get("state",{}));
 function save(){store.set("state",ST)}
 /* question language: EN (default) shows en/enOpts/whyEn/hintEn, TR shows q/opts/why/hint */
-const qText=q=>EN()&&q.en?q.en:q.q;
+/* en texts often omit the code block or table that q carries: copy those blocks over when en lacks them */
+const BLOCK_RE=/<pre[\s\S]*?<\/pre>|<table[\s\S]*?<\/table>/g;
+const qText=q=>{if(!(EN()&&q.en))return q.q;const src=String(q.q).match(BLOCK_RE)||[],have=String(q.en).match(BLOCK_RE)||[];
+  return have.length>=src.length?q.en:q.en+src.slice(have.length).join("")};
 const optsOf=(f,q)=>EN()?(f.enOpts||(q&&q.enOpts)||f.opts):f.opts;
 const whyOf=q=>EN()&&q.whyEn?q.whyEn:q.why;
 const hintOf=q=>EN()&&q.hintEn?q.hintEn:q.hint;
